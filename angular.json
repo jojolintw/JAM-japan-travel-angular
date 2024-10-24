@@ -25,9 +25,25 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/fontawesome.min.css",
+              "src/assets/css/magnific-popup.min.css",
+              "src/assets/css/slick.min.css",
+              "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/vendor/jquery-3.6.0.min.js",
+              "src/assets/js/slick.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/jquery.magnific-popup.min.js",
+              "src/assets/js/jquery-ui.min.js",
+              "src/assets/js/circle-progress.min.js",
+              "src/assets/js/imagesLoaded.js",
+              "src/assets/js/isotope.js",
+              "src/assets/js/wow.min.js",
+              "src/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,5 +110,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "fa5a9021-db1f-453e-9aee-84b2833b5d6f"
   }
 }
