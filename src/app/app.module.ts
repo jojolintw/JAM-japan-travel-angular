@@ -4,11 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ItineraryListComponent } from './Product/itinerary-list/itinerary-list.component';
+import { YourComponentNameComponent } from './Shipment/your-component-name/your-component-name.component';
+import { TicketsComponent } from './Shipment/tickets/tickets.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItineraryListComponent
+    ItineraryListComponent,
+    YourComponentNameComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,
