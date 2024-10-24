@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./tickets.component.css']
 })
 export class TicketsComponent {
-
+  
+    ngOnInit(): void {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'assets/css/slick.min.css';
+      document.head.appendChild(link);
+    }
+  
+  
 }
