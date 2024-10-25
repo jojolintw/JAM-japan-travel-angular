@@ -1,0 +1,29 @@
+  /* 出發地與目的地選擇區塊樣式 */
+  .location-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平置中 */
+    gap: 10px; /* 控制選項間距 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 400px; /* 限制最大寬度 */
+    margin: 20px auto; /* 垂直外邊距並水平置中 */
+  }
+  
+  .location-selector label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .location-selector select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* 下拉選單寬度填滿 */
+  }
+  
+
+  
