@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ItineraryListComponent } from './Product/itinerary-list/itinerary-list.component';
 import { ItineraryDetailComponent } from './Product/itinerary-detail/itinerary-detail.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ItineraryDetailComponent } from './Product/itinerary-detail/itinerary-d
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
