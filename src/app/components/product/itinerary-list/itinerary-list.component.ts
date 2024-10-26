@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Route } from '@angular/router';
-import { ItineraryService } from 'src/app/itinerary-service/itinerary.service';
-import { Itinerary } from 'src/app/interface/itinerary.interface';
+import { ItineraryService } from 'src/service/itinerary-service/itinerary.service';
+import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { RouterLink } from '@angular/router';
 
 

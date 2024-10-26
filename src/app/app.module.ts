@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ItineraryListComponent } from './components/product/itinerary-list/itinerary-list.component';
 import { ItineraryDetailComponent } from './components/product/itinerary-detail/itinerary-detail.component';
-import { ItineraryService } from './itinerary-service/itinerary.service';
+import { ItineraryService } from '../service/itinerary-service/itinerary.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { HeaderComponent } from './components/share/header/header.component';
+import { FooterComponent } from './components/share/footer/footer.component';
 
 const routes: Routes = [
 ];
@@ -20,7 +22,9 @@ const routes: Routes = [
     AppComponent,
     ItineraryListComponent,
     ItineraryDetailComponent,
-    HomePageComponent
+    HomePageComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

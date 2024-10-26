@@ -1,5 +1,5 @@
-import { ItineraryService } from '../../../itinerary-service/itinerary.service';
-import { Itinerary } from 'src/app/interface/itinerary.interface';
+import { ItineraryService } from '../../../../service/itinerary-service/itinerary.service';
+import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
