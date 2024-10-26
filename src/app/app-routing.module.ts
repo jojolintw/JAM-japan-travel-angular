@@ -5,6 +5,8 @@ import { ItineraryDetailComponent } from './components/product/itinerary-detail/
 import { HomePageComponent } from './components/home-page/home-page.component';
 
 const routes: Routes = [
+
+
   { path: 'itinerary-list', component: ItineraryListComponent },
   { path: 'itinerary-list/area_:region', component: ItineraryListComponent },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },

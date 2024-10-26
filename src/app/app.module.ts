@@ -12,6 +12,10 @@ import { RouterLink } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/share/header/header.component';
 import { FooterComponent } from './components/share/footer/footer.component';
+import { SignupComponent } from './components/Member/signup/signup.component';
+import { SigninComponent } from './components/Member/signin/signin.component';
+import { ForgetpasswordComponent } from './components/Member/forgetpassword/forgetpassword.component';
+import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
 
 const routes: Routes = [
 ];
@@ -24,7 +28,11 @@ const routes: Routes = [
     ItineraryDetailComponent,
     HomePageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SignupComponent,
+    SigninComponent,
+    ForgetpasswordComponent,
+    MemberareaComponent
   ],
   imports: [
     BrowserModule,
