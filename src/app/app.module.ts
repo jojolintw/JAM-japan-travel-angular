@@ -24,6 +24,8 @@ import { CouponComponent } from './components/Member/coupon/coupon.component';
 import { MycollectionComponent } from './components/Member/mycollection/mycollection.component';
 import { MyorderComponent } from './components/Member/myorder/myorder.component';
 import { ResetpasswordComponent } from './components/Member/resetpassword/resetpassword.component';
+import { DetailComponent } from './components/Shipment/detail/detail.component';
+import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 
 const routes: Routes = [
 ];
@@ -49,7 +51,10 @@ const routes: Routes = [
     CouponComponent,
     MycollectionComponent,
     MyorderComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    FooterComponent,
+    DetailComponent,
+    TicketComponent,
   ],
   imports: [
     BrowserModule,
