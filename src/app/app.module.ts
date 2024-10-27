@@ -16,6 +16,11 @@ import { SignupComponent } from './components/Member/signup/signup.component';
 import { SigninComponent } from './components/Member/signin/signin.component';
 import { ForgetpasswordComponent } from './components/Member/forgetpassword/forgetpassword.component';
 import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
+import { AccountComponent } from './components/Member/account/account.component';
+import { CouponComponent } from './components/Member/coupon/coupon.component';
+import { MycollectionComponent } from './components/Member/mycollection/mycollection.component';
+import { MyorderComponent } from './components/Member/myorder/myorder.component';
+import { ResetpasswordComponent } from './components/Member/resetpassword/resetpassword.component';
 
 const routes: Routes = [
 ];
@@ -32,7 +37,12 @@ const routes: Routes = [
     SignupComponent,
     SigninComponent,
     ForgetpasswordComponent,
-    MemberareaComponent
+    MemberareaComponent,
+    AccountComponent,
+    CouponComponent,
+    MycollectionComponent,
+    MyorderComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,
