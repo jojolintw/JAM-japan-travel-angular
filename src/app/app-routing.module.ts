@@ -8,6 +8,7 @@ import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 import { CartComponent } from './components/Order/cart/cart.component';
 import { CheckoutComponent } from './components/Order/checkout/checkout.component';
 import { OrderConfirmationComponent } from './components/Order/order-confirmation/order-confirmation.component';
+import{BlogListComponent} from'./components/Blog/blog-list/blog-list.component';
 
 const routes: Routes = [
 
@@ -15,16 +16,16 @@ const routes: Routes = [
   { path: 'itinerary-list', component: ItineraryListComponent },
   { path: 'itinerary-list/area_:region', component: ItineraryListComponent },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },
-  { path: '', component:HomePageComponent },
-  { path: 'home', component:HomePageComponent },
+
   { path: 'shipment-detail', component: DetailComponent },
   { path: 'shipment-ticket', component: TicketComponent },
 
-  { path: 'home', component:HomePageComponent },
   { path: 'cart', component:CartComponent },
   { path: 'checkout', component:CheckoutComponent },
   { path: 'orderconfirmation', component:OrderConfirmationComponent },
 
+  { path:'blog-list',component:BlogListComponent},
+  { path: '**', component:HomePageComponent },
 ];
 
 @NgModule({

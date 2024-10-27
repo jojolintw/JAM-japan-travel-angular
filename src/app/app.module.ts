@@ -26,6 +26,7 @@ import { MyorderComponent } from './components/Member/myorder/myorder.component'
 import { ResetpasswordComponent } from './components/Member/resetpassword/resetpassword.component';
 import { DetailComponent } from './components/Shipment/detail/detail.component';
 import { TicketComponent } from './components/Shipment/ticket/ticket.component';
+import { BlogListComponent } from './components/Blog/blog-list/blog-list.component';
 
 const routes: Routes = [
 ];
@@ -34,15 +35,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ItineraryListComponent,
-    ItineraryDetailComponent,
-    HomePageComponent,
     HeaderComponent,
     FooterComponent,
-    CartComponent,
-    CheckoutComponent,
-    OrderConfirmationComponent,
-    FooterComponent,
+    HomePageComponent,
+
     SignupComponent,
     SigninComponent,
     ForgetpasswordComponent,
@@ -52,9 +48,18 @@ const routes: Routes = [
     MycollectionComponent,
     MyorderComponent,
     ResetpasswordComponent,
-    FooterComponent,
+
+    ItineraryListComponent,
+    ItineraryDetailComponent,
+
     DetailComponent,
     TicketComponent,
+
+    CartComponent,
+    CheckoutComponent,
+    OrderConfirmationComponent,
+
+    BlogListComponent,
   ],
   imports: [
     BrowserModule,
