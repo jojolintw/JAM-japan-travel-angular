@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/share/header/header.component';
 import { FooterComponent } from './components/share/footer/footer.component';
+import { DetailComponent } from './components/Shipment/detail/detail.component';
 
 const routes: Routes = [
 ];
@@ -24,7 +25,8 @@ const routes: Routes = [
     ItineraryDetailComponent,
     HomePageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
