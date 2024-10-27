@@ -13,7 +13,11 @@ export class CartComponent {
   }
 
   goToCheckout() {
-    this.router.navigate(['checkout'])
+    this.router.navigate(['checkout']);
   }
 
+
+  goToHomePage() {
+    this.router.navigate(['home']);
+  }
 }

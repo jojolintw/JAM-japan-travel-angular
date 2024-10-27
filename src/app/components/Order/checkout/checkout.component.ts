@@ -12,8 +12,12 @@ export class CheckoutComponent {
 
   }
 
-goToConfirmation(){
-  this.router.navigate(['orderconfirmation'])
-}
+  goToConfirmation() {
+    this.router.navigate(['orderconfirmation']);
+  }
+
+  goToCart() {
+    this.router.navigate(['cart']);
+  }
 
 }
