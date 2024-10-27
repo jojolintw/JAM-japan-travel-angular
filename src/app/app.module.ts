@@ -13,6 +13,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/share/header/header.component';
 import { FooterComponent } from './components/share/footer/footer.component';
 import { DetailComponent } from './components/Shipment/detail/detail.component';
+import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 
 const routes: Routes = [
 ];
@@ -26,7 +27,8 @@ const routes: Routes = [
     HomePageComponent,
     HeaderComponent,
     FooterComponent,
-    DetailComponent
+    DetailComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,
