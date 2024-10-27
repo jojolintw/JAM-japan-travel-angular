@@ -12,6 +12,9 @@ import { RouterLink } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/share/header/header.component';
 import { FooterComponent } from './components/share/footer/footer.component';
+import { CartComponent } from './components/Order/cart/cart.component';
+import { CheckoutComponent } from './components/Order/checkout/checkout.component';
+import { OrderConfirmationComponent } from './components/Order/order-confirmation/order-confirmation.component';
 import { SignupComponent } from './components/Member/signup/signup.component';
 import { SigninComponent } from './components/Member/signin/signin.component';
 import { ForgetpasswordComponent } from './components/Member/forgetpassword/forgetpassword.component';
@@ -33,6 +36,10 @@ const routes: Routes = [
     ItineraryDetailComponent,
     HomePageComponent,
     HeaderComponent,
+    FooterComponent,
+    CartComponent,
+    CheckoutComponent,
+    OrderConfirmationComponent,
     FooterComponent,
     SignupComponent,
     SigninComponent,
