@@ -3425,11 +3425,14 @@ Header Customization
 /*------------------- 4.5. Pagination  -------------------*/
 .vs-pagination {
   text-align: center;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
 .vs-pagination ul {
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 .vs-pagination li {
   display: inline-block;
@@ -6694,6 +6697,7 @@ Header Customization
 .tours-active .package-style1 {
   box-shadow: 0px 13px 48px 0px rgba(255, 104, 26, 0.07);
   transition: 0.5s ease-in-out;
+  margin-bottom: 30px;
 }
 .tours-active .package-style1:hover {
   box-shadow: 0px 13px 48px 0px rgba(255, 104, 26, 0.15);

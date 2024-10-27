@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-lg-9">
               <div class="row filter-active tours-active">
-                <div *ngFor="let tour of tours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
+                <div *ngFor="let tour of displayedTours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
                     <div class="package-style1">
                       <div class="package-img">
                         <a href="#"><img [src]="'../../../assets/img/tours/' + tour.image" alt="Package Image" ></a>
@@ -53,12 +53,12 @@
                 </div>
               </div>
               <div class="vs-pagination pt-lg-2">
-                <ul>
-                  <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
+                <ul style="display: flex; justify-content: center;">
+                  <li><a (click)="onPrevious()"><i class="fas fa-chevron-left"></i></a></li>
+                  <li *ngFor="let page of pages; let i = index" [class.active]="currentPage === page">
+                    <a (click)="onPageChange(page)">{{ page }}</a>
+                  </li>
+                  <li><a (click)="onNext()"><i class="fas fa-chevron-right"></i></a></li>
                 </ul>
               </div>
             </div>
