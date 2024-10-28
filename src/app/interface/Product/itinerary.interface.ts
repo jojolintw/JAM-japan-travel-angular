@@ -4,5 +4,5 @@ export interface Itinerary {
   image: string;
   // location: string;
   stock: number;
-  // price: number;
+  price: number;
 }

@@ -39,14 +39,14 @@
                           <i class="far fa-star"></i>
                           <i class="far fa-star"></i>
                         </div>
-                        <h3 class="package-title"><a [routerLink]="['/itinerary-detail', tour.id]">Discover Destinations</a></h3>
+                        <h3 class="package-title"><a [routerLink]="['/itinerary-detail', tour.id]">{{tour.title}}</a></h3>
                         <p class="package-text">{{tour.title}}</p>
                         <div class="package-meta">
                           <a [routerLink]="['/itinerary-detail', tour.id]"><i class="fas fa-user"></i> People: 3</a>
                         </div>
                         <div class="package-footer">
-                          <span class="package-price">$279</span>
-                          <a [routerLink]="['/itinerary-detail', tour.id]" class="vs-btn">View Details</a>
+                          <span class="package-price">{{tour.price | currency:'TWD':'symbol': '1.0-0'}}</span>
+                          <a [routerLink]="['/itinerary-detail', tour.id]" class="vs-btn">體驗行程詳情</a>
                         </div>
                       </div>
                   </div>
