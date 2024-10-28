@@ -28,11 +28,8 @@ import { ResetpasswordComponent } from './components/Member/resetpassword/resetp
 import { DetailComponent } from './components/Shipment/detail/detail.component';
 import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 import { BlogListComponent } from './components/Blog/blog-list/blog-list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
 
 const routes: Routes = [
 ];
@@ -72,11 +69,6 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
     CommonModule,
     RouterModule,
     RouterOutlet,
