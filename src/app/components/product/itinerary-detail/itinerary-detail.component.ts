@@ -1,8 +1,7 @@
 import { ItineraryService } from '../../../../service/itinerary-service/itinerary.service';
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
+import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
 
 
 @Component({
@@ -13,25 +12,62 @@ import { ChangeDetectorRef } from '@angular/core';
 
 
 export class ItineraryDetailComponent implements OnInit {
-  tour: any;
-  id: number | null = null;
-  show = false;
 
-  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private cdr: ChangeDetectorRef) { }
+
+
+  itinerary: ItineraryDetail | null = null;
+  date: Date | null = null;
+
+  tours: ItineraryDetail[] = [
+    {
+      id: 1,
+      title: '東京鐵塔浪漫之夜',
+      travelbrief: '在高空酒吧中，配著小酒享受東京鐵塔浪漫的魅力',
+      image: 'tokyotower.jpg',
+      stock: 3,
+      price: 3000,
+    },
+    {
+      id: 2,
+      title: '沖繩SUP體驗 新手友善',
+      travelbrief: '',
+      image: 'sup.jpg',
+      stock: 15,
+      price: 3500,
+    },
+    {
+      id: 3,
+      title: '挑戰日本最高峰',
+      travelbrief: '',
+      image: 'fujiyama.jpg',
+      stock: 18,
+      price: 6500,
+    },
+    {
+      id: 4,
+      title: '手作烏冬體驗',
+      travelbrief: '',
+      image: 'noodle.jpg',
+      stock: 20,
+      price: 1500,
+    },
+  ];
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const idParam = params['id'];
       if (idParam) {
-        this.id = parseInt(idParam, 10);
-        this.itineraryService.getTourById(this.id).subscribe((data:Itinerary) => {
-          this.tour = data;
-          this.show = true;
-          this.cdr.detectChanges();
-        });
+        const id = parseInt(idParam, 10);
+        this.itinerary = this.tours.find(tour => tour.id === id)?? this.itinerary;
       } else {
-        this.id = 0;
+        this.itinerary = null; // 确保在没有ID的情况下设置为null
       }
     });
   }
+
+
+
+
 }

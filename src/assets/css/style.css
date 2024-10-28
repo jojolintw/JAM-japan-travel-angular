@@ -1547,7 +1547,6 @@ textarea.is-invalid {
 
 .background-image,
 [data-bg-src] {
-  background-image: url('/assets/img/bg/footer-bg-4.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -2614,7 +2613,7 @@ a.text-theme:hover,
   font-family: var(--body-font);
   font-weight: 700;
   font-size: 18px;
-  color: var(--title-color);
+  color: #724938;
   /* Extra large devices */
 }
 @media (max-width: 1500px) {
@@ -4413,7 +4412,7 @@ Header Customization
 }
 
 .hero-subtitle {
-  color: var(--theme-color);
+  color: #f1dbd9;
   font-size: 24px;
   font-weight: 700;
   font-family: var(--body-font);

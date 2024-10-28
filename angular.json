@@ -25,6 +25,8 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "src/assets/css/style.css",
               "src/assets/css/bootstrap.min.css",
@@ -33,7 +35,8 @@
               "src/assets/css/slick.min.css"
             ],
             "scripts": [
-              "src/assets/js/vendor/jquery-3.6.0.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/js/jquery-3.6.0.min.js",
               "src/assets/js/jquery.magnific-popup.min.js",
               "src/assets/js/jquery-ui.min.js",
               "src/assets/js/slick.min.js",
@@ -103,6 +106,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

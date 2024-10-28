@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +9,7 @@ import { ItineraryListComponent } from './components/product/itinerary-list/itin
 import { ItineraryDetailComponent } from './components/product/itinerary-detail/itinerary-detail.component';
 import { ItineraryService } from '../service/itinerary-service/itinerary.service';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterModule, RouterOutlet, RouterLink } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/share/header/header.component';
 import { FooterComponent } from './components/share/footer/footer.component';
@@ -30,6 +31,8 @@ import { BlogListComponent } from './components/Blog/blog-list/blog-list.compone
 import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
 import { BlogWriteComponent } from './components/Blog/blog-write/blog-write.component';
 import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
+
+
 
 const routes: Routes = [
 ];
@@ -71,7 +74,11 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    RouterModule,
+    RouterOutlet,
+    RouterLink
   ],
   providers: [ItineraryService],
   bootstrap: [AppComponent],

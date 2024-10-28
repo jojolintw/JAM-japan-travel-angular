@@ -27,22 +27,22 @@
 
 <section class="vs-product-wrapper space">
   <div class="container">
-    <div class="product-details">
+    <div class="product-details" *ngIf="itinerary">
       <div class="row gx-60">
         <div class="col-lg-5">
           <div class="product-big-img vs-carousel" data-slide-show="1" data-arrows="false" data-fade="true"
             data-asnavfor=".product-thumb-slide">
-            <div class="img"><img src="assets/img/products/pd-2.png" alt="Product Image"></div>
-            <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div>
+            <div class="img"><img src="assets/img/products/Tokyo Tower observatories.jpg" alt="Product Image"></div>
+            <!-- <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div>
             <div class="img"><img src="assets/img/products/pd-4.png" alt="Product Image"></div>
             <div class="img"><img src="assets/img/products/pd-3.png" alt="Product Image"></div>
-            <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div>
+            <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div> -->
           </div>
           <div class="row product-thumb-slide vs-carousel" data-slide-show="4" data-md-slide-show="4"
             data-sm-slide-show="3" data-xs-slide-show="3" data-asnavfor=".product-big-img">
-            <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
               <div class="thumb"><img src="assets/img/products/pd-thumb-1.png" alt="Product Thumb Image"></div>
-            </div>
+            </div> -->
             <div class="col-lg-3">
               <div class="thumb"><img src="assets/img/products/pd-thumb-2.png" alt="Product Thumb Image"></div>
             </div>
@@ -57,7 +57,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-lg-7">
           <div class="product-about">
             <div class="product-rating">
@@ -72,33 +71,18 @@
             </div>
 
             <h2 class="product-title">
-              Fujifilm Instax Mini 11 Instant Camera
+              {{itinerary.title}}
             </h2>
-            <p class="product-price">$ 200.00</p>
+            <p class="product-price">{{itinerary.price | currency:'TWD':'symbol': '1.0-0'}}</p>
             <p class="product-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a viveirra facilisi neque
-              quisque. Phasellus aliquam ut id rhoncus. In viverra sed vitae vivamus amet, nuncg vivamus.
+             {{itinerary.travelbrief}}
             </p>
-            <div class="varient-select">
-              <h3 class="h6 mb-4">Color: <span class="product-color" id="product_color">Lilac Purple</span></h3>
-              <ul class="image-list">
-                <li class="varient-image">
-                  <input type="radio" name="varient-color" id="pc-1" value="Lilac Purple">
-                  <label for="pc-1"><img src="assets/img/products/p-c-1.png" alt="varient image"></label>
-                </li>
-                <li class="varient-image">
-                  <input type="radio" name="varient-color" id="pc-2" value="Black">
-                  <label for="pc-2"><img src="assets/img/products/p-c-2.png" alt="varient image"></label>
-                </li>
-                <li class="varient-image">
-                  <input type="radio" name="varient-color" id="pc-3" value="white">
-                  <label for="pc-3"><img src="assets/img/products/p-c-3.png" alt="varient image"></label>
-                </li>
-                <li class="varient-image">
-                  <input type="radio" name="varient-color" id="pc-4" value="Pale Silver">
-                  <label for="pc-4"><img src="assets/img/products/p-c-4.png" alt="varient image"></label>
-                </li>
-              </ul>
+            <div>
+              <!-- <mat-form-field appearance="outline">
+                <mat-label>選擇出發日期</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field> -->
             </div>
             <div class="actions">
               <div class="quantity">
@@ -126,23 +110,17 @@
         <ul class="nav product-tab1" id="productTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab"
-              aria-controls="description" aria-selected="true">description</a>
+              aria-controls="description" aria-selected="true">體驗行程詳情</a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="rviews-tab" data-bs-toggle="tab" href="#rviews" role="tab" aria-controls="rviews"
-              aria-selected="true">Reviews (02 )</a>
+              aria-selected="true">行程評價 (02 )</a>
           </li>
         </ul>
         <div class="tab-content" id="productTabContent">
           <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
             <div class="inner-pane">
-              <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper
-                leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                ridiculus mus. Vestibulum ultricies aliquam. Done ultricies nec, pellent, consectetur adipiscing elit.
-                Ieuismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus sit
-                am. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci.
-                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum
-                ultricies aliquam. Done ultricies nec, pellent, consectetur adipiscing elit. Ieuismod orci.</p>
+              <p class="description-text">位於33樓，提供日夜景色，包括東京鐵塔和皇居。近距離欣賞東京鐵塔的景致。</p>
               <div class="list-style2 ">
                 <ul class="list-unstyled">
                   <li><span>Brand</span> <span class="item-name">Fujifilm</span> </li>
@@ -325,7 +303,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-4">
+        <!-- <div class="col-xl-4">
           <div class="destination-style1">
             <a href="destination-details.html">
               <img src="assets/img/destinations/destinations-1-8.jpg" alt="destination image" /></a>
@@ -335,7 +313,7 @@
               <p class="destination-text">Explore World & Get Relax</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
