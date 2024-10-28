@@ -9,7 +9,7 @@ import { CartComponent } from './components/Order/cart/cart.component';
 import { CheckoutComponent } from './components/Order/checkout/checkout.component';
 import { OrderConfirmationComponent } from './components/Order/order-confirmation/order-confirmation.component';
 import{BlogListComponent} from'./components/Blog/blog-list/blog-list.component';
-
+import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
 const routes: Routes = [
 
 
@@ -25,6 +25,8 @@ const routes: Routes = [
   { path: 'orderconfirmation', component:OrderConfirmationComponent },
 
   { path:'blog-list',component:BlogListComponent},
+  { path:'blog-write',component:BlogWriteComponent},
+
   { path: '**', component:HomePageComponent },
 ];
 
