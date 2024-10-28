@@ -11,6 +11,10 @@ export class HeaderComponent {
 constructor(private router:Router){
 
 }
+  goToMemberArea()
+  {
+    this.router.navigate([`member`])
+  }
 
   goToCart() {
     this.router.navigate(['cart'])

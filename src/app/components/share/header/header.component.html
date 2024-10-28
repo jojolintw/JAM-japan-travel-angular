@@ -182,7 +182,8 @@
             <ul>
               <li><a href="#">Help</a></li>
               <li><a href="#">Support</a></li>
-              <li><a href="#">Faqs</a></li>
+              <li><a routerLink="login/forgetpassword">Faqs</a></li>
+                <li><a routerLink="login/signin">登入</a></li>
             </ul>
           </div>
         </div>
@@ -292,8 +293,11 @@
                 <ul>
                   <li>
                     <div class="header-btns">
-                      <button class="searchBoxTggler">
+                      <!-- <button class="searchBoxTggler">
                         <i class="fal fa-search"></i>
+                      </button> -->
+                      <button class="searchBoxTggler" (click)="goToMemberArea()">
+                        <i class="far fa-user-circle"></i>
                       </button>
                       <button class="sideCartToggler" (click)="goToCart()">
                         <i class="fas fa-shopping-basket"></i><span class="button-badge">2</span>

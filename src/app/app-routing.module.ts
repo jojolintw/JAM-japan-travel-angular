@@ -9,9 +9,43 @@ import { CartComponent } from './components/Order/cart/cart.component';
 import { CheckoutComponent } from './components/Order/checkout/checkout.component';
 import { OrderConfirmationComponent } from './components/Order/order-confirmation/order-confirmation.component';
 import{BlogListComponent} from'./components/Blog/blog-list/blog-list.component';
+import { SigninComponent } from './components/Member/signin/signin.component';
+import { SignupComponent } from './components/Member/signup/signup.component';
+import { ForgetpasswordComponent } from './components/Member/forgetpassword/forgetpassword.component';
+import { ResetpasswordComponent } from './components/Member/resetpassword/resetpassword.component';
+import { AccountComponent } from './components/Member/account/account.component';
+import { MycollectionComponent } from './components/Member/mycollection/mycollection.component';
+import { MyorderComponent } from './components/Member/myorder/myorder.component';
+import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
+import { CouponComponent } from './components/Member/coupon/coupon.component';
+import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
 
 const routes: Routes = [
-
+   {
+    path: 'login',
+    children:[
+      {
+        path:'signin',
+        component: SigninComponent
+      },
+      {
+        path:'signup',
+        component: SignupComponent
+      },
+      {
+        path:'forgetpassword',
+        component: ForgetpasswordComponent
+      },
+      {
+        path:'resetpassword',
+        component: ResetpasswordComponent
+      }
+    ]
+   },
+   {
+    path: 'member',
+    component: MemberareaComponent
+   },
 
   { path: 'itinerary-list', component: ItineraryListComponent },
   { path: 'itinerary-list/area_:region', component: ItineraryListComponent },
@@ -25,6 +59,7 @@ const routes: Routes = [
   { path: 'orderconfirmation', component:OrderConfirmationComponent },
 
   { path:'blog-list',component:BlogListComponent},
+
   { path: '**', component:HomePageComponent },
 ];
 

@@ -27,12 +27,12 @@
           <!-- //======================================================================================================================== -->
           <div class="memberinfolist">
             <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">帳號設定</a>
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">我的會員籍禮遇</a>
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">我的收藏</a>
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">訂單管理</a>
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">訊息管理</a>
-              <a href="#" class="list-group-item list-group-item-action" style="border: none;">JAM 優惠券</a>
+              <a class="list-group-item list-group-item-action" style="border: none;" (click)="goToAccount()">帳號設定</a>
+              <a class="list-group-item list-group-item-action" style="border: none;">我的會員籍禮遇</a>
+              <a class="list-group-item list-group-item-action" style="border: none;" (click)="goToMycollection()">我的收藏</a>
+              <a class="list-group-item list-group-item-action" style="border: none;" (click)="goToMyOrder()">訂單管理</a>
+              <a class="list-group-item list-group-item-action" style="border: none;">訊息管理</a>
+              <a class="list-group-item list-group-item-action" style="border: none;" (click)="goToMyCoupon()">JAM 優惠券</a>
             </div>
           </div>
         </aside>
@@ -40,8 +40,13 @@
       <div class="col-md-9">
 
       <!-- ========================右半邊頁面============================================== -->
-       <!-- <app-account></app-account> -->
-       <app-myorder></app-myorder>
+      <div [ngSwitch]="selectedComponent">
+        <app-account *ngSwitchCase="'account'"></app-account>
+        <app-mycollection *ngSwitchCase="'mycollection'"></app-mycollection>
+        <app-myorder *ngSwitchCase="'myorder'" (gotoOrderDetailemit)="goToOrderDetail($event)"></app-myorder>
+        <app-memberorderdetail *ngSwitchCase="'memberorderdetail'"></app-memberorderdetail>
+        <app-coupon *ngSwitchCase="'coupon'"></app-coupon>
+      </div>
 
 
 

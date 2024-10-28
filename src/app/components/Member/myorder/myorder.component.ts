@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-myorder',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class MyorderComponent {
 
+
+@Output() gotoOrderDetailemit = new EventEmitter();
+
+
+  goToOrderdetail()
+  {
+    this.gotoOrderDetailemit.emit('memberorderdetail');
+  }
+
+
+
+
+
 }
+
