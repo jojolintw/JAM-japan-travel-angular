@@ -28,6 +28,8 @@ import { DetailComponent } from './components/Shipment/detail/detail.component';
 import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 import { BlogListComponent } from './components/Blog/blog-list/blog-list.component';
 import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
+import { BlogWriteComponent } from './components/Blog/blog-write/blog-write.component';
+import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
 
 const routes: Routes = [
 ];
@@ -62,6 +64,8 @@ const routes: Routes = [
 
     BlogListComponent,
       MemberorderdetailComponent,
+      BlogWriteComponent,
+      BlogDetailComponent,
   ],
   imports: [
     BrowserModule,

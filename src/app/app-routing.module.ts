@@ -20,6 +20,7 @@ import { MemberorderdetailComponent } from './components/Member/memberorderdetai
 import { CouponComponent } from './components/Member/coupon/coupon.component';
 import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
 
+import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
 const routes: Routes = [
    {
     path: 'login',
@@ -59,6 +60,8 @@ const routes: Routes = [
   { path: 'orderconfirmation', component:OrderConfirmationComponent },
 
   { path:'blog-list',component:BlogListComponent},
+
+  { path:'blog-write',component:BlogWriteComponent},
 
   { path: '**', component:HomePageComponent },
 ];
