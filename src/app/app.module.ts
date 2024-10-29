@@ -31,6 +31,10 @@ import { BlogListComponent } from './components/Blog/blog-list/blog-list.compone
 import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
 import { BlogWriteComponent } from './components/Blog/blog-write/blog-write.component';
 import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 
@@ -69,6 +73,7 @@ const routes: Routes = [
       MemberorderdetailComponent,
       BlogWriteComponent,
       BlogDetailComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -76,9 +81,15 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     CommonModule,
+    SlickCarouselModule,
     RouterModule,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [ItineraryService],
   bootstrap: [AppComponent],

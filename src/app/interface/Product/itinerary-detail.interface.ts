@@ -4,6 +4,7 @@ export interface ItineraryDetail {
   title: string;
   image: string;
   travelbrief: string;
+  date: { date: Date; time: string }[];
   stock: number;
   price: number;
 }

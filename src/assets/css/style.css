@@ -4412,7 +4412,7 @@ Header Customization
 }
 
 .hero-subtitle {
-  color: #f1dbd9;
+  color: #954A45;
   font-size: 24px;
   font-weight: 700;
   font-family: var(--body-font);
@@ -7081,7 +7081,57 @@ Header Customization
   transform: scale(1.1);
 }
 
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* 確保父容器寬度為 100% */
+}
+
+.calendar-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* 確保導航欄寬度為 100% */
+}
+
+.calendar.icon-btn {
+  font-size: 18px; /* 調小字體大小 */
+  margin: 0 5px; /* 調整按鈕的外間距 */
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+mwl-calendar-month-view {
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+.calendar.icon-btn.prev-btn {
+  margin-right: 20px;
+}
+
+.calendar.icon-btn.next-btn {
+  margin-left: 20px;
+}
+
+.calendar.day-schedule {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.day-schedule {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .quantity {
+  margin-top: 20px;
   display: inline-flex;
   align-items: center;
   border-radius: 10px;
@@ -7169,11 +7219,13 @@ Header Customization
   line-height: 22px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-top: 20px;
 }
 .product-about .actions .icon-btn {
   border-radius: 10px;
   height: 50px;
   width: 50px;
+  margin-top: 20px;
   line-height: 50px;
   box-shadow: none;
   color: var(--white-color);

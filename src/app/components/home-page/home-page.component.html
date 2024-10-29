@@ -2,190 +2,184 @@
       Hero Area Start
     ==============================-->
     <section class="hero-layout1">
-      <div>
-        <div class="vs-carousel hero-slider2" data-slide-show="1" data-fade="true">
-          <div class="hero-slide hero-mask" style="background-image: url('assets/img/banner/homepage-big.jpg');">
-            <div class="container">
-              <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6">
-                  <div class="hero-content">
-                    <span class="hero-subtitle">立即體驗</span>
-                    <h1 class="hero-title">日本眾多活動</h1>
-                    <p class="hero-text">在 J.A.M 日本體驗行程網站<br>您能夠輕易的找到您有興趣的日本各地活動
-                    </p>
-                    <a [routerLink]="['/itinerary-list']" class="vs-btn style4">立即查看體驗行程</a>
-                  </div>
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <!-- 第一個輪播項目 -->
+        <div ngxSlickItem class="hero-slide hero-mask" style="background-image: url('assets/img/banner/homepage-big.jpg');">
+          <div class="container">
+            <div class="row align-items-center justify-content-between">
+              <div class="col-lg-6">
+                <div class="hero-content">
+                  <span class="hero-subtitle">立即體驗</span>
+                  <h1 class="hero-title">日本眾多活動</h1>
+                  <p class="hero-text">在 J.A.M 日本體驗行程網站<br>您能夠輕易的找到您有興趣的日本各地活動</p>
+                  <a [routerLink]="['/itinerary-list']" class="vs-btn style4">立即查看體驗行程</a>
                 </div>
-                <div class="col-lg-6">
-                  <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
-                    <div class="shape-mockup">
-                      <img src="assets/img/banner/hero-object.png" alt="hero image">
+              </div>
+              <div class="col-lg-6">
+                <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
+                  <div class="shape-mockup">
+                    <img src="assets/img/banner/hero-object.png" alt="hero image">
+                  </div>
+                  <div>
+                    <label class="h3">選擇日本地區</label>
+                    <div class="form-group ">
+                      <i class="fas fa-compass"></i>
+                      <input type="text" placeholder="要去哪裡?" />
                     </div>
-                    <div>
-                      <label class="h3">選擇日本地區</label>
-                      <div class="form-group ">
-                        <i class="fas fa-compass"></i>
-                        <input type="text" placeholder="要去哪裡?" />
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">選擇日期</label>
+                    <div class="form-group ">
+                      <i class="fas fa-calendar-alt"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
+                        <option value="">January</option>
+                        <option value="">February</option>
+                        <option value="">March</option>
+                        <option value="">April</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">選擇日期</label>
-                      <div class="form-group ">
-                        <i class="fas fa-calendar-alt"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
-                          <option value="">January</option>
-                          <option value="">February</option>
-                          <option value="">March</option>
-                          <option value="">April</option>
-                        </select>
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">選擇體驗活動</label>
+                    <div class="form-group">
+                      <i class="fas fa-thumbtack"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
+                        <option value="">Adventure </option>
+                        <option value="">Combining</option>
+                        <option value="">Sporting</option>
+                        <option value="">Domestic</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">選擇體驗活動</label>
-                      <div class="form-group">
-                        <i class="fas fa-thumbtack"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
-                          <option value="">Adventure </option>
-                          <option value="">Combining</option>
-                          <option value="">Sporting</option>
-                          <option value="">Domestic</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <button class="vs-btn style4">出發</button>
-                    </div>
+                  </div>
+                  <div>
+                    <button class="vs-btn style4">出發</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- <div class="hero-slide hero-mask" data-bg-src="assets/img/banner/hero2-bg2.jpg">
-            <div class="container">
-              <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6">
-                  <div class="hero-content">
-                    <span class="hero-subtitle">Let's Go Now</span>
-                    <h1 class="hero-title">Riding The Tide Of Endless World</h1>
-                    <p class="hero-text">Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget
-                      consectetur sed, convallis at tellus. Quisque velit nisi, pretium ut lacignia convallis at tellus.
-                    </p>
-                    <a href="about.html" class="vs-btn style4">Read More</a>
-                  </div>
+        </div>
+
+        <!-- 第二個輪播項目 -->
+        <div ngxSlickItem class="hero-slide hero-mask" style="background-image: url('assets/img/banner/homepage-big-2.png');">
+          <div class="container">
+            <div class="row align-items-center justify-content-between">
+              <div class="col-lg-6">
+                <div class="hero-content">
+                  <span class="hero-subtitle">Let's Go Now</span>
+                  <h1 class="hero-title">Riding The Tide Of Endless World</h1>
+                  <p class="hero-text">Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                  <a href="about.html" class="vs-btn style4">Read More</a>
                 </div>
-                <div class="col-lg-6">
-                  <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
-                    <div class="shape-mockup">
-                      <img src="assets/img/banner/hero-object.png" alt="hero image">
+              </div>
+              <div class="col-lg-6">
+                <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
+                  <div class="shape-mockup">
+                    <img src="assets/img/banner/hero-object.png" alt="hero image">
+                  </div>
+                  <div>
+                    <label class="h3">Where To?</label>
+                    <div class="form-group ">
+                      <i class="fas fa-compass"></i>
+                      <input type="text" placeholder="Where To?" />
                     </div>
-                    <div>
-                      <label class="h3">Where To?</label>
-                      <div class="form-group ">
-                        <i class="fas fa-compass"></i>
-                        <input type="text" placeholder="Where To?" />
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">Month</label>
+                    <div class="form-group ">
+                      <i class="fas fa-calendar-alt"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
+                        <option value="">January</option>
+                        <option value="">February</option>
+                        <option value="">March</option>
+                        <option value="">April</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">Month</label>
-                      <div class="form-group ">
-                        <i class="fas fa-calendar-alt"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
-                          <option value="">January</option>
-                          <option value="">February</option>
-                          <option value="">March</option>
-                          <option value="">April</option>
-                        </select>
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">Travel Type</label>
+                    <div class="form-group">
+                      <i class="fas fa-thumbtack"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
+                        <option value="">Adventure </option>
+                        <option value="">Combining</option>
+                        <option value="">Sporting</option>
+                        <option value="">Domestic</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">Travel Type</label>
-                      <div class="form-group">
-                        <i class="fas fa-thumbtack"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
-                          <option value="">Adventure </option>
-                          <option value="">Combining</option>
-                          <option value="">Sporting</option>
-                          <option value="">Domestic</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <button class="vs-btn style4">Find Now</button>
-                    </div>
+                  </div>
+                  <div>
+                    <button class="vs-btn style4">Find Now</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div> -->
-          <!-- <div class="hero-slide hero-mask" data-bg-src="assets/img/banner/hero2-bg3.jpg">
-            <div class="container">
-              <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6">
-                  <div class="hero-content">
-                    <span class="hero-subtitle">Let's Go Now</span>
-                    <h1 class="hero-title">Explore The Journey With Us</h1>
-                    <p class="hero-text">Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget
-                      consectetur sed, convallis at tellus. Quisque velit nisi, pretium ut lacignia convallis at tellus.
-                    </p>
-                    <a href="about.html" class="vs-btn style4">Read More</a>
-                  </div>
+          </div>
+        </div>
+
+        <!-- 第三個輪播項目 -->
+        <div ngxSlickItem class="hero-slide hero-mask" style="background-image: url('assets/img/banner/homepage-big-3.jpg');">
+          <div class="container">
+            <div class="row align-items-center justify-content-between">
+              <div class="col-lg-6">
+                <div class="hero-content">
+                  <span class="hero-subtitle">Let's Go Now</span>
+                  <h1 class="hero-title">Explore The Journey With Us</h1>
+                  <p class="hero-text">Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                  <a href="about.html" class="vs-btn style4">Read More</a>
                 </div>
-                <div class="col-lg-6">
-                  <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
-                    <div class="shape-mockup">
-                      <img src="assets/img/banner/hero-object.png" alt="hero image">
+              </div>
+              <div class="col-lg-6">
+                <div class="hero-form2" data-bg-src="assets/img/banner/map-bg.png">
+                  <div class="shape-mockup">
+                    <img src="assets/img/banner/hero-object.png" alt="hero image">
+                  </div>
+                  <div>
+                    <label class="h3">Where To?</label>
+                    <div class="form-group ">
+                      <i class="fas fa-compass"></i>
+                      <input type="text" placeholder="Where To?" />
                     </div>
-                    <div>
-                      <label class="h3">Where To?</label>
-                      <div class="form-group ">
-                        <i class="fas fa-compass"></i>
-                        <input type="text" placeholder="Where To?" />
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">Month</label>
+                    <div class="form-group ">
+                      <i class="fas fa-calendar-alt"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
+                        <option value="">January</option>
+                        <option value="">February</option>
+                        <option value="">March</option>
+                        <option value="">April</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">Month</label>
-                      <div class="form-group ">
-                        <i class="fas fa-calendar-alt"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Month</option>
-                          <option value="">January</option>
-                          <option value="">February</option>
-                          <option value="">March</option>
-                          <option value="">April</option>
-                        </select>
-                      </div>
+                  </div>
+                  <div>
+                    <label class="h3">Travel Type</label>
+                    <div class="form-group">
+                      <i class="fas fa-thumbtack"></i>
+                      <select class="form-select" name="name">
+                        <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
+                        <option value="">Adventure </option>
+                        <option value="">Combining</option>
+                        <option value="">Sporting</option>
+                        <option value="">Domestic</option>
+                      </select>
                     </div>
-                    <div>
-                      <label class="h3">Travel Type</label>
-                      <div class="form-group">
-                        <i class="fas fa-thumbtack"></i>
-                        <select class="form-select" name="name">
-                          <option value="" selected="selected" disabled="disabled" hidden="">Select Type</option>
-                          <option value="">Adventure </option>
-                          <option value="">Combining</option>
-                          <option value="">Sporting</option>
-                          <option value="">Domestic</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <button class="vs-btn style4">Find Now</button>
-                    </div>
+                  </div>
+                  <div>
+                    <button class="vs-btn style4">Find Now</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
-        <div>
-          <button class="icon-btn prev-btn" data-slick-prev=".hero-slider2"><i class="fas fa-chevron-left"></i></button>
-          <button class="icon-btn next-btn" data-slick-next=".hero-slider2"><i class="fas fa-chevron-right"></i></button>
-        </div>
-      </div>
+      </ngx-slick-carousel>
     </section>
     <!-- ============================
           Hero Area End
@@ -459,15 +453,15 @@
           <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="title-area">
               <span class="sec-subtitle">Go & Discover</span>
-              <h2 class="sec-title h1">Breathtaking Cities</h2>
+              <h2 class="sec-title h1">美到令人屏息的花火大會</h2>
               <p class="sec-text">Curabitur aliquet quam id dui posuere blandit. Vivamus magna justo, lacinia eget
                 consectetur sed, convgallis at tellus. Vestibulum ac diam sit.</p>
             </div>
           </div>
         </div>
         <div class="gallery-style-2">
-          <img src="assets/img/gallery/gallery-2-1.jpg" alt="Gallery image">
-          <a href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="play-btn popup-video"><i
+          <img src="assets/img/banner/homepage-big-3.jpg" alt="Gallery image">
+          <a href="https://www.youtube.com/watch?v=s2Nq6X8UxNY" class="play-btn popup-video"><i
               class="fas fa-play"></i></a>
         </div>
       </div>
