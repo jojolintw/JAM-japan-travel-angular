@@ -16,4 +16,8 @@ goToHomePage(){
   this.router.navigate(['home']);
 }
 
+goToMyOrder(){
+  this.router.navigate(['member']);
+}
+
 }
