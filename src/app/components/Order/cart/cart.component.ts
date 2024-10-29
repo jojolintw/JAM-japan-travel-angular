@@ -20,4 +20,8 @@ export class CartComponent {
   goToHomePage() {
     this.router.navigate(['home']);
   }
+
+  goToProductDetail(){
+    this.router.navigate(['itinerary-detail/1'])
+  }
 }
