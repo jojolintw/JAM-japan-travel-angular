@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Japan Activity Memory</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="src/favicon.ico">
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicons - Place favicon.ico in the root directory -->
+  <link rel="icon" type="image/png" href="assets/img/favicons/favicon.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <!--==============================
+	  Google Fonts
+	============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+
+<section class="vs-product-wrapper space">
+  <div class="container">
+    <div class="product-details" *ngIf="itinerary">
+      <div class="row gx-60">
+        <div class="col-lg-5">
+          <div class="product-big-img vs-carousel" data-slide-show="1" data-arrows="false" data-fade="true"
+            data-asnavfor=".product-thumb-slide">
+            <div class="img"><img src="assets/img/products/Tokyo Tower observatories.jpg" alt="Product Image"></div>
+            <!-- <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div>
+            <div class="img"><img src="assets/img/products/pd-4.png" alt="Product Image"></div>
+            <div class="img"><img src="assets/img/products/pd-3.png" alt="Product Image"></div>
+            <div class="img"><img src="assets/img/products/pd-1.png" alt="Product Image"></div> -->
+          </div>
+          <div class="row product-thumb-slide vs-carousel" data-slide-show="4" data-md-slide-show="4"
+            data-sm-slide-show="3" data-xs-slide-show="3" data-asnavfor=".product-big-img">
+            <!-- <div class="col-lg-2">
+              <div class="thumb"><img src="assets/img/products/pd-thumb-1.png" alt="Product Thumb Image"></div>
+            </div> -->
+            <div class="col-lg-3">
+              <div class="thumb"><img src="assets/img/products/pd-thumb-2.png" alt="Product Thumb Image"></div>
+            </div>
+            <div class="col-lg-3">
+              <div class="thumb"><img src="assets/img/products/pd-thumb-3.png" alt="Product Thumb Image"></div>
+            </div>
+            <div class="col-lg-3">
+              <div class="thumb"><img src="assets/img/products/pd-thumb-4.png" alt="Product Thumb Image"></div>
+            </div>
+            <div class="col-lg-3">
+              <div class="thumb"><img src="assets/img/products/pd-thumb-2.png" alt="Product Thumb Image"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="product-about">
+            <div class="product-rating">
+              <div class="star-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>( <span>3</span> Customer Review )</p>
+            </div>
+
+            <h2 class="product-title">
+              {{itinerary.title}}
+            </h2>
+            <p class="product-price">{{itinerary.price | currency:'TWD':'symbol': '1.0-0'}}</p>
+            <p class="product-text">
+             {{itinerary.travelbrief}}
+            </p>
+            <div>
+              <!-- <mat-form-field appearance="outline">
+                <mat-label>選擇出發日期</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field> -->
+            </div>
+            <div class="actions">
+              <div class="quantity">
+                <button class="quantity-minus qty-btn"><i class="fal fa-minus"></i></button>
+                <input type="number" id="quantity" class="qty-input" step="1" min="1" max="100" name="quantity"
+                  value="1" title="Qty" placeholder="1">
+                <button class="quantity-plus qty-btn"><i class="fal fa-plus"></i></button>
+              </div>
+              <a href="cart.html" class="vs-btn style4">Add to cart</a>
+              <a href="cart.html" class="icon-btn"><i class="fas fa-heart"></i></a>
+            </div>
+            <div class="product_meta">
+              <span class="sku_wrapper">SKU: <span class="sku">02</span>
+              </span>
+              <span class="posted_in">Category: <a href="#" rel="tag">Accessories</a>
+              </span>
+              <span>Tags: <a href="#" rel="tag">Camping</a><a href="#" rel="tag">Summer</a><a href="#"
+                  rel="tag">Vintage</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-wrap">
+        <ul class="nav product-tab1" id="productTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab"
+              aria-controls="description" aria-selected="true">體驗行程詳情</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="rviews-tab" data-bs-toggle="tab" href="#rviews" role="tab" aria-controls="rviews"
+              aria-selected="true">行程評價 (02 )</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="productTabContent">
+          <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
+            <div class="inner-pane">
+              <p class="description-text">位於33樓，提供日夜景色，包括東京鐵塔和皇居。近距離欣賞東京鐵塔的景致。</p>
+              <div class="list-style2 ">
+                <ul class="list-unstyled">
+                  <li><span>Brand</span> <span class="item-name">Fujifilm</span> </li>
+                  <li><span>Color</span> <span class="item-color">Lilac Purple</span> </li>
+                  <li><span>Item Weight</span> <span class="item-weight">10.4 Ounces</span> </li>
+                  <li><span>Item Dimensions</span> <span class="item-deimension">2.6 x 4.2 x 4.8 inches</span> </li>
+                </ul>
+              </div>
+              <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper
+                leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
+                ridiculus mus. Vestibulum ultricies aliquam. Done ultricies nec, pellent, consectetur adipiscing elit.
+                Ieuismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus sit
+                am. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci
+              </p>
+
+            </div>
+          </div>
+          <div class="tab-pane fade" id="rviews" role="tabpanel" aria-labelledby="review-tab">
+            <div class="inner-pane">
+              <div class="woocommerce-Reviews">
+                <div class="vs-comments-wrap">
+                  <ul class="comment-list">
+                    <li class="review vs-comment-item">
+                      <div class="vs-post-comment">
+                        <div class="comment-avater">
+                          <img src="assets/img/blog/comment-author-1.jpg" alt="reviewer image">
+                        </div>
+                        <div class="comment-content">
+                          <div class="star-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                          </div>
+                          <h4 class="name h4">Crish Thomas</h4>
+                          <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a
+                            viveirra facilisi neque quisque. Phasellus aliquam ut a id rhogncus. In viverra sed vitae
+                            vivamus amet, nuncg vivamus. </p>
+                          <span class="comment-date">Published 1 day ago</span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="review vs-comment-item">
+                      <div class="vs-post-comment">
+                        <div class="comment-avater">
+                          <img src="assets/img/blog/comment-author-3.jpg" alt="reviewer image">
+                        </div>
+                        <div class="comment-content">
+                          <div class="star-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                          </div>
+                          <h4 class="name h4">Malisha Beco</h4>
+                          <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a
+                            viveirra facilisi neque quisque. Phasellus aliquam ut a id rhogncus. In viverra sed vitae
+                            vivamus amet, nuncg vivamus. </p>
+                          <span class="comment-date">Published 1 day ago</span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Comment Form -->
+              <div class="vs-comment-form">
+                <div id="respond" class="comment-respond">
+                  <h3 class="blog-inner-title">Add a review</h3>
+
+                  <div class="row">
+                    <div class="form-group rating-select">
+                      <label>Your Rating</label>
+                      <p class="stars">
+                        <span>
+                          <a class="star-1" href="#">1</a>
+                          <a class="star-2" href="#">2</a>
+                          <a class="star-3" href="#">3</a>
+                          <a class="star-4" href="#">4</a>
+                          <a class="star-5" href="#">5</a>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                      <input type="text" class="form-control" placeholder="Enter Your Name">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="email" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="col-12 form-group">
+                      <textarea class="form-control" placeholder="Write Your Comment"></textarea>
+                    </div>
+                    <div class="col-12 ">
+                      <div class="custom-checkbox notice">
+                        <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox"
+                          value="yes">
+                        <label for="wp-comment-cookies-consent"> Save my name, email, and website in this browser for
+                          the next time I comment.</label>
+                      </div>
+                    </div>
+                    <div class="col-12 form-group">
+                      <button class="vs-btn style4 w-100">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!--==============================
+      Destiniations Area Start
+  ==============================-->
+  <section class="space space-extra-bottom bg-light shape-mockup-wrap" data-bg-src="assets/img/shape/Bg.png">
+    <div class="shape-mockup d-none d-xl-block spin z-index-negative" data-top="-20%" data-right="-8%">
+      <img src="assets/img/shape/circle1.png" alt="circle">
+    </div>
+    <div class="shape-mockup d-none d-xl-block  z-index-negative" data-bottom="13%" data-left="0%">
+      <img src="assets/img/shape/walk.png" alt="circle">
+    </div>
+    <div class="container">
+      <div class="row justify-content-between align-items-center">
+        <div class="col-lg-5 col-md-8">
+          <div class="title-area">
+            <span class="sec-subtitle">Top Destination</span>
+            <h2 class="sec-title h1">Unforgettable Cities</h2>
+            <p class="sec-text">Curabitur aliquet quam id dui posuere blandit. Vivamus magna justo, lacinia eget
+              consectetur sed,
+              convgallis at tellus.</p>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="sec-btns">
+            <button class="icon-btn" data-slick-prev=".destinationSlide"><i class="fas fa-chevron-left"></i></button>
+            <button class="icon-btn" data-slick-next=".destinationSlide"><i class="fas fa-chevron-right"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <div class="row destinationSlide vs-carousel" data-slide-show="3" data-arrows="false" data-lg-slide-show="2"
+        data-md-slide-show="2" data-sm-slide-show="1">
+        <div class="col-xl-4">
+          <div class="destination-style1">
+            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-1.jpg"
+                alt="destination image"></a>
+            <span class="destination-price">$259</span>
+            <div class="destination-info">
+              <h4 class="destination-name"><a href="#">Thailand</a></h4>
+              <p class="destination-text">Explore Sea & Get Relax</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="destination-style1">
+            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-2.jpg"
+                alt="destination image"></a>
+            <span class="destination-price">$369</span>
+            <div class="destination-info">
+              <h4 class="destination-name"><a href="#">Japan</a></h4>
+              <p class="destination-text">Explore Sea & Get Relax</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="destination-style1">
+            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-3.jpg"
+                alt="destination image"></a>
+            <span class="destination-price">$299</span>
+            <div class="destination-info">
+              <h4 class="destination-name"><a href="#">Spain</a></h4>
+              <p class="destination-text">Explore Sea & Get Relax</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-xl-4">
+          <div class="destination-style1">
+            <a href="destination-details.html">
+              <img src="assets/img/destinations/destinations-1-8.jpg" alt="destination image" /></a>
+            <span class="destination-price">$158</span>
+            <div class="destination-info">
+              <h4 class="destination-name"><a href="#">Mexico</a></h4>
+              <p class="destination-text">Explore World & Get Relax</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+  <!--==============================
+      Destinations Area End
+  ==============================-->
+</body>

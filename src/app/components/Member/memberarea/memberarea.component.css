@@ -1,0 +1,32 @@
+.memberarea
+{
+  background-color: 	#F0F0F0;
+  padding: 20px;
+}
+
+
+.memberinfo
+{
+  background-color: white;
+  text-align: center;
+  border-radius: 5px;
+}
+.memberinfolist
+{
+  background-color: white;
+  text-align: left;
+  border-radius: 5px;
+}
+.memberimg
+{
+  margin: auto;
+  width: 200px;
+  height: 200px;
+}
+.memberinfoEmail
+{
+  text-align: left;
+  color: black;
+}
+
+

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Travolo - Travel Agency & Tour Booking HTML Template - Checkout</title>
+  <meta name="author" content="vecuro">
+  <meta name="description" content="Travolo -  Travel Agency & Tour Booking HTML Template">
+  <meta name="keywords" content="Travolo -  Travel Agency & Tour Booking HTML Template">
+  <meta name="robots" content="INDEX,FOLLOW">
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicons - Place favicon.ico in the root directory -->
+  <link rel="icon" type="image/png" href="assets/img/favicons/favicon.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+
+  <!--==============================
+	  Google Fonts
+	============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!--==============================
+	    All CSS File
+	============================== -->
+  <!-- Bootstrap -->
+  <!-- <link rel="stylesheet" href="assets/css/app.min.css"> -->
+  <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css" /> -->
+  <!-- Fontawesome Icon -->
+  <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css" /> -->
+  <!-- Magnific Popup -->
+  <!-- <link rel="stylesheet" href="assets/css/magnific-popup.min.css" /> -->
+  <!-- Slick Slider -->
+  <!-- <link rel="stylesheet" href="assets/css/slick.min.css" /> -->
+  <!-- Theme Custom CSS -->
+  <!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
+</head>
+
+<body>
+  <!--********************************
+  Code Start From Here
+	******************************** -->
+
+  <!--==============================
+    Sidemenu
+  ============================== -->
+  <div class="sidemenu-wrapper offcanvas-wrapper d-none d-lg-block">
+    <div class="sidemenu-content">
+      <button class="closeButton sideMenuCls">
+        <i class="far fa-times"></i>
+      </button>
+      <div class="widget">
+        <div class="vs-widget-about">
+          <div class="footer-logo">
+            <a href="index.html"><img src="assets/img/logo.svg" alt="Travolo"></a>
+          </div>
+          <p class="footer-text">
+            Ut tellus dolor, dapibus eget, elementum ifend cursus eleifend,
+            elit. Aenea ifen dn tor wisi Aliquam er at volutpat. Dui ac tui
+            end cursus eleifendrpis.
+          </p>
+          <div class="info-social style2">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-google"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="widget">
+        <h3 class="widget_title">Recent Articles</h3>
+        <div class="recent-post-wrap">
+          <div class="recent-post">
+            <div class="media-img">
+              <a href="blog-details.html"><img src="assets/img/blog/recent-post1.jpg" alt="Blog Image"></a>
+            </div>
+            <div class="media-body">
+              <div class="recent-post-meta">
+                <i class="fal fa-calendar-alt"></i>
+                <a href="blog.html">December 15, 2022</a>
+              </div>
+              <h4 class="post-title">
+                <a class="text-inherit" href="blog-details.html">We are Giving Amazing Tour for VIP</a>
+              </h4>
+            </div>
+          </div>
+          <div class="recent-post">
+            <div class="media-img">
+              <a href="blog-details.html"><img src="assets/img/blog/recent-post2.jpg" alt="Blog Image"></a>
+            </div>
+            <div class="media-body">
+              <div class="recent-post-meta">
+                <i class="fal fa-calendar-alt"></i>
+                <a href="blog.html">March 13, 2022</a>
+              </div>
+              <h4 class="post-title">
+                <a class="text-inherit" href="blog-details.html">The journey journal chronicles of a wandering soul</a>
+              </h4>
+            </div>
+          </div>
+          <div class="recent-post">
+            <div class="media-img">
+              <a href="blog-details.html"><img src="assets/img/blog/recent-post3.jpg" alt="Blog Image"></a>
+            </div>
+            <div class="media-body">
+              <div class="recent-post-meta">
+                <i class="fal fa-calendar-alt"></i>
+                <a href="blog.html">Augest 23, 2022</a>
+              </div>
+              <h4 class="post-title">
+                <a class="text-inherit" href="blog-details.html">Roam And Revel captivating at tellus.</a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--==============================
+    Popup Search Box
+  ============================== -->
+  <div class="popup-search-box d-none d-lg-block">
+    <button class="searchClose"><i class="fal fa-times"></i></button>
+    <form action="#">
+      <input type="text" class="border-theme" placeholder="What are you looking for" />
+      <button type="submit"><i class="fal fa-search"></i></button>
+    </form>
+  </div>
+
+  <!--==============================
+	  Hero area Start
+	==============================-->
+  <div class="breadcumb-wrapper" style="padding:50px 0px">
+        <h1 class="breadcumb-title" style="margin-left: 10%;">結帳</h1>
+  </div>
+  <!--==============================
+	  Hero Area End
+	==============================-->
+
+  <!--==============================
+	  Checkout Area Start
+	==============================-->
+  <section class="vs-checkout-wrapper space" style="padding:60px 0px">
+    <div class="container">
+      <div style="display: flex;">
+        <h4 class="mt-4 pt-lg-2">訂單明細</h4>
+        <button type="submit" class="vs-btn style4" (click)="goToCart()" style="margin-left: auto;padding: 2px;height: 50px;">返回購物車</button>
+      </div>
+      <form action="#" class="woocommerce-cart-form">
+        <div class="table-responsive">
+          <table class="cart_table">
+            <thead>
+              <tr>
+                <th class="cart-col-image" style="color:black">商品</th>
+                <th class="cart-col-productname"></th>
+                <th class="cart-col-price" style="color:black">單價</th>
+                <th class="cart-col-quantity" style="color:black">數量</th>
+                <th class="cart-col-total" style="color:black">總價</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cart_item">
+                <td data-title="Product">
+                  <a class="cart-productimage" href="shop-details.html"><img width="91" height="91"
+                      src="assets/img/products/pd-thumb-1.png" alt="Image"></a>
+                </td>
+                <td data-title="Name">
+                  <a class="cart-productname" href="shop-details.html">我是商品名稱</a>
+                </td>
+                <td data-title="Price">
+                  <span class="amount"><bdi><span>$</span>600 </bdi></span>
+                </td>
+                <td data-title="Quantity">
+                  <strong class="product-quantity">1</strong>
+                </td>
+                <td data-title="Total">
+                  <span class="amount"><bdi><span>$</span>600</bdi></span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="checkout-ordertable">
+              <tr>
+                <th rowspan="4" colspan="3" style="padding: 0px;">
+                <form action="#" class="woocommerce-form-coupon bg-smoke" style="display: block; padding:10px 20px 20px 20px; border-top-left-radius: 0%;">
+                  <h4 class="mt-4 pt-lg-2" style="margin-top: 0px !important; padding: 0px;">優惠券</h4>
+                  <div class="row">
+                    <div class="col-lg-4" style="display:flex ; width: 60%;">
+                        <input type="text" class="form-control" placeholder="選擇折扣" readonly>
+                        <button type="submit" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button>
+                    </div>
+                  </div>
+                </form>
+                </th>
+              </tr>
+              <tr class="cart-subtotal">
+                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">商品總金額</th>
+                <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
+                        class="woocommerce-Price-currencySymbol">$</span>760</bdi></span></td>
+              </tr>
+              <tr class="woocommerce-shipping-totals shipping">
+                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">優惠券折扣</th>
+                <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
+                  class="woocommerce-Price-currencySymbol">-$</span>10</bdi></span></td>
+              </tr>
+              <tr class="order-total">
+                <th style=" text-align: center;vertical-align: middle;">訂單總金額</th>
+                <td data-title="Total" colspan="4" style=" text-align: center;vertical-align: middle;"><strong><span class="woocommerce-Price-amount amount"><bdi><span
+                          class="woocommerce-Price-currencySymbol">$</span>750</bdi></span></strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </form>
+
+      <form action="#" class="woocommerce-checkout">
+        <div class="row ">
+          <div class="col-lg-6">
+            <h2 class="h4">購買人資訊</h2>
+            <div class="row">
+              <div class="col-12 form-group">
+                <input type="text" class="form-control" placeholder="會員名稱" readonly>
+              </div>
+              <div class="col-12 form-group">
+                <input type="text" class="form-control" placeholder="會員信箱" readonly>
+              </div>
+              <div class="col-12 form-group">
+                <input type="text" class="form-control" placeholder="會員電話" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 class="h4">備註</h2>
+            <div class="col-12 form-group">
+              <textarea cols="20" rows="5" class="form-control"
+                placeholder="備註備註備註備註備註備註備註備註備註備註備註備註"></textarea>
+            </div>
+            <h4 class="mt-4 pt-lg-2">付款方式</h4>
+            <div class="mt-lg-3">
+              <div class="woocommerce-checkout-payment">
+                <ul class="wc_payment_methods payment_methods methods">
+                  <li class="wc_payment_method payment_method_bacs">
+                    <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs"
+                      checked="checked">
+                    <label for="payment_method_bacs">LinePay</label>
+                  </li>
+                  <li class="wc_payment_method payment_method_cheque">
+                    <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
+                    <label for="payment_method_cheque">信用卡</label>
+                  </li>
+                  <li class="wc_payment_method payment_method_cod">
+                    <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method">
+                    <label for="payment_method_cod">轉帳</label>
+                  </li>
+                </ul>
+                <div class="form-row place-order pt-lg-2" style="text-align:end">
+                  <strong><span class="woocommerce-Price-amount amount" style="padding: 0px 20px; font-size: 22px;"><bdi><span
+                    class="woocommerce-Price-currencySymbol">訂單總金額：$</span>750</bdi></span></strong>
+                  <button type="submit" class="vs-btn style4" (click)="goToConfirmation()">下單付款</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!--==============================
+	  Checkout Area End
+	==============================-->
+
+  <!--********************************
+    Code Ends Here
+	******************************** -->
+
+  <!-- Scroll To Top -->
+  <a href="#" class="scrollToTop scroll-btn"><i class="far fa-arrow-up"></i></a>
+
+  <!--==============================
+    All Js File
+============================== -->
+  <!-- Jquery -->
+  <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="assets/js/slick.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- jquery Ui -->
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <!-- Circle Progress -->
+  <script src="assets/js/circle-progress.min.js"></script>
+  <!-- isotope -->
+  <script src="assets/js/imagesLoaded.js"></script>
+  <script src="assets/js/isotope.js"></script>
+  <!-- Wow.js -->
+  <script src="assets/js/wow.min.js"></script>
+  <!-- Main Js File -->
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

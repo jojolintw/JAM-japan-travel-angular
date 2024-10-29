@@ -53,10 +53,10 @@ Version: 1.0.0
 /*------------------- 1.2. Function -------------------*/
 /*------------------- 1.3. Variable-------------------*/
 :root {
-  --theme-color: #DAC9A6;
-  --theme-color2: #FEDFE1;
+  --theme-color: #66BAB7;
+  --theme-color2: #EDD3A1;
   --secondary-color: #111330;
-  --title-color: #EBB471;
+  --title-color: #B1B479;
   --body-color: #505050;
   --smoke-color: #f7f7f7;
   --black-color: #000000;
@@ -2613,7 +2613,7 @@ a.text-theme:hover,
   font-family: var(--body-font);
   font-weight: 700;
   font-size: 18px;
-  color: var(--title-color);
+  color: #724938;
   /* Extra large devices */
 }
 @media (max-width: 1500px) {
@@ -3424,11 +3424,14 @@ Header Customization
 /*------------------- 4.5. Pagination  -------------------*/
 .vs-pagination {
   text-align: center;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
 .vs-pagination ul {
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 .vs-pagination li {
   display: inline-block;
@@ -4409,7 +4412,7 @@ Header Customization
 }
 
 .hero-subtitle {
-  color: var(--theme-color);
+  color: #f1dbd9;
   font-size: 24px;
   font-weight: 700;
   font-family: var(--body-font);
@@ -5145,18 +5148,24 @@ Header Customization
   overflow: hidden;
   margin-bottom: 30px;
   transition: all ease 0.4s;
+  height: 100%;
 }
 .package-style1 .package-img,
 .package-style3 .package-img {
   overflow: hidden;
+  height: 50%;
 }
 .package-style1 .package-img img,
 .package-style3 .package-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: 0.5s;
 }
 .package-style1 .package-content,
 .package-style3 .package-content {
   padding: 25px 30px 30px;
+  height: 50%;
 }
 .package-style1 .package-title,
 .package-style3 .package-title {
@@ -6640,6 +6649,8 @@ Header Customization
   background-color: var(--white-color);
 }
 
+
+
 /* Large devices */
 @media (max-width: 1199px) {
   .filter-menu1 .tab-button {
@@ -6685,6 +6696,7 @@ Header Customization
 .tours-active .package-style1 {
   box-shadow: 0px 13px 48px 0px rgba(255, 104, 26, 0.07);
   transition: 0.5s ease-in-out;
+  margin-bottom: 30px;
 }
 .tours-active .package-style1:hover {
   box-shadow: 0px 13px 48px 0px rgba(255, 104, 26, 0.15);
@@ -8710,7 +8722,7 @@ Header Customization
   color: var(--theme-color);
 }
 .package-style3 .package-footer {
-  align-items: end;
+  align-items: flex-end;
   margin-top: 0;
   min-height: 55px;
 }
@@ -9188,7 +9200,7 @@ Header Customization
 .testi-style3 .testi-header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
 }
 .testi-style3 .testi-avater {
   min-width: 114px;
@@ -9422,7 +9434,7 @@ Header Customization
 .img-box5 .img-box__img1 {
   display: flex;
   gap: 20px;
-  align-items: end;
+  align-items: flex-end;
   /* Small devices */
 }
 @media (max-width: 767px) {
