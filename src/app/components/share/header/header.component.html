@@ -72,31 +72,13 @@
  <!--==============================
     Sidemenu
   ============================== -->
-  <div class="sidemenu-wrapper offcanvas-wrapper d-none d-lg-block">
+  <div class="sidemenu-wrapper offcanvas-wrapper d-none d-lg-block" [class.show]="isSideMenuOpen">
     <div class="sidemenu-content">
-      <button class="closeButton sideMenuCls">
+      <button class="closeButton sideMenuCls" (click)="closeSideMenu()">
         <i class="far fa-times"></i>
       </button>
       <div class="widget">
-        <div class="vs-widget-about">
-          <div class="footer-logo">
-            <a href="index.html"><img src="assets/img/logo.svg" alt="Travolo"></a>
-          </div>
-          <p class="footer-text">
-            Ut tellus dolor, dapibus eget, elementum ifend cursus eleifend,
-            elit. Aenea ifen dn tor wisi Aliquam er at volutpat. Dui ac tui
-            end cursus eleifendrpis.
-          </p>
-          <div class="info-social style2">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-google"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="widget">
-        <h3 class="widget_title">Recent Articles</h3>
+        <h3 class="widget_title">最近瀏覽</h3>
         <div class="recent-post-wrap">
           <div class="recent-post">
             <div class="media-img">
@@ -159,7 +141,7 @@
                     fill="#37D4D9" />
                 </svg> -->
                 <img src="assets/img/icons/email.png" />
-                <a href="mailto:info@travolo.com">info&#64;travolo.com</a>
+                <a href="mailto:info@travolo.com">info&#64;jam.com</a>
               </li>
               <li><svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
@@ -180,9 +162,9 @@
         <div class="col-auto">
           <div class="header-links">
             <ul>
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Support</a></li>
-              <li><a routerLink="login/forgetpassword">Faqs</a></li>
+              <li><a href="#">幫助</a></li>
+              <li><a href="#">客服專區</a></li>
+              <li><a routerLink="login/forgetpassword">常見問題</a></li>
                 <li><a routerLink="login/signin">登入</a></li>
             </ul>
           </div>
@@ -309,14 +291,14 @@
                         <img src="assets/img/icons/telephone.png" alt="phone icon 1">
                       </div>
                       <div class="item2__text">
-                        <span>Phone:</span>
-                        <a href="tel:+0207388561922">020 (7388) 5619 22</a>
+                        <span>連絡電話:</span>
+                        <a href="tel:+0266316589">(02) 6631-6589</a>
                       </div>
                     </div>
                   </li>
                   <li>
                     <a class="link" href="contact.html">
-                      Get in Touch
+                      聯繫我們
                       <i>
                         <svg width="5" height="8" viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -333,7 +315,7 @@
         </div>
       </div>
     </div>
-    <button class="sideMenuToggler">
+    <button class="sideMenuToggler" (click)="toggleSideMenu()">
       <svg width="34" height="29" viewBox="0 0 34 29" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 29H34V22.5H0V29ZM0 17.78H34V11.28H0V17.78ZM0 6.5H34V0H0V6.5Z" fill="currentColor" />
       </svg>
