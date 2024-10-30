@@ -110,6 +110,7 @@
                 <a href="blog.html">11/15</a>
                 <a href="blog.html">11/22</a>
                 <a href="blog.html">11/29</a>
+                <a href="#" id="viewAllDates">查看所有時間</a>
               </div>
             </div>
   
@@ -147,6 +148,32 @@
   <script src="assets/js/wow.min.js"></script>
   <!-- Main Js File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // 初始化日期選擇器
+    $("#datepicker").datepicker();
+
+    // 顯示模態框
+    $("#viewAllDates").click(function (e) {
+      e.preventDefault();
+      $("#calendarModal").fadeIn();
+    });
+
+    // 關閉模態框
+    $("#closeModal").click(function () {
+      $("#calendarModal").fadeOut();
+    });
+
+    // 點擊模態框外部關閉
+    $(window).click(function (e) {
+      if ($(e.target).is("#calendarModal")) {
+        $("#calendarModal").fadeOut();
+      }
+    });
+  });
+</script>
 </body>
 
 </html>
