@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-time-selection-dialog',
   template: `
-    <h2 mat-dialog-title>選擇時間 - {{data.date | date:'yyyy/MM/dd'}}</h2>
+    <h2 mat-dialog-title>選擇時間 - {{data.DepartureDate | date:'yyyy/MM/dd'}}</h2>
     <mat-dialog-content>
       <div class="time-slots">
         <div *ngFor="let time of data.times" class="time-slot">
@@ -39,27 +40,33 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
       font-size: 12px;
       color: #666;
     }
-  `]
+  `],
+  providers: [DatePipe]
 })
 export class TimeSelectionDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<TimeSelectionDialogComponent>
+    private dialogRef: MatDialogRef<TimeSelectionDialogComponent>,
+    private datePipe: DatePipe
   ) {}
 
   isTimeAvailable(time: string): boolean {
-    // 檢查該時間段是否有庫存
-    const tour = this.data.tours.find((t: { date: { time: string; date: { toDateString: () => any; }; }[]; }) =>
-      t.date.some((d: { time: string; date: { toDateString: () => any; }; }) =>
-        d.time === time &&
-        d.date.toDateString() === this.data.date.toDateString()
-      )
+    const tour = this.data.tours.find((t: { DepartureDate: string }) =>
+      t.DepartureDate === this.formatDateTime(this.data.DepartureDate, time)
     );
     return tour?.stock > 0;
   }
 
   selectTime(time: string): void {
-    this.dialogRef.close({ time });
+    const formattedDateTime = this.formatDateTime(this.data.DepartureDate, time);
+    this.dialogRef.close({ DepartureDate: formattedDateTime });
+  }
+
+  private formatDateTime(date: string, time: string): string {
+    const dateObj = new Date(date);
+    const [hours, minutes] = time.split(':');
+    dateObj.setHours(parseInt(hours), parseInt(minutes));
+    return this.datePipe.transform(dateObj, 'yyyy-MM-dd HH:mm') || '';
   }
 
   onClose(): void {

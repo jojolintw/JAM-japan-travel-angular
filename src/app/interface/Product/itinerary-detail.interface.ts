@@ -1,10 +1,12 @@
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 export interface ItineraryDetail {
-  id: number;
-  title: string;
-  image: string;
-  travelbrief: string;
-  date: { date: Date; time: string }[];
-  stock: number;
-  price: number;
+  ItinerarySystemId: number;
+  ItineraryName: string;
+  AreaName: string;
+  ImageName: string;
+  DepartureDate: string[];
+  Stock: number;
+  Price: number;
+  ItineraryDetail: string;
+  ItineraryBrief: string;
+  ItineraryNotes: string;
 }
