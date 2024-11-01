@@ -67,7 +67,6 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
               </div>
-              <p>( <span>3</span> Customer Review )</p>
             </div>
 
             <h2 class="product-title">
@@ -78,23 +77,47 @@
              {{itinerary.travelbrief}}
             </p>
             <div class="calendar-container">
+              <!-- 時間說明 -->
+              <div class="calendar-notes">
+                <div class="calendar-cours">
+                  <small>可選時段：</small>
+                  <ng-container *ngFor="let time of availableTimes">
+                    <small class="label calendar-cours-item">
+                      {{time}}
+                    </small>
+                  </ng-container>
+                </div>
+              </div>
+
+              <!-- 日曆導航 -->
               <div class="calendar-navigation">
-                <button class="calendar icon-btn prev-btn" prev-btn (click)="previousMonth()">&lt;</button>
+                <button mat-icon-button (click)="previousMonth()">
+                  <mat-icon>chevron_left</mat-icon>
+                </button>
+                <span class="current-month">{{viewDate | date:'yyyy年MM月'}}</span>
+                <button mat-icon-button (click)="nextMonth()">
+                  <mat-icon>chevron_right</mat-icon>
+                </button>
+              </div>
+
+              <!-- 日曆視圖 -->
               <mwl-calendar-month-view
                 [viewDate]="viewDate"
                 [events]="events"
-                (dayClicked)="onDayClicked($event.day)"
-              ></mwl-calendar-month-view>
-              <button class="calendar icon-btn next-btn" (click)="nextMonth()">&gt;</button>
-              </div>
-              <div *ngIf="selectedDay" class="calendar day-schedule">
-                <h3>Selected Day: {{ selectedDay.date | date }}</h3>
-                <ul>
-                  <li *ngFor="let slot of availableSlots">
-                    {{ slot.time }}
-                  </li>
-                </ul>
-              </div>
+                [cellTemplate]="customCell"
+                (dayClicked)="onDayClicked($event.day)">
+              </mwl-calendar-month-view>
+
+              <!-- 自定義日期單元格模板 -->
+              <ng-template #customCell let-day="day">
+                <div class="cal-cell-top">
+                  <span class="cal-day-number">{{day.date | date:'d'}}</span>
+                  <span class="stock-indicator" *ngIf="hasStockInfo(day)">
+                    {{getStockStatus(day)}}
+                  </span>
+                </div>
+              </ng-template>
+
             </div>
             <div class="actions">
               <div class="quantity">
@@ -105,14 +128,6 @@
               </div>
               <a href="cart.html" class="vs-btn style4">Add to cart</a>
               <a href="cart.html" class="icon-btn"><i class="fas fa-heart"></i></a>
-            </div>
-            <div class="product_meta">
-              <span class="sku_wrapper">SKU: <span class="sku">02</span>
-              </span>
-              <span class="posted_in">Category: <a href="#" rel="tag">Accessories</a>
-              </span>
-              <span>Tags: <a href="#" rel="tag">Camping</a><a href="#" rel="tag">Summer</a><a href="#"
-                  rel="tag">Vintage</a></span>
             </div>
           </div>
         </div>

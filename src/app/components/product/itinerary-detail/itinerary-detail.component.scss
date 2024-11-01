@@ -1,0 +1,53 @@
+.calendar-container {
+  padding: 20px;
+
+  .calendar-notes {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+
+    .calendar-cours-item {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 2px 8px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+  }
+
+  .calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .current-month {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  .stock-indicator {
+    font-size: 12px;
+    color: #666;
+    margin-left: 5px;
+  }
+
+  .calendar-legend {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .indicator {
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -5,7 +5,6 @@ import { ItineraryService } from 'src/service/itinerary-service/itinerary.servic
 import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-itinerary-list',
   templateUrl: './itinerary-list.component.html',
@@ -111,7 +110,6 @@ export class ItineraryListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private itineraryService: ItineraryService) { }
 
   ngOnInit(): void {
-    // 加载样式文件
     this.route.params.subscribe((params) => {
       const regionParam = params['region'];
       if (regionParam) {

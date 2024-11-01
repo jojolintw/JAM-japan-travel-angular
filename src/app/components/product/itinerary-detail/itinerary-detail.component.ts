@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
+import { MatDialog } from '@angular/material/dialog';
+import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselectiondialog.component';
 
 
 @Component({
@@ -19,7 +21,9 @@ export class ItineraryDetailComponent implements OnInit {
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
+  dayStatus: { [key: string]: { hasStock: boolean, times: string[] } } = {};
   availableSlots: { date: Date; time: string }[] = [];
+  availableTimes = ['09:00', '11:30', '15:00'];
 
   tours: ItineraryDetail[] = [
     {
@@ -29,8 +33,8 @@ export class ItineraryDetailComponent implements OnInit {
       image: 'tokyotower.jpg',
       date: [
         { date: new Date('2024-10-30'), time: '9:00' },
-        { date: new Date('2024-10-30'), time: '12:00' },
-        { date: new Date('2024-11-01'), time: '9:00' },
+        { date: new Date('2024-10-30'), time: '11:30' },
+        { date: new Date('2024-10-30'), time: '15:00' },
       ],
       stock: 3,
       price: 3000,
@@ -76,7 +80,7 @@ export class ItineraryDetailComponent implements OnInit {
     },
   ];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -88,7 +92,6 @@ export class ItineraryDetailComponent implements OnInit {
           this.itinerary.date.forEach(slot => {
             this.events.push({
               start: slot.date,
-              end: slot.date,
               title: slot.time,
               meta: { tourId: this.itinerary?.id }
             });
@@ -103,13 +106,31 @@ export class ItineraryDetailComponent implements OnInit {
       tour.date.forEach(slot => {
         this.events.push({
           start: slot.date,
-          end: slot.date,
           title: slot.time,
           meta: { tourId: tour.id }
         });
       });
     });
+    this.initializeDayStatus();
   }
+
+  private initializeDayStatus(): void {
+    this.tours.forEach(tour => {
+      tour.date.forEach(slot => {
+        const dateStr = slot.date.toISOString().split('T')[0];
+        if (!this.dayStatus[dateStr]) {
+          this.dayStatus[dateStr] = {
+            hasStock: tour.stock > 0,
+            times: []
+          };
+        }
+        if (!this.dayStatus[dateStr].times.includes(slot.time)) {
+          this.dayStatus[dateStr].times.push(slot.time);
+        }
+      });
+    });
+  }
+
   previousMonth(): void {
     this.viewDate = subMonths(this.viewDate, 1);
   }
@@ -118,11 +139,29 @@ export class ItineraryDetailComponent implements OnInit {
     this.viewDate = addMonths(this.viewDate, 1);
   }
 
+  hasStockInfo(day: CalendarMonthViewDay): boolean {
+    const dateStr = day.date.toISOString().split('T')[0];
+    return !!this.dayStatus[dateStr];
+  }
+
+  getStockStatus(day: CalendarMonthViewDay): string {
+    const dateStr = day.date.toISOString().split('T')[0];
+    return this.dayStatus[dateStr]?.hasStock ? 'O' : 'X';
+  }
+
   onDayClicked(day: CalendarMonthViewDay): void {
-    this.selectedDay = day;
-    this.availableSlots = this.tours
-     .flatMap(tour => tour.date)
-     .filter(slot => isSameDay(slot.date, day.date));
+    const dateStr = day.date.toISOString().split('T')[0];
+    const availableTimes = this.dayStatus[dateStr]?.times || [];
+
+    // 使用 MatDialog 開啟時間選擇對話框
+    this.dialog.open(TimeSelectionDialogComponent, {
+      data: {
+        date: day.date,
+        times: availableTimes,
+        tours: this.tours
+      },
+      width: '300px'
+    });
   }
 
 }
