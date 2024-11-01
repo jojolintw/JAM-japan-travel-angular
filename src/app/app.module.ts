@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ItineraryListComponent } from './components/product/itinerary-list/itinerary-list.component';
 import { ItineraryDetailComponent } from './components/product/itinerary-detail/itinerary-detail.component';
@@ -35,7 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-
+import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 
 
 const routes: Routes = [
@@ -91,7 +91,8 @@ const routes: Routes = [
       useFactory: adapterFactory,
     }),
   ],
-  providers: [ItineraryService],
+   providers: [ItineraryService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
+
 })
 export class AppModule { }
