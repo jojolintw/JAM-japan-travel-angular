@@ -1,8 +1,8 @@
 export interface Itinerary {
-  id: number;
-  title: string;
-  image: string;
-  // location: string;
-  stock: number;
-  price: number;
+  ItinerarySystemId: number;
+  ItineraryName: string;
+  AreaName: string;
+  ImageName: string;
+  Stock: number;
+  Price: number;
 }

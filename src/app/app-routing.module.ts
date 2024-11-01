@@ -47,9 +47,23 @@ const routes: Routes = [
     path: 'member',
     component: MemberareaComponent
    },
-
-  { path: 'itinerary-list', component: ItineraryListComponent },
-  { path: 'itinerary-list/area_:region', component: ItineraryListComponent },
+   {
+    path: 'itinerary-list',
+    children:[
+      {
+        path:'area',
+        component: ItineraryListComponent
+      },
+      {
+        path:'area_:region',
+        component: ItineraryListComponent
+      },
+      {
+        path:'theme',
+        component: ItineraryListComponent
+      }
+    ]
+   },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },
 
   { path: 'shipment-detail', component: DetailComponent },

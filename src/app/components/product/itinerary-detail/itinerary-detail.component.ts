@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
+import { MatDialog } from '@angular/material/dialog';
+import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselectiondialog.component';
 
 
 @Component({
@@ -19,97 +21,118 @@ export class ItineraryDetailComponent implements OnInit {
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
+  dayStatus: { [key: string]: { hasStock: boolean, times: string[] } } = {};
   availableSlots: { date: Date; time: string }[] = [];
+  availableTimes = ['09:00', '11:30', '15:00'];
 
   tours: ItineraryDetail[] = [
     {
-      id: 1,
-      title: '東京鐵塔浪漫之夜',
-      travelbrief: '在高空酒吧中，配著小酒享受東京鐵塔浪漫的魅力',
-      image: 'tokyotower.jpg',
-      date: [
-        { date: new Date('2024-10-30'), time: '9:00' },
-        { date: new Date('2024-10-30'), time: '12:00' },
-        { date: new Date('2024-11-01'), time: '9:00' },
+      ItinerarySystemId: 1,
+      ItineraryName: '東京鐵塔浪漫之夜',
+      AreaName: '東京',
+      ImageName: 'tokyotower.jpg',
+      DepartureDate:[
+        '2024-10-30 9:00',
+        '2024-10-30 12:00',
+        '2024-10-30 15:00',
       ],
-      stock: 3,
-      price: 3000,
+      Stock: 3,
+      Price: 3000,
+      ItineraryDetail: '',
+      ItineraryBrief: '',
+      ItineraryNotes: '',
     },
     {
-      id: 2,
-      title: '沖繩SUP體驗 新手友善',
-      travelbrief: '',
-      image: 'sup.jpg',
-      date: [
-        { date: new Date('2024-10-30'), time: '9:00' },
-        { date: new Date('2024-10-30'), time: '12:00' },
-        { date: new Date('2024-11-01'), time: '9:00' },
+      ItinerarySystemId: 2,
+      ItineraryName: '沖繩SUP體驗 新手友善',
+      AreaName: '沖繩',
+      ImageName: 'sup.jpg',
+      DepartureDate: [
+          '2024-10-30 9:00',
+          '2024-10-30 12:00',
+          '2024-10-30 15:00',
       ],
-      stock: 15,
-      price: 3500,
+      Stock: 15,
+      Price: 3500,
+      ItineraryDetail: '',
+      ItineraryBrief: '',
+      ItineraryNotes: '',
     },
     {
-      id: 3,
-      title: '挑戰日本最高峰',
-      travelbrief: '',
-      image: 'fujiyama.jpg',
-      date: [
-        { date: new Date('2024-10-30'), time: '9:00' },
-        { date: new Date('2024-11-30'), time: '12:00' },
-        { date: new Date('2024-12-01'), time: '9:00' },
+      ItinerarySystemId: 3,
+      ItineraryName: '挑戰日本最高峰',
+      AreaName: '富士山',
+      ImageName: 'fujiyama.jpg',
+      DepartureDate:[
+        '2024-10-30 9:00',
+        '2024-10-30 12:00',
+        '2024-10-30 15:00',
       ],
-      stock: 18,
-      price: 6500,
+      Stock: 18,
+      Price: 6500,
+      ItineraryDetail: '',
+      ItineraryBrief: '',
+      ItineraryNotes: '',
     },
     {
-      id: 4,
-      title: '手作烏冬體驗',
-      travelbrief: '',
-      image: 'noodle.jpg',
-      date: [
-        { date: new Date('2024-10-30'), time: '9:00' },
-        { date: new Date('2024-12-30'), time: '12:00' },
-        { date: new Date('2025-01-01'), time: '9:00' },
+      ItinerarySystemId: 4,
+      ItineraryName: '手作烏冬體驗',
+      AreaName: '沖繩',
+      ImageName: 'noodle.jpg',
+      DepartureDate: [
+        '2024-10-30 9:00',
+        '2024-10-30 12:00',
+        '2024-10-30 15:00',
       ],
-      stock: 20,
-      price: 1500,
+      Stock: 20,
+      Price: 1500,
+      ItineraryDetail: '',
+      ItineraryBrief: '',
+      ItineraryNotes: '',
     },
   ];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const idParam = params['id'];
       if (idParam) {
         const id = parseInt(idParam, 10);
-        this.itinerary = this.tours.find(tour => tour.id === id)?? null;
+        this.itinerary = this.tours.find(tour => tour.ItinerarySystemId === id) ?? null;
         if (this.itinerary) {
-          this.itinerary.date.forEach(slot => {
+          this.itinerary.DepartureDate.forEach(dateTimeStr => {
             this.events.push({
-              start: slot.date,
-              end: slot.date,
-              title: slot.time,
-              meta: { tourId: this.itinerary?.id }
+              start: new Date(dateTimeStr),
+              title: dateTimeStr.split(' ')[1],
+              meta: { tourId: this.itinerary?.ItinerarySystemId }
             });
           });
         }
-      } else {
-        this.itinerary = null;
       }
     });
+    this.initializeDayStatus();
+  }
 
+  private initializeDayStatus(): void {
     this.tours.forEach(tour => {
-      tour.date.forEach(slot => {
-        this.events.push({
-          start: slot.date,
-          end: slot.date,
-          title: slot.time,
-          meta: { tourId: tour.id }
-        });
+      tour.DepartureDate.forEach(dateTimeStr => {
+        const dateStr = dateTimeStr.split(' ')[0];
+        const timeStr = dateTimeStr.split(' ')[1];
+
+        if (!this.dayStatus[dateStr]) {
+          this.dayStatus[dateStr] = {
+            hasStock: tour.Stock > 0,
+            times: []
+          };
+        }
+        if (!this.dayStatus[dateStr].times.includes(timeStr)) {
+          this.dayStatus[dateStr].times.push(timeStr);
+        }
       });
     });
   }
+
   previousMonth(): void {
     this.viewDate = subMonths(this.viewDate, 1);
   }
@@ -118,11 +141,31 @@ export class ItineraryDetailComponent implements OnInit {
     this.viewDate = addMonths(this.viewDate, 1);
   }
 
+  hasStockInfo(day: CalendarMonthViewDay): boolean {
+    const dateStr = day.date.toISOString().split('T')[0];
+    return !!this.dayStatus[dateStr];
+  }
+
+  getStockStatus(day: CalendarMonthViewDay): string {
+    const dateStr = day.date.toISOString().split('T')[0];
+    return this.dayStatus[dateStr]?.hasStock ? 'O' : 'X';
+  }
+
   onDayClicked(day: CalendarMonthViewDay): void {
-    this.selectedDay = day;
-    this.availableSlots = this.tours
-     .flatMap(tour => tour.date)
-     .filter(slot => isSameDay(slot.date, day.date));
+    const dateStr = day.date.toISOString().split('T')[0];
+    const availableTimes = this.dayStatus[dateStr]?.times || [];
+
+    this.dialog.open(TimeSelectionDialogComponent, {
+      data: {
+        DepartureDate: dateStr,
+        times: availableTimes,
+        tours: this.tours.map(tour => ({
+          DepartureDate: tour.DepartureDate,
+          stock: tour.Stock
+        }))
+      },
+      width: '300px'
+    });
   }
 
 }

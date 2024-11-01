@@ -20,4 +20,14 @@ constructor(private router:Router){
     this.router.navigate(['cart'])
   }
 
+  isSideMenuOpen = false;
+
+  toggleSideMenu() {
+    this.isSideMenuOpen = !this.isSideMenuOpen;
+  }
+
+  closeSideMenu() {
+    this.isSideMenuOpen = false;
+  }
+
 }

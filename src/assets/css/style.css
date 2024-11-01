@@ -5533,6 +5533,7 @@ Header Customization
   border-radius: 50%;
   transition: 0.5s ease-in-out;
   background-color: var(--white-color);
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5540,7 +5541,10 @@ Header Customization
 }
 .features-style1 .features-image img,
 .features-style3 .features-image img {
-  width: 40px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .features-style1 .features-image::before, .features-style1 .features-image::after,
 .features-style3 .features-image::before,

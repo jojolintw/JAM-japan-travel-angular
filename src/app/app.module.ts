@@ -35,6 +35,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { TimeSelectionDialogComponent } from './components/product/timeselectiondialog/timeselectiondialog.component';
+
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 
 
@@ -61,6 +66,8 @@ const routes: Routes = [
 
     ItineraryListComponent,
     ItineraryDetailComponent,
+    TimeSelectionDialogComponent,
+
 
     DetailComponent,
     TicketComponent,
@@ -90,9 +97,13 @@ const routes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
   ],
    providers: [ItineraryService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
+
 
 })
 export class AppModule { }

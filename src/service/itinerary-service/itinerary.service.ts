@@ -3,20 +3,35 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Itinerary } from '../../app/interface/Product/itinerary.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ItineraryService {
-
-  private apiUrl = 'https://your-api-url.com/tours'; // 替换为你的实际 API 地址
+  private apiUrl = 'https://your-api-base-url/api/product';
 
   constructor(private http: HttpClient) { }
 
-  getToursByRegion(region: number): Observable<any> {
+  getItinerariesByRegion(region: number): Observable<any> {
     return this.http.get<Itinerary[]>(`${this.apiUrl}?region=${region}`);
   }
 
-  getTourById(id: number): Observable<any> {
-    return this.http.get<Itinerary>(`${this.apiUrl}/${id}`);
+  getItineraryById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+  getItineraries(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/list`);
+  }
+
+  createItinerary(itinerary: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, itinerary);
+  }
+
+  deleteItinerary(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  updateItinerary(id: number, itinerary: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, itinerary);
   }
 }

@@ -29,7 +29,7 @@
                 <div *ngFor="let tour of displayedTours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
                     <div class="package-style1">
                       <div class="package-img">
-                        <a href="#"><img [src]="'../../../assets/img/tours/' + tour.image" alt="Package Image" ></a>
+                        <a href="#"><img [src]="'../../../assets/img/tours/' + tour.ImageName" alt="Package Image" ></a>
                       </div>
                       <div class="package-content">
                         <div class="package-review">
@@ -39,14 +39,14 @@
                           <i class="far fa-star"></i>
                           <i class="far fa-star"></i>
                         </div>
-                        <h3 class="package-title"><a [routerLink]="['/itinerary-detail', tour.id]">{{tour.title}}</a></h3>
-                        <p class="package-text">{{tour.title}}</p>
+                        <h3 class="package-title"><a [routerLink]="['/itinerary-detail', tour.ItinerarySystemId]">{{tour.ItineraryName}}</a></h3>
+                        <p class="package-text">{{tour.ItineraryName}}</p>
                         <div class="package-meta">
-                          <a [routerLink]="['/itinerary-detail', tour.id]"><i class="fas fa-user"></i> People: 3</a>
+                          <a [routerLink]="['/itinerary-detail', tour.ItinerarySystemId]"><i class="fas fa-user"></i> People: 3</a>
                         </div>
                         <div class="package-footer">
-                          <span class="package-price">{{tour.price | currency:'TWD':'symbol': '1.0-0'}}</span>
-                          <a [routerLink]="['/itinerary-detail', tour.id]" class="vs-btn">體驗行程詳情</a>
+                          <span class="package-price">{{tour.Price | currency:'TWD':'symbol': '1.0-0'}}</span>
+                          <a [routerLink]="['/itinerary-detail', tour.ItinerarySystemId]" class="vs-btn">體驗行程詳情</a>
                         </div>
                       </div>
                   </div>
