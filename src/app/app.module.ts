@@ -35,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ArticleService } from 'src/service/article-service/article.service';
 
 
 
@@ -91,7 +92,7 @@ const routes: Routes = [
       useFactory: adapterFactory,
     }),
   ],
-  providers: [ItineraryService],
+  providers: [ItineraryService,ArticleService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
