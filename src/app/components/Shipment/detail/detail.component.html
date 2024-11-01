@@ -18,10 +18,10 @@
                 走進世界遺產首里城，感受琉球王國的輝煌過去，或是在國際通上品嚐當地美食，體驗沖繩獨特的風味與文化。從清澈的海水、珊瑚礁到充滿綠意的公園
                 和傳統市場，那霸為每一位遊客提供豐富的自然景觀與購物樂趣。不論是歷史迷、海洋愛好者，還是美食家，那霸都能帶給您難忘的旅遊體驗！</p>
               <div>
-                <h2 class="ds-title">地圖</h2>
+                <h2 class="ds-title">周邊地圖</h2>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57272.98532511892!2d127.64350269380876!3d26.210936386945782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e5697141a6b58b%3A0x2cd8aff616585e98!2z5pel5pys5rKW57mp57ij6YKj6Zy45biC!5e0!3m2!1szh-TW!2stw!4v1730267403732!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
-                <div class="destinations-info">
+                <!-- <div class="destinations-info">
               <h2>參考資訊</h2>
               <p>為了提升您的旅遊體驗，請參考以下資訊，以便做好充分的準備，確保您的旅程順利無憂。</p>
               <table class="destination-table">
@@ -44,7 +44,7 @@
                 </tr>
               </table>
               
-            </div>
+            </div> -->
             <h2 class="ds-title">圖片</h2>
             <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
             <div class="mt-4">
@@ -85,7 +85,36 @@
                     </div>
                   </div>
                 </div>
+                 <div class="destinations-info">
+              <h2>費用包含/不包含</h2>
+              <table class="destination-table">
+                <ul>
+                  <li>
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    船票
+                  </li>
+                  <li>
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    設施使用費
+                  </li>
+                  <li>
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    燃油費用
+                  </li>
+                  <li>
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    國際觀光旅客稅
+                  </li>
+                  <li>
+                    <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    以上未提及消費
+                  </li>
+                  
+                </ul>
                 
+              </table>
+              
+            </div>
               </div>
             </div>
 
@@ -101,17 +130,54 @@
             <div class="widget widget_tag_cloud">
               <h3 class="widget_title">出發日期</h3>
               <div class="tagcloud">
-                <a href="blog.html">10/4</a>
-                <a href="blog.html">10/11</a>
-                <a href="blog.html">10/18</a>
-                <a href="blog.html">10/25</a>
-                <a href="blog.html">11/1</a>
-                <a href="blog.html">11/8</a>
-                <a href="blog.html">11/15</a>
-                <a href="blog.html">11/22</a>
-                <a href="blog.html">11/29</a>
+                <a href="#" class="date-option" data-date="10/4">10/4</a>
+                <a href="#" class="date-option" data-date="10/11">10/11</a>
+                <a href="#" class="date-option" data-date="10/18">10/18</a>
+                <a href="#" class="date-option" data-date="10/25">10/25</a>
+                <a href="#" class="date-option" data-date="11/1">11/1</a>
+                <a href="#" class="date-option" data-date="11/8">11/8</a>
+                <a href="#" class="date-option" data-date="11/15">11/15</a>
+                <a href="#" class="date-option" data-date="11/22">11/22</a>
+                <a href="#" class="date-option" data-date="11/29">11/29</a>
                 <a href="#" id="viewAllDates">查看所有時間</a>
               </div>
+              <button id="date-btn" type="button" class="vs-btn style4 mt-2">下一步</button>
+              
+              <script>
+                let selectedDate = null;
+              
+                // 添加點擊事件，選擇日期
+                document.querySelectorAll('.date-option').forEach(function (element) {
+                  element.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    
+                    // 移除所有日期選項的選中樣式
+                    document.querySelectorAll('.date-option').forEach(el => el.classList.remove('selected'));
+              
+                    // 標記選中的日期
+                    this.classList.add('selected');
+                    selectedDate = this.getAttribute('data-date');
+                  });
+                });
+              
+                // 點擊「下一步」按鈕，將選擇的日期送到下一層
+                document.getElementById('date-btn').addEventListener('click', function () {
+                  if (selectedDate) {
+                    // 跳轉到下一層或將選中的日期傳送到後端
+                    window.location.href = `blog.html?date=${selectedDate}`;
+                  } else {
+                    alert("請先選擇一個日期！");
+                  }
+                });
+              </script>
+              
+              <style>
+                .selected {
+                  font-weight: bold;
+                  color: #007bff;
+                }
+              </style>
+              
             </div>
   
             
