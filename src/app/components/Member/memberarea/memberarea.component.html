@@ -9,17 +9,17 @@
                 <img src="assets/img/Member/winnie.jpg" />
               </div>
               <div>
-                <label style="font-size: 20px; color: black;"><b>莊智傑</b></label>
+                <label style="font-size: 20px; color: black;"><b>{{loginTransfer.ChineseName}}</b></label>
               </div>
               <div>
-                <label style="font-size: 20px; color:	#3C3C3C;">白銀會員</label>
+                <label style="font-size: 20px; color:	black;">{{loginTransfer.MemberLevel}}</label>
               </div>
               <hr>
               <div style="display: flex; align-items: flex-start; margin: 10px;">
                 <img src="assets/img/jam_logo2.jpg" style="width: 30px; margin-right: 10px;" />
                 <div style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px ;">
                   <label style="color: black; font-size: 12px; margin-bottom: 0%;"><b>JAM 會員</b></label>
-                  <label style="color: black; font-size: 12px; margin-top: 0%">winnie&#64;gmail.com</label>
+                  <label style="color: black; font-size: 12px; margin-top: 0%">{{loginTransfer.Email}}</label>
                 </div>
               </div>
             </div>
@@ -41,7 +41,7 @@
 
       <!-- ========================右半邊頁面============================================== -->
       <div [ngSwitch]="selectedComponent">
-        <app-account *ngSwitchCase="'account'"></app-account>
+        <app-account *ngSwitchCase="'account'" [loginTransfer]="loginTransfer"></app-account>
         <app-mycollection *ngSwitchCase="'mycollection'"></app-mycollection>
         <app-myorder *ngSwitchCase="'myorder'" (gotoOrderDetailemit)="goToOrderDetail($event)"></app-myorder>
         <app-memberorderdetail *ngSwitchCase="'memberorderdetail'"></app-memberorderdetail>

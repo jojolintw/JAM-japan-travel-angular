@@ -12,18 +12,18 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label>中文姓名*</label>
-          <input type="text" class="form-control" placeholder="中文姓名">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.ChineseName" placeholder="中文姓名">
         </div>
         <div class="col-md-4 form-group">
           <label>英文姓名</label>
-          <input type="text" class="form-control" placeholder="英文姓名">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.EnglishName" placeholder="英文姓名">
         </div>
         <div class="col-md-4 form-group">
           <label>性別</label>
-          <select class="form-select">
-            <option>請選擇</option>
-            <option value="1">男</option>
-            <option value="0">女</option>
+          <select class="form-select" [(ngModel)]="loginTransfer.Gender">
+            <option disabled>請選擇</option>
+            <option value="true">男</option>
+            <option value="false">女</option>
           </select>
         </div>
       </div>
@@ -33,13 +33,13 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label>出生日期</label>
-          <input type="date" class="form-control" placeholder="yyyy/MM/dd">
+          <input type="date" class="form-control" [(ngModel)]="loginTransfer.Birthday" placeholder="YYYY/MM/DD">
         </div>
         <div class="col-md-4 form-group">
-          <label>國家</label>
-          <select class="form-select">
+          <label>地區</label>
+          <select class="form-select" [(ngModel)]="loginTransfer.CityAreaId">
             <option>請選擇</option>
-            <option></option>
+            <option *ngFor="let area of cityAreas" [value]="area.cityAreaId">{{area.cityAreaName}}</option>
           </select>
         </div>
         <div class="col-md-4 form-group">
@@ -55,18 +55,18 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label>電話號碼</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.Phone">
         </div>
         <div class="col-md-8 form-group">
           <label>聯絡 Email*</label>
-          <input type="Email" class="form-control">
+          <input type="Email" class="form-control" [(ngModel)]="loginTransfer.Email">
         </div>
       </div>
     </div>
     <!-- ================================================================================== -->
     <div class="col-md-12">
       <div class="row justify-content-end">
-        <button class="vs-btn mask-style1 style4 col-md-2" type="submit">儲存</button>
+        <button class="vs-btn mask-style1 style4 col-md-2" type="button" (click)="save()">儲存</button>
       </div>
     </div>
   </div>
