@@ -8,9 +8,10 @@ import { Itinerary } from '../../app/interface/Product/itinerary.interface';
   providedIn: 'root'
 })
 export class ItineraryService {
-  private apiUrl = 'https://your-api-base-url/api/product';
+  private apiUrl = 'https://localhost:7217/api/ProductAPI';  // 請確認這是您的後端API正確的端口號
 
   constructor(private http: HttpClient) { }
+
 
   getItinerariesByRegion(region: number): Observable<any> {
     return this.http.get<Itinerary[]>(`${this.apiUrl}?region=${region}`);
@@ -19,6 +20,7 @@ export class ItineraryService {
   getItineraryById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
+
   getItineraries(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/list`);
   }
