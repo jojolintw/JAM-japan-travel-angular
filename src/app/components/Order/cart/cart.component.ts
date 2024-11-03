@@ -16,11 +16,19 @@ export class CartComponent {
 
 
   setcontent(){
-    this.localstorageService.setItem('text2','AAB');
+    const textcontent = document.getElementById('textcontent');
+    if(textcontent)
+      {
+        const textContentElement = document.getElementById('textcontent') as HTMLInputElement;
+        if (textContentElement) {
+          const textContentValue = textContentElement.value;
+          this.localstorageService.setItem('text3', textContentValue);
+      }
+      }
   }
 
   getcontent(){
-    var text =  this.localstorageService.getItem('text2');
+    var text =  this.localstorageService.getItem('text1');
     alert(text);
   }
 
