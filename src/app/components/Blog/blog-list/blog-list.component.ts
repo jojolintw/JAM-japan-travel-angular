@@ -1,20 +1,33 @@
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import{ArticleService} from 'src/service/article-service/article.service';
-import { Article } from 'src/app/interface/Product/Article.interface';
+import{ArticleService} from 'src/app/service/Member/article-service/article.service';
+import { Article } from 'src/app/interface/Article/Article.interface';
 
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.css']
 })
-export class BlogListComponent {
-  // xxx:Article[];
+export class BlogListComponent implements OnInit{
+
+  // article:Article[]=[];
+  displayedArticles: Article[] = [];
+
+
   constructor(private route: ActivatedRoute, private ArticleService: ArticleService) { }
 
   ngOnInit(): void {
-        this.ArticleService.getArticle().subscribe((data: Article[]) => {
-        //  this.xxx=data;
-    })
+    this.ArticleService.getArticles().subscribe((data: Article[]) => {
+      console.log('API 返回的資料:', data); // 打印整個返回的資料
+      this.displayedArticles = data;
+
+      // 迭代每篇文章，打印發文時間和最新修改時間
+      this.displayedArticles.forEach(article => {
+        console.log('發文日期:', article.launchTime);
+        console.log('最新修改日期:', article.lastUpdateTime);
+      });
+    }, (error) => {
+      console.error('Error fetching articles', error);
+    });
   }
 }
