@@ -30,4 +30,8 @@ constructor(private router:Router){
     this.isSideMenuOpen = false;
   }
 
+  goToItineraryList() {
+    this.router.navigate(['/itinerary-list']);
+  }
+
 }

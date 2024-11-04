@@ -70,11 +70,11 @@
             </div>
 
             <h2 class="product-title">
-              {{itinerary.ItineraryName}}
+              {{itinerary.itineraryName}}
             </h2>
-            <p class="product-price">{{itinerary.Price | currency:'TWD':'symbol': '1.0-0'}}</p>
+            <p class="product-price">{{itinerary.price | currency:'TWD':'symbol': '1.0-0'}}</p>
             <p class="product-text">
-             {{itinerary.ItineraryBrief}}
+             {{itinerary.itineraryBrief}}
             </p>
             <div class="calendar-container">
               <!-- 時間說明 -->
@@ -126,7 +126,8 @@
                   value="1" title="Qty" placeholder="1">
                 <button class="quantity-plus qty-btn"><i class="fal fa-plus"></i></button>
               </div>
-              <a href="cart.html" class="vs-btn style4">Add to cart</a>
+              <a href="cart.html" class="vs-btn style4">加入購物車</a>
+              <a href="cart.html" class="vs-btn style4">立即報名</a>
               <a href="cart.html" class="icon-btn"><i class="fas fa-heart"></i></a>
             </div>
           </div>
@@ -147,7 +148,7 @@
         <div class="tab-content" id="productTabContent">
           <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
             <div class="inner-pane">
-              <p class="description-text">位於33樓，提供日夜景色，包括東京鐵塔和皇居。近距離欣賞東京鐵塔的景致。</p>
+              <p class="description-text">{{itinerary.itineraryDetail}}</p>
               <div class="list-style2 ">
                 <ul class="list-unstyled">
                   <li><span>Brand</span> <span class="item-name">Fujifilm</span> </li>

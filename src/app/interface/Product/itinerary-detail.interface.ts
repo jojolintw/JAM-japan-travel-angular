@@ -1,12 +1,15 @@
+import { isSameDay } from 'date-fns';
+import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 export interface ItineraryDetail {
-  ItinerarySystemId: number;
-  ItineraryName: string;
-  AreaName: string;
-  ImageName: string;
-  DepartureDate: string[];
-  Stock: number;
-  Price: number;
-  ItineraryDetail: string;
-  ItineraryBrief: string;
-  ItineraryNotes: string;
+  itinerarySystemId: number;
+  itineraryName: string;
+  activityName: string;
+  areaName: string;
+  imageName: string;
+  itineraryDate: string[];
+  stock: number;
+  price: number;
+  itineraryDetail: string;
+  itineraryBrief: string;
+  itineraryNotes: string;
 }
