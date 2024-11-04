@@ -11,11 +11,9 @@ export class LoginService {
 
   constructor(private client: HttpClient) { }
 
-
-
   //將JWT Token 存於SessionStorage
   saveToken(token: string) {
-    sessionStorage.setItem('jwtToken', token);
+    localStorage.setItem('jwtToken', token);
   }
 
   //登入的API
@@ -27,8 +25,12 @@ export class LoginService {
   RegisterApi(para: Register) {
     return this.client.post<any>('https://localhost:7100/api/Login/Register', para, { withCredentials: true })
   }
-    //註冊的API
-    SendMail() {
-      return this.client.get('https://localhost:7100/api/Login/SendEmail', { withCredentials: true })
+  //寄驗證信的API
+  SendCertificationMail() {
+    return this.client.get<any>('https://localhost:7100/api/Login/sendCertificationEmail', { withCredentials: true })
+  }
+    //驗證信通過的API
+    CertificationSuccess() {
+      return this.client.get<any>('https://localhost:7100/api/Login/memberCertification', { withCredentials: true })
     }
 }

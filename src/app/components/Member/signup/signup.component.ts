@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Register } from 'src/app/interface/Login/Register';
 import { LoginService } from 'src/app/service/Member/login.service';
+import { RegistercompleleComponent } from '../registercomplele/registercomplele.component';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,7 @@ import { LoginService } from 'src/app/service/Member/login.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  constructor(private router: Router,private loginService: LoginService) { }
+  constructor(private router: Router,private loginService: LoginService,private dialog: MatDialog) { }
 
   inputRegister: Register =
     {
@@ -81,7 +83,7 @@ export class SignupComponent {
       this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
       return;
     }
-    //打API
+    //打註冊API
     this.loginService.RegisterApi(this.inputRegister).subscribe(data => {
 
       if (data['result'] === 'repeataccount') {
@@ -90,15 +92,15 @@ export class SignupComponent {
       }
       if (data['result'] === 'success') {
         this.loginService.saveToken(data.token);
-        this.router.navigate(['**'])
+
+        this.loginService.SendCertificationMail().subscribe(dataCertification => {
+          if(dataCertification.result==='success')
+            {
+              this.dialog.open(RegistercompleleComponent);
+              this.router.navigate(['**'])
+            }
+        })
       }
     })
   }
-  SendMail()
-  {
-    this.loginService.SendMail().subscribe(data => {
-      console.log(data);
-    })
-  }
-
 }

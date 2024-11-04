@@ -21,6 +21,7 @@ import { CouponComponent } from './components/Member/coupon/coupon.component';
 import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
 
 import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
+import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
 const routes: Routes = [
    {
     path: 'login',
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path:'resetpassword',
         component: ResetpasswordComponent
+      },
+      {
+        path:'certificationsuccess',
+        component: CertificationSuccessComponent
       }
     ]
    },

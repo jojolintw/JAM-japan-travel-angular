@@ -43,6 +43,7 @@ import { TimeSelectionDialogComponent } from './components/product/timeselection
 
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 import { RegistercompleleComponent } from './components/Member/registercomplele/registercomplele.component';
+import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
 
 
 const routes: Routes = [
@@ -83,7 +84,7 @@ const routes: Routes = [
       BlogWriteComponent,
       BlogDetailComponent,
       RegistercompleleComponent,
-
+      CertificationSuccessComponent,
   ],
   imports: [
     BrowserModule,
