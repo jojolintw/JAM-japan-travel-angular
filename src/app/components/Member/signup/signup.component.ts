@@ -89,6 +89,7 @@ export class SignupComponent {
         return
       }
       if (data['result'] === 'success') {
+        this.loginService.saveToken(data.token);
         this.router.navigate(['**'])
       }
     })

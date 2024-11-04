@@ -42,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TimeSelectionDialogComponent } from './components/product/timeselectiondialog/timeselectiondialog.component';
 
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
+import { RegistercompleleComponent } from './components/Member/registercomplele/registercomplele.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,7 @@ const routes: Routes = [
       MemberorderdetailComponent,
       BlogWriteComponent,
       BlogDetailComponent,
+      RegistercompleleComponent,
 
   ],
   imports: [
