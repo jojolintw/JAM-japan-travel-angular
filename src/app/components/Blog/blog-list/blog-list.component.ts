@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import{ArticleService} from 'src/app/service/Member/article-service/article.service';
+import{ArticleService} from 'src/app/service/Blog/article-service/article.service';
 import { Article } from 'src/app/interface/Article/Article.interface';
 
 @Component({
@@ -23,11 +23,17 @@ export class BlogListComponent implements OnInit{
 
       // 迭代每篇文章，打印發文時間和最新修改時間
       this.displayedArticles.forEach(article => {
+        article.launchTime = new Date(article.launchTime);
+        article.lastUpdateTime = new Date(article.lastUpdateTime);
         console.log('發文日期:', article.launchTime);
         console.log('最新修改日期:', article.lastUpdateTime);
       });
     }, (error) => {
       console.error('Error fetching articles', error);
     });
+  }
+
+  clickTest(){
+    alert('here');
   }
 }

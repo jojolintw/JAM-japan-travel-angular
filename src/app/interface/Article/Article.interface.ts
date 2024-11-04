@@ -1,11 +1,10 @@
 export interface Article {
-  articleLaunchtime: string | number | Date;
   articleId: number;
   memberId: number;
-  launchTime: string;
+  launchTime: Date;
   articleTitle: string;
-  lastUpdateTime: string;
+  lastUpdateTime: Date;
   articleContent: string;
-  articleHashtag: string[];
+  articleHashtags: string[];
   // image?: string;
 }
