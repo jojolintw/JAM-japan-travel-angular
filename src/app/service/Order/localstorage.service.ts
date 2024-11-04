@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { error } from 'jquery';
 import { apiresponse, memberInfo } from 'src/app/interface/Order/memberInfo';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -44,24 +45,33 @@ export class LocalstorageService {
     localStorage.clear();
   }
 
-  getMemberInfo(){
-    return this.client.get<apiresponse>('https://localhost:7100/api/Member/GetLoginMember').subscribe(
-      (response) =>{
-        const memberId = JSON.stringify(response.loginmember.memberId);
-        const memberName = JSON.stringify(response.loginmember.chineseName);
-        const phone = JSON.stringify(response.loginmember.phone);
-        const email = JSON.stringify(response.loginmember.email);
-        localStorage.setItem('memberId',memberId);
-        localStorage.setItem('memberName',memberName);
-        localStorage.setItem('phone',phone);
-        localStorage.setItem('email',email);
-      },
-      (error) =>{
-        console.error('獲取會員資訊失敗', error);
-        alert('獲取失敗');
-      }
+  // getMemberInfo(){
+  //   return this.client.get<apiresponse>('https://localhost:7100/api/Member/GetLoginMember').subscribe(
+  //     (response) =>{
+  //       // const memberId = JSON.stringify(response.loginmember.memberId);
+  //       // const memberName = JSON.stringify(response.loginmember.chineseName);
+  //       // const phone = JSON.stringify(response.loginmember.phone);
+  //       // const email = JSON.stringify(response.loginmember.email);
+  //       // localStorage.setItem('memberId',memberId);
+  //       // localStorage.setItem('memberName',memberName);
+  //       // localStorage.setItem('phone',phone);
+  //       // localStorage.setItem('email',email);
 
-    );
+  //       // const memberinfo = JSON.stringify(response);
+  //       // alert(memberinfo);
+
+  //     },
+  //     (error) =>{
+  //       console.error('獲取會員資訊失敗', error);
+  //       alert('獲取失敗');
+  //     }
+
+  //   );
+  // }
+
+
+  getMemberInfo(): Observable<apiresponse> {
+    return this.client.get<apiresponse>('https://localhost:7100/api/Order/GetLoginMember');
   }
-
 }
+
