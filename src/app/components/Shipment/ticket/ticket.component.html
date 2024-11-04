@@ -12,7 +12,46 @@
   ==============================-->
   
   <div class="col-lg-9">
-    <H2>近期出發</H2>
+    <label for="sort">排序：</label>
+    <select id="sort" name="sort">
+      <option value="default">默認排序</option>
+      <option value="priceAsc">價格：低到高</option>
+      <option value="priceDesc">價格：高到低</option>
+      <option value="date">近期出發</option>
+    </select>
+
+
+    
+    <div class="row">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" *ngFor="let shipment of shipments">
+        <div class="destination-style1">
+          <a href="destination-details.html">
+            <img 
+    *ngIf="shipment.imageUrl || shipment.imageBase64" 
+    [src]="shipment.imageUrl || (shipment.imageBase64 ? 'data:image/jpeg;base64,' + shipment.imageBase64 : 'assets/img/Shipment/default.jpg')" 
+    alt="destination image" 
+    style="width: 550px; height: 300px;" />
+
+                  </a>
+          <span class="destination-price">{{ shipment.price | currency }}</span>
+          <div class="destination-info">
+            <h4 class="destination-name">
+              <a href="#">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
+            </h4>
+            <p class="destination-text">{{ shipment.routeDescription }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- <H2>近期出發</H2>
     <div class="row">
               <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
           <div class="destination-style1">
@@ -113,8 +152,9 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="vs-pagination pt-lg-2">
+      </div> -->
+      <!-- 翻頁 -->
+      <div class="vs-pagination pt-lg-2"> 
         <ul>
           <li>
             <a href="destinations.html"><i class="fas fa-chevron-left"></i></a>
