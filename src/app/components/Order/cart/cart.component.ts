@@ -40,6 +40,10 @@ export class CartComponent {
     this.localstorageService.clearItem();
   }
 
+  getMemberInfo(){
+    this.localstorageService.getMemberInfo();
+  }
+
   goToCheckout() {
     this.router.navigate(['checkout']);
   }
@@ -52,4 +56,7 @@ export class CartComponent {
   goToProductDetail(){
     this.router.navigate(['itinerary-detail/1'])
   }
+
+
+
 }
