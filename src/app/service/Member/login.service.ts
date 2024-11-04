@@ -29,8 +29,12 @@ export class LoginService {
   SendCertificationMail() {
     return this.client.get<any>('https://localhost:7100/api/Login/sendCertificationEmail', { withCredentials: true })
   }
-    //驗證信通過的API
-    CertificationSuccess() {
-      return this.client.get<any>('https://localhost:7100/api/Login/memberCertification', { withCredentials: true })
+  //驗證信通過的API
+  CertificationSuccess() {
+    return this.client.get<any>('https://localhost:7100/api/Login/memberCertification', { withCredentials: true })
+  }
+    //忘記密碼寄信的API
+    ForgetPasswortEmail(para: LoginTransfer) {
+      return this.client.post<any>('https://localhost:7100/api/Login/forgetpasswordEmail', para ,{ withCredentials: true })
     }
 }

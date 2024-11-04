@@ -35,6 +35,10 @@ const routes: Routes = [
         component: SignupComponent
       },
       {
+        path:'certificationsuccess',
+        component: CertificationSuccessComponent
+      },
+      {
         path:'forgetpassword',
         component: ForgetpasswordComponent
       },
@@ -42,10 +46,7 @@ const routes: Routes = [
         path:'resetpassword',
         component: ResetpasswordComponent
       },
-      {
-        path:'certificationsuccess',
-        component: CertificationSuccessComponent
-      }
+
     ]
    },
    {
