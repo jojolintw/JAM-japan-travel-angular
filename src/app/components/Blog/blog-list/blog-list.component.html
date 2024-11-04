@@ -7,36 +7,39 @@
 
           <div *ngIf="displayedArticles.length > 0; else noArticles">
 
-          <div *ngFor="let item of displayedArticles" class="col-xl-6 col-md-6 col-sm-12 col-12">
-            <div class="vs-blog blog-style2">
-              <div class="blog-img">
-                <a href="#"><img src="assets/img/blog/Fukuoka.jpg" alt="blog image"></a>
-                <div class="blog-inner-author">
-                  <img src="assets/img/blog/authorpic.png" alt="blog author image">
-                  <a href="#" class="author-name">森上梅友前</a>
-                  <span class="author-degi"></span>
+            <div *ngFor="let item of displayedArticles" class="col-xl-6 col-md-6 col-sm-12 col-12">
+              <div class="vs-blog blog-style2">
+                <div class="blog-img">
+                  <a href="#"><img src="assets/img/blog/Fukuoka.jpg" alt="blog image"></a>
+                  <div class="blog-inner-author">
+                    <img src="assets/img/blog/authorpic.png" alt="blog author image">
+                    <a href="#" class="author-name">森上梅友前</a>
+                    <span class="author-degi"></span>
+                  </div>
                 </div>
-              </div>
-              <div class="blog-content">
-                <h2 class="blog-title">{{item.articleTitle}}</h2>
-                <p>{{item.articleContent}}</p>
-                <div class="blog-bottom">
-                  <div>
-                   <i class="fas fa-calendar-alt">發文日期</i> {{item.launchTime| date:'yyyy/MM/dd'}}
+                <div class="blog-content">
+                  <h2 class="blog-title">{{item.articleTitle}}</h2>
+                  <p>{{item.articleContent}}</p>
+                  <div class="blog-bottom">
+                    <div>
+                      <i class="fas fa-calendar-alt">發文日期</i> {{item.launchTime| date:'yyyy/MM/dd'}}
+                    </div>
+                    <div>
+                      <i class="fas fa-calendar-alt">最新修改日期</i>{{item.lastUpdateTime | date:'yyyy/MM/dd'}}
+                    </div>
+                    <a class="vs-btn has-arrow" href="#">看全文 <i class="fal fa-arrow-right"></i></a>
                   </div>
-                  <div>
-                   <i class="fas fa-calendar-alt">最新修改日期</i>{{item.lastUpdateTime | date:'shortDate'}}
-                  </div>
-                  <a class="vs-btn has-arrow" href="#">看全文 <i class="fal fa-arrow-right"></i></a>
+                  <li *ngFor="let articleHashtag of item.articleHashtags;" (click)="clickTest()">
+                    {{articleHashtag}}
+                  </li>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <ng-template #noArticles>
-          <div>没有文章可显示。</div>
-      </ng-template>
+          <ng-template #noArticles>
+            <div>没有文章可显示。</div>
+          </ng-template>
 
           <!-- <div class="col-xl-6 col-md-6 col-sm-12 col-12">
             <div class="vs-blog blog-style2">
@@ -208,7 +211,7 @@
                     福岡
                   </h4>
                   <div class="recent-post-meta">
-                   <i class="fas fa-calendar-alt">發文日期</i> July 21, 2023
+                    <i class="fas fa-calendar-alt">發文日期</i> July 21, 2023
                   </div>
                 </div>
               </div>
