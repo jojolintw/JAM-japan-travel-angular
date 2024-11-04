@@ -142,13 +142,16 @@
             <h2 class="h4">購買人資訊</h2>
             <div class="row">
               <div class="col-12 form-group">
-                <input type="text" class="form-control" placeholder="會員名稱" readonly>
+                <p style="padding: 0; margin: 0;">會員名稱</p>
+                <input type="text" class="form-control" [value]="memberName" placeholder="會員名稱" readonly>
               </div>
               <div class="col-12 form-group">
-                <input type="text" class="form-control" placeholder="會員信箱" readonly>
+                <p style="padding: 0; margin: 0;">電子信箱</p>
+                <input type="text" class="form-control" [value]="email" placeholder="會員信箱" readonly>
               </div>
               <div class="col-12 form-group">
-                <input type="text" class="form-control" placeholder="會員電話" readonly>
+                <p style="padding: 0; margin: 0;">手機號碼</p>
+                <input type="text" class="form-control" [value]="phone" placeholder="會員電話" readonly>
               </div>
             </div>
           </div>
