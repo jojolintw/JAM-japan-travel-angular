@@ -5146,14 +5146,18 @@ Header Customization
   background-color: var(--white-color);
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
   transition: all ease 0.4s;
-  height: 100%;
+  height: 550px;
+  width: 300px;
 }
 .package-style1 .package-img,
 .package-style3 .package-img {
   overflow: hidden;
   height: 50%;
+  width: 330px;
 }
 .package-style1 .package-img img,
 .package-style3 .package-img img {
@@ -5165,13 +5169,27 @@ Header Customization
 .package-style1 .package-content,
 .package-style3 .package-content {
   padding: 25px 30px 30px;
-  height: 50%;
+  height: calc(100% - 300px);  /* 讓內容區域填滿剩餘高度 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .package-style1 .package-title,
 .package-style3 .package-title {
   font-size: 20px;
   font-weight: 600;
   margin: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
 }
 .package-style1 .package-title a,
 .package-style3 .package-title a {
@@ -5184,6 +5202,17 @@ Header Customization
 .package-style1 .package-text,
 .package-style3 .package-text {
   margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-line-clamp: 3;
+  -moz-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
 }
 .package-style1 .package-meta,
 .package-style3 .package-meta {
@@ -6652,7 +6681,14 @@ Header Customization
   box-shadow: 0px 13px 48px 0px rgba(255, 104, 26, 0.07);
   background-color: var(--white-color);
 }
+.filter-active.tours-active {
+  margin: 0 -10px;  /* 抵消卡片的左右margin */
+}
 
+/* 調整列容器的寬度 */
+.filter-active.tours-active .col-xl-4 {
+  padding: 0 10px;  /* 確保列之間有間距 */
+}
 
 
 /* Large devices */

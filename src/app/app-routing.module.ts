@@ -57,6 +57,10 @@ const routes: Routes = [
     path: 'itinerary-list',
     children:[
       {
+        path:'',
+        component: ItineraryListComponent
+      },
+      {
         path:'area',
         component: ItineraryListComponent
       },

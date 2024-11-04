@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ItineraryService } from 'src/service/itinerary-service/itinerary.service';
+import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 
@@ -12,38 +12,46 @@ import { SlickCarouselComponent } from 'ngx-slick-carousel';
 export class HomePageComponent implements OnInit {
   @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
 
-  tour: Itinerary[] = [
+  tours: Itinerary[] = [
     {
-      ItinerarySystemId: 1,
-      ItineraryName: '東京鐵塔浪漫之夜',
-      ImageName: 'tokyotower.jpg',
-      Stock: 3,
-      Price: 3000,
-      AreaName: '關東',
+      itinerarySystemId: 1,
+      itineraryName: '東京鐵塔浪漫之夜',
+      activityId: 1,
+      itineraryDate: ['2024-12-01'],
+      imagePath: 'tokyotower.jpg',
+      stock: 3,
+      price: 3000,
+      areaName: '關東',
     },
     {
-      ItinerarySystemId: 2,
-      ItineraryName: '沖繩SUP體驗 新手友善',
-      ImageName: 'sup.jpg',
-      Stock: 15,
-      Price: 3500,
-      AreaName: '沖繩',
+      itinerarySystemId: 2,
+      itineraryName: '沖繩SUP體驗 新手友善',
+      activityId: 2,
+      itineraryDate: ['2024-12-01'],
+      imagePath: 'sup.jpg',
+      stock: 15,
+      price: 3500,
+      areaName: '沖繩',
     },
     {
-      ItinerarySystemId: 3,
-      ItineraryName: '挑戰日本最高峰',
-      ImageName: 'fujiyama.jpg',
-      Stock: 18,
-      Price: 6500,
-      AreaName: '關東',
+      itinerarySystemId: 3,
+      itineraryName: '挑戰日本最高峰',
+      activityId: 3,
+      itineraryDate: ['2024-12-01'],
+      imagePath: 'fujiyama.jpg',
+      stock: 18,
+      price: 6500,
+      areaName: '關東',
     },
     {
-      ItinerarySystemId: 4,
-      ItineraryName: '手作烏冬體驗',
-      ImageName: 'noodle.jpg',
-      Stock: 20,
-      Price: 1500,
-      AreaName: '關東',
+      itinerarySystemId: 4,
+      itineraryName: '手作烏冬體驗',
+      activityId: 4,
+      itineraryDate: ['2024-12-01'],
+      imagePath: 'noodle.jpg',
+      stock: 20,
+      price: 1500,
+      areaName: '關東',
     }
   ];
   slideConfig = {
