@@ -1,8 +1,8 @@
-import { isSameDay } from 'date-fns';
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
+
 export interface ItineraryDetail {
   itinerarySystemId: number;
   itineraryName: string;
+  activityId: number;
   activityName: string;
   areaName: string;
   imageName: string;
