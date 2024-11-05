@@ -1,30 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Japan Activity Memory</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="src/favicon.ico">
-
-  <!-- Mobile Specific Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Favicons - Place favicon.ico in the root directory -->
-  <link rel="icon" type="image/png" href="assets/img/favicons/favicon.png">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-
-  <!--==============================
-	  Google Fonts
-	============================== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-</head>
-<body>
-
 <section class="vs-product-wrapper space">
   <div class="container">
     <div class="product-details" *ngIf="itinerary">
@@ -78,17 +51,6 @@
             </p>
             <div class="calendar-container">
               <!-- 時間說明 -->
-              <div class="calendar-notes">
-                <div class="calendar-cours">
-                  <small>可選時段：</small>
-                  <ng-container *ngFor="let time of availableTimes">
-                    <small class="label calendar-cours-item">
-                      {{time}}
-                    </small>
-                  </ng-container>
-                </div>
-              </div>
-
               <!-- 日曆導航 -->
               <div class="calendar-navigation">
                 <button mat-icon-button (click)="previousMonth()">
@@ -121,10 +83,14 @@
             </div>
             <div class="actions">
               <div class="quantity">
-                <button class="quantity-minus qty-btn"><i class="fal fa-minus"></i></button>
+                <button class="quantity-minus qty-btn" (click)="decreaseQuantity()">
+                  <i class="fal fa-minus"></i>
+                </button>
                 <input type="number" id="quantity" class="qty-input" step="1" min="1" max="100" name="quantity"
-                  value="1" title="Qty" placeholder="1">
-                <button class="quantity-plus qty-btn"><i class="fal fa-plus"></i></button>
+                       [value]="quantity" (input)="updateQuantity($any($event).target.value)"> <!--使用 $any 類型轉換函數-->
+                <button class="quantity-plus qty-btn" (click)="increaseQuantity()">
+                  <i class="fal fa-plus"></i>
+                </button>
               </div>
               <a href="cart.html" class="vs-btn style4">加入購物車</a>
               <a href="cart.html" class="vs-btn style4">立即報名</a>
@@ -149,20 +115,6 @@
           <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
             <div class="inner-pane">
               <p class="description-text">{{itinerary.itineraryDetail}}</p>
-              <div class="list-style2 ">
-                <ul class="list-unstyled">
-                  <li><span>Brand</span> <span class="item-name">Fujifilm</span> </li>
-                  <li><span>Color</span> <span class="item-color">Lilac Purple</span> </li>
-                  <li><span>Item Weight</span> <span class="item-weight">10.4 Ounces</span> </li>
-                  <li><span>Item Dimensions</span> <span class="item-deimension">2.6 x 4.2 x 4.8 inches</span> </li>
-                </ul>
-              </div>
-              <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper
-                leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                ridiculus mus. Vestibulum ultricies aliquam. Done ultricies nec, pellent, consectetur adipiscing elit.
-                Ieuismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus sit
-                am. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci
-              </p>
 
             </div>
           </div>
@@ -281,11 +233,8 @@
       <div class="row justify-content-between align-items-center">
         <div class="col-lg-5 col-md-8">
           <div class="title-area">
-            <span class="sec-subtitle">Top Destination</span>
-            <h2 class="sec-title h1">Unforgettable Cities</h2>
-            <p class="sec-text">Curabitur aliquet quam id dui posuere blandit. Vivamus magna justo, lacinia eget
-              consectetur sed,
-              convgallis at tellus.</p>
+            <h2 class="sec-title h1">推薦體驗行程</h2>
+            <p class="sec-text">根據您的喜好，或許以下體驗你也會喜歡</p>
           </div>
         </div>
         <div class="col-auto">
@@ -293,59 +242,30 @@
             <button class="icon-btn" data-slick-prev=".destinationSlide"><i class="fas fa-chevron-left"></i></button>
             <button class="icon-btn" data-slick-next=".destinationSlide"><i class="fas fa-chevron-right"></i></button>
           </div>
-
         </div>
       </div>
       <div class="row destinationSlide vs-carousel" data-slide-show="3" data-arrows="false" data-lg-slide-show="2"
-        data-md-slide-show="2" data-sm-slide-show="1">
-        <div class="col-xl-4">
+          data-md-slide-show="2" data-sm-slide-show="1">
+          <div class="col-xl-4" *ngFor="let related of relatedTours">
           <div class="destination-style1">
-            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-1.jpg"
-                alt="destination image"></a>
-            <span class="destination-price">$259</span>
+            <a [routerLink]="['/itinerary', related.itinerarySystemId]">
+              <img [src]="related.imagePath || 'assets/img/destinations/destinations-1-1.jpg'"
+                  [alt]="related.itineraryName">
+            </a>
+            <span class="destination-price">{{ related.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</span>
             <div class="destination-info">
-              <h4 class="destination-name"><a href="#">Thailand</a></h4>
-              <p class="destination-text">Explore Sea & Get Relax</p>
+              <h4 class="destination-name">
+                <a [routerLink]="['/itinerary', related.itinerarySystemId]">
+                  {{ related.itineraryName }}
+                </a>
+              </h4>
+              <p class="destination-text">{{ related.areaName }}</p>
             </div>
           </div>
         </div>
-        <div class="col-xl-4">
-          <div class="destination-style1">
-            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-2.jpg"
-                alt="destination image"></a>
-            <span class="destination-price">$369</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">Japan</a></h4>
-              <p class="destination-text">Explore Sea & Get Relax</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="destination-style1">
-            <a href="destination-details.html"> <img src="assets/img/destinations/destinations-1-3.jpg"
-                alt="destination image"></a>
-            <span class="destination-price">$299</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">Spain</a></h4>
-              <p class="destination-text">Explore Sea & Get Relax</p>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="col-xl-4">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/destinations/destinations-1-8.jpg" alt="destination image" /></a>
-            <span class="destination-price">$158</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">Mexico</a></h4>
-              <p class="destination-text">Explore World & Get Relax</p>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </section>
   <!--==============================
       Destinations Area End
   ==============================-->
-</body>

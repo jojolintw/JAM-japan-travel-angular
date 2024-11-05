@@ -29,8 +29,8 @@ export class ItineraryService {
     return this.http.get<Itinerary[]>('https://localhost:7100/api/Product/list');
   }
 
-  getItineraryById(id: number): Observable<ItineraryDetail[]> {
-    return this.http.get<ItineraryDetail[]>(`${this.apiUrl}/${id}`);
+  getItineraryById(id: number): Observable<ItineraryDetail> {
+    return this.http.get<ItineraryDetail>(`${this.apiUrl}/detail/${id}`);
   }
 
   private getHttpOptions() {
@@ -42,6 +42,15 @@ export class ItineraryService {
     };
   }
   searchItineraries(searchForm: any): Observable<Itinerary[]> {
-    return this.http.post<Itinerary[]>(`${this.apiUrl}/api/Product/search`, searchForm);
+    return this.http.post<Itinerary[]>(`${this.apiUrl}/search`, searchForm);
+  }
+
+  getRelatedItineraries(activityId: number): Observable<Itinerary[]> {
+    return this.http.get<Itinerary[]>(`${this.apiUrl}/related/${activityId}`).pipe(
+      catchError(error => {
+        console.error('獲取相關行程失敗:', error);
+        return throwError(() => error);
+      })
+    );
   }
 }

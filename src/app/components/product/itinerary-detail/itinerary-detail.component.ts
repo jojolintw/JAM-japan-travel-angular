@@ -1,11 +1,13 @@
-import { ItineraryService } from '../../../service/Itinerary/itinerary.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
+import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselectiondialog.component';
+import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
+
 
 
 @Component({
@@ -18,103 +20,63 @@ import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselecti
 export class ItineraryDetailComponent implements OnInit {
 
   itinerary: ItineraryDetail | null = null;
+  tours: ItineraryDetail[] = [];
+  relatedTours: Itinerary[] = [];
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
   dayStatus: { [key: string]: { hasStock: boolean, times: string[] } } = {};
   availableSlots: { date: Date; time: string }[] = [];
-  availableTimes = ['09:00', '11:30', '15:00'];
+  quantity: number = 1;
 
-  tours: ItineraryDetail[] = [
-    // {
-    //   ItinerarySystemId: 1,
-    //   ItineraryName: '東京鐵塔浪漫之夜',
-    //   AreaName: '東京',
-    //   ImageName: 'tokyotower.jpg',
-    //   DepartureDate:[
-    //     '2024-10-30 9:00',
-    //     '2024-10-30 12:00',
-    //     '2024-10-30 15:00',
-    //   ],
-    //   Stock: 3,
-    //   Price: 3000,
-    //   ItineraryDetail: '',
-    //   ItineraryBrief: '',
-    //   ItineraryNotes: '',
-    // },
-    // {
-    //   ItinerarySystemId: 2,
-    //   ItineraryName: '沖繩SUP體驗 新手友善',
-    //   AreaName: '沖繩',
-    //   ImageName: 'sup.jpg',
-    //   DepartureDate: [
-    //       '2024-10-30 9:00',
-    //       '2024-10-30 12:00',
-    //       '2024-10-30 15:00',
-    //   ],
-    //   Stock: 15,
-    //   Price: 3500,
-    //   ItineraryDetail: '',
-    //   ItineraryBrief: '',
-    //   ItineraryNotes: '',
-    // },
-    // {
-    //   ItinerarySystemId: 3,
-    //   ItineraryName: '挑戰日本最高峰',
-    //   AreaName: '富士山',
-    //   ImageName: 'fujiyama.jpg',
-    //   DepartureDate:[
-    //     '2024-10-30 9:00',
-    //     '2024-10-30 12:00',
-    //     '2024-10-30 15:00',
-    //   ],
-    //   Stock: 18,
-    //   Price: 6500,
-    //   ItineraryDetail: '',
-    //   ItineraryBrief: '',
-    //   ItineraryNotes: '',
-    // },
-    // {
-    //   ItinerarySystemId: 4,
-    //   ItineraryName: '手作烏冬體驗',
-    //   AreaName: '沖繩',
-    //   ImageName: 'noodle.jpg',
-    //   DepartureDate: [
-    //     '2024-10-30 9:00',
-    //     '2024-10-30 12:00',
-    //     '2024-10-30 15:00',
-    //   ],
-    //   Stock: 20,
-    //   Price: 1500,
-    //   ItineraryDetail: '',
-    //   ItineraryBrief: '',
-    //   ItineraryNotes: '',
-    // },
-  ];
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) { }
+
+  constructor(private route: ActivatedRoute, private dialog: MatDialog, private itineraryService: ItineraryService) { }
+
+  loadItineraryDetail(id: number): void {
+    this.itineraryService.getItineraryById(id).subscribe(response => {
+      this.itinerary = response;
+      if (this.itinerary && this.itinerary.activityId!== 0 && this.itinerary.activityId!== undefined) {
+        this.loadRelatedItineraries(this.itinerary.activityId);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const idParam = params['id'];
       if (idParam) {
         const id = parseInt(idParam, 10);
-        this.itinerary = this.tours.find(tour => tour.itinerarySystemId === id) ?? null;
-        if (this.itinerary) {
-          this.itinerary.itineraryDate.forEach(dateTimeStr => {
-            this.events.push({
-              start: new Date(dateTimeStr),
-              title: dateTimeStr.split(' ')[1],
-              meta: { tourId: this.itinerary?.itinerarySystemId }
-            });
-          });
-        }
+        this.loadItineraryDetail(id);
       }
     });
-    this.initializeDayStatus();
   }
 
-  private initializeDayStatus(): void {
+  // loadItineraryDetail(id: number): void {
+  //   this.itineraryService.getItineraryById(id).subscribe({
+  //     next: (data) => {
+  //       this.itinerary = data;
+  //       this.tours = [data];
+
+  //       if (this.itinerary) {
+  //         this.events = this.itinerary.itineraryDate.map(dateTimeStr => ({
+  //           start: new Date(dateTimeStr),
+  //           title: dateTimeStr.split(' ')[1],
+  //           meta: { tourId: this.itinerary?.itinerarySystemId }
+  //         }));
+  //         this.loadRelatedItineraries(this.itinerary.activityId);
+  //       }
+
+  //       this.initializeDayStatus();
+  //     },
+  //     error: (error) => {
+  //       console.error('加載行程詳情失敗:', error);
+  //       // 這裡可以添加錯誤處理邏輯
+  //     }
+  //   });
+  // }
+
+  initializeDayStatus(): void {
     this.tours.forEach(tour => {
       tour.itineraryDate.forEach(dateTimeStr => {
         const dateStr = dateTimeStr.split(' ')[0];
@@ -130,6 +92,21 @@ export class ItineraryDetailComponent implements OnInit {
           this.dayStatus[dateStr].times.push(timeStr);
         }
       });
+    });
+  }
+
+  loadRelatedItineraries(activityId: number): void {
+    this.itineraryService.getRelatedItineraries(activityId).subscribe({
+      next: (data) => {
+        console.log('activityId:', activityId);
+        console.log('相關行程資料:', data);
+        // 過濾掉當前行程，只顯示其他相關行程
+        this.relatedTours = data
+          .filter(item => item.itinerarySystemId !== this.itinerary?.itinerarySystemId)
+      },
+      error: (error) => {
+        console.error('加載相關行程失敗:', error);
+      }
     });
   }
 
@@ -166,6 +143,24 @@ export class ItineraryDetailComponent implements OnInit {
       },
       width: '300px'
     });
+  }
+  decreaseQuantity(): void {
+    this.quantity = Math.max(this.quantity - 1, 1);
+  }
+
+  // Method to increase the quantity
+  increaseQuantity(): void {
+    this.quantity = Math.min(this.quantity + 1, 100);
+  }
+
+  // Method to update the quantity manually
+  updateQuantity(value: string): void {
+    const numericValue = parseInt(value, 10);
+    if (!isNaN(numericValue)) {
+      this.quantity = Math.max(Math.min(numericValue, 100), 1);
+    } else {
+      this.quantity = 1;
+    }
   }
 
 }

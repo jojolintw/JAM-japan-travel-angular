@@ -5,8 +5,9 @@ import { Route } from '@angular/router';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { Activity } from 'src/app/interface/Product/Activity';
+import { Search } from 'src/app/interface/Product/Search';
 import { NgForm } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -27,7 +28,7 @@ export class ItineraryListComponent implements OnInit {
   currentPage: number = 1; // 当前页码\
   pages: number[] = [];
 
-  searchForm = {
+  searchForm : Search = {
     name: '',
     location: '',
     month: '',
@@ -37,29 +38,19 @@ export class ItineraryListComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService) { }
+  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadActivityNames();
     this.loadAllItineraries();
-    this.onSearch(); // 初始加載
-    // this.route.params.subscribe((params) => {
-    //   const regionParam = params['region'];
-    //   if (regionParam) {
-    //     this.region = parseInt(regionParam.replace('area_', ''), 10);
-    //     this.loadItinerariesByRegion(this.region);
-    //   }
-    // });
+    this.onSearch();
   }
-  onSearch() {
-    console.log('Submitting search form:', this.searchForm); // 調試用
 
+  onSearch() {
     this.itineraryService.searchItineraries(this.searchForm)
       .subscribe({
-        next: (data) => {
-          console.log('Search results:', data); // 調試用
-          this.tours = data;
-          this.currentPage = 1;
+        next: (response) => {
+          this.tours = response;
           this.calculatePages();
         },
         error: (error) => {

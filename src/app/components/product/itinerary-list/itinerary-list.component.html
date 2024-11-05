@@ -60,7 +60,7 @@
               <div class="widget">
                 <h3 class="widget_title">想要體驗什麼呢?</h3>
                 <p class="widget_text">搜尋體驗行程</p>
-                <form class="booking-form" (ngSubmit)="onSearch()" #searchFormDir="ngForm">
+                <form class="booking-form" (ngSubmit)="onSearch()">
                   <div class="form-group">
                     <i class="fas fa-search"></i>
                     <input type="text" [(ngModel)]="searchForm.name" name="name" placeholder="體驗行程名稱" />
@@ -90,8 +90,8 @@
                   <div class="form-group">
                     <i class="fas fa-thumbtack"></i>
                     <select class="form-select" [(ngModel)]="searchForm.activityId" name="activityId">
-                      <option value="" selected="selected" disabled="disabled" hidden="">選擇體驗類型</option>
-                      <option *ngFor="let activity of activityNames" [value]="activity.activityId">
+                      <option value="0" selected="selected">選擇體驗類型</option>
+                      <option *ngFor="let activity of activityNames" [value]="activity.activitySystemId">
                         {{activity.activityName}}
                       </option>
                     </select>
