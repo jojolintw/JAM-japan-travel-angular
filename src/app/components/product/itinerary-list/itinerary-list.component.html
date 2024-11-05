@@ -1,125 +1,126 @@
-
-   <!--==============================
+<!--==============================
 	  Tours Area Start
 	==============================-->
-  <section class="space-bottom">
-    <div class="outer-wrap">
-      <div class="filter-menu1 filter-menu-active wow fadeInUp wow-animated">
-        <button class="tab-button active" data-filter="*"><i class="fas fa-sort-alpha-up"></i> Name (A - Z)</button>
-        <button class="tab-button" data-filter=".date"><i class="fas fa-calendar-alt"></i> Date</button>
-        <button class="tab-button" data-filter=".hightTolow"><i class="fas fa-upload"></i> Price Low to
-          High</button>
-        <button class="tab-button" data-filter=".lowToHigh"><i class="fas fa-download"></i> Price Hight to
-          Low</button>
-      </div>
-      <div class="container">
-        <div class="shadow-content1">
-          <div class="row">
-            <div class="col-lg-9">
-              <div class="row filter-active tours-active">
-                <div *ngFor="let tour of paginatedTours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
-                    <div class="package-style1">
-                      <div class="package-img">
-                        <a href="#"><img [src]="'../../../assets/img/itineraries/' + tour.imagePath" alt="Package Image" ></a>
-                      </div>
-                      <div class="package-content">
-                        <div class="package-review">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <i class="far fa-star"></i>
-                        </div>
-                        <h3 class="package-title"><a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]">{{tour.itineraryName}}</a></h3>
-                        <p class="package-text">{{tour.areaName}}</p>
-                        <div class="package-footer">
-                          <span class="package-price">{{tour.price | currency:'TWD':'symbol': '1.0-0'}}</span>
-                          <a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]" class="vs-btn">體驗行程詳情</a>
-                        </div>
-                      </div>
+<section class="space-bottom">
+  <div class="outer-wrap">
+    <div class="filter-menu1 filter-menu-active wow fadeInUp wow-animated">
+      <button class="tab-button active" data-filter="*"><i class="fas fa-sort-alpha-up"></i> Name (A - Z)</button>
+      <button class="tab-button" data-filter=".date"><i class="fas fa-calendar-alt"></i> Date</button>
+      <button class="tab-button" data-filter=".hightTolow"><i class="fas fa-upload"></i> Price Low to
+        High</button>
+      <button class="tab-button" data-filter=".lowToHigh"><i class="fas fa-download"></i> Price Hight to
+        Low</button>
+    </div>
+    <div class="container">
+      <div class="shadow-content1">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="row filter-active tours-active">
+              <div *ngFor="let tour of paginatedTours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
+                <div class="package-style1">
+                  <div class="package-img">
+                    <a href="#"><img [src]="'../../../assets/img/itineraries/' + tour.imagePath"
+                        alt="Package Image"></a>
+                  </div>
+                  <div class="package-content">
+                    <div class="package-review">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <h3 class="package-title"><a
+                        [routerLink]="['/itinerary-detail', tour.itinerarySystemId]">{{tour.itineraryName}}</a></h3>
+                    <p class="package-text">{{tour.areaName}}</p>
+                    <div class="package-footer">
+                      <span class="package-price">{{tour.price | currency:'TWD':'symbol': '1.0-0'}}</span>
+                      <a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]" class="vs-btn">體驗行程詳情</a>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="vs-pagination pt-lg-2">
-                <ul style="display: flex; justify-content: center;">
-                  <li><a [class.disabled]="currentPage === 1" (click)="onPrevious()">
+            </div>
+            <div class="vs-pagination pt-lg-2">
+              <ul style="display: flex; justify-content: center;">
+                <li><a [class.disabled]="currentPage === 1" (click)="onPrevious()">
                     <i class="fas fa-chevron-left"></i>
                   </a></li>
-                  <li *ngFor="let page of pages" [class.active]="currentPage === page">
-                    <a (click)="onPageChange(page)">{{ page }}</a>
-                  </li>
-                  <li><a [class.disabled]="currentPage === pages.length" (click)="onNext()">
+                <li *ngFor="let page of pages" [class.active]="currentPage === page">
+                  <a (click)="onPageChange(page)">{{ page }}</a>
+                </li>
+                <li><a [class.disabled]="currentPage === pages.length" (click)="onNext()">
                     <i class="fas fa-chevron-right"></i>
                   </a></li>
-                </ul>
-              </div>
+              </ul>
             </div>
-            <div class="col-lg-3">
-              <div class="sidebar-area tours-sidebar">
-                <div class="widget">
-                  <h3 class="widget_title">想要體驗什麼呢?</h3>
-                  <p class="widget_text">搜尋體驗行程</p>
-                  <form class="booking-form" (ngSubmit)="onSearch()">
-                    <div class="form-group">
-                      <i class="fas fa-search"></i>
-                      <input type="text" [(ngModel)]="searchForm.name" name="name" placeholder="體驗行程名稱" />
+          </div>
+          <div class="col-lg-3">
+            <div class="sidebar-area tours-sidebar">
+              <div class="widget">
+                <h3 class="widget_title">想要體驗什麼呢?</h3>
+                <p class="widget_text">搜尋體驗行程</p>
+                <form class="booking-form" (ngSubmit)="onSearch()" #searchFormDir="ngForm">
+                  <div class="form-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" [(ngModel)]="searchForm.name" name="name" placeholder="體驗行程名稱" />
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-compass"></i>
+                    <input type="text" [(ngModel)]="searchForm.location" name="location" placeholder="地點?" />
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <select class="form-select" [(ngModel)]="searchForm.month" name="month">
+                      <option value="" selected="selected" disabled="disabled" hidden="">選擇月份</option>
+                      <option value="01">Jan</option>
+                      <option value="02">Feb</option>
+                      <option value="03">Mar</option>
+                      <option value="04">Apr</option>
+                      <option value="05">May</option>
+                      <option value="06">June</option>
+                      <option value="07">July</option>
+                      <option value="08">Aug</option>
+                      <option value="09">Sep</option>
+                      <option value="10">Oct</option>
+                      <option value="11">Nov</option>
+                      <option value="12">Dec</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <i class="fas fa-thumbtack"></i>
+                    <select class="form-select" [(ngModel)]="searchForm.activityId" name="activityId">
+                      <option value="" selected="selected" disabled="disabled" hidden="">選擇體驗類型</option>
+                      <option *ngFor="let activity of activityNames" [value]="activity.activityId">
+                        {{activity.activityName}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div class="chekbox-area">
+                      <input type="radio" id="popular" [(ngModel)]="searchForm.sortBy" name="sortBy" value="popular"
+                        checked />
+                      <label for="popular">最熱門</label>
                     </div>
-                    <div class="form-group">
-                      <i class="fas fa-compass"></i>
-                      <input type="text" [(ngModel)]="searchForm.location" name="location" placeholder="地點?" />
+                    <div class="chekbox-area">
+                      <input type="radio" id="trendy" [(ngModel)]="searchForm.sortBy" name="sortBy" value="trendy" />
+                      <label for="trendy">最近期</label>
                     </div>
-                    <div class="form-group">
-                      <i class="fas fa-calendar-alt"></i>
-                      <select class="form-select" [(ngModel)]="searchForm.month" name="month">
-                        <option value="" selected="selected" disabled="disabled" hidden="">選擇月份</option>
-                        <option value="01">Jan</option>
-                        <option value="02">Feb</option>
-                        <option value="03">Mar</option>
-                        <option value="04">Apr</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">Aug</option>
-                        <option value="09">Sep</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
-                      </select>
+                    <div class="chekbox-area">
+                      <input type="radio" id="latest" [(ngModel)]="searchForm.sortBy" name="sortBy" value="latest" />
+                      <label for="latest">最優惠</label>
                     </div>
-                    <div class="form-group">
-                      <i class="fas fa-thumbtack"></i>
-                      <select class="form-select" [(ngModel)]="searchForm.activityId" name="activityId">
-                        <option value="" selected="selected" disabled="disabled" hidden="">選擇體驗類型</option>
-                        <option *ngFor="let activity of activityNames" [value]="activity.activityId">
-                            {{activity.activityName}}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <div class="chekbox-area">
-                        <input type="radio" id="popular" [(ngModel)]="searchForm.sortBy" name="sortBy" value="popular" checked />
-                        <label for="popular">最熱門</label>
-                      </div>
-                      <div class="chekbox-area">
-                        <input type="radio" id="trendy" [(ngModel)]="searchForm.sortBy" name="sortBy" value="trendy" />
-                        <label for="trendy">出發時間最近</label>
-                      </div>
-                      <div class="chekbox-area">
-                        <input type="radio" id="latest" [(ngModel)]="searchForm.sortBy" name="sortBy" value="latest" />
-                        <label for="latest">最優惠</label>
-                      </div>
-                    </div>
-                    <button type="submit" class="vs-btn style4 w-100">開始搜尋</button>
-                  </form>
-                </div>
+                  </div>
+                  <button type="submit" class="vs-btn style4 w-100" (click)="onSearch()">開始搜尋</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!--==============================
+  </div>
+</section>
+<!--==============================
 	  Tours Area End
 	==============================-->
-

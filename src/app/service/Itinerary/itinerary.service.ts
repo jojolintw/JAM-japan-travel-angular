@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 import { Itinerary } from '../../interface/Product/itinerary.interface';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
-import { ActivityName } from 'src/app/interface/Product/Activities';
+import { Activity } from 'src/app/interface/Product/Activity';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -15,8 +16,8 @@ export class ItineraryService {
 
   constructor(private http: HttpClient) { }
 
-  getActivityNames(): Observable<ActivityName[]> {
-    return this.http.get<ActivityName[]>(`${this.apiUrl}/activityNames`);
+  getActivity(): Observable<Activity[]> {
+    return this.http.get<Activity[]>(`${this.apiUrl}/activity`);
   }
 
   getItinerariesByRegion(region: number): Observable<any> {
@@ -40,9 +41,7 @@ export class ItineraryService {
       }
     };
   }
-
-  // 需要驗證的API調用可以這樣寫：
-  getItinerariesWithAuth(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/list`, this.getHttpOptions());
+  searchItineraries(searchForm: any): Observable<Itinerary[]> {
+    return this.http.post<Itinerary[]>(`${this.apiUrl}/api/Product/search`, searchForm);
   }
 }

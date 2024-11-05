@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { RouterLink } from '@angular/router';
 import { Route } from '@angular/router';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
-import { ActivityName } from 'src/app/interface/Product/Activities';
+import { Activity } from 'src/app/interface/Product/Activity';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -16,18 +17,21 @@ import { ActivityName } from 'src/app/interface/Product/Activities';
 })
 
 export class ItineraryListComponent implements OnInit {
-  activityNames: ActivityName[] = [];
+  @ViewChild('searchFormDir') searchFormDir!: NgForm;
+
+  activityNames: Activity[] = [];
   tours: Itinerary[] = [];
   allTours: Itinerary[] = [];
   region: number | null = null;
   itemsPerPage: number = 6; // 每页显示的条目数
   currentPage: number = 1; // 当前页码\
   pages: number[] = [];
+
   searchForm = {
     name: '',
     location: '',
     month: '',
-    activityId: '',
+    activityId: 0,
     sortBy: 'popular'
   };
 
@@ -38,6 +42,7 @@ export class ItineraryListComponent implements OnInit {
   ngOnInit(): void {
     this.loadActivityNames();
     this.loadAllItineraries();
+    this.onSearch(); // 初始加載
     // this.route.params.subscribe((params) => {
     //   const regionParam = params['region'];
     //   if (regionParam) {
@@ -46,9 +51,30 @@ export class ItineraryListComponent implements OnInit {
     //   }
     // });
   }
+  onSearch() {
+    console.log('Submitting search form:', this.searchForm); // 調試用
+
+    this.itineraryService.searchItineraries(this.searchForm)
+      .subscribe({
+        next: (data) => {
+          console.log('Search results:', data); // 調試用
+          this.tours = data;
+          this.currentPage = 1;
+          this.calculatePages();
+        },
+        error: (error) => {
+          console.error('搜尋失敗:', error);
+        }
+      });
+  }
+
+  onSortChange(sortType: string) {
+    this.searchForm.sortBy = sortType;
+    this.onSearch();
+  }
 
   loadActivityNames(): void {
-    this.itineraryService.getActivityNames()
+    this.itineraryService.getActivity()
       .subscribe({
         next: (data) => {
           this.activityNames = data;
@@ -91,6 +117,7 @@ export class ItineraryListComponent implements OnInit {
     this.pages = Array.from({length: pageCount}, (_, i) => i + 1);
   }
 
+
   get paginatedTours() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.tours.slice(startIndex, startIndex + this.itemsPerPage);
@@ -112,54 +139,12 @@ export class ItineraryListComponent implements OnInit {
     }
   }
 
-  onSearch() {
-    // 筛选逻辑
-    let filteredTours = this.allTours.filter(tour => {
-        const matchName = !this.searchForm.name ||
-            tour.itineraryName.toLowerCase().includes(this.searchForm.name.toLowerCase());
-
-        const matchLocation = !this.searchForm.location ||
-            tour.areaName.toLowerCase().includes(this.searchForm.location.toLowerCase());
-
-        const matchMonth = !this.searchForm.month ||
-            (tour.itineraryDate && tour.itineraryDate.some(date =>
-                date.substring(5, 7) === this.searchForm.month
-            ));
-
-        const matchActivity = !this.searchForm.activityId ||
-            tour.activityId === parseInt(this.searchForm.activityId);
-
-        return matchName && matchLocation && matchMonth && matchActivity;
-    });
-
-    // 排序逻辑
-    switch(this.searchForm.sortBy) {
-        case 'popular':
-            // 保持原有顺序
-            break;
-        case 'trendy':
-            filteredTours.sort((a, b) => {
-                const dateA = new Date(a.itineraryDate[0] || '');
-                const dateB = new Date(b.itineraryDate[0] || '');
-                return dateA.getTime() - dateB.getTime();
-            });
-            break;
-        case 'latest':
-            filteredTours.sort((a, b) => (a.price || 0) - (b.price || 0));
-            break;
-    }
-
-    this.tours = filteredTours;
-    this.currentPage = 1;
-    this.calculatePages();
-  }
-
   resetFilters() {
     this.searchForm = {
       name: '',
       location: '',
       month: '',
-      activityId: '',
+      activityId: 0,
       sortBy: 'popular'
     };
     this.tours = [...this.allTours];

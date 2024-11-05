@@ -1,4 +1,4 @@
-export interface ActivityName {
+export interface Activity {
   activityId: number;
   activityName: string;
 }
