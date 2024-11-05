@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentService, Shipment } from '../../../service/Shipment/shipment.service';
 
+
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
@@ -20,16 +21,18 @@ export class TicketComponent implements OnInit {
   }
 
   loadShipments(): void {
-    this.shipmentService.getShipments().subscribe(
+    // 傳入目前選擇的排序選項、出發地和目的地作為參數
+    this.shipmentService.getShipments(this.selectedSortOption, this.selectedDeparture || '', this.selectedDestination || '').subscribe(
       shipments => {
         this.shipments = shipments;
-        this.applySortingAndFiltering();
+        this.applySortingAndFiltering(); // 如需進一步排序或篩選
       },
       error => {
         console.error('Error loading shipments:', error);
       }
     );
   }
+  
 
   onSortChange(sortOption: string): void {
     this.selectedSortOption = sortOption;

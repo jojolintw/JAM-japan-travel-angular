@@ -1,3 +1,4 @@
+// shipment.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
@@ -9,11 +10,31 @@ export interface Shipment {
   destinationPortName: string;
   price: number;
   routeDescription: string;
-  nearestDepartureTime?: Date; // 新增屬性儲存最近的出發時間
-  imageUrl?: string; // 預設的圖片URL
-  imageBase64?: string; // 新增屬性用於存儲Base64編碼
-  originPortGoogleMap?: string; // 出發地的 Google Maps 連結
-  destinationPortGoogleMap?: string; // 目的地的 Google Maps 連結
+  nearestDepartureTime?: Date;
+  imageUrl?: string;
+  imageBase64?: string;
+  originPortGoogleMap?: string;
+  destinationPortGoogleMap?: string;
+}
+
+export interface PortDetail {
+  portId: number;
+  portName: string;
+  city: string;
+  cityDescription1: string;
+  cityDescription2: string;
+  portGoogleMap: string;
+}
+
+export interface ShipmentDetail {
+  routeId: number;
+  originPortName: string;
+  destinationPortName: string;
+  price: number;
+  routeDescription: string;
+  originPort: PortDetail;
+  destinationPort: PortDetail;
+  imageUrl?: string;
 }
 
 @Injectable({
@@ -26,35 +47,32 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) {}
 
-  // 新增篩選和排序功能的 getShipments 方法
   getShipments(sort: string, departure: string, destination: string): Observable<Shipment[]> {
     let params = new HttpParams();
     if (departure) params = params.set('departure', departure);
     if (destination) params = params.set('destination', destination);
-
+    if (sort) params = params.set('sort', sort);
+  
     return this.http.get<Shipment[]>(this.apiUrl, { params }).pipe(
       switchMap((shipments: Shipment[]) =>
         forkJoin(
           shipments.map(shipment =>
             forkJoin({
-              // 獲取最近的出發時間
               nearestDepartureTime: this.getNearestDepartureTime(shipment.routeId),
-              // 獲取圖片 URL
               image: this.getRouteImage(shipment.routeId).pipe(
                 map(response => response.imageUrl || 'assets/img/Shipment/8.jpg'),
                 catchError(() => of('assets/img/Shipment/5.jpg'))
               )
             }).pipe(
-              map(({ nearestDepartureTime, image }) => {
-                shipment.nearestDepartureTime = nearestDepartureTime;
-                shipment.imageUrl = image;
-                return shipment;
-              })
+              map(({ nearestDepartureTime, image }) => ({
+                ...shipment,
+                nearestDepartureTime,
+                imageUrl: image
+              }))
             )
           )
         )
       ),
-      // 排序邏輯：根據價格、日期等進行排序
       map(shipments => {
         switch (sort) {
           case 'priceAsc':
@@ -63,8 +81,7 @@ export class ShipmentService {
             return shipments.sort((a, b) => b.price - a.price);
           case 'date':
             return shipments.sort((a, b) =>
-              new Date(a.nearestDepartureTime || 0).getTime() -
-              new Date(b.nearestDepartureTime || 0).getTime()
+              new Date(a.nearestDepartureTime || 0).getTime() - new Date(b.nearestDepartureTime || 0).getTime()
             );
           default:
             return shipments;
@@ -72,17 +89,33 @@ export class ShipmentService {
       })
     );
   }
+  
 
-  // 獲取最近的未來出發時間
   getNearestDepartureTime(routeId: number): Observable<Date | undefined> {
     return this.http.get<{ nearestDepartureTime: Date }>(`${this.scheduleApiUrl}/${routeId}`).pipe(
       map(response => new Date(response.nearestDepartureTime)),
-      catchError(() => of(undefined)) // 錯誤處理，如果無法獲取則返回 undefined
+      catchError(() => of(undefined))
     );
   }
 
-  // 獲取圖片 URL
   getRouteImage(routeId: number): Observable<{ imageUrl: string }> {
     return this.http.get<{ imageUrl: string }>(`${this.imageApiUrl}/${routeId}`);
+  }
+
+  getShipmentDetail(routeId: number): Observable<ShipmentDetail> {
+    return this.http.get<ShipmentDetail>(`${this.apiUrl}/${routeId}`).pipe(
+      switchMap(detail => 
+        this.getRouteImage(routeId).pipe(
+          map(imageResponse => ({
+            ...detail,
+            imageUrl: imageResponse.imageUrl
+          })),
+          catchError(() => of({
+            ...detail,
+            imageUrl: 'assets/img/Shipment/default.jpg'
+          }))
+        )
+      )
+    );
   }
 }
