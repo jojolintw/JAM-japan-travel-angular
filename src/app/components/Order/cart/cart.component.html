@@ -53,7 +53,7 @@
               <tr>
                 <th>
                   <div style="justify-content: center;">
-                    <input type="checkbox"
+                    <input type="checkbox" id="selectAll"
                     style ="visibility: visible;
                     position: relative;
                     top: 50%;
@@ -73,6 +73,56 @@
               </tr>
             </thead>
             <tbody>
+
+
+              <!-- ========================================== -->
+
+
+              <tr class="cart_item" *ngFor="let item of cartItems">
+                <td>
+                  <input type="checkbox"
+                    style ="visibility: visible;
+                    position: relative;
+                    top: 50%;
+                    left: 50%;
+                    opacity: 0.5;
+                    display: flex;
+                    width: 18px;
+                    height: 18px;">
+                </td>
+                <td data-title="Product">
+                  <a class="cart-productimage" (click)="goToProductDetail()"><img width="80" height="80"
+                      [src]="item.imagePath" alt="{{item.name}}" /></a>
+                </td>
+                <td data-title="Name">
+                  <a class="cart-productname" (click)="goToProductDetail()">{{item.name}}</a>
+                </td>
+                <td data-title="Price">
+                  <span class="amount"><bdi><span>$</span>{{item.price}}</bdi></span>
+                </td>
+                <td data-title="Quantity">
+                  <div class="quantity">
+                    <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
+                      <i class="far fa-minus"></i>
+                    </button>
+                    <input type="number" [id]="item.id" class="qty-input" [value]="item.quantity" min="1" max="99" readonly />
+                    <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
+                      <i class="far fa-plus"></i>
+                    </button>
+                  </div>
+                </td>
+                <td data-title="Total">
+                  <span class="totalAmount"><bdi><span>$</span>{{item.price * item.quantity}}</bdi></span>
+                </td>
+                <td data-title="Remove">
+                  <a type="button" class="remove" (click)="removeCartItem(item.id)"><i class="fal fa-trash-alt"></i></a>
+                </td>
+              </tr>
+
+
+              <!-- ============================================== -->
+
+
               <tr class="cart_item">
                 <td>
                   <input type="checkbox"
@@ -100,7 +150,7 @@
                     <button class="quantity-minus qut-btn">
                       <i class="far fa-minus"></i>
                     </button>
-                    <input type="number" class="qty-input" value="1" min="1" max="99"  />
+                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
                     <button class="quantity-plus qut-btn">
                       <i class="far fa-plus"></i>
                     </button>
@@ -140,7 +190,7 @@
                     <button class="quantity-minus qut-btn">
                       <i class="far fa-minus"></i>
                     </button>
-                    <input type="number" class="qty-input" value="1" min="1" max="99"  />
+                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
                     <button class="quantity-plus qut-btn">
                       <i class="far fa-plus"></i>
                     </button>
@@ -176,13 +226,13 @@
               <tr class="order-total">
                 <th>商品總金額</th>
                 <td data-title="Subtotal">
-                  <span class="amount"><bdi><span>$</span>6,500</bdi></span>
+                  <span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span>
                 </td>
               </tr>
               <tr class="order-total">
                 <th>優惠券折扣</th>
                 <td data-title="coupon">
-                  <span class="amount"><bdi><span>-$</span>100</bdi></span>
+                  <span class="amount"><bdi><span>-$</span>{{discount}}</bdi></span>
                 </td>
               </tr>
             </tbody>
@@ -190,7 +240,7 @@
               <tr class="order-total">
                 <th>總金額</th>
                 <td data-title="Total">
-                  <strong><span class="amount"><bdi><span>$</span>6,400</bdi></span></strong>
+                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount-discount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>
@@ -198,7 +248,7 @@
           <button class="vs-btn style4" (click)="goToCheckout()" style="width: 100%;">去結帳</button>
           <input type="text" id="textcontent">
           <input type="button" class="save" (click)="setcontent()" value="set">
-          <input type="button" class="call" (click)="getcontent()" value="alert">
+          <input type="button" class="alert" (click)="getcontent()" value="alert">
           <input type="button" class="remove" (click)="removecontent()" value="remove">
           <input type="button" class="clear" (click)="clearcontent()" value="clear">
           <input type="button" class="getInfo" (click)="getMemberInfo()" value="getInfo">
@@ -237,20 +287,20 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    function changeQuantity(amount) {
-        const quantityInput = document.getElementById('quantity');
-        let currentValue = parseInt(quantityInput.value, 10);
+    // function changeQuantity(amount) {
+    //     const quantityInput = document.getElementById('quantity');
+    //     let currentValue = parseInt(quantityInput.value, 10);
 
-        currentValue += amount;
+    //     currentValue += amount;
 
-        if (currentValue < 1) {
-          currentValue = 1;
-        } else if (currentValue > 99) {
-          currentValue = 99;
-        }
+    //     if (currentValue < 1) {
+    //       currentValue = 1;
+    //     } else if (currentValue > 99) {
+    //       currentValue = 99;
+    //     }
 
-        quantityInput.value = currentValue;
-      }
+    //     quantityInput.value = currentValue;
+    //   }
 
   </script>
 

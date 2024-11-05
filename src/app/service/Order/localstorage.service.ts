@@ -14,37 +14,46 @@ export class LocalstorageService {
   private cartkey = 'cart'
   constructor(private client: HttpClient) { }
 
-  addToCart(item:cartItem)
-    {
-      const cart = this.getCartItems();
+  addToCart(item: cartItem) {
+    const cart = this.getCartItems();
 
-      const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
 
-      if (existingItem) {
-        existingItem.quantity += item.quantity; // 更新數量
-      } else {
-        cart.push(item); // 新增商品
-      }
-
+    if (existingItem) {
+      alert('商品已存在購物車');
+    } else {
+      cart.push(item); // 新增商品
       localStorage.setItem(this.cartkey, JSON.stringify(cart)); // 儲存到 localStorage
       alert('商品已加入購物車');
-    };
+    }
+
+
+  };
 
   getCartItems(): cartItem[] {
     return JSON.parse(localStorage.getItem(this.cartkey) || '[]') as cartItem[];
   }
 
-  removeCartItem(itemId:number){
+  removeCart(){
+    localStorage.removeItem('cart');
+  }
+
+  removeCartItem(itemId: number) {
     const cart = this.getCartItems(); // 獲取當前購物車
     const updatedCart = cart.filter(cartItem => cartItem.id !== itemId); // 過濾掉要刪除的商品
 
     localStorage.setItem(this.cartkey, JSON.stringify(updatedCart)); // 儲存更新後的購物車
     alert('商品已從購物車刪除');
+
   }
 
-  clearCartItems(){
+  clearCartItems() {
     localStorage.removeItem(this.cartkey);
   }
+
+loadCart(){
+
+}
 
 
 
