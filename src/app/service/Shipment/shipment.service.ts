@@ -18,8 +18,8 @@ export interface Shipment {
   providedIn: 'root'
 })
 export class ShipmentService {
-  private apiUrl = 'http://localhost:5245/api/Shipment';
-  private imageApiUrl = 'http://localhost:5245/api/Shipment/GetRouteImage';
+  private apiUrl = 'https://localhost:7100/api/Shipment';
+  private imageApiUrl = 'https://localhost:7100/api/Shipment/GetRouteImage';
 
   constructor(private http: HttpClient) {}
 
@@ -31,7 +31,7 @@ export class ShipmentService {
             this.getRouteImage(shipment.routeId).pipe(
               map(response => {
                 // 如果獲取成功，則設置 imageUrl，否則設置為預設圖片
-                shipment.imageUrl = response.ImageUrl || 'assets/img/Shipment/8.jpg';
+                shipment.imageUrl = response.imageUrl || 'assets/img/Shipment/8.jpg';
                 return shipment; // 返回更新過的運輸資料
               }),
               catchError(() => {
@@ -46,7 +46,7 @@ export class ShipmentService {
     );
   }
 
-  getRouteImage(routeId: number): Observable<{ ImageUrl: string }> {
-    return this.http.get<{ ImageUrl: string }>(`${this.imageApiUrl}/${routeId}`);
+  getRouteImage(routeId: number): Observable<{ imageUrl: string }> {
+    return this.http.get<{ imageUrl: string }>(`${this.imageApiUrl}/${routeId}`);
   }
 }
