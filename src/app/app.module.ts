@@ -35,7 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { ArticleService } from 'src/app/service/Blog/article-service/article.service';
+import { ArticleService } from './service/Blog/article-service/article.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,6 +44,7 @@ import { TimeSelectionDialogComponent } from './components/product/timeselection
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 import { RegistercompleleComponent } from './components/Member/registercomplele/registercomplele.component';
 import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
+import { SafePipe } from './components/Shipment/safe.pipe';
 import { ResetPasswordEmailComponent } from './components/Member/reset-password-email/reset-password-email.component';
 import { ResetPasswordCompleteComponent } from './components/Member/reset-password-complete/reset-password-complete.component';
 
@@ -51,6 +52,7 @@ import { ResetPasswordCompleteComponent } from './components/Member/reset-passwo
 
 
 const routes: Routes = [
+  { path: 'shipment/:routeId', component: DetailComponent },
 ];
 
 
@@ -78,6 +80,7 @@ const routes: Routes = [
 
     DetailComponent,
     TicketComponent,
+    SafePipe,
 
     CartComponent,
     CheckoutComponent,

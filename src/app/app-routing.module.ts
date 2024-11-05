@@ -76,8 +76,10 @@ const routes: Routes = [
    },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },
 
-  { path: 'shipment-detail', component: DetailComponent },
+  // { path: 'shipment-detail', component: DetailComponent },
   { path: 'shipment-ticket', component: TicketComponent },
+  { path: 'shipment-detail/:routeId', component: DetailComponent },
+
 
   { path: 'cart', component:CartComponent },
   { path: 'checkout', component:CheckoutComponent },
