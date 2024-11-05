@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-4 form-group">
           <label>地區</label>
-          <select class="form-select" [(ngModel)]="loginTransfer.CityAreaId">
+          <select class="form-select" [(ngModel)]="loginTransfer.CityAreaId" (change)="getcity()">
             <option>請選擇</option>
             <option *ngFor="let area of cityAreas" [value]="area.cityAreaId">{{area.cityAreaName}}</option>
           </select>
@@ -46,6 +46,7 @@
           <label>城市</label>
           <select class="form-select">
             <option>請選擇</option>
+            <option *ngFor="let city of citys" [value]="city.cityId">{{city.cityName}}</option>
           </select>
         </div>
       </div>
