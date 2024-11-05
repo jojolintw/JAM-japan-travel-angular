@@ -1,6 +1,6 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import{ArticleService} from 'src/app/service/Blog/article-service/article.service';
+import { ArticleService } from 'src/app/service/Blog/article-service/article.service';
 import { Article } from 'src/app/interface/Article/Article.interface';
 
 @Component({
@@ -8,32 +8,53 @@ import { Article } from 'src/app/interface/Article/Article.interface';
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.css']
 })
-export class BlogListComponent implements OnInit{
+export class BlogListComponent implements OnInit {
 
-  // article:Article[]=[];
   displayedArticles: Article[] = [];
-
+  keyword: string = '';  // 存储搜索关键词
+  loading: boolean = false;  // 用于指示正在加载数据
 
   constructor(private route: ActivatedRoute, private ArticleService: ArticleService) { }
 
   ngOnInit(): void {
     this.ArticleService.getArticles().subscribe((data: Article[]) => {
-      console.log('API 返回的資料:', data); // 打印整個返回的資料
       this.displayedArticles = data;
 
       // 迭代每篇文章，打印發文時間和最新修改時間
       this.displayedArticles.forEach(article => {
         article.launchTime = new Date(article.launchTime);
         article.lastUpdateTime = new Date(article.lastUpdateTime);
-        console.log('發文日期:', article.launchTime);
-        console.log('最新修改日期:', article.lastUpdateTime);
+
       });
     }, (error) => {
       console.error('Error fetching articles', error);
     });
   }
 
-  clickTest(){
+  clickTest() {
     alert('here');
+  }
+
+  searchArticles(): void {
+    if (this.keyword.trim()) {
+      // 每次搜索前清空文章列表
+      // this.articles = [];
+      this.loading = true; // 开始加载数据
+
+      this.ArticleService.searchArticles(this.keyword).subscribe(
+        (data) => {
+          this.displayedArticles = data;
+          this.loading = false;  // 加载完成
+          // this.displayedArticles[0].articleContent = 'TEST'
+
+        },
+        (error) => {
+          console.error('查詢失敗', error);
+          console.error('查詢失敗', error.status);  // 错误处理
+          this.displayedArticles =[];
+          this.loading = false;  // 加载完成
+        }
+      );
+    }
   }
 }
