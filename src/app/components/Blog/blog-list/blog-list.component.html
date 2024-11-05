@@ -19,7 +19,7 @@
                 </div>
                 <div class="blog-content">
                   <h2 class="blog-title">{{item.articleTitle}}</h2>
-                  <p>{{item.articleContent}}</p>
+                  <p class="truncate">{{item.articleContent}}</p>
                   <div class="blog-bottom">
                     <div>
                       <i class="fas fa-calendar-alt">發文日期</i> {{item.launchTime| date:'yyyy/MM/dd'}}
@@ -27,7 +27,8 @@
                     <div>
                       <i class="fas fa-calendar-alt">最新修改日期</i>{{item.lastUpdateTime | date:'yyyy/MM/dd'}}
                     </div>
-                    <a class="vs-btn has-arrow" href="#">看全文 <i class="fal fa-arrow-right"></i></a>
+                    <a [routerLink]="['/blog-detail', item.articleId]" class="vs-btn has-arrow">看全文<i class="fal fa-arrow-right"></i></a>
+
                   </div>
                   <li *ngFor="let articleHashtag of item.articleHashtags;" (click)="clickTest()">
                     {{articleHashtag}}
@@ -190,13 +191,30 @@
 
       <div class="col-lg-4">
         <div class="sidebar-area">
+
           <div class="widget widget_search">
             <div class="widget_title">關鍵字查詢</div>
-            <form class="search-form">
-              <input type="text" placeholder="輸入關鍵字">
-              <button type="submit"><i class="far fa-search"></i></button>
+            <form class="search-form" (ngSubmit)="searchArticles()">
+
+              <input [(ngModel)]="keyword" name="keyword" type="text" placeholder="輸入關鍵字" required>
+              <button type="submit">
+                <i class="far fa-search"></i>
+              </button>
             </form>
+
+            <!-- 显示符合条件文章的数量 -->
+            <div *ngIf="displayedArticles.length > 0">
+              <p>找到 {{ displayedArticles.length }} 篇符合的文章</p>
+            </div>
+
+
+
+            <!-- 如果没有找到文章 -->
+            <div *ngIf="displayedArticles.length === 0 && keyword.trim()">
+              <p>找不到符合的文章。</p>
+            </div>
           </div>
+
           <div class="widget">
             <h3 class="widget_title">最近發布</h3>
             <div class="recent-post-wrap">
@@ -296,4 +314,6 @@
     </div>
   </div>
 </div>
+
+
 <!-- Blog Content Area End -->

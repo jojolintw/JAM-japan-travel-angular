@@ -1,67 +1,31 @@
+<!-- Blog details Content Area Start -->
+<div class="vs-blog-wrapper vs-blog-details space-top space-extra-bottom">
+  <div class="container">
+    <div class="row gx-30">
+      <div class="col-lg-8">
+        <div class="vs-blog blog-single">
 
-
-
-
-  <!-- Hero Area Start -->
-  <div class="breadcumb-wrapper" data-bg-src="assets/img/breadcumb/breadcumb-bg.jpg">
-    <div class="container z-index-common">
-      <div class="breadcumb-content">
-        <h1 class="breadcumb-title">Blog Details</h1>
-        <div class="breadcumb-menu-wrap">
-          <ul class="breadcumb-menu">
-            <li><a href="index.html">Home</a></li>
-            <li>Blog</li>
-            <li>We are Giving Amazing Tour For VIP</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Hero Area End -->
-
-  <!-- Blog details Content Area Start -->
-  <div class="vs-blog-wrapper vs-blog-details space-top space-extra-bottom">
-    <div class="container">
-      <div class="row gx-30">
-        <div class="col-lg-8">
-          <div class="vs-blog blog-single">
-            <div class="blog-img">
-              <img src="assets/img/blog/blog1.jpg" alt="blog image">
+          <div class="blog-content" *ngIf="article">
+            <h2 class="blog-title">{{ article.articleTitle }}</h2>
+            <div class="blog-meta">
+              <i class="fas fa-calendar-alt">發文日期</i> {{ article.launchTime | date: 'yyyy/MM/dd' }}
+              <img src="assets/img/blog/authorpic.png" alt="blog author image">
+              <a href="#" class="author-name">森上梅友前</a>
             </div>
-            <div class="blog-content">
-              <h2 class="blog-title">Dorem ipsum dolor sit amet, consectetur adip on a elgit Curabitur argcu erat
-                accumsan.</h2>
-              <div class="blog-meta">
-                <a href="blog.html"><i class="far fa-calendar"></i>24 Feb, 2022</a>
-                <a href="blog.html"><i class="fal fa-user"></i>by admin</a>
-              </div>
-              <p>Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac diam
-                sit amet for a quam vehicula elementum sed sit amet dui. Donec sollicitudin molestie malesuada. Donec
-                sollicitudin molestie malesuada. Proin eget tortor risus. Quisque velit nisi, pretium ut lacinia in,
-                elementum id enim. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam
-                vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                velit nisi, pretium ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus.
-                Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet,
-                consectetur adipiscing ipsum dolor sit amet, consectetur elit.</p>
-              <p>Vestibulum ac diam sit amet for a quam vehicula elementum sed sit amet dui. Donec sollicitudin molestie
-                malesuada. Donec sollicitudin molestie malesuada. Proin eget tortor risus. Quisque velit nisi, pretium
-                ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit
-                amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in,
-                elementum id enim.</p>
-              <blockquote class="vs-blockquote">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing ipsum dolor in sit amget, consectetur elit.</p>
-                <cite>Rodja Hartmann</cite>
-              </blockquote>
-              <h3>Lorem ipsum dolor sit amet consectetur.</h3>
-              <p>Vestibulum ac diam sit amet for a quam vehicula elementum sed sit amet dui. Donec
-                sollicitudin molestie malesuada. Donec sollicitudin molestie malesuada. Proin eget tortor risus. Quisque
-                velit nisi, pretium ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus.
-                Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit
-                nisi, pretium ut lacinia in, elementum id enim.</p>
 
-              <div class="row">
+            <p>{{ article.articleContent }}</p>
+
+
+
+            <div class="blog-img">
+              <img src="assets/img/blog/Fukuoka.jpg" alt="blog image">
+            </div>
+            <blockquote class="vs-blockquote">
+              <p>在非洲 每六十秒 就有一分鐘過去</p>
+              <cite>第一任南非黑人總統 納爾遜‧曼德拉</cite>
+            </blockquote>
+
+            <!-- <div class="row">
                 <div class="col-xl-4 col-md-6 col-12">
                   <div class="blog-inner-img">
                     <img src="assets/img/blog/blog1.jpg" alt="blog" class="w-100">
@@ -77,265 +41,217 @@
                     <img src="assets/img/blog/blog3.jpg" alt="blog" class="w-100">
                   </div>
                 </div>
-              </div>
-              <p>Vestibulum ac diam sit amet for a quam vehicula elementum sed sit amet dui. Donec sollicitudin molestie
-                malesuada. Donec sollicitudin molestie malesuada. Proin eget tortor risus. Quisque velit nisi, pretium
-                ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus.</p>
-              <div class="clearfix share-links">
-                <div class="row justify-content-between gy-30">
-                  <div class="col-xl-auto col-md-auto">
-                    <span class="share-links-title">Tags:</span>
-                    <div class="tagcloud">
-                      <a href="blog.html">Camera</a>
-                      <a href="blog.html">Travel</a>
-                      <a href="blog.html">Camps</a>
-                    </div>
-                  </div>
-                  <div class="col-xl-auto col-md-auto">
-                    <span class="share-links-title">Share:</span>
-                    <ul class="social-links">
-                      <li>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                      </li>
-                      <li>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                      </li>
-                    </ul>
-                    <!-- End Social Share -->
-                  </div>
-                  <!-- Share Links Area end -->
-                </div>
-              </div>
+              </div> -->
 
-              <div class="post-pagination">
-                <div class="row justify-content-between align-items-center">
-                  <div class="col">
-                    <div class="post-pagi-box prev">
-                      <a href="blog-details.html"><img src="assets/img/blog/page-1-1.jpg" alt="pagi"></a>
-                      <a href="blog-details.html" class="pagi-title">Previous Post</a>
-                    </div>
-                  </div>
-                  <div class="col-auto d-none d-sm-block">
-                    <a href="blog.html" class="pagi-icon"><i class="fas fa-th"></i></a>
-                  </div>
-                  <div class="col">
-                    <div class="post-pagi-box next">
-                      <a href="blog-details.html"><img src="assets/img/blog/page-1-2.jpg" alt="pagi"></a>
-                      <a href="blog-details.html" class="pagi-title">Next Post</a>
-                    </div>
+            <div class="clearfix share-links">
+              <div class="row justify-content-between gy-30">
+                <div class="col-xl-auto col-md-auto" *ngIf="article.articleHashtags && article.articleHashtags.length > 0">
+                  <span class="share-links-title">Hashtags:</span>
+                  <div class="tagcloud">
+                    <a *ngFor="let hashtag of article.articleHashtags" href="blog.html">{{ hashtag }}</a>
                   </div>
                 </div>
-              </div>
 
-              <div class="vs-comments-wrap">
-                <h2 class="blog-inner-title">Comment (3)</h2>
-                <ul class="comment-list">
-                  <li class="vs-comment-item">
-                    <div class="vs-post-comment">
-                      <div class="comment-avater">
-                        <img src="assets/img/blog/comment-author-1.jpg" alt="Comment Author">
-                      </div>
-                      <div class="comment-content">
-                        <span class="commented-on"><i class="fal fa-calendar-alt"></i> 22 March, 2023
-                        </span>
-                        <h4 class="name h4">Lynda Reyes</h4>
-                        <p class="text">Deauty products Lorem ipsum dolor sit amet, consectetur adipisicing the Lorem
-                          ipsum dolor sitamet consectetur adipiscing eiusmod</p>
-                        <div class="reply_and_edit">
-                          <a href="#" class="replay-btn">Reply <i class="fas fa-reply"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                    <ul class="children">
-                      <li class="vs-comment-item">
-                        <div class="vs-post-comment">
-                          <div class="comment-avater">
-                            <img src="assets/img/blog/comment-author-2.jpg" alt="Comment Author">
-                          </div>
-                          <div class="comment-content">
-                            <span class="commented-on"><i class="fal fa-calendar-alt"></i> 23 Augest, 2023</span>
-                            <h4 class="name h4">Adom Lee</h4>
-                            <p class="text">Deauty products Lorem ipsum dolor sit amet, consectetur adipisicing the
-                              Lorem ipsum dolor sitamet</p>
-                            <div class="reply_and_edit">
-                              <a href="#" class="replay-btn">Reply <i class="fas fa-reply"></i></a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="vs-comment-item">
-                    <div class="vs-post-comment">
-                      <div class="comment-avater">
-                        <img src="assets/img/blog/comment-author-3.jpg" alt="Comment Author">
-                      </div>
-                      <div class="comment-content">
-                        <span class="commented-on"><i class="fal fa-calendar-alt"></i> 26 April, 2023</span>
-                        <h4 class="name h4">Surya sing</h4>
-                        <p class="text">Deauty products Lorem ipsum dolor sit amet, consectetur adipisicing the Lorem
-                          ipsum dolor sitamet consectetur adipiscing eiusmod</p>
-                        <div class="reply_and_edit">
-                          <a href="#" class="replay-btn">Reply <i class="fas fa-reply"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Comment Form -->
-              <div class="vs-comment-form">
-                <div id="respond" class="comment-respond">
-                  <h3 class="blog-inner-title">Leave a Comment</h3>
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <input type="text" class="form-control" placeholder="Enter Your Name">
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <input type="email" class="form-control" placeholder="Email Address">
-                    </div>
-                    <div class="col-12 form-group">
-                      <textarea class="form-control" placeholder="Write Your Comment"></textarea>
-                    </div>
-                    <div class="col-12 ">
-                      <div class="custom-checkbox notice">
-                        <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox"
-                          value="yes">
-                        <label for="wp-comment-cookies-consent"> Save my name, email, and website in this browser for
-                          the next time I comment.</label>
-                      </div>
-                    </div>
-                    <div class="col-12 form-group">
-                      <button class="vs-btn style4">Post Comment</button>
-                    </div>
-                  </div>
+                <div class="col-xl-auto col-md-auto">
+                  <span class="share-links-title">Share:</span>
+                  <ul class="social-links">
+                    <li>
+                      <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </li>
+                    <li>
+                      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </li>
+                  </ul>
+                  <!-- End Social Share -->
                 </div>
+                <!-- Share Links Area end -->
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="sidebar-area">
-            <div class="widget widget_search">
-              <div class="widget_title">Search</div>
-              <form class="search-form">
-                <input type="text" placeholder="Search Tour">
-                <button type="submit"><i class="far fa-search"></i></button>
-              </form>
-            </div>
-            <div class="widget">
-              <h3 class="widget_title">Recent Posts</h3>
-              <div class="recent-post-wrap">
-                <div class="recent-post">
-                  <div class="media-img">
-                    <a href="blog-details.html">
-                      <img src="assets/img/blog/recent-post1.jpg" alt="Blog Image">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h4 class="post-title">
-                      <a class="text-inherit" href="blog-details.html">We are Giving Amazing Tour</a>
-                    </h4>
-                    <div class="recent-post-meta">
-                      <i class="fas fa-calendar-alt"></i>
-                      <a href="blog.html">July 21, 2023</a>
-                    </div>
+
+            <div class="post-pagination">
+              <div class="row justify-content-between align-items-center">
+                <div class="col">
+                  <div class="post-pagi-box prev">
+                    <a href="blog-details.html"><img src="assets/img/blog/previous-arrow.png" alt="pagi"></a>
+                    <a href="blog-details.html" class="pagi-title">上一篇</a>
                   </div>
                 </div>
-                <div class="recent-post">
-                  <div class="media-img">
-                    <a href="blog-details.html">
-                      <img src="assets/img/blog/recent-post2.jpg" alt="Blog Image">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h4 class="post-title">
-                      <a class="text-inherit" href="blog-details.html">The journey journal chronicles</a>
-                    </h4>
-                    <div class="recent-post-meta">
-                      <i class="fas fa-calendar-alt"></i>
-                      <a href="blog.html">July 21, 2023</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="recent-post">
-                  <div class="media-img">
-                    <a href="blog-details.html">
-                      <img src="assets/img/blog/recent-post3.jpg" alt="Blog Image">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h4 class="post-title">
-                      <a class="text-inherit" href="blog-details.html">Roam And Revel captivating</a>
-                    </h4>
-                    <div class="recent-post-meta">
-                      <i class="fas fa-calendar-alt"></i>
-                      <a href="blog.html">July 21, 2023</a>
-                    </div>
+
+                <div class="col">
+                  <div class="post-pagi-box next">
+                    <a href="blog-details.html"><img src="assets/img/blog/next-arrow.png" alt="pagi"></a>
+                    <a href="blog-details.html" class="pagi-title">下一篇</a>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="widget widget_categories">
-              <h3 class="widget_title">Categories</h3>
-              <ul>
-                <li><a class="active" href="#">Adventure</a> <span>(10)</span></li>
-                <li><a href="#">Food</a> <span>(5)</span></li>
-                <li><a href="#">New Year</a> <span>(8)</span></li>
-                <li><a href="#">Summer</a> <span>(3)</span></li>
-                <li><a href="#">Travel</a> <span>(9)</span></li>
+            <div class="vs-comments-wrap">
+              <h2 class="blog-inner-title">留言</h2>
+              <ul class="comment-list">
+                <li class="vs-comment-item">
+                  <div class="vs-post-comment">
+                    <div class="comment-avater">
+                      <img src="assets/img/blog/authorpic.png" alt="Comment Author">
+                    </div>
+                    <div class="comment-content">
+                      <span class="commented-on"><i class="fal fa-calendar-alt"></i> 22 March, 2023
+                      </span>
+                      <h4 class="name h4">梅川伊芙</h4>
+                      <p class="text">福岡很無聊ㄟ</p>
+                      <div class="reply_and_edit">
+                        <a href="#" class="replay-btn">修改 <i ></i></a>
+                        <a href="#" class="replay-btn">刪除 <i ></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="vs-comment-item">
+                  <div class="vs-post-comment">
+                    <div class="comment-avater">
+                      <img src="assets/img/blog/authorpic.png" alt="Comment Author">
+                    </div>
+                    <div class="comment-content">
+                      <span class="commented-on"><i class="fal fa-calendar-alt"></i> 26 April, 2023</span>
+                      <h4 class="name h4">稻澈入庫</h4>
+                      <p class="text">日本94讚</p>
+                      <div class="reply_and_edit">
+                        <a href="#" class="replay-btn">修改 <i ></i></a>
+                        <a href="#" class="replay-btn">刪除 <i ></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
               </ul>
             </div>
 
-            <div class="widget widget-newsletter">
-              <h3 class="widget_title">Newsletter</h3>
-              <form class="newsletter-form">
-                <input class="form-control" type="email" placeholder="Enter Your Email" />
-                <button type="submit" class="vs-btn style4">Submit</button>
-              </form>
-            </div>
-
-            <div class="widget widget_tag_cloud">
-              <h3 class="widget_title">Tag</h3>
-              <div class="tagcloud">
-                <a href="blog.html">Camera</a>
-                <a href="blog.html">Travel</a>
-                <a href="blog.html">Camp</a>
-                <a href="blog.html">summer</a>
-                <a href="blog.html">Winter</a>
-                <a href="blog.html">City</a>
-                <a href="blog.html">Adventure</a>
-                <a href="blog.html">Nature</a>
-                <a href="blog.html">Fun</a>
-
-              </div>
-            </div>
-
-            <div class="widget widget-social">
-              <h3 class="widget_title">Never Miss News</h3>
-              <div class="social-style widget_social_style">
-                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-pinterest-p"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <!-- Comment Form -->
+            <div class="vs-comment-form">
+              <div id="respond" class="comment-respond">
+                <h3 class="blog-inner-title">留言吧~</h3>
+                <div class="row">
+                  <!-- <div class="col-md-6 form-group">
+                    <input type="text" class="form-control" placeholder="Enter Your Name">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <input type="email" class="form-control" placeholder="Email Address">
+                  </div> -->
+                  <div class="col-12 form-group">
+                    <textarea class="form-control" placeholder="請輸入留言"></textarea>
+                  </div>
+                  <!-- <div class="col-12 ">
+                    <div class="custom-checkbox notice">
+                      <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox"
+                        value="yes">
+                      <label for="wp-comment-cookies-consent"> Save my name, email, and website in this browser for
+                        the next time I comment.</label>
+                    </div>
+                  </div> -->
+                  <div class="col-12 form-group">
+                    <button class="vs-btn style4">送出留言</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-lg-4">
+        <div class="sidebar-area">
+
+          <!-- <div class="widget widget_search">
+            <div class="widget_title">關鍵字查詢</div>
+            <form class="search-form">
+              <input type="text" placeholder="輸入關鍵字">
+              <button type="submit"><i class="far fa-search"></i></button>
+            </form>
+          </div> -->
+
+          <div class="widget">
+            <h3 class="widget_title">最近發布</h3>
+            <div class="recent-post-wrap">
+              <div class="recent-post">
+                <div class="media-img">
+                  <a href="blog-details.html">
+                    <img src="assets/img/blog/Fukuoka.jpg" alt="Blog Image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="post-title">
+                    福岡
+                  </h4>
+                  <div class="recent-post-meta">
+                    <i class="fas fa-calendar-alt">發文日期</i> July 21, 2023
+                  </div>
+                </div>
+              </div>
+              <div class="recent-post">
+                <div class="media-img">
+                  <a href="blog-details.html">
+                    <img src="assets/img/blog/Okinawa.jpg" alt="Blog Image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="post-title">
+                    沖繩
+                  </h4>
+                  <div class="recent-post-meta">
+                    <i class="fas fa-calendar-alt">發文日期</i> July 21, 2023
+                  </div>
+                </div>
+              </div>
+              <div class="recent-post">
+                <div class="media-img">
+                  <a href="blog-details.html">
+                    <img src="assets/img/blog/Tokyo.jpg" alt="Blog Image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="post-title">
+                    東京
+                  </h4>
+                  <div class="recent-post-meta">
+                    <i class="fas fa-calendar-alt">發文日期</i> July 21, 2023
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="widget widget_tag_cloud">
+            <h3 class="widget_title">Hashtag</h3>
+            <div class="tagcloud">
+              <a href="blog.html">福岡</a>
+              <a href="blog.html">沖繩</a>
+              <a href="blog.html">札幌</a>
+              <a href="blog.html">東京</a>
+              <a href="blog.html">大阪</a>
+              <a href="blog.html">仙台</a>
+              <a href="blog.html">燒肉</a>
+              <a href="blog.html">壽喜燒</a>
+              <a href="blog.html">拉麵</a>
+            </div>
+          </div>
+
+          <div class="widget widget-social">
+            <h3 class="widget_title">訂閱嗎?</h3>
+            <div class="social-style widget_social_style">
+              <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="#" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+              <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
-  <!-- Blog Details Content Area End -->
-
-
-
-
-
+</div>
+<!-- Blog Details Content Area End -->

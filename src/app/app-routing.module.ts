@@ -19,7 +19,7 @@ import { MyorderComponent } from './components/Member/myorder/myorder.component'
 import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
 import { CouponComponent } from './components/Member/coupon/coupon.component';
 import { MemberareaComponent } from './components/Member/memberarea/memberarea.component';
-
+import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
 import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
 import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
 const routes: Routes = [
@@ -87,6 +87,7 @@ const routes: Routes = [
 
   { path:'blog-write',component:BlogWriteComponent},
 
+  { path: 'blog-detail/:id', component: BlogDetailComponent },
   { path: '**', component:HomePageComponent },
 ];
 
