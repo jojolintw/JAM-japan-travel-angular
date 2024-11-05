@@ -64,6 +64,26 @@
               </tr>
             </thead>
             <tbody>
+              <!-- ============================================== -->
+              <tr class="cart_item" *ngFor="let item of cartItems">
+                <td data-title="Product">
+                  <img width="91" height="91"
+                      [src]="item.imagePath" alt="Image">
+                </td>
+                <td data-title="Name">
+                  <p>{{item.name}}</p>
+                </td>
+                <td data-title="Price">
+                  <span class="amount"><bdi><span>$</span>{{item.price}}</bdi></span>
+                </td>
+                <td data-title="Quantity">
+                  <strong class="product-quantity">{{item.quantity}}</strong>
+                </td>
+                <td data-title="Total">
+                  <span class="amount"><bdi><span>$</span>{{item.price * item.quantity}}</bdi></span>
+                </td>
+              </tr>
+              <!-- =============================================== -->
               <tr class="cart_item">
                 <td data-title="Product">
                   <img width="91" height="91"
@@ -118,17 +138,17 @@
               <tr class="cart-subtotal">
                 <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">商品總金額</th>
                 <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
-                        class="woocommerce-Price-currencySymbol">$</span>6,500</bdi></span></td>
+                        class="woocommerce-Price-currencySymbol">$</span>{{totalAmount}}</bdi></span></td>
               </tr>
               <tr class="woocommerce-shipping-totals shipping">
                 <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">優惠券折扣</th>
                 <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
-                  class="woocommerce-Price-currencySymbol">-$</span>100</bdi></span></td>
+                  class="woocommerce-Price-currencySymbol">-$</span>{{discount}}</bdi></span></td>
               </tr>
               <tr class="order-total">
                 <th style=" text-align: center;vertical-align: middle;">訂單總金額</th>
                 <td data-title="Total" colspan="4" style=" text-align: center;vertical-align: middle;"><strong><span class="woocommerce-Price-amount amount"><bdi><span
-                          class="woocommerce-Price-currencySymbol">$</span>6,400</bdi></span></strong>
+                          class="woocommerce-Price-currencySymbol">$</span>{{totalAmount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>
@@ -181,7 +201,7 @@
                 </ul>
                 <div class="form-row place-order pt-lg-2" style="text-align:end">
                   <strong><span class="woocommerce-Price-amount amount" style="padding: 0px 20px; font-size: 22px;"><bdi><span
-                    class="woocommerce-Price-currencySymbol">訂單總金額：$</span>6,400</bdi></span></strong>
+                    class="woocommerce-Price-currencySymbol">訂單總金額：$</span>{{totalAmount}}</bdi></span></strong>
                   <button type="submit" class="vs-btn style4" (click)="goToConfirmation()">下單付款</button>
                 </div>
               </div>

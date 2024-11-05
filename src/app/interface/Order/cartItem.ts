@@ -4,7 +4,5 @@ export interface cartItem{
   price:number          //商品單價
   quantity:number       //數量
   imagePath:string      //圖片路徑
-  type:string           //區分行程與船票
-  couponName:string     //優惠券名稱
-  discount:number       //折扣
+  // 只針對行程進行結帳 不做行程船票的區分
 }

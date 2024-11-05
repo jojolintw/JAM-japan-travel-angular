@@ -2,6 +2,7 @@ import { memberInfo } from './../../../interface/Order/memberInfo';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
+import { cartItem } from 'src/app/interface/Order/cartItem';
 
 @Component({
   selector: 'app-checkout',
@@ -10,7 +11,10 @@ import { LocalstorageService } from 'src/app/service/Order/localstorage.service'
 })
 export class CheckoutComponent {
 
-
+  cartItems: cartItem[] = []
+  quantity = 1
+  totalAmount = 0
+  discount = 100
   memberName: String = '';
   phone: String = '';
   email: String = '';
@@ -20,7 +24,8 @@ export class CheckoutComponent {
   }
 
   ngOnInit(): void {
-
+    this.cartItems = this.localstorageService.getCartItems();
+    this.calculateTotal();
 
     this.localstorageService.getMemberInfo().subscribe(
       (response) => {
@@ -51,6 +56,17 @@ export class CheckoutComponent {
       }
     );
   }
+
+  calculateTotal(){
+    this.totalAmount = this.cartItems.reduce((total, item)=>{
+    return total + (item.price * item.quantity);
+  },0);
+  }
+
+  removeCartItemAll(){
+    this.localstorageService.removeCart();      // 清除localStorage中key為cart的資料
+  }                                             // 使用時機為訂單成立存入資料庫後即清除
+
 
   goToConfirmation() {
     this.router.navigate(['orderconfirmation']);
