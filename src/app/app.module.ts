@@ -44,6 +44,10 @@ import { TimeSelectionDialogComponent } from './components/product/timeselection
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 import { RegistercompleleComponent } from './components/Member/registercomplele/registercomplele.component';
 import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
+import { ResetPasswordEmailComponent } from './components/Member/reset-password-email/reset-password-email.component';
+import { ResetPasswordCompleteComponent } from './components/Member/reset-password-complete/reset-password-complete.component';
+
+
 
 
 const routes: Routes = [
@@ -85,6 +89,8 @@ const routes: Routes = [
       BlogDetailComponent,
       RegistercompleleComponent,
       CertificationSuccessComponent,
+      ResetPasswordEmailComponent,
+      ResetPasswordCompleteComponent,
   ],
   imports: [
     BrowserModule,
