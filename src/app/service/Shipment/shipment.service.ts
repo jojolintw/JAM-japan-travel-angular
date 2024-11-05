@@ -12,6 +12,8 @@ export interface Shipment {
   nearestDepartureTime?: Date; // 新增屬性儲存最近的出發時間
   imageUrl?: string; // 預設的圖片URL
   imageBase64?: string; // 新增屬性用於存儲Base64編碼
+  originPortGoogleMap?: string; // 出發地的 Google Maps 連結
+  destinationPortGoogleMap?: string; // 目的地的 Google Maps 連結
 }
 
 @Injectable({
