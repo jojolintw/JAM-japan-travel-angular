@@ -10,6 +10,8 @@ export class TicketComponent implements OnInit {
   shipments: Shipment[] = [];
   sortedShipments: Shipment[] = [];
   selectedSortOption: string = 'default';
+  selectedDeparture: string | null = null;
+  selectedDestination: string | null = null;
 
   constructor(private shipmentService: ShipmentService) {}
 
@@ -34,8 +36,27 @@ export class TicketComponent implements OnInit {
     this.applySortingAndFiltering();
   }
 
+  onDepartureChange(departure: string): void {
+    this.selectedDeparture = departure;
+    this.applySortingAndFiltering();
+  }
+
+  onDestinationChange(destination: string): void {
+    this.selectedDestination = destination;
+    this.applySortingAndFiltering();
+  }
+
   applySortingAndFiltering(): void {
     this.sortedShipments = [...this.shipments]; // 複製原始資料
+
+    // 篩選處理
+    if (this.selectedDeparture) {
+      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.originPortName === this.selectedDeparture);
+    }
+
+    if (this.selectedDestination) {
+      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.destinationPortName === this.selectedDestination);
+    }
 
     // 排序處理
     switch (this.selectedSortOption) {
@@ -47,7 +68,7 @@ export class TicketComponent implements OnInit {
         break;
       case 'date':
         // 按出發時間排序，將未來最近的時間排在最前面
-        // this.sortedShipments.sort((a, b) => new Date(a.departureTime).getTime() - new Date(b.departureTime).getTime());
+        // 這裡省略
         break;
       default:
         // 默認排序

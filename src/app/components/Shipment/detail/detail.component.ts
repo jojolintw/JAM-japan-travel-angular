@@ -11,5 +11,6 @@ export class DetailComponent {
     link.rel = 'stylesheet';
     link.href = 'assets/css/slick.min.css';
     document.head.appendChild(link);
+    
   }
 }
