@@ -7,191 +7,86 @@
   <section class="space">
     <div class="container">
       <div class="row">
-    <!--==============================
+        <!--==============================
      Destiniations Area Start 
   ==============================-->
-  
-  <div class="col-lg-9">
-    <label for="sort">排序：</label>
-    <select id="sort" name="sort">
-      <option value="default">默認排序</option>
-      <option value="priceAsc">價格：低到高</option>
-      <option value="priceDesc">價格：高到低</option>
-      <option value="date">近期出發</option>
-    </select>
+
+        <div class="col-lg-9">
+          <label for="sort">排序：</label>
+          <select id="sort" name="sort" onchange="applyFilter()">
+            <option value="default">默認排序</option>
+            <option value="priceAsc">價格：低到高</option>
+            <option value="priceDesc">價格：高到低</option>
+            <option value="date">近期出發</option>
+          </select>
 
 
-    
-    <div class="row">
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" *ngFor="let shipment of shipments">
-        <div class="destination-style1">
-          <a href="destination-details.html">
-            <img 
-    *ngIf="shipment.imageUrl || shipment.imageBase64" 
-    [src]="shipment.imageUrl || (shipment.imageBase64 ? 'data:image/jpeg;base64,' + shipment.imageBase64 : 'assets/img/Shipment/default.jpg')" 
-    alt="destination image" 
-    style="width: 550px; height: 300px;" />
 
-                  </a>
-          <span class="destination-price">{{ shipment.price | currency }}</span>
-          <div class="destination-info">
-            <h4 class="destination-name">
-              <a href="#">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
-            </h4>
-            <p class="destination-text">{{ shipment.routeDescription }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- <H2>近期出發</H2>
-    <div class="row">
-              <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/1.jfif" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$299</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">基隆-那霸</a></h4>
-              <p class="destination-text">最近出發時間:11/1</p>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" *ngFor="let shipment of sortedShipments">
+              <div class="destination-style1">
+                <a [routerLink]="['/shipment-detail', shipment.routeId]">
+                  <img *ngIf="shipment.imageUrl || shipment.imageBase64"
+                       [src]="shipment.imageUrl || (shipment.imageBase64 ? 'data:image/jpeg;base64,' + shipment.imageBase64 : 'assets/img/Shipment/default.jpg')"
+                       alt="destination image" style="width: 550px; height: 300px;" />
+                </a>
+                <span class="destination-price">{{ shipment.price | currency }}</span>
+                <div class="destination-info">
+                  <h4 class="destination-name">
+                    <a href="#">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
+                  </h4>
+                  <p class="destination-text">{{ shipment.routeDescription }}</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/5.jpg" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$399</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">高雄-名古屋</a></h4>
-              <p class="destination-text">最近出發時間:11/1</p>
-            </div>
+
+
+
+
+
+
+
+          <!-- 翻頁 -->
+          <div class="vs-pagination pt-lg-2">
+            <ul>
+              <li>
+                <a href="destinations.html"><i class="fas fa-chevron-left"></i></a>
+              </li>
+              <li><a href="destinations.html">1</a></li>
+              <li><a href="destinations.html">2</a></li>
+              <li><a href="destinations.html">3</a></li>
+              <li>
+                <a href="destinations.html"><i class="fas fa-chevron-right"></i></a>
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/7.jpg" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$299</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">基隆-廣島</a></h4>
-              <p class="destination-text">最近出發時間:11/8</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/10.webp" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$399</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">台中-清水</a></h4>
-              <p class="destination-text">最近出發時間:11/15</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/11.webp" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$299</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">基隆-神戶</a></h4>
-              <p class="destination-text">最近出發時間:11/6</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/9.webp" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$399</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">高雄-千葉</a></h4>
-              <p class="destination-text">最近出發時間:11/13</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/6.jpg" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$299</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">基隆-八戶</a></h4>
-              <p class="destination-text">最近出發時間:11/1</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/8.jpg" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$399</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">高雄-石垣島</a></h4>
-              <p class="destination-text">最近出發時間:11/1</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-          <div class="destination-style1">
-            <a href="destination-details.html">
-              <img src="assets/img/Shipment/2.jfif" alt="destination image" style="width: 550px; height: 300px;"/></a>
-            <span class="destination-price">$399</span>
-            <div class="destination-info">
-              <h4 class="destination-name"><a href="#">高雄-東京</a></h4>
-              <p class="destination-text">最近出發時間:11/22</p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- 翻頁 -->
-      <div class="vs-pagination pt-lg-2"> 
-        <ul>
-          <li>
-            <a href="destinations.html"><i class="fas fa-chevron-left"></i></a>
-          </li>
-          <li><a href="destinations.html">1</a></li>
-          <li><a href="destinations.html">2</a></li>
-          <li><a href="destinations.html">3</a></li>
-          <li>
-            <a href="destinations.html"><i class="fas fa-chevron-right"></i></a>
-          </li>
-        </ul>
-      </div>
-      </div>
         <!-- Sidebar for location selector -->
         <div class="col-lg-3 col-md-4 mb-4">
           <div class="sidebar-area">
             <div class="location-selector">
               <label for="departure">出發地</label>
-              <select id="departure" name="departure" class="form-select">
+              <select id="departure" name="departure" class="form-select" onchange="applyFilter()">
                 <option value="" disabled selected>選擇出發地</option>
                 <option value="location1">基隆</option>
                 <option value="location2">台中</option>
                 <option value="location3">高雄</option>
               </select>
-  
+
               <label for="destination">目的地</label>
-              <select id="destination" name="destination" class="form-select">
+              <select id="destination" name="destination" class="form-select" onchange="applyFilter()">
                 <option value="" disabled selected>選擇目的地</option>
                 <!-- AJAX 動態更新選項 -->
               </select>
-  
+
               <!-- 查詢按鈕 -->
-              <button id="search-btn" type="button" class="vs-btn style4 mt-2">查詢</button>
+              <button id="search-btn" type="button" class="vs-btn style4 mt-2" onclick="applyFilter()">查詢</button>
             </div>
           </div>
         </div>
-    </div></div>
+      </div>
+    </div>
   </section>
 
   <!--==============================
