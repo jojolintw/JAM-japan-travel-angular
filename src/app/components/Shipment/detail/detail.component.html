@@ -2,189 +2,191 @@
 <html lang="en">
 
 <body>
- <!--==============================
+  <!--==============================
 	  Destination Details Area Start
 	==============================-->
-<section class="space">
+  <section class="space">
     <div class="container">
       <div class="row">
         <div *ngIf="shipmentDetail">
           <h1 class="ds-title">{{ shipmentDetail.originPortName }} - {{ shipmentDetail.destinationPortName }}</h1>
-          
+
           <div class="col-lg-8">
             <div class="destination-details">
               <h2 class="ds-title">{{ shipmentDetail.destinationPort.portName }}</h2>
-              
+
               <div class="ds-img1">
                 <img [src]="shipmentDetail.imageUrl" alt="image">
               </div>
-        
+
               <p class="ds-text">{{ shipmentDetail.routeDescription }}</p>
-        
+
               <div>
                 <h2 class="ds-title">出發地周邊地圖</h2>
-                <iframe [src]="shipmentDetail.originPort.portGoogleMap | safe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe [src]="shipmentDetail.originPort.portGoogleMap | safe" width="100%" height="450"
+                  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
               </div>
-        
+
               <div>
                 <h2 class="ds-title">目的地周邊地圖</h2>
-                <iframe [src]="shipmentDetail.destinationPort.portGoogleMap | safe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe [src]="shipmentDetail.destinationPort.portGoogleMap | safe" width="100%" height="450"
+                  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
               </div>
-              
+
               <div class="price-info">
                 <h3>價格: {{ shipmentDetail.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</h3>
               </div>
             </div>
           </div>
         </div>
-        
-                
-              
-            <h2 class="ds-title">圖片</h2>
-            <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
-            <div class="mt-4">
-              <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12 col-auto">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/16.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/16.jpg" class="popup-image"><i
-                          class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
+
+
+
+        <h2 class="ds-title">圖片</h2>
+        <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
+        <div class="mt-4">
+          <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-auto">
+              <div class="gallery-img5">
+                <img src="assets/img/Shipment/16.jpg" alt="images">
+                <div class="gallery-content">
+                  <a href="assets/img/Shipment/16.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/17.JPG" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/17.JPG" class="popup-image"><i
-                          class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
+              <div class="gallery-img5">
+                <img src="assets/img/Shipment/17.JPG" alt="images">
+                <div class="gallery-content">
+                  <a href="assets/img/Shipment/17.JPG" class="popup-image"><i class="fas fa-plus"></i></a>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/18.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/18.jpg" class="popup-image"><i
-                          class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
+              <div class="gallery-img5">
+                <img src="assets/img/Shipment/18.jpg" alt="images">
+                <div class="gallery-content">
+                  <a href="assets/img/Shipment/18.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/19.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/19.jpg" class="popup-image"><i
-                          class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
+              <div class="gallery-img5">
+                <img src="assets/img/Shipment/19.jpg" alt="images">
+                <div class="gallery-content">
+                  <a href="assets/img/Shipment/19.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
                 </div>
-                 <div class="destinations-info">
+              </div>
+            </div>
+            <div class="destinations-info">
               <h2>費用包含/不包含</h2>
               <table class="destination-table">
                 <ul>
                   <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     船票
                   </li>
                   <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     設施使用費
                   </li>
                   <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     燃油費用
                   </li>
                   <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     國際觀光旅客稅
                   </li>
                   <li>
-                    <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                    <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon"
+                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                     以上未提及消費
                   </li>
-                  
+
                 </ul>
-                
+
               </table>
-              
-            </div>
-              </div>
-            </div>
 
-            
-            
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="sidebar-area">
-            
-            
-  
-            <div class="widget widget_tag_cloud">
-              <h3 class="widget_title">出發日期</h3>
-              <div class="tagcloud">
-                <a href="#" class="date-option" data-date="10/4">10/4</a>
-                <a href="#" class="date-option" data-date="10/11">10/11</a>
-                <a href="#" class="date-option" data-date="10/18">10/18</a>
-                <a href="#" class="date-option" data-date="10/25">10/25</a>
-                <a href="#" class="date-option" data-date="11/1">11/1</a>
-                <a href="#" class="date-option" data-date="11/8">11/8</a>
-                <a href="#" class="date-option" data-date="11/15">11/15</a>
-                <a href="#" class="date-option" data-date="11/22">11/22</a>
-                <a href="#" class="date-option" data-date="11/29">11/29</a>
-                <a href="#" id="viewAllDates">查看所有時間</a>
-              </div>
-              <button id="date-btn" type="button" class="vs-btn style4 mt-2">加入購物車</button>
-              
-              <script>
-                let selectedDate = null;
-              
-                // 添加點擊事件，選擇日期
-                document.querySelectorAll('.date-option').forEach(function (element) {
-                  element.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    
-                    // 移除所有日期選項的選中樣式
-                    document.querySelectorAll('.date-option').forEach(el => el.classList.remove('selected'));
-              
-                    // 標記選中的日期
-                    this.classList.add('selected');
-                    selectedDate = this.getAttribute('data-date');
-                  });
-                });
-              
-                // 點擊「下一步」按鈕，將選擇的日期送到下一層
-                document.getElementById('date-btn').addEventListener('click', function () {
-                  if (selectedDate) {
-                    // 跳轉到下一層或將選中的日期傳送到後端
-                    window.location.href = `blog.html?date=${selectedDate}`;
-                  } else {
-                    alert("請先選擇一個日期！");
-                  }
-                });
-              </script>
-              
-              <style>
-                .selected {
-                  font-weight: bold;
-                  color: #007bff;
-                }
-              </style>
-              
             </div>
-  
-            
           </div>
         </div>
 
-            
+
+
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="sidebar-area">
+
+
+
+        <div class="widget widget_tag_cloud">
+          <h3 class="widget_title">出發日期</h3>
+          <div class="tagcloud">
+            <a *ngFor="let schedule of schedules" href="#" class="date-option"
+              [class.active]="selectedScheduleId === schedule.scheduleId"
+              (click)="onScheduleSelected(schedule.scheduleId)">
+              {{ schedule.departureTime | date:'MM/dd' }}
+            </a>
+            <a href="#" id="viewAllDates">查看所有時間</a>
+          </div>
+          <button id="date-btn" type="button" class="vs-btn style4 mt-2" [disabled]="!selectedScheduleId">
+            加入購物車
+          </button>
+
+
+          <script>
+            let selectedDate = null;
+
+            // 添加點擊事件，選擇日期
+            document.querySelectorAll('.date-option').forEach(function (element) {
+              element.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                // 移除所有日期選項的選中樣式
+                document.querySelectorAll('.date-option').forEach(el => el.classList.remove('selected'));
+
+                // 標記選中的日期
+                this.classList.add('selected');
+                selectedDate = this.getAttribute('data-date');
+              });
+            });
+
+            // 點擊「下一步」按鈕，將選擇的日期送到下一層
+            document.getElementById('date-btn').addEventListener('click', function () {
+              if (selectedDate) {
+                // 跳轉到下一層或將選中的日期傳送到後端
+                window.location.href = `blog.html?date=${selectedDate}`;
+              } else {
+                alert("請先選擇一個日期！");
+              }
+            });
+          </script>
+
+          <style>
+            .selected {
+              font-weight: bold;
+              color: #007bff;
+            }
+          </style>
+
+        </div>
+
+
+      </div>
+    </div>
+
+
   </section>
   <!--==============================
 	  Destination Details Area End
 	==============================-->
-   <!--==============================
+  <!--==============================
     All Js File
 ============================== -->
   <!-- Jquery -->
@@ -207,31 +209,31 @@
   <!-- Main Js File -->
   <script src="assets/js/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // 初始化日期選擇器
-    $("#datepicker").datepicker();
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // 初始化日期選擇器
+      $("#datepicker").datepicker();
 
-    // 顯示模態框
-    $("#viewAllDates").click(function (e) {
-      e.preventDefault();
-      $("#calendarModal").fadeIn();
-    });
+      // 顯示模態框
+      $("#viewAllDates").click(function (e) {
+        e.preventDefault();
+        $("#calendarModal").fadeIn();
+      });
 
-    // 關閉模態框
-    $("#closeModal").click(function () {
-      $("#calendarModal").fadeOut();
-    });
-
-    // 點擊模態框外部關閉
-    $(window).click(function (e) {
-      if ($(e.target).is("#calendarModal")) {
+      // 關閉模態框
+      $("#closeModal").click(function () {
         $("#calendarModal").fadeOut();
-      }
+      });
+
+      // 點擊模態框外部關閉
+      $(window).click(function (e) {
+        if ($(e.target).is("#calendarModal")) {
+          $("#calendarModal").fadeOut();
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 
 </html>
