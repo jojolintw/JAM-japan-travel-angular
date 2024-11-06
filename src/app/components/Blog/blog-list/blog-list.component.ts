@@ -50,11 +50,28 @@ export class BlogListComponent implements OnInit {
         },
         (error) => {
           console.error('查詢失敗', error);
-          console.error('查詢失敗', error.status);  // 错误处理
+          // console.error('查詢失敗', error.status);  // 错误处理
           this.displayedArticles =[];
           this.loading = false;  // 加载完成
         }
       );
     }
+
+    else {
+      // 如果没有关键词，加载所有文章
+      this.loading = true;  // 开始加载数据
+      this.ArticleService.getArticles().subscribe(
+        (data) => {
+          this.displayedArticles = data;
+          this.loading = false;  // 加载完成
+        },
+        (error) => {
+          console.error('加载所有文章失败', error);
+          this.displayedArticles = [];
+          this.loading = false;  // 加载完成
+        }
+      );
+      }
+
   }
 }
