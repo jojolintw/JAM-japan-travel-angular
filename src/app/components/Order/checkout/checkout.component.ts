@@ -52,7 +52,7 @@ export class CheckoutComponent {
       },
       (error) => {
         console.error('獲取會員資訊失敗', error);
-        alert('獲取失敗');
+        alert('獲取會員資訊失敗，重新登入');
       }
     );
   }

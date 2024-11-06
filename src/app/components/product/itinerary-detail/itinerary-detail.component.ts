@@ -1,3 +1,4 @@
+import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
@@ -7,7 +8,7 @@ import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselectiondialog.component';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
-
+import { cartItem } from 'src/app/interface/Order/cartItem';
 
 
 @Component({
@@ -28,10 +29,16 @@ export class ItineraryDetailComponent implements OnInit {
   dayStatus: { [key: string]: { hasStock: boolean, times: string[] } } = {};
   availableSlots: { date: Date; time: string }[] = [];
   quantity: number = 1;
+  cartItems: cartItem[] = [];
+  // newItem: cartItem = { // 測試用
+  //   id: 6,              // 商品 ID
+  //   name: '商品F',      // 商品名稱
+  //   price: 777,         // 商品價格
+  //   quantity: 1,        // 初始數量
+  //   imagePath:'',       // 圖片路徑
+  // }
 
-
-
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, private itineraryService: ItineraryService) { }
+  constructor(private route: ActivatedRoute, private dialog: MatDialog, private itineraryService: ItineraryService, private localstorageService: LocalstorageService) { }
 
   loadItineraryDetail(id: number): void {
     this.itineraryService.getItineraryById(id).subscribe(response => {
@@ -163,4 +170,17 @@ export class ItineraryDetailComponent implements OnInit {
     }
   }
 
+  // 加入購物車
+  addToCart():void {
+    const newCartItem:cartItem={
+      ItineraryDateSystemId:1,  //暫先用1代替，待ItineraryDateSystemId建立
+      ItinerarySystemId:this.itinerary?.itinerarySystemId as number,
+      name:this.itinerary?.itineraryName as string,
+      price:this.itinerary?.price as number,
+      quantity:this.quantity,
+      imagePath:this.itinerary?.imageName as string
+    }
+
+    this.localstorageService.addToCart(newCartItem);
+  }
 }
