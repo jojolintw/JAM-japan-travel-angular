@@ -22,6 +22,7 @@ import { MemberareaComponent } from './components/Member/memberarea/memberarea.c
 import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
 import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
 import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
+import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
 const routes: Routes = [
    {
     path: 'login',
@@ -79,6 +80,7 @@ const routes: Routes = [
   // { path: 'shipment-detail', component: DetailComponent },
   { path: 'shipment-ticket', component: TicketComponent },
   { path: 'shipment-detail/:routeId', component: DetailComponent },
+  { path: 'schedule/:scheduleId', component: ScheduleDetailComponent },
 
 
   { path: 'cart', component:CartComponent },
