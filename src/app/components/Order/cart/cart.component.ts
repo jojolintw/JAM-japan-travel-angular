@@ -2,6 +2,7 @@ import { LocalstorageService } from './../../../service/Order/localstorage.servi
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { cartItem } from 'src/app/interface/Order/cartItem';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -16,22 +17,13 @@ export class CartComponent {
   discount = 100
 
   newItem: cartItem = {
-    id: 4,            // 商品 ID
-    name: '商品D',    // 商品名稱
-    price: 666,       // 商品價格
+    ItinerarySystemId: 5,            // 商品 ID
+    ItineraryDateSystemId:1,
+    name: '商品BB',    // 商品名稱
+    price: 888,       // 商品價格
     quantity: 10,      // 初始數量
     imagePath:'',     // 圖片路徑
   }
-
-  showCouponModal: boolean = false;  // 控制彈出視窗顯示
-  selectedCouponId: number | null = null;  // 儲存選中的優惠券 ID
-  availableCoupons: Array<any> = [
-    { id: 1, name: '驚喜大禮包', description: '消費滿1000元可以使用!', discount: 100 },
-    { id: 2, name: '新用戶好理', description: '不限金額!', discount: 50 },
-    { id: 3, name: '歡慶開學季', description: '消費滿500元可以使用!', discount: 150 },
-    { id: 3, name: 'JAM 周年慶', description: '消費滿500元可以使用!', discount: 200 }
-  ];
-
 
 
   constructor(private router: Router,
@@ -60,7 +52,7 @@ export class CartComponent {
   }
 
   changeQuantity(item:any, delta: number) {
-    const cartItem = this.cartItems.find(product => product.id === item.id);
+    const cartItem = this.cartItems.find(product => product.ItinerarySystemId === item.ItinerarySystemId);
     if (cartItem) {
       // 更新商品數量，防止數量小於1
       cartItem.quantity = Math.max(1, cartItem.quantity + delta);
@@ -80,18 +72,8 @@ export class CartComponent {
 
 
   setcontent() {
-    // const textcontent = document.getElementById('textcontent');
-    // if (textcontent) {
-    //   const textContentElement = document.getElementById('textcontent') as HTMLInputElement;
-    //   if (textContentElement) {
-    //     const textContentValue = textContentElement.value;
-    //     this.localstorageService.setItem('text3', textContentValue);
-    //   }
-    // }
-
     this.localstorageService.addToCart(this.newItem);
     this.ngOnInit();
-
   }
 
   getcontent() {
@@ -114,25 +96,6 @@ export class CartComponent {
   goToCheckout() {
     this.router.navigate(['checkout']);
   }
-
-  // =============== checkbox ===================
-
-  // =============== coupon =====================
-    // 開啟優惠券選擇視窗
-    openCouponModal() {
-      this.showCouponModal = true;
-    }
-
-    // 關閉優惠券選擇視窗
-    closeCouponModal() {
-      this.showCouponModal = false;
-    }
-
-    // 當選擇優惠券時應用優惠
-    applyCoupon(coupon: any) {
-      console.log('選擇的優惠券:', coupon);
-      // 在這裡處理選擇優惠券後的邏輯，比如將優惠券應用到購物車
-    }
 
   // =============== router =====================
 
