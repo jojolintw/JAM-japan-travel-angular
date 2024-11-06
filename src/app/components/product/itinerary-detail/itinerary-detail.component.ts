@@ -4,8 +4,6 @@ import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.inte
 import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
-import { MatDialog } from '@angular/material/dialog';
-import { TimeSelectionDialogComponent } from '../timeselectiondialog/timeselectiondialog.component';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 
 
@@ -19,28 +17,21 @@ import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 
 export class ItineraryDetailComponent implements OnInit {
 
-  itinerary: ItineraryDetail | null = null;
+  itineraryDetail: ItineraryDetail | null = null;
   tours: ItineraryDetail[] = [];
   relatedTours: Itinerary[] = [];
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
-  dayStatus: { [key: string]: { hasStock: boolean, times: string[] } } = {};
+  dayStatus: { [key: string]: { dateSystemId: number; times: string[]; stock: number }} = {};
   availableSlots: { date: Date; time: string }[] = [];
+  selectedDate: string | null = null;
+  selectedDateTimes: string[] = [];
   quantity: number = 1;
 
 
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, private itineraryService: ItineraryService) { }
-
-  loadItineraryDetail(id: number): void {
-    this.itineraryService.getItineraryById(id).subscribe(response => {
-      this.itinerary = response;
-      if (this.itinerary && this.itinerary.activityId!== 0 && this.itinerary.activityId!== undefined) {
-        this.loadRelatedItineraries(this.itinerary.activityId);
-      }
-    });
-  }
+  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -52,57 +43,88 @@ export class ItineraryDetailComponent implements OnInit {
     });
   }
 
-  // loadItineraryDetail(id: number): void {
-  //   this.itineraryService.getItineraryById(id).subscribe({
-  //     next: (data) => {
-  //       this.itinerary = data;
-  //       this.tours = [data];
+  loadItineraryDetail(id: number): void {
+    this.itineraryService.getItineraryById(id).subscribe(response => {
+      this.itineraryDetail = response;
+      console.log(this.itineraryDetail);
+      this.loadRelatedItineraries(this.itineraryDetail.activityId);
+      if (this.itineraryDetail) {
+        // 将后端返回的日期时间转换为日历事件
+        this.events = [];
 
-  //       if (this.itinerary) {
-  //         this.events = this.itinerary.itineraryDate.map(dateTimeStr => ({
-  //           start: new Date(dateTimeStr),
-  //           title: dateTimeStr.split(' ')[1],
-  //           meta: { tourId: this.itinerary?.itinerarySystemId }
-  //         }));
-  //         this.loadRelatedItineraries(this.itinerary.activityId);
-  //       }
+      // 使用 for...of 循环处理日期
+      // for (const dateTimeStr of this.itineraryDetail.itineraryDate) {
+      //   const event: CalendarEvent = {
+      //     start: new Date(dateTimeStr),
+      //     title: new Date(dateTimeStr).toLocaleTimeString('zh-TW', {
+      //       hour: '2-digit',
+      //       minute: '2-digit'
+      //     }),
+      //     meta: {
+      //       dateSystemId: this.itineraryDetail.itineraryDateSystemId,
+      //       hasEvent: true
+      //     }
+      //   };
+      //   this.events.push(event);
+      // }
 
-  //       this.initializeDayStatus();
-  //     },
-  //     error: (error) => {
-  //       console.error('加載行程詳情失敗:', error);
-  //       // 這裡可以添加錯誤處理邏輯
-  //     }
-  //   });
-  // }
+        this.initializeDayStatus();
+      }
+    });
+  }
 
   initializeDayStatus(): void {
-    this.tours.forEach(tour => {
-      tour.itineraryDate.forEach(dateTimeStr => {
-        const dateStr = dateTimeStr.split(' ')[0];
-        const timeStr = dateTimeStr.split(' ')[1];
+    if (!this.itineraryDetail) return;
 
-        if (!this.dayStatus[dateStr]) {
-          this.dayStatus[dateStr] = {
-            hasStock: tour.stock > 0,
-            times: []
-          };
-        }
-        if (!this.dayStatus[dateStr].times.includes(timeStr)) {
-          this.dayStatus[dateStr].times.push(timeStr);
-        }
+    this.dayStatus = {};
+    this.events = [];
+
+    // 遍歷所有日期系統
+    // 遍历所有日期系统
+  this.itineraryDetail.dateSystem.forEach(dateSystem => {
+    if (!dateSystem.itineraryDate) return;
+
+    dateSystem.itineraryDate.forEach(dateTimeStr => {
+      const dateStr = dateTimeStr.split('T')[0];
+      const timeStr = new Date(dateTimeStr).toLocaleTimeString('zh-TW', {
+        hour: '2-digit',
+        minute: '2-digit'
       });
+
+      // 初始化该日期的状态
+      if (!this.dayStatus[dateStr]) {
+        this.dayStatus[dateStr] = {
+          dateSystemId: dateSystem.itineraryDateSystemId,
+          times: [],
+          stock: dateSystem.stock || 0
+        };
+      }
+
+      // 添加时间到数组中
+      if (!this.dayStatus[dateStr].times.includes(timeStr)) {
+        this.dayStatus[dateStr].times.push(timeStr);
+      }
+
+      // 添加日历事件
+      const event: CalendarEvent = {
+        start: new Date(dateTimeStr),
+        title: timeStr,
+        meta: {
+          dateSystemId: dateSystem.itineraryDateSystemId,
+          hasEvent: true,
+          hasStock: dateSystem.stock > 0  // 使用 dateSystem 的 stock
+        }
+      };
+      this.events.push(event);
     });
+  });
   }
 
   loadRelatedItineraries(activityId: number): void {
     this.itineraryService.getRelatedItineraries(activityId).subscribe({
       next: (data) => {
-        console.log('activityId:', activityId);
-        console.log('相關行程資料:', data);
-        // 過濾掉當前行程，只顯示其他相關行程
         this.relatedTours = data
-          .filter(item => item.itinerarySystemId !== this.itinerary?.itinerarySystemId)
+          .filter(item => item.itinerarySystemId !== this.itineraryDetail?.itinerarySystemId)
       },
       error: (error) => {
         console.error('加載相關行程失敗:', error);
@@ -118,32 +140,63 @@ export class ItineraryDetailComponent implements OnInit {
     this.viewDate = addMonths(this.viewDate, 1);
   }
 
-  hasStockInfo(day: CalendarMonthViewDay): boolean {
+  hasAvailableStock(day: CalendarMonthViewDay): boolean {
     const dateStr = day.date.toISOString().split('T')[0];
-    return !!this.dayStatus[dateStr];
+    return this.dayStatus[dateStr]?.stock > 0 || false;
   }
 
-  getStockStatus(day: CalendarMonthViewDay): string {
-    const dateStr = day.date.toISOString().split('T')[0];
-    return this.dayStatus[dateStr]?.hasStock ? 'O' : 'X';
+  // 檢查特定時間是否有庫存
+  hasTimeSlotStock(time: string): boolean {
+    if (!this.selectedDate) return false;
+    return (this.dayStatus[this.selectedDate]?.stock || 0) > 0;
   }
 
   onDayClicked(day: CalendarMonthViewDay): void {
     const dateStr = day.date.toISOString().split('T')[0];
-    const availableTimes = this.dayStatus[dateStr]?.times || [];
-
-    this.dialog.open(TimeSelectionDialogComponent, {
-      data: {
-        DepartureDate: dateStr,
-        times: availableTimes,
-        tours: this.tours.map(tour => ({
-          ItineraryDate: tour.itineraryDate,
-          stock: tour.stock
-        }))
-      },
-      width: '300px'
-    });
+    if (this.hasAvailableStock(day)) {
+      if (this.selectedDate === dateStr) {
+        // 如果點擊已選中的日期，則取消選擇
+        this.selectedDate = null;
+        this.selectedDateTimes = [];
+      } else {
+        // 選擇新日期並獲取對應時間
+        this.selectedDate = dateStr;
+        this.selectedDateTimes = this.dayStatus[dateStr]?.times.map(t => t)  || [];
+      }
+    }
   }
+
+  selectDateTime(time: string): void {
+    if (!this.selectedDate) {
+      console.log('請先選擇日期');
+      return;
+    }
+
+    const dayStatusForDate = this.dayStatus[this.selectedDate];
+    if (!dayStatusForDate) {
+      console.log('無效的日期選擇');
+      return;
+    }
+
+    if (dayStatusForDate.stock <= 0) {
+      console.log('此時段已無庫存');
+      return;
+    }
+
+    if (!dayStatusForDate.times.includes(time)) {
+      console.log('無效的時間段');
+      return;
+    }
+
+    const formattedDateTime = this.formatDateTime(this.selectedDate, time);
+    console.log('Selected datetime:', formattedDateTime);
+    console.log('DateSystemId:', dayStatusForDate.dateSystemId);
+  }
+
+  formatDateTime(date: string, time: string): string {
+    return `${date}T${time}`;
+  }
+
   decreaseQuantity(): void {
     this.quantity = Math.max(this.quantity - 1, 1);
   }

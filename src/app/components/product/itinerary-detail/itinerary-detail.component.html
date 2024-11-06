@@ -1,6 +1,6 @@
 <section class="vs-product-wrapper space">
   <div class="container">
-    <div class="product-details" *ngIf="itinerary">
+    <div class="product-details" *ngIf="itineraryDetail">
       <div class="row gx-60">
         <div class="col-lg-5">
           <div class="product-big-img vs-carousel" data-slide-show="1" data-arrows="false" data-fade="true"
@@ -43,11 +43,11 @@
             </div>
 
             <h2 class="product-title">
-              {{itinerary.itineraryName}}
+              {{itineraryDetail.itineraryName}}
             </h2>
-            <p class="product-price">{{itinerary.price | currency:'TWD':'symbol': '1.0-0'}}</p>
+            <p class="product-price">{{itineraryDetail.price | currency:'TWD':'symbol': '1.0-0'}}</p>
             <p class="product-text">
-             {{itinerary.itineraryBrief}}
+             {{itineraryDetail.itineraryBrief}}
             </p>
             <div class="calendar-container">
               <!-- 時間說明 -->
@@ -64,22 +64,40 @@
 
               <!-- 日曆視圖 -->
               <mwl-calendar-month-view
-                [viewDate]="viewDate"
-                [events]="events"
-                [cellTemplate]="customCell"
-                (dayClicked)="onDayClicked($event.day)">
-              </mwl-calendar-month-view>
+              [viewDate]="viewDate"
+              [events]="events"
+              [cellTemplate]="customCell"
+              (dayClicked)="onDayClicked($event.day)">
+            </mwl-calendar-month-view>
 
               <!-- 自定義日期單元格模板 -->
               <ng-template #customCell let-day="day">
                 <div class="cal-cell-top">
                   <span class="cal-day-number">{{day.date | date:'d'}}</span>
-                  <span class="stock-indicator" *ngIf="hasStockInfo(day)">
-                    {{getStockStatus(day)}}
-                  </span>
+                  <div class="event-indicator" *ngIf="hasAvailableStock(day)">
+                    <span class="available-date-marker"
+                          [class.has-stock]="hasAvailableStock(day)"
+                          [class.no-stock]="!hasAvailableStock(day)">
+                      ●
+                    </span>
+                  </div>
                 </div>
               </ng-template>
-
+            </div>
+            <div class="time-selection" *ngIf="selectedDate && selectedDateTimes.length > 0">
+              <h4>{{selectedDate | date:'yyyy/MM/dd'}} 可選時間:</h4>
+              <div class="time-slots">
+                <div *ngFor="let time of selectedDateTimes" class="time-slot">
+                  <button class="time-button"
+                          [class.disabled]="!hasTimeSlotStock(time)"
+                          [disabled]="!hasTimeSlotStock(time)">
+                    {{time}}
+                    <span class="stock-status">
+                      {{hasTimeSlotStock(time) ? '可預約' : '已滿'}}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="actions">
               <div class="quantity">
@@ -114,7 +132,7 @@
         <div class="tab-content" id="productTabContent">
           <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab">
             <div class="inner-pane">
-              <p class="description-text">{{itinerary.itineraryDetail}}</p>
+              <p class="description-text">{{itineraryDetail.itineraryDetail}}</p>
 
             </div>
           </div>

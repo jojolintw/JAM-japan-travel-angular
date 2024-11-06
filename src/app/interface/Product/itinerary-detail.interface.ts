@@ -1,4 +1,9 @@
 
+interface DateSystem {
+  itineraryDateSystemId: number;
+  itineraryDate: string[];
+  stock: number;
+}
 export interface ItineraryDetail {
   itinerarySystemId: number;
   itineraryName: string;
@@ -6,8 +11,8 @@ export interface ItineraryDetail {
   activityName: string;
   areaName: string;
   imageName: string;
-  itineraryDate: string[];
-  stock: number;
+  dateSystem: DateSystem[];
+  stock: number | 0;
   price: number;
   itineraryDetail: string;
   itineraryBrief: string;
