@@ -51,20 +51,8 @@
           <table class="cart_table">
             <thead>
               <tr>
-                <th>
-                  <div style="justify-content: center;">
-                    <input type="checkbox" id="selectAll" style="visibility: visible;
-                    position: relative;
-                    top: 50%;
-                    left: 50%;
-                    opacity: 0.5;
-                    display: flex;
-                    width: 18px;
-                    height: 18px;">
-                  </div>
-                </th>
-                <th class="cart-col-image" style="color:black">商品</th>
-                <th class="cart-col-productname"></th>
+                <th class="cart-col-image" style="color:black" [colSpan]="2">商品</th>
+                <!-- <th class="cart-col-productname"></th> -->
                 <th class="cart-col-price" style="color:black">單價</th>
                 <th class="cart-col-quantity" style="color:black">數量</th>
                 <th class="cart-col-total" style="color:black">總計</th>
@@ -78,16 +66,6 @@
 
 
               <tr class="cart_item" *ngFor="let item of cartItems">
-                <td>
-                  <input type="checkbox" style="visibility: visible;
-                    position: relative;
-                    top: 50%;
-                    left: 50%;
-                    opacity: 0.5;
-                    display: flex;
-                    width: 18px;
-                    height: 18px;">
-                </td>
                 <td data-title="Product">
                   <a class="cart-productimage" (click)="goToProductDetail(item.id)"><img width="80" height="80"
                       [src]="item.imagePath" alt="{{item.name}}" /></a>
@@ -122,17 +100,7 @@
               <!-- ============================================== -->
 
 
-              <tr class="cart_item">
-                <td>
-                  <input type="checkbox" style="visibility: visible;
-                    position: relative;
-                    top: 50%;
-                    left: 50%;
-                    opacity: 0.5;
-                    display: flex;
-                    width: 18px;
-                    height: 18px;">
-                </td>
+              <!-- <tr class="cart_item">
                 <td data-title="Product">
                   <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
                       src="assets/img/tours/tokyotower.jpg" alt="Image" /></a>
@@ -162,16 +130,6 @@
                 </td>
               </tr>
               <tr class="cart_item">
-                <td>
-                  <input type="checkbox" style="visibility: visible;
-                    position: relative;
-                    top: 50%;
-                    left: 50%;
-                    opacity: 0.5;
-                    display: flex;
-                    width: 18px;
-                    height: 18px;">
-                </td>
                 <td data-title="Product">
                   <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
                       src="assets/img/tours/sup.jpg" alt="Image" /></a>
@@ -199,7 +157,7 @@
                 <td data-title="Remove">
                   <a href="#" class="remove"><i class="fal fa-trash-alt"></i></a>
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td colspan="7" class="actions">
                   <div class="vs-cart-coupon">

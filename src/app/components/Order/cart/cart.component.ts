@@ -80,18 +80,8 @@ export class CartComponent {
 
 
   setcontent() {
-    // const textcontent = document.getElementById('textcontent');
-    // if (textcontent) {
-    //   const textContentElement = document.getElementById('textcontent') as HTMLInputElement;
-    //   if (textContentElement) {
-    //     const textContentValue = textContentElement.value;
-    //     this.localstorageService.setItem('text3', textContentValue);
-    //   }
-    // }
-
     this.localstorageService.addToCart(this.newItem);
     this.ngOnInit();
-
   }
 
   getcontent() {
