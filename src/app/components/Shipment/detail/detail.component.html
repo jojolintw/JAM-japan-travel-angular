@@ -8,12 +8,13 @@
   <section class="space">
     <div class="container">
       <div class="row">
-        <div *ngIf="shipmentDetail">
-          <h1 class="ds-title">{{ shipmentDetail.originPortName }} - {{ shipmentDetail.destinationPortName }}</h1>
+        <!-- 左邊主要欄 -->
+        <div class="col-lg-8">
+          <div *ngIf="shipmentDetail">
+            <h1 class="ds-title">{{ shipmentDetail.originPortName }} - {{ shipmentDetail.destinationPortName }}</h1>
 
-          <div class="col-lg-8">
             <div class="destination-details">
-              <h2 class="ds-title">{{ shipmentDetail.destinationPort.portName }}</h2>
+              <h2 class="ds-title">{{ shipmentDetail.destinationPort.city }}</h2>
 
               <div class="ds-img1">
                 <img [src]="shipmentDetail.imageUrl" alt="image">
@@ -37,203 +38,124 @@
                 <h3>價格: {{ shipmentDetail.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</h3>
               </div>
             </div>
-          </div>
-        </div>
 
+            <!-- 圖片區塊 -->
+            <div class="gallery-section mt-4">
+              <h2 class="ds-title">圖片</h2>
+              <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="gallery-img5">
+                    <img src="assets/img/Shipment/16.jpg" alt="images">
+                    <div class="gallery-content">
+                      <a href="assets/img/Shipment/16.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="gallery-img5">
+                    <img src="assets/img/Shipment/17.JPG" alt="images">
+                    <div class="gallery-content">
+                      <a href="assets/img/Shipment/17.JPG" class="popup-image"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="gallery-img5">
+                    <img src="assets/img/Shipment/18.jpg" alt="images">
+                    <div class="gallery-content">
+                      <a href="assets/img/Shipment/18.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="gallery-img5">
+                    <img src="assets/img/Shipment/19.jpg" alt="images">
+                    <div class="gallery-content">
+                      <a href="assets/img/Shipment/19.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-
-        <h2 class="ds-title">圖片</h2>
-        <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
-        <div class="mt-4">
-          <div class="row">
-            <div class="col-lg-8 col-md-12 col-sm-12 col-auto">
-              <div class="gallery-img5">
-                <img src="assets/img/Shipment/16.jpg" alt="images">
-                <div class="gallery-content">
-                  <a href="assets/img/Shipment/16.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-              <div class="gallery-img5">
-                <img src="assets/img/Shipment/17.JPG" alt="images">
-                <div class="gallery-content">
-                  <a href="assets/img/Shipment/17.JPG" class="popup-image"><i class="fas fa-plus"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-              <div class="gallery-img5">
-                <img src="assets/img/Shipment/18.jpg" alt="images">
-                <div class="gallery-content">
-                  <a href="assets/img/Shipment/18.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-auto">
-              <div class="gallery-img5">
-                <img src="assets/img/Shipment/19.jpg" alt="images">
-                <div class="gallery-content">
-                  <a href="assets/img/Shipment/19.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="destinations-info">
+            <!-- 費用包含/不包含 -->
+            <div class="destinations-info mt-4">
               <h2>費用包含/不包含</h2>
-              <table class="destination-table">
-                <ul>
-                  <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    船票
-                  </li>
-                  <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    設施使用費
-                  </li>
-                  <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    燃油費用
-                  </li>
-                  <li>
-                    <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    國際觀光旅客稅
-                  </li>
-                  <li>
-                    <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon"
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                    以上未提及消費
-                  </li>
-
-                </ul>
-
-              </table>
-
+              <ul class="destination-table">
+                <li>
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  船票
+                </li>
+                <li>
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  設施使用費
+                </li>
+                <li>
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  燃油費用
+                </li>
+                <li>
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  國際觀光旅客稅
+                </li>
+                <li>
+                  <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  以上未提及消費
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
-
-
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="sidebar-area">
-
-
-
-        <div class="widget widget_tag_cloud">
-          <h3 class="widget_title">出發日期</h3>
-          <div class="tagcloud">
-            <a *ngFor="let schedule of schedules" href="#" class="date-option"
-              [class.active]="selectedScheduleId === schedule.scheduleId"
-              (click)="onScheduleSelected(schedule.scheduleId)">
-              {{ schedule.departureTime | date:'MM/dd' }}
-            </a>
-            <a href="#" id="viewAllDates">查看所有時間</a>
+        <!-- 右邊出發日期欄，設為懸浮 -->
+        <div class="col-lg-4">
+          <div class="sidebar-area sticky-top">
+            <div class="widget widget_tag_cloud">
+              <h3 class="widget_title">出發日期</h3>
+              <div class="tagcloud">
+                <!-- 使用 div 類型的按鈕，設置點選效果 -->
+                <div *ngFor="let schedule of schedules"
+                     class="date-option"
+                     [class.active]="selectedScheduleId === schedule.scheduleId"
+                     (click)="onScheduleSelected(schedule.scheduleId)">
+                  {{ schedule.departureTime | date:'MM/dd' }}
+                </div>
+              </div>
+          
+              <h3 class="widget_title mt-4">選擇人數</h3>
+              <select [(ngModel)]="selectedSeats" class="form-control">
+                <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
+              </select>
+          
+              <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()" [disabled]="!selectedScheduleId">
+                加入購物車
+              </button>
+            </div>
           </div>
-          <button id="date-btn" type="button" class="vs-btn style4 mt-2" [disabled]="!selectedScheduleId">
-            加入購物車
-          </button>
-
-
-          <script>
-            let selectedDate = null;
-
-            // 添加點擊事件，選擇日期
-            document.querySelectorAll('.date-option').forEach(function (element) {
-              element.addEventListener('click', function (event) {
-                event.preventDefault();
-
-                // 移除所有日期選項的選中樣式
-                document.querySelectorAll('.date-option').forEach(el => el.classList.remove('selected'));
-
-                // 標記選中的日期
-                this.classList.add('selected');
-                selectedDate = this.getAttribute('data-date');
-              });
-            });
-
-            // 點擊「下一步」按鈕，將選擇的日期送到下一層
-            document.getElementById('date-btn').addEventListener('click', function () {
-              if (selectedDate) {
-                // 跳轉到下一層或將選中的日期傳送到後端
-                window.location.href = `blog.html?date=${selectedDate}`;
-              } else {
-                alert("請先選擇一個日期！");
-              }
-            });
-          </script>
-
-          <style>
-            .selected {
-              font-weight: bold;
-              color: #007bff;
-            }
-          </style>
-
+          
+          
+          
         </div>
 
-
       </div>
     </div>
-
-
   </section>
   <!--==============================
 	  Destination Details Area End
 	==============================-->
-  <!--==============================
-    All Js File
-============================== -->
-  <!-- Jquery -->
+
+  <!-- Script Files -->
   <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-  <!-- Slick Slider -->
   <script src="assets/js/slick.min.js"></script>
-  <!-- Bootstrap -->
   <script src="assets/js/bootstrap.min.js"></script>
-  <!-- Magnific Popup -->
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- jquery Ui -->
   <script src="assets/js/jquery-ui.min.js"></script>
-  <!-- Circle Progress -->
   <script src="assets/js/circle-progress.min.js"></script>
-  <!-- isotope -->
   <script src="assets/js/imagesLoaded.js"></script>
   <script src="assets/js/isotope.js"></script>
-  <!-- Wow.js -->
   <script src="assets/js/wow.min.js"></script>
-  <!-- Main Js File -->
   <script src="assets/js/main.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      // 初始化日期選擇器
-      $("#datepicker").datepicker();
-
-      // 顯示模態框
-      $("#viewAllDates").click(function (e) {
-        e.preventDefault();
-        $("#calendarModal").fadeIn();
-      });
-
-      // 關閉模態框
-      $("#closeModal").click(function () {
-        $("#calendarModal").fadeOut();
-      });
-
-      // 點擊模態框外部關閉
-      $(window).click(function (e) {
-        if ($(e.target).is("#calendarModal")) {
-          $("#calendarModal").fadeOut();
-        }
-      });
-    });
-  </script>
 </body>
 
 </html>

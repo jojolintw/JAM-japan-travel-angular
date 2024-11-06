@@ -47,6 +47,7 @@ import { CertificationSuccessComponent } from './components/Member/certification
 import { SafePipe } from './components/Shipment/safe.pipe';
 import { ResetPasswordEmailComponent } from './components/Member/reset-password-email/reset-password-email.component';
 import { ResetPasswordCompleteComponent } from './components/Member/reset-password-complete/reset-password-complete.component';
+import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
 
 
 
@@ -94,6 +95,7 @@ const routes: Routes = [
       CertificationSuccessComponent,
       ResetPasswordEmailComponent,
       ResetPasswordCompleteComponent,
+      ScheduleDetailComponent,
   ],
   imports: [
     BrowserModule,
