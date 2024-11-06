@@ -44,7 +44,7 @@
         </div>
         <div class="col-md-4 form-group">
           <label>城市</label>
-          <select class="form-select">
+          <select class="form-select" [(ngModel)]="loginTransfer.CityId">
             <option>請選擇</option>
             <option *ngFor="let city of citys" [value]="city.cityId">{{city.cityName}}</option>
           </select>

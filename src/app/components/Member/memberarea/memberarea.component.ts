@@ -1,7 +1,8 @@
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
+import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
 
 @Component({
   selector: 'app-memberarea',
@@ -14,9 +15,14 @@ import { MyareaService } from 'src/app/service/Member/myarea.service';
 
 export class MemberareaComponent {
 
+
   constructor(private router: Router, private myareaService: MyareaService) {
 
   }
+
+  //檔案上傳相關
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
   selectedComponent = 'account';
   loginTransfer: LoginMember =
     {
@@ -31,7 +37,6 @@ export class MemberareaComponent {
       CityName: null,
       Phone: null,
       Email: null,
-      Password: null,
       MemberLevelId: null,
       MemberLevel: null,
       MemberStatusId: null,
@@ -39,20 +44,34 @@ export class MemberareaComponent {
       Photopath: null,
     }
 
-
-
+    myareaMember :MyareaMember =
+    {
+      ChineseName: null,
+      Email: null,
+      MemberLevelId: null,
+      MemberLevel: null,
+      MemberStatusId: null,
+      MemberStatus: null,
+      Photopath: null
+    }
 
   ngOnInit(): void {
+    this.getMemberData();
+  }
+
+  getMemberData()
+  {
     this.myareaService.GoToMyArea().subscribe(data => {
       this.loginTransfer.MemberId = data.loginmember.memberId;
       this.loginTransfer.ChineseName = data.loginmember.chineseName;
+      this.myareaMember.ChineseName = data.loginmember.chineseName;
       if (data.loginmember.englishName != null) {
         this.loginTransfer.EnglishName = data.loginmember.englishName;
       }
-      if (data.loginmember.Gender != null) {
+      if (data.loginmember.gender != null) {
         this.loginTransfer.Gender = data.loginmember.gender;
       }
-      if (data.loginmember.Gender != null) {
+      if (data.loginmember.birthday != null) {
         this.loginTransfer.Birthday = data.loginmember.birthday.substring(0, 10);
       }
       if (data.loginmember.cityAreaId != null) {
@@ -72,18 +91,43 @@ export class MemberareaComponent {
       }
 
       this.loginTransfer.Email = data.loginmember.email;
-      this.loginTransfer.Password = data.loginmember.password;
+      this.myareaMember.Email = data.loginmember.email;
       this.loginTransfer.MemberLevelId = data.loginmember.memberLevelId;
+      this.myareaMember.MemberLevelId = data.loginmember.memberLevelId;
       this.loginTransfer.MemberLevel = data.loginmember.memberLevel;
+      this.myareaMember.MemberLevel = data.loginmember.memberLevel;
       this.loginTransfer.MemberStatusId = data.loginmember.memberStatusId;
+      this.myareaMember.MemberStatusId = data.loginmember.memberStatusId;
       this.loginTransfer.MemberStatus = data.loginmember.memberStatus;
+      this.myareaMember.MemberStatus = data.loginmember.memberStatus;
       if (data.loginmember.photopath != null) {
         this.loginTransfer.Photopath = data.loginmember.photopath;
+        this.myareaMember.Photopath = data.loginmember.photopath;
       }
-
     })
   }
+  reloading()
+  {
+    this.getMemberData();
+  }
+//圖片上傳
+onUploadClick()
+{
+  this.fileInput.nativeElement.click();
+}
+onFileSelected(event: Event)
+{
+  const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      // 處理檔案上傳邏輯
+      console.log('選中的檔案:', file);
+    }
+  }
 
+
+
+
+  // 去別頁
   goToAccount() {
     this.selectedComponent = 'account';
   }

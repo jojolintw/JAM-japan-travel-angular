@@ -1,5 +1,6 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { zip } from 'rxjs';
 import { AlterMemDTO } from 'src/app/interface/Member/AlterMemDTO';
 import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
@@ -26,11 +27,10 @@ export class AccountComponent {
       Birthday: null,
       CityAreaId: null,
       CityAreaName: null,
-      CityId: null,
+      CityId: 21,
       CityName: null,
       Phone: null,
       Email: null,
-      Password: null,
       MemberLevelId: null,
       MemberLevel: null,
       MemberStatusId: null,
@@ -47,31 +47,66 @@ export class AccountComponent {
       CityId: null,
       Phone: null,
       Email: null,
-      Password: null,
       ImagePath: null,
     }
 
   cityAreas: CityArea[] = [];
   citys: City[] = [];
+
+  @Output () saveEventEmiter = new EventEmitter();
+
+// ngOnInit(): void {
+//   this.myareaService.GetAllCityArea().subscribe(areadata =>
+//     {
+//       this.cityAreas=areadata;
+//       this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
+//         {
+//           this.citys = citydata;
+//         })
+//     })
+// }
+
+  //   ngOnInit(): void {
+  //   zip(
+  //     this.myareaService.GetAllCityArea(),
+  //     this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId)
+  //   ).subscribe(([cityAreas,citys]) => {
+  //     this.cityAreas = cityAreas;
+  //     this.citys = citys;
+  //   });
+  // }
+  //   ngOnInit(): void {
+  //     this.myareaService.GetAllCityArea().subscribe(cityAreas => {
+  //       this.cityAreas = cityAreas;
+
+  //       // 假設從 cityAreas 中取得 CityAreaId
+  //       this.loginTransfer.CityAreaId = cityAreas[0]?.cityAreaId; // 根據您的實際需求選擇正確的索引或條件
+
+  //       this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citys => {
+  //         this.citys = citys;
+  //       });
+  //     });
+  // }
+
   ngOnInit(): void {
     this.myareaService.GetAllCityArea().subscribe(data => {
       this.cityAreas = data;
-      this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata=>{
-           this.citys = citydata;
-      })
+      setTimeout(() => {
+        this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
+          {
+            this.citys=citydata;
+          })
+      }, 500);
     })
   }
+
   getcity()
   {
     this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
       {
-        console.log(citydata);
         this.citys = citydata;
       })
   }
-
-
-
 
   save() {
 
@@ -99,7 +134,11 @@ export class AccountComponent {
     }
     this.myareaService.AlterMemberInfo(this.alterMemDTO).subscribe(data =>
       {
-        console.log(data);
+          if(data.result ==='success')
+            {
+
+              this.saveEventEmiter.emit();
+            }
       })
 
 

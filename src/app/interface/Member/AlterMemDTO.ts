@@ -7,6 +7,5 @@ export interface AlterMemDTO
   CityId: number| null;
   Phone: string| null;
   Email: string| null;
-  Password:string| null;
   ImagePath:string| null;
 }

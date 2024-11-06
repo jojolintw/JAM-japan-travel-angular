@@ -11,7 +11,6 @@ export interface LoginMember
   CityName: string| null;
   Phone: string| null;
   Email: string| null;
-  Password:string| null;
   MemberLevelId:number| null;
   MemberLevel:string| null;
   MemberStatusId:number| null;

@@ -15,18 +15,18 @@ export class MyareaService {
   GoToMyArea() {
     return this.client.get<any>('https://localhost:7100/api/Member/GetLoginMember', { withCredentials: true })
   }
-    //修改會員資料
-    AlterMemberInfo(para: AlterMemDTO) {
-      return this.client.post<any>('https://localhost:7100/api/Member/AlterMemberinformation', para,{ withCredentials: true })
-    }
+  //修改會員資料
+  AlterMemberInfo(para: AlterMemDTO) {
+    return this.client.post<any>('https://localhost:7100/api/Member/AlterMemberinformation', para,{ withCredentials: true })
+  }
 
   //取得地區資料
   GetAllCityArea() {
     return this.client.get<CityArea[]>('https://localhost:7100/api/Member/GetCityArea', { withCredentials: true })
   }
-    //取得城市資料
-    GetAllCitys(id:any) {
-      return this.client.get<City[]>(`https://localhost:7100/api/Member/GetCity/${id}`, { withCredentials: true })
-    }
+  //取得城市資料
+  GetAllCitys(id: any) {
+    return this.client.get<City[]>(`https://localhost:7100/api/Member/GetCity/${id}`, { withCredentials: true })
+  }
 }
 
