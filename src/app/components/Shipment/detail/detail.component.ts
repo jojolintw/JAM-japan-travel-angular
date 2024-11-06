@@ -14,6 +14,8 @@ export class DetailComponent implements OnInit {
   schedules: Schedule[] = [];
   selectedScheduleId: number | null = null;
   selectedSeats: number = 1;
+  showDetailModal: boolean = false; // 控制彈出視窗的顯示
+  showDetailPanel: boolean = false;
 
    constructor(
     private route: ActivatedRoute,
@@ -46,12 +48,16 @@ export class DetailComponent implements OnInit {
       error: (err) => console.error('Error fetching schedules:', err)
     });
   }
-
+  
   onScheduleSelected(scheduleId: number): void {
     this.selectedScheduleId = scheduleId;
-    // 進入下一頁或進行其他操作，例如跳轉到詳細內容頁面
-    // this.router.navigate(['/schedule', scheduleId]); // 示例路由
+    this.showDetailPanel = true; // 打開側邊視窗
   }
+
+  closePanel(): void {
+    this.showDetailPanel = false; // 關閉側邊視窗
+  }
+
   addToCart(): void {
     if (this.selectedScheduleId) {
       // 假設加入購物車的邏輯，例如保存到本地存儲或發送請求

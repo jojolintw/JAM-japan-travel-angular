@@ -84,23 +84,28 @@
               <h2>費用包含/不包含</h2>
               <ul class="destination-table">
                 <li>
-                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   船票
                 </li>
                 <li>
-                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   設施使用費
                 </li>
                 <li>
-                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   燃油費用
                 </li>
                 <li>
-                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <img src="../../../../assets/img/Shipment/check.png" alt="Check Icon"
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   國際觀光旅客稅
                 </li>
                 <li>
-                  <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                  <img src="../../../../assets/img/Shipment/cross.png" alt="cross Icon"
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
                   以上未提及消費
                 </li>
               </ul>
@@ -112,34 +117,41 @@
         <div class="col-lg-4">
           <div class="sidebar-area sticky-top">
             <div class="widget widget_tag_cloud">
+
               <h3 class="widget_title">出發日期</h3>
               <div class="tagcloud">
-                <!-- 使用 div 類型的按鈕，設置點選效果 -->
-                <div *ngFor="let schedule of schedules"
-                     class="date-option"
-                     [class.active]="selectedScheduleId === schedule.scheduleId"
-                     (click)="onScheduleSelected(schedule.scheduleId)">
+                <div *ngFor="let schedule of schedules" class="date-option"
+                  [class.active]="selectedScheduleId === schedule.scheduleId"
+                  (click)="onScheduleSelected(schedule.scheduleId)">
                   {{ schedule.departureTime | date:'MM/dd' }}
                 </div>
               </div>
-          
-              <h3 class="widget_title mt-4">選擇人數</h3>
-              <select [(ngModel)]="selectedSeats" class="form-control">
-                <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
-              </select>
-          
-              <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()" [disabled]="!selectedScheduleId">
-                加入購物車
-              </button>
-            </div>
+            
+
+            <!-- 側邊彈出視窗 -->
+            <app-schedule-detail *ngIf="showDetailPanel" [scheduleId]="selectedScheduleId!"
+              (close)="closePanel()"></app-schedule-detail>
+
+            <h3 class="widget_title mt-4">選擇人數</h3>
+            <select [(ngModel)]="selectedSeats" class="form-control">
+              <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
+            </select>
+
+            <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()"
+              [disabled]="!selectedScheduleId">
+              加入購物車
+            </button>
           </div>
-          
-          
-          
+
+          </div>
         </div>
 
+
+
       </div>
+
     </div>
+
   </section>
   <!--==============================
 	  Destination Details Area End
