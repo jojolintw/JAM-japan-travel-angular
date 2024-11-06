@@ -36,10 +36,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ArticleService } from './service/Blog/article-service/article.service';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TimeSelectionDialogComponent } from './components/product/timeselectiondialog/timeselectiondialog.component';
+
 
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
 import { RegistercompleleComponent } from './components/Member/registercomplele/registercomplele.component';
@@ -75,8 +74,6 @@ const routes: Routes = [
 
     ItineraryListComponent,
     ItineraryDetailComponent,
-    TimeSelectionDialogComponent,
-
 
     DetailComponent,
     TicketComponent,
@@ -110,7 +107,6 @@ const routes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    MatDialogModule,
     MatButtonModule,
     MatIconModule,
   ],

@@ -16,9 +16,9 @@ export class CartComponent {
   discount = 100
 
   newItem: cartItem = {
-    id: 2,            // 商品 ID
-    name: '商品BB',    // 商品名稱
-    price: 888,       // 商品價格
+    id: 4,            // 商品 ID
+    name: '商品D',    // 商品名稱
+    price: 666,       // 商品價格
     quantity: 10,      // 初始數量
     imagePath:'',     // 圖片路徑
   }
