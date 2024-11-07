@@ -91,5 +91,19 @@ export class LocalstorageService {
   getMemberInfo(): Observable<apiresponse> {
     return this.client.get<apiresponse>('https://localhost:7100/api/Order/GetLoginMember');
   }
+
+  sendOrderInfoEmail(){
+    return this.client.get<any>('https://localhost:7100/api/Order/sendOrderInfoEmail', { withCredentials: true })
+    .subscribe(
+      (response)=>{
+        console.log('OK');
+      },
+      (error)=>{
+        console.error('fail');
+      }
+
+    )
+    ;
+  }
 }
 
