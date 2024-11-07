@@ -17,8 +17,8 @@ export class CartComponent {
   discount = 100
 
   newItem: cartItem = {
-    ItinerarySystemId: 5,            // 商品 ID
-    ItineraryDateSystemId:1,
+    ItinerarySystemId: 3,            // 商品 ID
+    itineraryDateSystemId:1,
     name: '商品BB',    // 商品名稱
     price: 888,       // 商品價格
     quantity: 10,      // 初始數量

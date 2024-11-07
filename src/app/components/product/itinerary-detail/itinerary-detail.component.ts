@@ -1,3 +1,4 @@
+import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
@@ -5,6 +6,7 @@ import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
+import { cartItem } from 'src/app/interface/Order/cartItem';
 
 
 
@@ -28,10 +30,11 @@ export class ItineraryDetailComponent implements OnInit {
   selectedDate: string | null = null;
   selectedDateTimes: string[] = [];
   quantity: number = 1;
+  cartItems: cartItem[]=[];
 
 
 
-  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService) { }
+  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private localStorageService: LocalstorageService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -80,7 +83,6 @@ export class ItineraryDetailComponent implements OnInit {
     this.events = [];
 
     // 遍歷所有日期系統
-    // 遍历所有日期系统
   this.itineraryDetail.dateSystem.forEach(dateSystem => {
     if (!dateSystem.itineraryDate) return;
 
@@ -215,5 +217,18 @@ export class ItineraryDetailComponent implements OnInit {
       this.quantity = 1;
     }
   }
+
+ //加入購物車
+ addToCart():void{
+  const newCartItem:cartItem={
+    itineraryDateSystemId:1,
+    ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
+    name:this.itineraryDetail?.itineraryName as string,
+    price:this.itineraryDetail?.price as number,
+    quantity:this.quantity,
+    imagePath:this.itineraryDetail?.imageName as string
+  }
+  this.localStorageService.addToCart(newCartItem);
+ }
 
 }
