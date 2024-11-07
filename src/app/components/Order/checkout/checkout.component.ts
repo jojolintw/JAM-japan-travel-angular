@@ -69,6 +69,7 @@ export class CheckoutComponent {
 
 
   goToConfirmation() {
+    this.localstorageService.sendOrderInfoEmail();
     this.router.navigate(['orderconfirmation']);
   }
 

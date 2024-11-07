@@ -51,12 +51,12 @@
           <table class="cart_table">
             <thead>
               <tr>
-                <th class="cart-col-image" style="color:black" [colSpan]="2">商品</th>
+                <th class="cart-col-image" style="color:black; width: 35%;" [colSpan]="2">商品</th>
                 <!-- <th class="cart-col-productname"></th> -->
-                <th class="cart-col-price" style="color:black">單價</th>
-                <th class="cart-col-quantity" style="color:black">數量</th>
-                <th class="cart-col-total" style="color:black">總計</th>
-                <th class="cart-col-remove" style="color:black">刪除</th>
+                <th class="cart-col-price" style="color:black; width: 15%;">單價</th>
+                <th class="cart-col-quantity" style="color:black; width: 10%">數量</th>
+                <th class="cart-col-total" style="color:black; width:15%">總計</th>
+                <th class="cart-col-remove" style="color:black; width:15%;">刪除</th>
               </tr>
             </thead>
             <tbody>
@@ -68,7 +68,7 @@
               <tr class="cart_item" *ngFor="let item of cartItems">
                 <td data-title="Product">
                   <a class="cart-productimage" (click)="goToProductDetail(item.ItinerarySystemId)"><img width="80" height="80"
-                      [src]="item.imagePath" alt="{{item.name}}" /></a>
+                      [src]="item.imagePath" alt="image" /></a>
                 </td>
                 <td data-title="Name">
                   <a class="cart-productname" (click)="goToProductDetail(item.ItinerarySystemId)">{{item.name}}</a>
