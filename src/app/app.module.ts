@@ -47,6 +47,7 @@ import { SafePipe } from './components/Shipment/safe.pipe';
 import { ResetPasswordEmailComponent } from './components/Member/reset-password-email/reset-password-email.component';
 import { ResetPasswordCompleteComponent } from './components/Member/reset-password-complete/reset-password-complete.component';
 import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
+import { Cart2Component } from './components/Shipment/cart2/cart2.component';
 
 
 
@@ -93,6 +94,7 @@ const routes: Routes = [
       ResetPasswordEmailComponent,
       ResetPasswordCompleteComponent,
       ScheduleDetailComponent,
+      Cart2Component,
   ],
   imports: [
     BrowserModule,
