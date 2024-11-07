@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; // 假设你有这个服务来获取文章数据
 import { Article } from 'src/app/interface/Article/Article.interface';  // 假设你有这个接口
-import { ArticleService } from 'src/app/service/Blog/article-service/article.service';
+import { ArticleService } from 'src/app/service/Blog/article.service';
 
 @Component({
   selector: 'app-blog-detail',

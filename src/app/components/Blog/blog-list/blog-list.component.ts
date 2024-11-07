@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleService } from 'src/app/service/Blog/article-service/article.service';
+import { HashtagService } from 'src/app/service/Blog/hashtag.service';
+import { ArticleService } from 'src/app/service/Blog/article.service';
 import { Article } from 'src/app/interface/Article/Article.interface';
 
 @Component({
@@ -13,65 +14,94 @@ export class BlogListComponent implements OnInit {
   displayedArticles: Article[] = [];
   keyword: string = '';  // 存储搜索关键词
   loading: boolean = false;  // 用于指示正在加载数据
+  hashtags: string[] = [];  // 存储标签列表
 
-  constructor(private route: ActivatedRoute, private ArticleService: ArticleService) { }
 
-  ngOnInit(): void {
-    this.ArticleService.getArticles().subscribe((data: Article[]) => {
-      this.displayedArticles = data;
+  constructor(private route: ActivatedRoute,
+    private ArticleService: ArticleService,
+    private hashtagService: HashtagService)
+    { }
 
-      // 迭代每篇文章，打印發文時間和最新修改時間
-      this.displayedArticles.forEach(article => {
-        article.launchTime = new Date(article.launchTime);
-        article.lastUpdateTime = new Date(article.lastUpdateTime);
+    ngOnInit(): void {
+      // 加载所有文章
+      this.loadArticles();
 
-      });
-    }, (error) => {
-      console.error('Error fetching articles', error);
-    });
-  }
+      // 加载标签列表
+      this.loadHashtags();
+    }
 
-  clickTest() {
-    alert('here');
-  }
-
-  searchArticles(): void {
-    if (this.keyword.trim()) {
-      // 每次搜索前清空文章列表
-      // this.articles = [];
-      this.loading = true; // 开始加载数据
-
-      this.ArticleService.searchArticles(this.keyword).subscribe(
+    // 加载所有文章
+    loadArticles(): void {
+      this.loading = true;
+      this.ArticleService.getArticles().subscribe(
         (data) => {
           this.displayedArticles = data;
-          this.loading = false;  // 加载完成
-          // this.displayedArticles[0].articleContent = 'TEST'
-
+          // 格式化日期
+          this.displayedArticles.forEach(article => {
+            article.launchTime = new Date(article.launchTime);
+            article.lastUpdateTime = new Date(article.lastUpdateTime);
+          });
+          this.loading = false;
         },
         (error) => {
-          console.error('查詢失敗', error);
-          // console.error('查詢失敗', error.status);  // 错误处理
-          this.displayedArticles =[];
-          this.loading = false;  // 加载完成
+          console.error('Error fetching articles', error);
+          this.displayedArticles = [];
+          this.loading = false;
         }
       );
     }
 
-    else {
-      // 如果没有关键词，加载所有文章
-      this.loading = true;  // 开始加载数据
-      this.ArticleService.getArticles().subscribe(
+    // 加载标签列表
+    loadHashtags(): void {
+      this.hashtagService.getHashtags().subscribe(
         (data) => {
-          this.displayedArticles = data;
-          this.loading = false;  // 加载完成
+          this.hashtags = data;
         },
         (error) => {
-          console.error('加载所有文章失败', error);
-          this.displayedArticles = [];
-          this.loading = false;  // 加载完成
+          console.error('加载标签失败', error);
         }
       );
-      }
+    }
 
-  }
+    // 根据标签加载相关的文章
+    loadArticlesByHashtag(hashtag: string): void {
+      this.loading = true;
+      this.hashtagService.getArticlesByHashtag(hashtag).subscribe(
+        (data) => {
+          this.displayedArticles = data;
+          // 格式化日期
+          this.displayedArticles.forEach(article => {
+            article.launchTime = new Date(article.launchTime);
+            article.lastUpdateTime = new Date(article.lastUpdateTime);
+          });
+          this.loading = false;
+        },
+        (error) => {
+          console.error('加载相关文章失败', error);
+          this.displayedArticles = [];
+          this.loading = false;
+        }
+      );
+    }
+
+    // 搜索文章
+    searchArticles(): void {
+      if (this.keyword.trim()) {
+        this.loading = true;
+        this.ArticleService.searchArticles(this.keyword).subscribe(
+          (data) => {
+            this.displayedArticles = data;
+            this.loading = false;
+          },
+          (error) => {
+            console.error('查詢失敗', error);
+            this.displayedArticles = [];
+            this.loading = false;
+          }
+        );
+      } else {
+        // 如果没有搜索关键词，则加载所有文章
+        this.loadArticles();
+      }
+    }
 }

@@ -8,6 +8,7 @@ import { Article } from 'src/app/interface/Article/Article.interface';
 })
 export class ArticleService {
 
+
   private apiUrl = 'https://localhost:7100/api/FBlog';
 
   constructor(private http: HttpClient) { }
@@ -31,4 +32,7 @@ export class ArticleService {
   getArticleById(id: number): Observable<Article> {
     return this.http.get<Article>(`${this.apiUrl}/${id}`);
   }
+
+
+
 }

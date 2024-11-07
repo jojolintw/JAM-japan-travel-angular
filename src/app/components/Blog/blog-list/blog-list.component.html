@@ -30,7 +30,7 @@
                     <a [routerLink]="['/blog-detail', item.articleId]" class="vs-btn has-arrow">看全文<i class="fal fa-arrow-right"></i></a>
 
                   </div>
-                  <li *ngFor="let articleHashtag of item.articleHashtags;" (click)="clickTest()">
+                  <li *ngFor="let articleHashtag of item.articleHashtags;" >
                     {{articleHashtag}}
                   </li>
                 </div>
@@ -207,8 +207,6 @@
               <p>找到 {{ displayedArticles.length }} 篇符合的文章</p>
             </div>
 
-
-
             <!-- 如果没有找到文章 -->
             <div *ngIf="displayedArticles.length === 0 && keyword.trim()">
               <p>找不到符合的文章。</p>
@@ -288,17 +286,14 @@
           <div class="widget widget_tag_cloud">
             <h3 class="widget_title">Hashtag</h3>
             <div class="tagcloud">
-              <a href="blog.html">福岡</a>
-              <a href="blog.html">沖繩</a>
-              <a href="blog.html">札幌</a>
-              <a href="blog.html">東京</a>
-              <a href="blog.html">大阪</a>
-              <a href="blog.html">仙台</a>
-              <a href="blog.html">燒肉</a>
-              <a href="blog.html">壽喜燒</a>
-              <a href="blog.html">拉麵</a>
+              <!-- 动态加载标签 -->
+              <a *ngFor="let hashtag of hashtags" href="javascript:void(0)" (click)="loadArticlesByHashtag(hashtag)">
+                {{ hashtag }}
+              </a>
             </div>
           </div>
+
+
 
           <div class="widget widget-social">
             <h3 class="widget_title">訂閱嗎?</h3>
