@@ -1,114 +1,52 @@
-
-import { LocalstorageService } from './../../../service/Order/localstorage.service';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { cartItem } from 'src/app/interface/Order/cartItem';
-import Swal from 'sweetalert2';
-
+import { Component, OnInit } from '@angular/core';
+import { Cart2Service } from '../../../service/Shipment/cart2.service'; // 引入CartService
 
 @Component({
   selector: 'app-cart2',
   templateUrl: './cart2.component.html',
   styleUrls: ['./cart2.component.css']
 })
-export class Cart2Component {
+export class Cart2Component implements OnInit {
+  cartItems: any[] = [];
+  totalAmount: number = 0;
+  discount: number = 0;
 
-  cartItems: cartItem[] = []
-  quantity = 1
-  totalAmount = 0
-  discount = 100
+  constructor(private cart2Service: Cart2Service) {}
 
-  newItem: cartItem = {
-    ItinerarySystemId: 5,            // 商品 ID
-    ItineraryDateSystemId:1,
-    name: '商品BB',    // 商品名稱
-    price: 888,       // 商品價格
-    quantity: 10,      // 初始數量
-    imagePath:'',     // 圖片路徑
-  }
-
-
-  constructor(private router: Router,
-    private localstorageService: LocalstorageService) {
-
-  }
-
-  ngOnInit(): void {
-    this.cartItems = this.localstorageService.getCartItems();
+  ngOnInit() {
+    this.cartItems = this.cart2Service.getItems(); // 獲取購物車項目
     this.calculateTotal();
   }
 
-  calculateTotal(){
-    this.totalAmount = this.cartItems.reduce((total, item)=>{
-    return total + (item.price * item.quantity);
-  },0);
+  // 計算總金額
+  calculateTotal() {
+    this.totalAmount = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
 
-  removeCartItem(id:number){
-    this.localstorageService.removeCartItem(id);
-    this.ngOnInit();
+  // 更改數量
+  changeQuantity(item: any, amount: number) {
+    item.quantity += amount;
+    if (item.quantity < 1) item.quantity = 1;
+    this.calculateTotal();
   }
 
-  clearCartItems(){
-    this.localstorageService.clearCartItems();  // 清除所有localStorage 應該用不到但先放著
+  // 移除購物車項目
+  removeCartItem(itemId: number) {
+    this.cartItems = this.cartItems.filter(item => item.ItinerarySystemId !== itemId);
+    this.calculateTotal();
   }
 
-  changeQuantity(item:any, delta: number) {
-    const cartItem = this.cartItems.find(product => product.ItinerarySystemId === item.ItinerarySystemId);
-    if (cartItem) {
-      // 更新商品數量，防止數量小於1
-      cartItem.quantity = Math.max(1, cartItem.quantity + delta);
-
-      // 更新localStorage
-      this.updateCart();
-      this.ngOnInit();
-    }
-
+  // 清除購物車
+  clearCart() {
+    this.cartItems = [];
+    this.totalAmount = 0;
+    this.discount = 0;
+    this.cart2Service.clearCart();
   }
 
-  updateCart(){
-    this.localstorageService.setItem('cart',JSON.stringify(this.cartItems));
-  }
-
-// ============== test ====================
-
-
-  setcontent() {
-    this.localstorageService.addToCart(this.newItem);
-    this.ngOnInit();
-  }
-
-  getcontent() {
-    var text = this.localstorageService.getItem('text1');
-    alert(text);
-  }
-
-  removecontent() {
-    this.localstorageService.removeCartItem(1);
-  }
-
-  clearcontent() {
-    this.localstorageService.clearItem();
-  }
-
-  getMemberInfo() {
-    this.localstorageService.getMemberInfo();
-  }
-
+  // 前往結帳頁面
   goToCheckout() {
-    this.router.navigate(['checkout']);
+    // 結帳頁面邏輯
+    console.log("前往結帳");
   }
-
-  // =============== router =====================
-
-  goToHomePage() {
-    this.router.navigate(['home']);
-  }
-
-  goToProductDetail(id:number) {
-    this.router.navigate(['itinerary-detail/'+id])
-  }
-
-
-
 }

@@ -4,55 +4,33 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Travolo - Travel Agency & Tour Booking HTML Template - Cart</title>
-  <meta name="author" content="vecuro">
-  <meta name="description" content="Travolo -  Travel Agency & Tour Booking HTML Template">
-  <meta name="keywords" content="Travolo -  Travel Agency & Tour Booking HTML Template">
-  <meta name="robots" content="INDEX,FOLLOW">
-
-  <!-- Mobile Specific Metas -->
+  <title>Travolo - Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Favicons - Place favicon.ico in the root directory -->
+  <!-- Favicons -->
   <link rel="icon" type="image/png" href="assets/img/favicons/favicon.png">
-  <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
-  <!--==============================
-	  Google Fonts
-	============================== -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-  <!--********************************
-    Code Start From Here
-    ******************************** -->
 
-  <!--==============================
-	  Hero area Start
-	==============================-->
   <div class="breadcumb-wrapper" style="padding:50px 0px">
     <h1 class="breadcumb-title" style="margin-left: 10%;">購物車</h1>
   </div>
-  <!--==============================
-	  Hero Area End
-	==============================-->
 
-  <!--==============================
-	  Cart Area Start
-	==============================-->
   <div class="space vs-cart-wrapper">
     <div class="container">
-      <form action="#" class="woocommerce-cart-form">
+      <form class="woocommerce-cart-form">
         <div class="table-responsive">
           <table class="cart_table">
             <thead>
               <tr>
-                <th class="cart-col-image" style="color:black" [colSpan]="2">商品</th>
-                <!-- <th class="cart-col-productname"></th> -->
+                <th class="cart-col-image" style="color:black" colspan="2">商品</th>
                 <th class="cart-col-price" style="color:black">單價</th>
                 <th class="cart-col-quantity" style="color:black">數量</th>
                 <th class="cart-col-total" style="color:black">總計</th>
@@ -60,160 +38,42 @@
               </tr>
             </thead>
             <tbody>
-
-
-              <!-- ========================================== -->
-
-
-              <tr class="cart_item" *ngFor="let item of cartItems">
-                <td data-title="Product">
-                  <a class="cart-productimage" (click)="goToProductDetail(item.ItinerarySystemId)"><img width="80" height="80"
-                      [src]="item.imagePath" alt="{{item.name}}" /></a>
-                </td>
-                <td data-title="Name">
-                  <a class="cart-productname" (click)="goToProductDetail(item.ItinerarySystemId)">{{item.name}}</a>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>{{item.price}}</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <div class="quantity">
-                    <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
-                      <i class="far fa-minus"></i>
-                    </button>
-                    <input type="number" [id]="item.ItinerarySystemId" class="qty-input" [value]="item.quantity" min="1" max="99"
-                      readonly />
-                    <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
-                      <i class="far fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td data-title="Total">
-                  <span class="totalAmount"><bdi><span>$</span>{{item.price * item.quantity}}</bdi></span>
-                </td>
-                <td data-title="Remove">
-                  <a type="button" class="remove" (click)="removeCartItem(item.ItinerarySystemId)"><i class="fal fa-trash-alt"></i></a>
-                </td>
-              </tr>
-
-
-              <!-- ============================================== -->
-
-
-              <!-- <tr class="cart_item">
-                <td data-title="Product">
-                  <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
-                      src="assets/img/tours/tokyotower.jpg" alt="Image" /></a>
-                </td>
-                <td data-title="Name">
-                  <a class="cart-productname" (click)="goToProductDetail(1)">東京鐵塔浪漫之夜</a>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <div class="quantity">
-                    <button class="quantity-minus qut-btn">
-                      <i class="far fa-minus"></i>
-                    </button>
-                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
-                    <button class="quantity-plus qut-btn">
-                      <i class="far fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-                <td data-title="Remove">
-                  <a href="#" class="remove"><i class="fal fa-trash-alt"></i></a>
-                </td>
-              </tr>
-              <tr class="cart_item">
-                <td data-title="Product">
-                  <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
-                      src="assets/img/tours/sup.jpg" alt="Image" /></a>
-                </td>
-                <td data-title="Name">
-                  <a class="cart-productname" (click)="goToProductDetail(1)">沖繩SUP體驗 新手友善</a>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <div class="quantity">
-                    <button class="quantity-minus qut-btn">
-                      <i class="far fa-minus"></i>
-                    </button>
-                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
-                    <button class="quantity-plus qut-btn">
-                      <i class="far fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-                <td data-title="Remove">
-                  <a href="#" class="remove"><i class="fal fa-trash-alt"></i></a>
-                </td>
-              </tr> -->
-              <tr>
-                <td colspan="7" class="actions">
-                  <div class="vs-cart-coupon">
-                    <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly />
-                    <button type="submit" class="vs-btn style4">
-                      使用優惠券
-                    </button>
-                  </div>
-                  <button (click)="goToHomePage()" class="vs-btn style4">繼續購物</button>
-
-                  <!-- <div class="coupon-modal" *ngIf="showCouponModal" (click)="closeCouponModal()" style="position: fixed;
-                      top: 0;
-                      left: 0;
-                      right: 0;
-                      bottom: 0;
-                      background: rgba(0, 0, 0, 0.5);
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      z-index: 1000;">
-                    <div class="coupon-modal-content" (click)="$event.stopPropagation()" style="background: white;
-                        padding: 20px;
-                        border-radius: 8px;
-                        width: 300px;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                      <h2>選擇優惠券</h2>
-                      <div class="coupon-list" style="margin-top: 10px;">
-                        <div *ngFor="let coupon of availableCoupons" class="coupon-item" style="display: flex;
-                            align-items: center;
-                            margin-bottom: 15px;">
-                          <label>
-                            <input type="radio" style=" margin-right: 10px;" [value]="coupon.id"
-                              [(ngModel)]="selectedCouponId" (change)="applyCoupon(coupon)" />
-                            <div class="coupon-details" style="display: flex; flex-direction: column;">
-                              <p class="coupon-name">{{ coupon.name }}</p>
-                              <p class="coupon-description">{{ coupon.description }}</p>
-                              <p class="coupon-discount">折扣: {{ coupon.discount }}元</p>
-                            </div>
-                          </label>
-                        </div>
+                <tr class="cart_item" *ngFor="let item of cartItems">
+                    <td data-title="Product">
+                      <a class="cart-productimage">
+                        <img width="80" height="80" src="../../../../assets/img/Shipment/1.jfif" alt="基隆-那霸" />
+                      </a>
+                    </td>
+                    <td data-title="Name">
+                      <a class="cart-productname">基隆-那霸</a>
+                    </td>
+                    <td data-title="Price">
+                      <span class="amount"><bdi><span>$</span>{{item.schedule.price}}</bdi></span>
+                    </td>
+                    <td data-title="Quantity">
+                      <div class="quantity">
+                        <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
+                          <i class="far fa-minus"></i>
+                        </button>
+                        <input type="number" [id]="item.schedule.routeId" class="qty-input" [value]="item.seats" min="1" max="99" readonly />
+                        <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
+                          <i class="far fa-plus"></i>
+                        </button>
                       </div>
-                      <button class="close-btn" style="margin-top: 20px;
-                                padding: 10px 20px;
-                                background-color: #ff4e00;
-                                color: white;
-                                border: none;
-                                border-radius: 5px;
-                                cursor: pointer;" (click)="closeCouponModal()">關閉</button> -->
-                    <!-- </div>
-                  </div>
-                </td> -->
-              </tr>
+                    </td>
+                    <td data-title="Total">
+                      <span class="totalAmount"><bdi><span>$</span>{{item.schedule.price * item.seats}}</bdi></span>
+                    </td>
+                    <td data-title="Remove">
+                      <a type="button" class="remove" (click)="removeCartItem(item.schedule.routeId)"><i class="fal fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                  
             </tbody>
           </table>
         </div>
       </form>
+
       <div class="row justify-content-end">
         <div class="col-md-8 col-lg-7 col-xl-6">
           <h2 class="h4 summary-title">Cart Totals</h2>
@@ -236,52 +96,25 @@
               <tr class="order-total">
                 <th>總金額</th>
                 <td data-title="Total">
-                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount-discount}}</bdi></span></strong>
+                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount - discount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>
           </table>
           <button class="vs-btn style4" (click)="goToCheckout()" style="width: 100%;">去結帳</button>
-          <!-- <input type="text" id="textcontent"> -->
-          <input type="button" class="save" (click)="setcontent()" value="set">
-          <!-- <input type="button" class="alert" (click)="getcontent()" value="alert"> -->
-          <!-- <input type="button" class="remove" (click)="removecontent()" value="remove"> -->
-          <input type="button" class="clear" (click)="clearcontent()" value="clear">
-          <!-- <input type="button" class="getInfo" (click)="getMemberInfo()" value="getInfo"> -->
+          <button class="vs-btn style4" (click)="clearCart()" style="width: 100%; margin-top: 10px;">清空購物車</button>
         </div>
       </div>
     </div>
   </div>
-  <!--==============================
-	  Cart Area End
-	==============================-->
-
-  <!-- Scroll To Top -->
-  <!-- <a href="#" class="scrollToTop scroll-btn"><i class="far fa-arrow-up"></i></a> -->
 
   <!--==============================
     All Js File
 ============================== -->
-  <!-- Jquery -->
   <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-  <!-- Slick Slider -->
   <script src="assets/js/slick.min.js"></script>
-  <!-- Bootstrap -->
   <script src="assets/js/bootstrap.min.js"></script>
-  <!-- Magnific Popup -->
-  <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- jquery Ui -->
-  <script src="assets/js/jquery-ui.min.js"></script>
-  <!-- Circle Progress -->
-  <script src="assets/js/circle-progress.min.js"></script>
-  <!-- isotope -->
-  <script src="assets/js/imagesLoaded.js"></script>
-  <script src="assets/js/isotope.js"></script>
-  <!-- Wow.js -->
-  <script src="assets/js/wow.min.js"></script>
-  <!-- Main Js File -->
   <script src="assets/js/main.js"></script>
-
 
 </body>
 
