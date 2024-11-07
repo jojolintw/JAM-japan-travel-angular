@@ -5,6 +5,6 @@ export interface Itinerary {
   itineraryDate: string[];
   areaName: string;
   imagePath: string;
-  stock: number;
+  availableDate: string;
   price: number;
 }
