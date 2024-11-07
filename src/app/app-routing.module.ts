@@ -23,6 +23,7 @@ import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.c
 import{BlogWriteComponent} from'./components/Blog/blog-write/blog-write.component';
 import { CertificationSuccessComponent } from './components/Member/certification-success/certification-success.component';
 import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
+import { Cart2Component } from './components/Shipment/cart2/cart2.component';
 const routes: Routes = [
    {
     path: 'login',
@@ -81,6 +82,7 @@ const routes: Routes = [
   { path: 'shipment-ticket', component: TicketComponent },
   { path: 'shipment-detail/:routeId', component: DetailComponent },
   { path: 'schedule/:scheduleId', component: ScheduleDetailComponent },
+  { path: 'cart2', component: Cart2Component },
 
 
   { path: 'cart', component:CartComponent },
