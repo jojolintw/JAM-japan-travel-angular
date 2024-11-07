@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Travolo - Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="assets/img/favicons/favicon.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+  <div class="breadcumb-wrapper" style="padding:50px 0px">
+    <h1 class="breadcumb-title" style="margin-left: 10%;">購物車</h1>
+  </div>
+
+  <div class="space vs-cart-wrapper">
+    <div class="container">
+      <form class="woocommerce-cart-form">
+        <div class="table-responsive">
+          <table class="cart_table">
+            <thead>
+              <tr>
+                <th class="cart-col-image" style="color:black" colspan="2">商品</th>
+                <th class="cart-col-price" style="color:black">單價</th>
+                <th class="cart-col-quantity" style="color:black">數量</th>
+                <th class="cart-col-total" style="color:black">總計</th>
+                <th class="cart-col-remove" style="color:black">刪除</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="cart_item" *ngFor="let item of cartItems">
+                    <td data-title="Product">
+                      <a class="cart-productimage">
+                        <img width="80" height="80" src="../../../../assets/img/Shipment/1.jfif" alt="基隆-那霸" />
+                      </a>
+                    </td>
+                    <td data-title="Name">
+                      <a class="cart-productname">基隆-那霸</a>
+                    </td>
+                    <td data-title="Price">
+                      <span class="amount"><bdi><span>$</span>{{item.schedule.price}}</bdi></span>
+                    </td>
+                    <td data-title="Quantity">
+                      <div class="quantity">
+                        <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
+                          <i class="far fa-minus"></i>
+                        </button>
+                        <input type="number" [id]="item.schedule.routeId" class="qty-input" [value]="item.seats" min="1" max="99" readonly />
+                        <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
+                          <i class="far fa-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td data-title="Total">
+                      <span class="totalAmount"><bdi><span>$</span>{{item.schedule.price * item.seats}}</bdi></span>
+                    </td>
+                    <td data-title="Remove">
+                      <a type="button" class="remove" (click)="removeCartItem(item.schedule.routeId)"><i class="fal fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                  
+            </tbody>
+          </table>
+        </div>
+      </form>
+
+      <div class="row justify-content-end">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <h2 class="h4 summary-title">Cart Totals</h2>
+          <table>
+            <tbody>
+              <tr class="order-total">
+                <th>商品總金額</th>
+                <td data-title="Subtotal">
+                  <span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span>
+                </td>
+              </tr>
+              <tr class="order-total">
+                <th>優惠券折扣</th>
+                <td data-title="coupon">
+                  <span class="amount"><bdi><span>-$</span>{{discount}}</bdi></span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="order-total">
+                <th>總金額</th>
+                <td data-title="Total">
+                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount - discount}}</bdi></span></strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <button class="vs-btn style4" (click)="goToCheckout()" style="width: 100%;">去結帳</button>
+          <button class="vs-btn style4" (click)="clearCart()" style="width: 100%; margin-top: 10px;">清空購物車</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--==============================
+    All Js File
+============================== -->
+  <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/slick.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
