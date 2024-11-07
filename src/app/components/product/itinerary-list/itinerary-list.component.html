@@ -32,7 +32,7 @@
                     </div>
                     <h3 class="package-title"><a
                         [routerLink]="['/itinerary-detail', tour.itinerarySystemId]">{{tour.itineraryName}}</a></h3>
-                    <p class="package-text">{{tour.areaName}}</p>
+                    <p class="package-text">{{tour.areaName}} <br>{{tour.availableDate}}<img width="15px" height="15px" src="assets/img/icons/check_circle_icon.png" alt="Check Icon"></p>
                     <div class="package-footer">
                       <span class="package-price">{{tour.price | currency:'TWD':'symbol': '1.0-0'}}</span>
                       <a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]" class="vs-btn">體驗行程詳情</a>

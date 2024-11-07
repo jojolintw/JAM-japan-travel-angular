@@ -64,11 +64,11 @@
 
               <!-- 日曆視圖 -->
               <mwl-calendar-month-view
-              [viewDate]="viewDate"
-              [events]="events"
-              [cellTemplate]="customCell"
-              (dayClicked)="onDayClicked($event.day)">
-            </mwl-calendar-month-view>
+                [viewDate]="viewDate"
+                [events]="events"
+                [cellTemplate]="customCell"
+                (dayClicked)="onDayClicked($event.day)">
+              </mwl-calendar-month-view>
 
               <!-- 自定義日期單元格模板 -->
               <ng-template #customCell let-day="day">
@@ -85,15 +85,17 @@
               </ng-template>
             </div>
             <div class="time-selection" *ngIf="selectedDate && selectedDateTimes.length > 0">
-              <h4>{{selectedDate | date:'yyyy/MM/dd'}} 可選時間:</h4>
+              <h4>{{selectedDate | date:'yyyy/MM/dd'}} 可選時段:</h4>
               <div class="time-slots">
                 <div *ngFor="let time of selectedDateTimes" class="time-slot">
                   <button class="time-button"
                           [class.disabled]="!hasTimeSlotStock(time)"
-                          [disabled]="!hasTimeSlotStock(time)">
+                          [disabled]="!hasTimeSlotStock(time)"
+                          [class.selected]="isSelectedTime(time)"
+                          (click)="selectDateTime(time, getBatchForTime(time))">
                     {{time}}
                     <span class="stock-status">
-                      {{hasTimeSlotStock(time) ? '可預約' : '已滿'}}
+                      {{hasTimeSlotStock(time)? '可預約' : '已滿團'}}
                     </span>
                   </button>
                 </div>

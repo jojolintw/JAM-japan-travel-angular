@@ -25,12 +25,12 @@ export class ItineraryDetailComponent implements OnInit {
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
-  dayStatus: { [key: string]: { dateSystemId: number; times: string[]; stock: number }} = {};
-  availableSlots: { date: Date; time: string }[] = [];
+  batchStatus: ItineraryDetail["itineraryBatch"] = [];
   selectedDate: string | null = null;
   selectedDateTimes: string[] = [];
   quantity: number = 1;
   cartItems: cartItem[]=[];
+
 
 
 
@@ -49,77 +49,40 @@ export class ItineraryDetailComponent implements OnInit {
   loadItineraryDetail(id: number): void {
     this.itineraryService.getItineraryById(id).subscribe(response => {
       this.itineraryDetail = response;
-      console.log(this.itineraryDetail);
       this.loadRelatedItineraries(this.itineraryDetail.activityId);
-      if (this.itineraryDetail) {
-        // 将后端返回的日期时间转换为日历事件
-        this.events = [];
-
-      // 使用 for...of 循环处理日期
-      // for (const dateTimeStr of this.itineraryDetail.itineraryDate) {
-      //   const event: CalendarEvent = {
-      //     start: new Date(dateTimeStr),
-      //     title: new Date(dateTimeStr).toLocaleTimeString('zh-TW', {
-      //       hour: '2-digit',
-      //       minute: '2-digit'
-      //     }),
-      //     meta: {
-      //       dateSystemId: this.itineraryDetail.itineraryDateSystemId,
-      //       hasEvent: true
-      //     }
-      //   };
-      //   this.events.push(event);
-      // }
-
-        this.initializeDayStatus();
-      }
+      this.initializeDayStatus();
     });
   }
 
   initializeDayStatus(): void {
     if (!this.itineraryDetail) return;
 
-    this.dayStatus = {};
+    this.batchStatus = [];
     this.events = [];
 
-    // 遍歷所有日期系統
-  this.itineraryDetail.dateSystem.forEach(dateSystem => {
-    if (!dateSystem.itineraryDate) return;
+    this.itineraryDetail.itineraryBatch.forEach(itineraryBatch => {
+      if (!itineraryBatch.departureDate) return;
 
-    dateSystem.itineraryDate.forEach(dateTimeStr => {
-      const dateStr = dateTimeStr.split('T')[0];
-      const timeStr = new Date(dateTimeStr).toLocaleTimeString('zh-TW', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+        this.batchStatus.push({
+          itineraryDateSystemId: itineraryBatch.itineraryDateSystemId,
+          departureDate: itineraryBatch.departureDate,
+          stock: itineraryBatch.stock || 0
+        });
 
-      // 初始化该日期的状态
-      if (!this.dayStatus[dateStr]) {
-        this.dayStatus[dateStr] = {
-          dateSystemId: dateSystem.itineraryDateSystemId,
-          times: [],
-          stock: dateSystem.stock || 0
-        };
-      }
-
-      // 添加时间到数组中
-      if (!this.dayStatus[dateStr].times.includes(timeStr)) {
-        this.dayStatus[dateStr].times.push(timeStr);
-      }
-
-      // 添加日历事件
       const event: CalendarEvent = {
-        start: new Date(dateTimeStr),
-        title: timeStr,
+        start: new Date(itineraryBatch.departureDate),
+        title: new Date(itineraryBatch.departureDate).toLocaleTimeString('zh-TW', {
+          hour: '2-digit',
+          minute: '2-digit'
+        }),
         meta: {
-          dateSystemId: dateSystem.itineraryDateSystemId,
+          dateSystemId: itineraryBatch.itineraryDateSystemId,
           hasEvent: true,
-          hasStock: dateSystem.stock > 0  // 使用 dateSystem 的 stock
+          hasStock: itineraryBatch.stock > 0
         }
       };
       this.events.push(event);
     });
-  });
   }
 
   loadRelatedItineraries(activityId: number): void {
@@ -143,60 +106,73 @@ export class ItineraryDetailComponent implements OnInit {
   }
 
   hasAvailableStock(day: CalendarMonthViewDay): boolean {
-    const dateStr = day.date.toISOString().split('T')[0];
-    return this.dayStatus[dateStr]?.stock > 0 || false;
-  }
-
-  // 檢查特定時間是否有庫存
-  hasTimeSlotStock(time: string): boolean {
-    if (!this.selectedDate) return false;
-    return (this.dayStatus[this.selectedDate]?.stock || 0) > 0;
+    const date = day.date;
+    const dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+    const batches = this.batchStatus.filter(batch => batch.departureDate.startsWith(dateStr));
+    return batches.length > 0 && batches.some(batch => batch.stock > 0);
   }
 
   onDayClicked(day: CalendarMonthViewDay): void {
-    const dateStr = day.date.toISOString().split('T')[0];
+    const date = day.date;
+    const dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
     if (this.hasAvailableStock(day)) {
       if (this.selectedDate === dateStr) {
-        // 如果點擊已選中的日期，則取消選擇
         this.selectedDate = null;
         this.selectedDateTimes = [];
       } else {
-        // 選擇新日期並獲取對應時間
         this.selectedDate = dateStr;
-        this.selectedDateTimes = this.dayStatus[dateStr]?.times.map(t => t)  || [];
+      console.log('dateStr', this.selectedDate);
+      const batches = this.batchStatus.filter(batch => batch.departureDate.startsWith(dateStr));
+      this.selectedDateTimes = batches.map(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
+        hour: '2-digit',
+        minute: '2-digit'
+
+      }));
       }
     }
+
   }
 
-  selectDateTime(time: string): void {
-    if (!this.selectedDate) {
-      console.log('請先選擇日期');
-      return;
-    }
+  hasTimeSlotStock(time: string): boolean {
+    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }) === time);
+    return batches.length > 0 && batches.some(batch => batch.stock > 0);
+  }
 
-    const dayStatusForDate = this.dayStatus[this.selectedDate];
-    if (!dayStatusForDate) {
-      console.log('無效的日期選擇');
-      return;
-    }
+  getStockForTime(time: string): number {
+    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }) === time);
+    return batches.length > 0? batches[0].stock : 0;
+  }
 
-    if (dayStatusForDate.stock <= 0) {
-      console.log('此時段已無庫存');
-      return;
-    }
+  selectedTime: string | null = null;
 
-    if (!dayStatusForDate.times.includes(time)) {
-      console.log('無效的時間段');
-      return;
-    }
+  isSelectedTime(time: string): boolean {
+    return this.selectedTime === time;
+  }
 
-    const formattedDateTime = this.formatDateTime(this.selectedDate, time);
+  selectDateTime(time: string, batch: any): void {
+    const formattedDateTime = this.selectedDate + ' ' + time;
     console.log('Selected datetime:', formattedDateTime);
-    console.log('DateSystemId:', dayStatusForDate.dateSystemId);
+    console.log('DateSystemId:', batch.itineraryDateSystemId);
+
+    // 更新界面状态
+    this.selectedTime = time;
+
   }
 
-  formatDateTime(date: string, time: string): string {
-    return `${date}T${time}`;
+
+
+  getBatchForTime(time: string): any {
+    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }) === time);
+    return batches.length > 0? batches[0] : null;
   }
 
   decreaseQuantity(): void {
