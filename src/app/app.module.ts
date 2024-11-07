@@ -47,6 +47,7 @@ import { SafePipe } from './components/Shipment/safe.pipe';
 import { ResetPasswordEmailComponent } from './components/Member/reset-password-email/reset-password-email.component';
 import { ResetPasswordCompleteComponent } from './components/Member/reset-password-complete/reset-password-complete.component';
 import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -84,7 +85,7 @@ const routes: Routes = [
     CheckoutComponent,
     OrderConfirmationComponent,
 
-    BlogListComponent,
+      BlogListComponent,
       MemberorderdetailComponent,
       BlogWriteComponent,
       BlogDetailComponent,
@@ -93,6 +94,7 @@ const routes: Routes = [
       ResetPasswordEmailComponent,
       ResetPasswordCompleteComponent,
       ScheduleDetailComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -111,6 +113,7 @@ const routes: Routes = [
     }),
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [ItineraryService,ArticleService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],

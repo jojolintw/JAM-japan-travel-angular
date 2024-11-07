@@ -16,7 +16,7 @@ export class MyareaService {
     return this.client.get<any>('https://localhost:7100/api/Member/GetLoginMember', { withCredentials: true })
   }
   //修改會員資料
-  AlterMemberInfo(para: AlterMemDTO) {
+  AlterMemberInfo(para: FormData) {
     return this.client.post<any>('https://localhost:7100/api/Member/AlterMemberinformation', para,{ withCredentials: true })
   }
 

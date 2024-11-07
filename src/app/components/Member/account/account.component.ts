@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { zip } from 'rxjs';
@@ -6,6 +7,7 @@ import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +19,7 @@ export class AccountComponent {
   constructor(private router: Router, private myareaService: MyareaService) {
 
   }
-
+  @Input() selectedFile: File | null =null ;
   @Input() loginTransfer: LoginMember =
     {
       MemberId: null,
@@ -46,47 +48,12 @@ export class AccountComponent {
       Birthday: null,
       CityId: null,
       Phone: null,
-      Email: null,
-      ImagePath: null,
     }
 
   cityAreas: CityArea[] = [];
   citys: City[] = [];
 
   @Output () saveEventEmiter = new EventEmitter();
-
-// ngOnInit(): void {
-//   this.myareaService.GetAllCityArea().subscribe(areadata =>
-//     {
-//       this.cityAreas=areadata;
-//       this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
-//         {
-//           this.citys = citydata;
-//         })
-//     })
-// }
-
-  //   ngOnInit(): void {
-  //   zip(
-  //     this.myareaService.GetAllCityArea(),
-  //     this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId)
-  //   ).subscribe(([cityAreas,citys]) => {
-  //     this.cityAreas = cityAreas;
-  //     this.citys = citys;
-  //   });
-  // }
-  //   ngOnInit(): void {
-  //     this.myareaService.GetAllCityArea().subscribe(cityAreas => {
-  //       this.cityAreas = cityAreas;
-
-  //       // 假設從 cityAreas 中取得 CityAreaId
-  //       this.loginTransfer.CityAreaId = cityAreas[0]?.cityAreaId; // 根據您的實際需求選擇正確的索引或條件
-
-  //       this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citys => {
-  //         this.citys = citys;
-  //       });
-  //     });
-  // }
 
   ngOnInit(): void {
     this.myareaService.GetAllCityArea().subscribe(data => {
@@ -107,41 +74,53 @@ export class AccountComponent {
         this.citys = citydata;
       })
   }
+  // sexchange()
+  // {
+  //   this.alterMemDTO.Gender = this.loginTransfer.Gender;
+  //   console.log(this.alterMemDTO.Gender);
+  // }
 
-  save() {
-
-
-    // 開始存值
+  save()
+  {
+    const formData = new FormData();
     this.alterMemDTO.MemberName = this.loginTransfer.ChineseName;
+    formData.append('MemberName', this.alterMemDTO.MemberName as string);
     if (this.loginTransfer.EnglishName != null) {
       this.alterMemDTO.EnglishName = this.loginTransfer.EnglishName;
+      formData.append('EnglishName', this.alterMemDTO.EnglishName as string);
     }
     if (this.loginTransfer.Gender != null) {
       this.alterMemDTO.Gender = this.loginTransfer.Gender;
+      formData.append('Gender', this.alterMemDTO.Gender as string);
     }
     if (this.loginTransfer.Birthday != null) {
       this.alterMemDTO.Birthday = this.loginTransfer.Birthday;
+      formData.append('Birthday', this.alterMemDTO.Birthday as string);
     }
     if (this.loginTransfer.CityId != null) {
       this.alterMemDTO.CityId = this.loginTransfer.CityId;
+      formData.append('CityId', this.alterMemDTO.CityId as any);
     }
     if (this.loginTransfer.Phone != null) {
       this.alterMemDTO.Phone = this.loginTransfer.Phone;
+      formData.append('Phone', this.alterMemDTO.Phone as string);
     }
-    this.alterMemDTO.Email = this.loginTransfer.Email;
-    if (this.loginTransfer.Photopath != null) {
-      this.alterMemDTO.ImagePath = this.loginTransfer.Photopath;
+    if (this.selectedFile != null) {
+    formData.append('file', this.selectedFile as Blob, this.selectedFile?.name);
     }
-    this.myareaService.AlterMemberInfo(this.alterMemDTO).subscribe(data =>
+    //打API
+    this.myareaService.AlterMemberInfo(formData).subscribe(data =>
       {
           if(data.result ==='success')
             {
-
               this.saveEventEmiter.emit();
+              Swal.fire({
+                icon:"success",
+                title:"儲存成功",
+                showConfirmButton:false,
+                timer:2000
+              })
             }
       })
-
-
-
   }
-}
+ }

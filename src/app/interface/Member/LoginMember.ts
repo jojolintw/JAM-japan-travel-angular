@@ -3,7 +3,7 @@ export interface LoginMember
   MemberId:number | null;
   ChineseName: string| null;
   EnglishName :string| null;
-  Gender:boolean| null;
+  Gender:string| null;
   Birthday:string| null;
   CityAreaId: number| null;
   CityAreaName: string| null;

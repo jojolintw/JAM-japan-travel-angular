@@ -20,9 +20,10 @@ export class MemberareaComponent {
 
   }
 
-  //檔案上傳相關
+  //檔案上傳相關=====================================================================
   @ViewChild('fileInput') fileInput!: ElementRef;
-
+  selectedFile: File | null = null;
+//====================================================================================
   selectedComponent = 'account';
   loginTransfer: LoginMember =
     {
@@ -58,7 +59,7 @@ export class MemberareaComponent {
   ngOnInit(): void {
     this.getMemberData();
   }
-
+//取得會員資料=============================================================================
   getMemberData()
   {
     this.myareaService.GoToMyArea().subscribe(data => {
@@ -110,7 +111,7 @@ export class MemberareaComponent {
   {
     this.getMemberData();
   }
-//圖片上傳
+//圖片上傳=====================================================================================
 onUploadClick()
 {
   this.fileInput.nativeElement.click();
@@ -118,16 +119,14 @@ onUploadClick()
 onFileSelected(event: Event)
 {
   const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      // 處理檔案上傳邏輯
-      console.log('選中的檔案:', file);
-    }
+
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.selectedFile = input.files[0];
+    console.log('父',this.selectedFile);
   }
-
-
-
-
-  // 去別頁
+  }
+  // 去別頁===================================================================================
   goToAccount() {
     this.selectedComponent = 'account';
   }
