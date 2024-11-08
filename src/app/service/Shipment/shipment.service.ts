@@ -44,11 +44,11 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) {}
 
-  getShipments(sort: string, departure: string, destination: string): Observable<Shipment[]> {
+  getShipments(sortBy: string, originPort: string, destinationPort: string): Observable<Shipment[]> {
     let params = new HttpParams();
-    if (departure) params = params.set('departure', departure);
-    if (destination) params = params.set('destination', destination);
-    if (sort) params = params.set('sort', sort);
+    if (originPort) params = params.set('originPort', originPort);  // 更新為 API 的正確名稱
+    if (destinationPort) params = params.set('destinationPort', destinationPort);  // 更新為 API 的正確名稱
+    if (sortBy) params = params.set('sortBy', sortBy);  // 更新為 API 的正確名稱
 
     return this.http.get<Shipment[]>(this.apiUrl, { params }).pipe(
       switchMap((shipments: Shipment[]) => {
@@ -69,7 +69,7 @@ export class ShipmentService {
       }),
       map(shipments => {
         // 根據排序選項對資料進行排序
-        switch (sort) {
+        switch (sortBy) {
           case 'priceAsc':
             return shipments.sort((a, b) => a.price - b.price);
           case 'priceDesc':
@@ -86,6 +86,7 @@ export class ShipmentService {
       })
     );
 }
+
 
 
   getRouteImage(routeId: number): Observable<{ imageUrl: string }> {

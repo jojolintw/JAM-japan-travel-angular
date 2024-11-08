@@ -32,9 +32,19 @@ export class TicketComponent implements OnInit {
   }
 
   applyFilter() {
-    // 當篩選條件或排序條件變更時，重新調用 getShipments
-    this.getShipments();
+    // 輸出參數以確認正確性
+    console.log('Sort:', this.selectedSortBy);
+    console.log('Origin Port:', this.selectedOriginPort);
+    console.log('Destination Port:', this.selectedDestinationPort);
+  
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort)
+      .subscribe(data => {
+        this.shipments = data;
+        this.sortedShipments = data;
+      });
   }
+  
+  
 
   onOriginPortChange() {
     // 當出發地改變時，更新目的地選項
@@ -49,6 +59,6 @@ export class TicketComponent implements OnInit {
   }
 
   onSearch() {
-    this.getShipments(); // 確保查詢按鈕點擊後會更新列表
+    this.applyFilter(); // 確保查詢按鈕點擊後會更新列表
   }
 }
