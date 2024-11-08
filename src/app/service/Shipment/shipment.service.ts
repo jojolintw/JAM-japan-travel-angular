@@ -1,4 +1,3 @@
-// shipment.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
@@ -10,7 +9,6 @@ export interface Shipment {
   destinationPortName: string;
   price: number;
   routeDescription: string;
-  nearestDepartureTime?: Date;
   imageUrl?: string;
   imageBase64?: string;
   originPortGoogleMap?: string;
@@ -43,60 +41,60 @@ export interface ShipmentDetail {
 export class ShipmentService {
   private apiUrl = 'https://localhost:7100/api/Shipment';
   private imageApiUrl = 'https://localhost:7100/api/Shipment/GetRouteImage';
-  private scheduleApiUrl = 'https://localhost:7100/api/Shipment/GetNearestDepartureTime';
 
   constructor(private http: HttpClient) {}
 
-  getShipments(sort: string, departure: string, destination: string): Observable<Shipment[]> {
-    let params = new HttpParams();
-    if (departure) params = params.set('departure', departure);
-    if (destination) params = params.set('destination', destination);
-    if (sort) params = params.set('sort', sort);
-  
-    return this.http.get<Shipment[]>(this.apiUrl, { params }).pipe(
-      switchMap((shipments: Shipment[]) =>
-        forkJoin(
-          shipments.map(shipment =>
-            forkJoin({
-              nearestDepartureTime: this.getNearestDepartureTime(shipment.routeId),
-              image: this.getRouteImage(shipment.routeId).pipe(
-                map(response => response.imageUrl || 'assets/img/Shipment/8.jpg'),
-                catchError(() => of('assets/img/Shipment/5.jpg'))
-              )
-            }).pipe(
-              map(({ nearestDepartureTime, image }) => ({
-                ...shipment,
-                nearestDepartureTime,
-                imageUrl: image
-              }))
-            )
-          )
-        )
-      ),
-      map(shipments => {
-        switch (sort) {
-          case 'priceAsc':
-            return shipments.sort((a, b) => a.price - b.price);
-          case 'priceDesc':
-            return shipments.sort((a, b) => b.price - a.price);
-          case 'date':
-            return shipments.sort((a, b) =>
-              new Date(a.nearestDepartureTime || 0).getTime() - new Date(b.nearestDepartureTime || 0).getTime()
-            );
-          default:
-            return shipments;
+  getShipments(sortBy: string, originPort: string, destinationPort: string, pageNumber: number, pageSize: number, isAscending: boolean = true): Observable<{ data: Shipment[], totalRecords: number, pageNumber: number, pageSize: number }> {
+    let params = new HttpParams()
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+        .set('isAscending', isAscending.toString());
+
+    if (originPort) params = params.set('originPort', originPort);
+    if (destinationPort) params = params.set('destinationPort', destinationPort);
+    if (sortBy) params = params.set('sortBy', sortBy);
+
+    return this.http.get<{ data: Shipment[], totalRecords: number, pageNumber: number, pageSize: number }>(this.apiUrl, { params }).pipe(
+      switchMap(response => {
+        console.log('API Response:', response);  // 檢查 response 結構
+        if (!response || !response.data) {
+          console.error('Response data is undefined or null');
+          return of({ data: [], totalRecords: 0, pageNumber: 1, pageSize: pageSize });
         }
+        
+        const shipmentsWithImages$ = response.data.map(shipment =>
+          this.getRouteImage(shipment.routeId).pipe(
+            map(imageResponse => ({
+              ...shipment,
+              imageUrl: imageResponse.imageUrl || 'assets/img/Shipment/8.jpg'
+            })),
+            catchError(() => of({
+              ...shipment,
+              imageUrl: 'assets/img/Shipment/5.jpg'
+            }))
+          )
+        );
+
+        return forkJoin(shipmentsWithImages$).pipe(
+          map(shipmentsWithImages => ({
+            data: shipmentsWithImages,
+            totalRecords: response.totalRecords,
+            pageNumber: response.pageNumber,
+            pageSize: response.pageSize
+          }))
+        );
+      }),
+      catchError(error => {
+        console.error('Error fetching shipments:', error);
+        return of({ data: [], totalRecords: 0, pageNumber: 1, pageSize: pageSize });
       })
     );
-  }
-  
+}
 
-  getNearestDepartureTime(routeId: number): Observable<Date | undefined> {
-    return this.http.get<{ nearestDepartureTime: Date }>(`${this.scheduleApiUrl}/${routeId}`).pipe(
-      map(response => new Date(response.nearestDepartureTime)),
-      catchError(() => of(undefined))
-    );
-  }
+
+
+
+
 
   getRouteImage(routeId: number): Observable<{ imageUrl: string }> {
     return this.http.get<{ imageUrl: string }>(`${this.imageApiUrl}/${routeId}`);
@@ -104,7 +102,7 @@ export class ShipmentService {
 
   getShipmentDetail(routeId: number): Observable<ShipmentDetail> {
     return this.http.get<ShipmentDetail>(`${this.apiUrl}/${routeId}`).pipe(
-      switchMap(detail => 
+      switchMap(detail =>
         this.getRouteImage(routeId).pipe(
           map(imageResponse => ({
             ...detail,
@@ -116,6 +114,16 @@ export class ShipmentService {
           }))
         )
       )
+    );
+  }
+
+  getDestinations(departure: string): Observable<string[]> {
+    let params = new HttpParams().set('departure', departure);
+    return this.http.get<Shipment[]>(this.apiUrl, { params }).pipe(
+      map(shipments => {
+        const destinations = shipments.map(shipment => shipment.destinationPortName);
+        return Array.from(new Set(destinations)); // 去重
+      })
     );
   }
 }

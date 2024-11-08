@@ -1,81 +1,85 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentService, Shipment } from '../../../service/Shipment/shipment.service';
 
-
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+  origins: string[] = ['基隆港', '台中港', '高雄港']; // 靜態出發地列表
   shipments: Shipment[] = [];
   sortedShipments: Shipment[] = [];
-  selectedSortOption: string = 'default';
-  selectedDeparture: string | null = null;
-  selectedDestination: string | null = null;
+  selectedOriginPort: string = '';
+  selectedDestinationPort: string = '';
+  selectedSortBy: string = 'default';
+  isAscending: boolean = true;
+  destinations: string[] = []; // 動態目的地選項
+  
+  // 分頁屬性
+  pageNumber: number = 1;
+  pageSizeOptions: number[] = [12, 18, 24];
+  pageSize: number = 12;
+  totalRecords: number = 0;
 
   constructor(private shipmentService: ShipmentService) {}
 
-  ngOnInit(): void {
-    this.loadShipments();
+  ngOnInit() {
+    this.getShipments(); // 初始化時加載所有資料
   }
 
-  loadShipments(): void {
-    // 傳入目前選擇的排序選項、出發地和目的地作為參數
-    this.shipmentService.getShipments(this.selectedSortOption, this.selectedDeparture || '', this.selectedDestination || '').subscribe(
-      shipments => {
-        this.shipments = shipments;
-        this.applySortingAndFiltering(); // 如需進一步排序或篩選
-      },
-      error => {
-        console.error('Error loading shipments:', error);
-      }
-    );
+  getShipments() {
+    // 調用服務層方法並加載圖片、分頁、排序和篩選結果
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort, this.pageNumber, this.pageSize, this.isAscending)
+      .subscribe(response => {
+        // 更新加載的 shipments 資料
+        this.shipments = response.data;
+        this.sortedShipments = response.data;
+        this.totalRecords = response.totalRecords;
+      });
+  }
+
+  onPageSizeChange(size: number) {
+    this.pageSize = size;
+    this.pageNumber = 1;  // 重置為第一頁
+    this.applyFilter();
+  }
+
+  onPageChange(page: number) {
+    this.pageNumber = page;
+    this.applyFilter();
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
+  }
+
+  applyFilter() {
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort, this.pageNumber, this.pageSize, this.isAscending)
+      .subscribe(response => {
+        this.shipments = response.data;
+        this.sortedShipments = response.data;
+        this.totalRecords = response.totalRecords;
+      });
   }
   
-
-  onSortChange(sortOption: string): void {
-    this.selectedSortOption = sortOption;
-    this.applySortingAndFiltering();
+  onOriginPortChange() {
+    if (this.selectedOriginPort) {
+      this.shipmentService.getShipments('', this.selectedOriginPort, '', 1, this.pageSize, this.isAscending)
+        .subscribe(response => {
+          const uniqueDestinations = Array.from(new Set(response.data.map(shipment => shipment.destinationPortName)));
+          this.destinations = uniqueDestinations;
+        });
+    } else {
+      this.destinations = [];
+    }
+    // 重置頁碼並應用篩選條件
+    this.pageNumber = 1;
+    this.applyFilter();
   }
 
-  onDepartureChange(departure: string): void {
-    this.selectedDeparture = departure;
-    this.applySortingAndFiltering();
+  onSearch() {
+    this.applyFilter(); // 確保查詢按鈕點擊後會更新列表
   }
 
-  onDestinationChange(destination: string): void {
-    this.selectedDestination = destination;
-    this.applySortingAndFiltering();
-  }
-
-  applySortingAndFiltering(): void {
-    this.sortedShipments = [...this.shipments]; // 複製原始資料
-
-    // 篩選處理
-    if (this.selectedDeparture) {
-      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.originPortName === this.selectedDeparture);
-    }
-
-    if (this.selectedDestination) {
-      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.destinationPortName === this.selectedDestination);
-    }
-
-    // 排序處理
-    switch (this.selectedSortOption) {
-      case 'priceAsc':
-        this.sortedShipments.sort((a, b) => a.price - b.price);
-        break;
-      case 'priceDesc':
-        this.sortedShipments.sort((a, b) => b.price - a.price);
-        break;
-      case 'date':
-        // 按出發時間排序，將未來最近的時間排在最前面
-        // 這裡省略
-        break;
-      default:
-        // 默認排序
-        break;
-    }
+  getTotalPages(): number {
+    return Math.ceil(this.totalRecords / this.pageSize);
   }
 }

@@ -38,36 +38,37 @@
               </tr>
             </thead>
             <tbody>
-                <tr class="cart_item" *ngFor="let item of cartItems">
-                    <td data-title="Product">
-                      <a class="cart-productimage">
-                        <img width="80" height="80" src="../../../../assets/img/Shipment/1.jfif" alt="基隆-那霸" />
-                      </a>
-                    </td>
-                    <td data-title="Name">
-                      <a class="cart-productname">基隆-那霸</a>
-                    </td>
-                    <td data-title="Price">
-                      <span class="amount"><bdi><span>$</span>{{item.schedule.price}}</bdi></span>
-                    </td>
-                    <td data-title="Quantity">
-                      <div class="quantity">
-                        <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
-                          <i class="far fa-minus"></i>
-                        </button>
-                        <input type="number" [id]="item.schedule.routeId" class="qty-input" [value]="item.seats" min="1" max="99" readonly />
-                        <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
-                          <i class="far fa-plus"></i>
-                        </button>
-                      </div>
-                    </td>
-                    <td data-title="Total">
-                      <span class="totalAmount"><bdi><span>$</span>{{item.schedule.price * item.seats}}</bdi></span>
-                    </td>
-                    <td data-title="Remove">
-                      <a type="button" class="remove" (click)="removeCartItem(item.schedule.routeId)"><i class="fal fa-trash-alt"></i></a>
-                    </td>
-                  </tr>
+              <tr class="cart_item" *ngFor="let item of cartItems">
+                <td data-title="Product">
+                  <a class="cart-productimage">
+                    <img width="80" height="80" src="../../../../assets/img/Shipment/15.jpg" alt="{{item.schedule.routeName}}" />
+                  </a>
+                </td>
+                <td data-title="Name">
+                  <a class="cart-productname">{{item.schedule.routeName}}</a>
+                </td>
+                <td data-title="Price">
+                  <span class="amount"><bdi><span>$</span>{{item.schedule.price}}</bdi></span>
+                </td>
+                <td data-title="Quantity">
+                  <div class="quantity">
+                    <button class="quantity-minus qut-btn" (click)="changeQuantity(item, -1)">
+                      <i class="far fa-minus"></i>
+                    </button>
+                    <input type="number" [id]="item.schedule.routeId" class="qty-input" [value]="item.seats" min="1" max="99" readonly />
+                    <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
+                      <i class="far fa-plus"></i>
+                    </button>
+                  </div>
+                </td>
+                <td data-title="Total">
+                  <span class="totalAmount"><bdi><span>$</span>{{item.schedule.price * item.seats}}</bdi></span>
+                </td>
+                <td data-title="Remove">
+                  <a type="button" class="remove" (click)="removeCartItem(item.schedule.routeId)"><i class="fal fa-trash-alt"></i></a>
+                </td>
+              </tr>
+              
                   
             </tbody>
           </table>
