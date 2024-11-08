@@ -7,7 +7,7 @@
             <div>
               <div class="mb-3 memberimg">
                 <!-- 圖片充當檔案上傳按鈕 -->
-                <img src="assets/img/Member/winnie.jpg" (click)="onUploadClick()" style="width: 200px; height: 200px; cursor: pointer;" />
+                <img [src]="myareaMember.ImageUrl" (click)="onUploadClick()" style="width: 200px; height: 200px; cursor: pointer;" />
                 <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" />
               </div>
               <div style="margin-top:10px;">

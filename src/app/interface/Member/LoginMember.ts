@@ -15,5 +15,5 @@ export interface LoginMember
   MemberLevel:string| null;
   MemberStatusId:number| null;
   MemberStatus:string| null;
-  Photopath:string| null;
+  ImageUrl:string| null;
 }

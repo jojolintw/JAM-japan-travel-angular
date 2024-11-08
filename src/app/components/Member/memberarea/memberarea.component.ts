@@ -42,7 +42,7 @@ export class MemberareaComponent {
       MemberLevel: null,
       MemberStatusId: null,
       MemberStatus: null,
-      Photopath: null,
+      ImageUrl: null
     }
 
     myareaMember :MyareaMember =
@@ -53,7 +53,7 @@ export class MemberareaComponent {
       MemberLevel: null,
       MemberStatusId: null,
       MemberStatus: null,
-      Photopath: null
+      ImageUrl: null
     }
 
   ngOnInit(): void {
@@ -101,9 +101,9 @@ export class MemberareaComponent {
       this.myareaMember.MemberStatusId = data.loginmember.memberStatusId;
       this.loginTransfer.MemberStatus = data.loginmember.memberStatus;
       this.myareaMember.MemberStatus = data.loginmember.memberStatus;
-      if (data.loginmember.photopath != null) {
-        this.loginTransfer.Photopath = data.loginmember.photopath;
-        this.myareaMember.Photopath = data.loginmember.photopath;
+      if (data.loginmember.imageUrl != null) {
+        this.loginTransfer.ImageUrl = data.loginmember.imageUrl;
+        this.myareaMember.ImageUrl = data.loginmember.imageUrl;
       }
     })
   }
@@ -121,11 +121,17 @@ onFileSelected(event: Event)
   const file = (event.target as HTMLInputElement).files?.[0];
 
   const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
+  if (input.files && input.files.length > 0)
+    {
     this.selectedFile = input.files[0];
-    console.log('父',this.selectedFile);
-  }
-  }
+    const reader = new FileReader();
+    reader.onload = (e: any) =>
+    {
+      this.myareaMember.ImageUrl = e.target.result;
+    };
+    reader.readAsDataURL(this.selectedFile);
+    }
+}
   // 去別頁===================================================================================
   goToAccount() {
     this.selectedComponent = 'account';
