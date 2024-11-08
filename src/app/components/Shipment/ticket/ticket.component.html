@@ -2,14 +2,9 @@
 <html lang="en">
 
 <body>
-
-
   <section class="space">
     <div class="container">
       <div class="row">
-        <!--==============================
-     Destiniations Area Start 
-  ==============================-->
         <div class="col-lg-9">
           <label for="sort">排序：</label>
           <select id="sort" name="sort" [(ngModel)]="selectedSortBy" (change)="applyFilter()">
@@ -38,70 +33,56 @@
             </div>
           </div>
 
-          <!-- Pagination (if needed) -->
           <div class="vs-pagination pt-lg-2">
             <ul>
-              <li>
-                <a href="destinations.html"><i class="fas fa-chevron-left"></i></a>
-              </li>
+              <li><a href="destinations.html"><i class="fas fa-chevron-left"></i></a></li>
               <li><a href="destinations.html">1</a></li>
               <li><a href="destinations.html">2</a></li>
               <li><a href="destinations.html">3</a></li>
-              <li>
-                <a href="destinations.html"><i class="fas fa-chevron-right"></i></a>
-              </li>
+              <li><a href="destinations.html"><i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
         </div>
 
-        <!-- Sidebar for location selector -->
         <div class="col-lg-3 col-md-4 mb-4">
           <div class="sidebar-area">
             <div class="location-selector">
-              <label for="departure">出發地</label>
-              <select id="departure" name="departure" class="form-select" [(ngModel)]="selectedOriginPort"
-                (change)="onOriginPortChange()">
-                <option value="" disabled selected>選擇出發地</option>
-                <option *ngFor="let origin of origins" [value]="origin">{{ origin }}</option>
-              </select>
-
-              <label for="destination">目的地</label>
-              <select id="destination" name="destination" class="form-select" [(ngModel)]="selectedDestinationPort">
-                <option value="" disabled selected>選擇目的地</option>
-                <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
-              </select>
-
-              <!-- 查詢按鈕 -->
-              <button id="search-btn" type="button" class="vs-btn style4 mt-2" (click)="applyFilter()">查詢</button>
+              <div>
+                <label for="originPort">出發地</label>
+                <select id="originPort" class="form-select" [(ngModel)]="selectedOriginPort" (change)="onOriginPortChange()" required>
+                  <option value="" disabled selected>請選擇出發地</option>
+                  <option *ngFor="let origin of origins" [value]="origin">{{ origin }}</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="destinationPort">目的地</label>
+                <select id="destinationPort" class="form-select" [(ngModel)]="selectedDestinationPort">
+                  <option value="">請選擇目的地</option>
+                  <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
+                </select>
+              </div>
+              
+              <button id="searchBtn" class="btn btn-primary" (click)="onSearch()">查詢</button>
+              
+              <div id="resultContainer"></div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!--==============================
-  All Js File
-============================== -->
-  <!-- Jquery -->
+  <!--============================== All Js File ============================== -->
   <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-  <!-- Slick Slider -->
   <script src="assets/js/slick.min.js"></script>
-  <!-- Bootstrap -->
   <script src="assets/js/bootstrap.min.js"></script>
-  <!-- Magnific Popup -->
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- jquery Ui -->
   <script src="assets/js/jquery-ui.min.js"></script>
-  <!-- Circle Progress -->
   <script src="assets/js/circle-progress.min.js"></script>
-  <!-- isotope -->
   <script src="assets/js/imagesLoaded.js"></script>
   <script src="assets/js/isotope.js"></script>
-  <!-- Wow.js -->
   <script src="assets/js/wow.min.js"></script>
-  <!-- Main Js File -->
   <script src="assets/js/main.js"></script>
 </body>
 

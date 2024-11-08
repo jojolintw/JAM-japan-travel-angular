@@ -37,15 +37,18 @@ export class TicketComponent implements OnInit {
   }
 
   onOriginPortChange() {
-    // 當出發地改變時更新目的地選項，並重新載入資料
+    // 當出發地改變時，更新目的地選項
     if (this.selectedOriginPort) {
       this.shipmentService.getShipments('', this.selectedOriginPort, '').subscribe(shipments => {
-        const uniqueDestinations = new Set(shipments.map(shipment => shipment.destinationPortName));
-        this.destinations = Array.from(uniqueDestinations);
+        const uniqueDestinations = Array.from(new Set(shipments.map(shipment => shipment.destinationPortName)));
+        this.destinations = uniqueDestinations;
       });
     } else {
       this.destinations = [];
     }
-    this.applyFilter(); // 出發地變更後即時篩選
+  }
+
+  onSearch() {
+    this.getShipments(); // 確保查詢按鈕點擊後會更新列表
   }
 }
