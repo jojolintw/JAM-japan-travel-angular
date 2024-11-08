@@ -13,7 +13,12 @@
             <option value="priceDesc">價格：高到低</option>
             <option value="latest">最新路線</option>
           </select>
-
+          <div class="page-size-selector">
+            <label for="pageSize">每頁顯示:</label>
+            <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
+              <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+            </select>
+          </div>
           <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" *ngFor="let shipment of sortedShipments">
               <div class="destination-style1">
@@ -35,14 +40,20 @@
 
           <div class="vs-pagination pt-lg-2">
             <ul>
-              <li><a href="destinations.html"><i class="fas fa-chevron-left"></i></a></li>
-              <li><a href="destinations.html">1</a></li>
-              <li><a href="destinations.html">2</a></li>
-              <li><a href="destinations.html">3</a></li>
-              <li><a href="destinations.html"><i class="fas fa-chevron-right"></i></a></li>
+              <li *ngIf="pageNumber > 1">
+                <a (click)="onPageChange(pageNumber - 1)"><i class="fas fa-chevron-left"></i></a>
+              </li>
+          
+              <li *ngFor="let page of [].constructor(getTotalPages()); let i = index">
+                <a (click)="onPageChange(i + 1)" [class.active]="i + 1 === pageNumber">{{ i + 1 }}</a>
+              </li>
+          
+              <li *ngIf="pageNumber < getTotalPages()">
+                <a (click)="onPageChange(pageNumber + 1)"><i class="fas fa-chevron-right"></i></a>
+              </li>
             </ul>
           </div>
-        </div>
+          
 
         <div class="col-lg-3 col-md-4 mb-4">
           <div class="sidebar-area">
@@ -70,7 +81,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <!--============================== All Js File ============================== -->

@@ -44,48 +44,55 @@ export class ShipmentService {
 
   constructor(private http: HttpClient) {}
 
-  getShipments(sortBy: string, originPort: string, destinationPort: string): Observable<Shipment[]> {
-    let params = new HttpParams();
-    if (originPort) params = params.set('originPort', originPort);  // 更新為 API 的正確名稱
-    if (destinationPort) params = params.set('destinationPort', destinationPort);  // 更新為 API 的正確名稱
-    if (sortBy) params = params.set('sortBy', sortBy);  // 更新為 API 的正確名稱
+  getShipments(sortBy: string, originPort: string, destinationPort: string, pageNumber: number, pageSize: number, isAscending: boolean = true): Observable<{ data: Shipment[], totalRecords: number, pageNumber: number, pageSize: number }> {
+    let params = new HttpParams()
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+        .set('isAscending', isAscending.toString());
 
-    return this.http.get<Shipment[]>(this.apiUrl, { params }).pipe(
-      switchMap((shipments: Shipment[]) => {
-        // 將每個 shipment 資料加載圖片
-        const shipmentsWithImages$ = shipments.map(shipment => 
+    if (originPort) params = params.set('originPort', originPort);
+    if (destinationPort) params = params.set('destinationPort', destinationPort);
+    if (sortBy) params = params.set('sortBy', sortBy);
+
+    return this.http.get<{ data: Shipment[], totalRecords: number, pageNumber: number, pageSize: number }>(this.apiUrl, { params }).pipe(
+      switchMap(response => {
+        console.log('API Response:', response);  // 檢查 response 結構
+        if (!response || !response.data) {
+          console.error('Response data is undefined or null');
+          return of({ data: [], totalRecords: 0, pageNumber: 1, pageSize: pageSize });
+        }
+        
+        const shipmentsWithImages$ = response.data.map(shipment =>
           this.getRouteImage(shipment.routeId).pipe(
-            map(response => ({
+            map(imageResponse => ({
               ...shipment,
-              imageUrl: response.imageUrl || 'assets/img/Shipment/8.jpg' // 預設圖片 1
+              imageUrl: imageResponse.imageUrl || 'assets/img/Shipment/8.jpg'
             })),
             catchError(() => of({
               ...shipment,
-              imageUrl: 'assets/img/Shipment/5.jpg' // 預設圖片 2
+              imageUrl: 'assets/img/Shipment/5.jpg'
             }))
           )
         );
-        return forkJoin(shipmentsWithImages$);
-      }),
-      map(shipments => {
-        // 根據排序選項對資料進行排序
-        switch (sortBy) {
-          case 'priceAsc':
-            return shipments.sort((a, b) => a.price - b.price);
-          case 'priceDesc':
-            return shipments.sort((a, b) => b.price - a.price);
-          case 'latest':
-            return shipments.sort((a, b) => b.routeId - a.routeId);
-          default:
-            return shipments.sort((a, b) => a.routeId - b.routeId);
-        }
+
+        return forkJoin(shipmentsWithImages$).pipe(
+          map(shipmentsWithImages => ({
+            data: shipmentsWithImages,
+            totalRecords: response.totalRecords,
+            pageNumber: response.pageNumber,
+            pageSize: response.pageSize
+          }))
+        );
       }),
       catchError(error => {
         console.error('Error fetching shipments:', error);
-        return of([]);
+        return of({ data: [], totalRecords: 0, pageNumber: 1, pageSize: pageSize });
       })
     );
 }
+
+
+
 
 
 

@@ -15,6 +15,12 @@ export class TicketComponent implements OnInit {
   selectedSortBy: string = 'default';
   isAscending: boolean = true;
   destinations: string[] = []; // 動態目的地選項
+  
+  // 分頁屬性
+  pageNumber: number = 1;
+  pageSizeOptions: number[] = [12, 18, 24];
+  pageSize: number = 12;
+  totalRecords: number = 0;
 
   constructor(private shipmentService: ShipmentService) {}
 
@@ -23,42 +29,56 @@ export class TicketComponent implements OnInit {
   }
 
   getShipments() {
-    // 根據目前篩選和排序條件來獲取資料
-    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort)
-      .subscribe(data => {
-        this.shipments = data;
-        this.sortedShipments = data;
+    // 調用服務層方法並加載圖片、分頁、排序和篩選結果
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort, this.pageNumber, this.pageSize, this.isAscending)
+      .subscribe(response => {
+        // 更新加載的 shipments 資料
+        this.shipments = response.data;
+        this.sortedShipments = response.data;
+        this.totalRecords = response.totalRecords;
       });
+  }
+
+  onPageSizeChange(size: number) {
+    this.pageSize = size;
+    this.pageNumber = 1;  // 重置為第一頁
+    this.applyFilter();
+  }
+
+  onPageChange(page: number) {
+    this.pageNumber = page;
+    this.applyFilter();
   }
 
   applyFilter() {
-    // 輸出參數以確認正確性
-    console.log('Sort:', this.selectedSortBy);
-    console.log('Origin Port:', this.selectedOriginPort);
-    console.log('Destination Port:', this.selectedDestinationPort);
-  
-    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort)
-      .subscribe(data => {
-        this.shipments = data;
-        this.sortedShipments = data;
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort, this.pageNumber, this.pageSize, this.isAscending)
+      .subscribe(response => {
+        this.shipments = response.data;
+        this.sortedShipments = response.data;
+        this.totalRecords = response.totalRecords;
       });
   }
   
-  
-
   onOriginPortChange() {
-    // 當出發地改變時，更新目的地選項
     if (this.selectedOriginPort) {
-      this.shipmentService.getShipments('', this.selectedOriginPort, '').subscribe(shipments => {
-        const uniqueDestinations = Array.from(new Set(shipments.map(shipment => shipment.destinationPortName)));
-        this.destinations = uniqueDestinations;
-      });
+      this.shipmentService.getShipments('', this.selectedOriginPort, '', 1, this.pageSize, this.isAscending)
+        .subscribe(response => {
+          const uniqueDestinations = Array.from(new Set(response.data.map(shipment => shipment.destinationPortName)));
+          this.destinations = uniqueDestinations;
+        });
     } else {
       this.destinations = [];
     }
+    // 重置頁碼並應用篩選條件
+    this.pageNumber = 1;
+    this.applyFilter();
   }
 
   onSearch() {
     this.applyFilter(); // 確保查詢按鈕點擊後會更新列表
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.totalRecords / this.pageSize);
   }
 }
