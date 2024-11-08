@@ -76,15 +76,32 @@ export class DetailComponent implements OnInit {
   //     alert("請選擇出發日期和人數！");
   //   }
   // }
+  // addToCart() {
+  //   const selectedSchedule = this.schedules.find(schedule => schedule.scheduleId === this.selectedScheduleId);
+  //   if (selectedSchedule) {
+      
+  //     // 將所選行程和人數儲存到 Cart2Service
+  //     this.cart2Service.setSelectedSchedule(selectedSchedule);
+  //     this.cart2Service.setSelectedSeats(this.selectedSeats);
+
+  //     // 跳轉到 cart2 頁面
+  //     this.router.navigate(['/cart2']);
+  //   }
+  // }  
   addToCart() {
     const selectedSchedule = this.schedules.find(schedule => schedule.scheduleId === this.selectedScheduleId);
-    if (selectedSchedule) {
+    if (selectedSchedule && this.shipmentDetail) {
+      // 使用擴展運算符創建一個包含 price 的新物件
+      const scheduleWithPrice = { ...selectedSchedule, price: this.shipmentDetail.price };
+  
       // 將所選行程和人數儲存到 Cart2Service
-      this.cart2Service.setSelectedSchedule(selectedSchedule);
+      this.cart2Service.setSelectedSchedule(scheduleWithPrice);
       this.cart2Service.setSelectedSeats(this.selectedSeats);
-
+  
       // 跳轉到 cart2 頁面
       this.router.navigate(['/cart2']);
     }
-  }  
+  }
+  
+  
 }

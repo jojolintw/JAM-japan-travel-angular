@@ -10,6 +10,8 @@ export class Cart2Component implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
   discount: number = 0;
+  selectedSchedule: any; // 確保 selectedSchedule 已宣告
+  selectedSeats: number = 1;
 
   constructor(private cart2Service: Cart2Service) {}
 

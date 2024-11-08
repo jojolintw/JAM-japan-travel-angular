@@ -15,7 +15,9 @@
 
             <div class="destination-details">
               <h2 class="ds-title">{{ shipmentDetail.destinationPort.city }}</h2>
-
+              <div class="price-info">
+                <h3>價格: 單程{{ shipmentDetail.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</h3>
+              </div>
               <div class="ds-img1">
                 <img [src]="shipmentDetail.imageUrl" alt="image">
               </div>
@@ -34,9 +36,7 @@
                   style="border:0;" allowfullscreen="" loading="lazy"></iframe>
               </div>
 
-              <div class="price-info">
-                <h3>價格: {{ shipmentDetail.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</h3>
-              </div>
+              
             </div>
 
             <!-- 圖片區塊 -->
