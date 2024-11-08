@@ -20,7 +20,7 @@ export class HashtagService {
   // 根据 Hashtag 获取相关的文章
   getArticlesByHashtag(hashtag: string): Observable<Article[]> {
     const params = { hashtag };
-    return this.http.get<Article[]>(`${this.apiUrl}/articles/by-hashtag`, { params });
+    return this.http.get<Article[]>(`${this.apiUrl}/articles-by-hashtag`, { params });
   }
 
 }

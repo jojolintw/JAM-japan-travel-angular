@@ -34,5 +34,10 @@ export class ArticleService {
   }
 
 
+ deleteArticle(articleNumber: number): Observable<void> {
+  const url = `${this.apiUrl}/articles/${articleNumber}`;
+  return this.http.delete<void>(url);
+}
+
 
 }

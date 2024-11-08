@@ -1,0 +1,5 @@
+.editdelete {
+  display: flex;
+  justify-content: flex-end;  /* 使容器內的內容靠右 */
+  gap: 10px;  /* 兩個按鈕之間的間距 */
+}
