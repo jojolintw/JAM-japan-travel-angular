@@ -19,7 +19,10 @@ export class AccountComponent {
   constructor(private router: Router, private myareaService: MyareaService) {
 
   }
-  @Input() selectedFile: File | null =null ;
+  cityAreas: CityArea[] = [];
+  citys: City[] = [];
+
+  @Input() selectedFile: File | null = null;
   @Input() loginTransfer: LoginMember =
     {
       MemberId: null,
@@ -48,40 +51,78 @@ export class AccountComponent {
       Birthday: null,
       CityId: null,
       Phone: null,
+      Email: null,
+    }
+  ErrorMessage =
+    {
+      NameErrMsg: '',
+      EnglishNameErrMsg: '',
+      PhoneErrMsg: '',
+      EmailErrMsg: ''
     }
 
-  cityAreas: CityArea[] = [];
-  citys: City[] = [];
 
-  @Output () saveEventEmiter = new EventEmitter();
+  @Output() reloadingEventEmiter = new EventEmitter();
 
   ngOnInit(): void {
     this.myareaService.GetAllCityArea().subscribe(data => {
       this.cityAreas = data;
       setTimeout(() => {
-        this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
-          {
-            this.citys=citydata;
-          })
+        this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata => {
+          this.citys = citydata;
+        })
       }, 500);
     })
   }
 
-  getcity()
-  {
-    this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata =>
-      {
-        this.citys = citydata;
-      })
+  getcity() {
+    this.myareaService.GetAllCitys(this.loginTransfer.CityAreaId).subscribe(citydata => {
+      this.citys = citydata;
+    })
   }
-  // sexchange()
-  // {
-  //   this.alterMemDTO.Gender = this.loginTransfer.Gender;
-  //   console.log(this.alterMemDTO.Gender);
-  // }
-
-  save()
-  {
+  //取消errorMSG
+  focus() {
+    this.ErrorMessage.NameErrMsg = '';
+    this.ErrorMessage.EnglishNameErrMsg = '';
+    this.ErrorMessage.PhoneErrMsg = '';
+    this.ErrorMessage.EmailErrMsg = '';
+  }
+  // 儲存修改資料=================================================================
+  save() {
+    //空白驗證==================================================================
+    if (this.loginTransfer.ChineseName == '' && this.loginTransfer.Email=='') {
+      this.ErrorMessage.NameErrMsg = '姓名不可空白';
+      this.ErrorMessage.EmailErrMsg = 'Email不可空白';
+      return;
+    }
+    if (this.loginTransfer.ChineseName == '') {
+      this.ErrorMessage.NameErrMsg = '姓名不可空白';
+      return;
+    }
+    if (this.loginTransfer.Email == '') {
+      this.ErrorMessage.EmailErrMsg = 'Email不可空白';
+      return;
+    }
+    //格式驗證=================================================================
+    //英文姓名格式認證
+    const englishRegex = /^[A-Za-z]+(([' -][A-Za-z ])?[A-Za-z]*)*$/;
+    if (!englishRegex.test(this.loginTransfer.EnglishName as string)) {
+      this.ErrorMessage.EnglishNameErrMsg = '請輸入正確的英文姓名格式'
+      return;
+    }
+    //英文姓名格式認證
+    const phoneRegex = /^09\d{8}$/;
+    if (!phoneRegex.test(this.loginTransfer.Phone as string)) {
+      this.ErrorMessage.PhoneErrMsg = '請輸入正確的行動電話格式'
+      return;
+    }
+    //Email格式認證
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(this.loginTransfer.Email as string)) {
+      this.ErrorMessage.EmailErrMsg = '請輸入正確的Email格式'
+      return;
+    }
+    //產生FormData=============================================================
     const formData = new FormData();
     this.alterMemDTO.MemberName = this.loginTransfer.ChineseName;
     formData.append('MemberName', this.alterMemDTO.MemberName as string);
@@ -105,22 +146,29 @@ export class AccountComponent {
       this.alterMemDTO.Phone = this.loginTransfer.Phone;
       formData.append('Phone', this.alterMemDTO.Phone as string);
     }
+    if (this.loginTransfer.Email != null) {
+      this.alterMemDTO.Email = this.loginTransfer.Email;
+      formData.append('Email', this.alterMemDTO.Email as string);
+    }
     if (this.selectedFile != null) {
-    formData.append('file', this.selectedFile as Blob, this.selectedFile?.name);
+      formData.append('file', this.selectedFile as Blob, this.selectedFile?.name);
     }
     //打API
-    this.myareaService.AlterMemberInfo(formData).subscribe(data =>
-      {
-          if(data.result ==='success')
-            {
-              this.saveEventEmiter.emit();
-              Swal.fire({
-                icon:"success",
-                title:"儲存成功",
-                showConfirmButton:false,
-                timer:2000
-              })
-            }
-      })
+    this.myareaService.AlterMemberInfo(formData).subscribe(data => {
+      if (data.result === 'success') {
+        this.reloadingEventEmiter.emit();
+        Swal.fire({
+          icon: "success",
+          title: "儲存成功",
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    })
+
   }
- }
+  cancel()
+  {
+    this.reloadingEventEmiter.emit();
+  }
+}

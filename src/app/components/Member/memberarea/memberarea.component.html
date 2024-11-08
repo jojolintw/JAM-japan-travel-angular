@@ -44,7 +44,7 @@
 
       <!-- ========================右半邊頁面============================================== -->
       <div [ngSwitch]="selectedComponent">
-        <app-account *ngSwitchCase="'account'" [loginTransfer]="loginTransfer" [selectedFile]="selectedFile" (saveEventEmiter)="reloading()"></app-account>
+        <app-account *ngSwitchCase="'account'" [loginTransfer]="loginTransfer" [selectedFile]="selectedFile" (reloadingEventEmiter)="reloading()"></app-account>
         <app-mycollection *ngSwitchCase="'mycollection'"></app-mycollection>
         <app-myorder *ngSwitchCase="'myorder'" (gotoOrderDetailemit)="goToOrderDetail($event)"></app-myorder>
         <app-memberorderdetail *ngSwitchCase="'memberorderdetail'"></app-memberorderdetail>

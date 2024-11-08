@@ -6,6 +6,5 @@ export interface AlterMemDTO
   Birthday:string| null;
   CityId: number| null;
   Phone: string| null;
-
-  // Memberphoto: File|null;
+  Email: string|null;
 }

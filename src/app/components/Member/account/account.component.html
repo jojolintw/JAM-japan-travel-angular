@@ -12,11 +12,13 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label>中文姓名*</label>
-          <input type="text" class="form-control" [(ngModel)]="loginTransfer.ChineseName" placeholder="中文姓名">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.ChineseName" (focus)="focus()" placeholder="中文姓名">
+          <P class="text-danger">{{ErrorMessage.NameErrMsg}}</P>
         </div>
         <div class="col-md-4 form-group">
           <label>英文姓名</label>
-          <input type="text" class="form-control" [(ngModel)]="loginTransfer.EnglishName" placeholder="英文姓名">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.EnglishName" (focus)="focus()" placeholder="英文姓名">
+          <P class="text-danger">{{ErrorMessage.EnglishNameErrMsg}}</P>
         </div>
         <div class="col-md-4 form-group">
           <label>性別</label>
@@ -56,11 +58,13 @@
       <div class="row">
         <div class="col-md-4 form-group">
           <label>電話號碼</label>
-          <input type="text" class="form-control" [(ngModel)]="loginTransfer.Phone">
+          <input type="text" class="form-control" [(ngModel)]="loginTransfer.Phone" (focus)="focus()">
+          <P class="text-danger">{{ErrorMessage.PhoneErrMsg}}</P>
         </div>
         <div class="col-md-8 form-group">
           <label>聯絡 Email*</label>
-          <input type="Email" class="form-control" [(ngModel)]="loginTransfer.Email" disabled="disabled">
+          <input type="Email" class="form-control" [(ngModel)]="loginTransfer.Email" (focus)="focus()">
+          <P class="text-danger">{{ErrorMessage.EmailErrMsg}}</P>
         </div>
       </div>
     </div>
@@ -68,7 +72,7 @@
     <div class="col-md-12">
       <div class="row justify-content-end">
         <button class="vs-btn mask-style1 style4 col-md-2" type="button" (click)="save()">儲存</button>
-
+        <button class="vs-btn mask-style1 style4 col-md-2" type="button" (click)="cancel()" style="margin-left: 20px;">取消</button>
       </div>
     </div>
   </div>
