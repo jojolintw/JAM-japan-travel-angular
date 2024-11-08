@@ -48,6 +48,7 @@ export class TicketComponent implements OnInit {
   onPageChange(page: number) {
     this.pageNumber = page;
     this.applyFilter();
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
   }
 
   applyFilter() {

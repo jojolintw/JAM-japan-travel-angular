@@ -24,6 +24,15 @@
     border-radius: 4px;
     width: 100%; /* 下拉選單寬度填滿 */
   }
-  
+  /* 固定右側的查詢欄 */
+.sticky-sidebar {
+  position: sticky;
+  top: 20px; /* 距離頂部的偏移量，可調整 */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
 
   
