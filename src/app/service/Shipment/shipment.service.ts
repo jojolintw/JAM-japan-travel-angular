@@ -58,10 +58,12 @@ export class ShipmentService {
         forkJoin(
           shipments.map(shipment =>
             forkJoin({
-              nearestDepartureTime: this.getNearestDepartureTime(shipment.routeId),
+              nearestDepartureTime: this.getNearestDepartureTime(shipment.routeId).pipe(
+                catchError(() => of(undefined))  // 如果時間API失敗，返回 undefined
+              ),
               image: this.getRouteImage(shipment.routeId).pipe(
                 map(response => response.imageUrl || 'assets/img/Shipment/8.jpg'),
-                catchError(() => of('assets/img/Shipment/5.jpg'))
+                catchError(() => of('assets/img/Shipment/5.jpg'))  // 如果圖片API失敗，返回預設圖片
               )
             }).pipe(
               map(({ nearestDepartureTime, image }) => ({
@@ -79,16 +81,16 @@ export class ShipmentService {
             return shipments.sort((a, b) => a.price - b.price);
           case 'priceDesc':
             return shipments.sort((a, b) => b.price - a.price);
-          case 'date':
-            return shipments.sort((a, b) =>
-              new Date(a.nearestDepartureTime || 0).getTime() - new Date(b.nearestDepartureTime || 0).getTime()
-            );
+          case 'latest':
+            return shipments.sort((a, b) => b.routeId - a.routeId);
           default:
-            return shipments;
+            return shipments.sort((a, b) => a.routeId - b.routeId);
         }
       })
     );
   }
+  
+  
   
 
   getNearestDepartureTime(routeId: number): Observable<Date | undefined> {

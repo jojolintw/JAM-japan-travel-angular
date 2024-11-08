@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart2Service } from '../../../service/Shipment/cart2.service'; // 引入CartService
+import { Cart2Service } from '../../../service/Shipment/cart2.service';
 
 @Component({
   selector: 'app-cart2',
@@ -9,8 +9,8 @@ import { Cart2Service } from '../../../service/Shipment/cart2.service'; // 引�
 export class Cart2Component implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
-  discount: number = 0;
-  selectedSchedule: any; // 確保 selectedSchedule 已宣告
+  discount: number = 100;
+  selectedSchedule: any;
   selectedSeats: number = 1;
 
   constructor(private cart2Service: Cart2Service) {}
@@ -22,19 +22,19 @@ export class Cart2Component implements OnInit {
 
   // 計算總金額
   calculateTotal() {
-    this.totalAmount = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    this.totalAmount = this.cartItems.reduce((total, item) => total + (item.schedule.price * item.seats), 0);
   }
 
   // 更改數量
   changeQuantity(item: any, amount: number) {
-    item.quantity += amount;
-    if (item.quantity < 1) item.quantity = 1;
+    item.seats += amount;
+    if (item.seats < 1) item.seats = 1;
     this.calculateTotal();
   }
 
   // 移除購物車項目
   removeCartItem(itemId: number) {
-    this.cartItems = this.cartItems.filter(item => item.ItinerarySystemId !== itemId);
+    this.cartItems = this.cartItems.filter(item => item.schedule.routeId !== itemId);
     this.calculateTotal();
   }
 
@@ -48,7 +48,6 @@ export class Cart2Component implements OnInit {
 
   // 前往結帳頁面
   goToCheckout() {
-    // 結帳頁面邏輯
     console.log("前往結帳");
   }
 }

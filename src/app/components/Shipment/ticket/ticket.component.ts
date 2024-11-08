@@ -1,81 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentService, Shipment } from '../../../service/Shipment/shipment.service';
 
-
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+  origins: string[] = ['基隆港', '台中港', '高雄港']; // 靜態出發地列表
   shipments: Shipment[] = [];
   sortedShipments: Shipment[] = [];
-  selectedSortOption: string = 'default';
-  selectedDeparture: string | null = null;
-  selectedDestination: string | null = null;
+  selectedOriginPort: string = '';
+  selectedDestinationPort: string = '';
+  selectedSortBy: string = 'default';
+  isAscending: boolean = true;
+  destinations: string[] = []; // 動態目的地選項
 
   constructor(private shipmentService: ShipmentService) {}
 
-  ngOnInit(): void {
-    this.loadShipments();
+  ngOnInit() {
+    this.getShipments(); // 初始化時加載所有資料
   }
 
-  loadShipments(): void {
-    // 傳入目前選擇的排序選項、出發地和目的地作為參數
-    this.shipmentService.getShipments(this.selectedSortOption, this.selectedDeparture || '', this.selectedDestination || '').subscribe(
-      shipments => {
-        this.shipments = shipments;
-        this.applySortingAndFiltering(); // 如需進一步排序或篩選
-      },
-      error => {
-        console.error('Error loading shipments:', error);
-      }
-    );
-  }
-  
-
-  onSortChange(sortOption: string): void {
-    this.selectedSortOption = sortOption;
-    this.applySortingAndFiltering();
+  getShipments() {
+    // 根據目前篩選和排序條件來獲取資料
+    this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort)
+      .subscribe(data => {
+        this.shipments = data;
+        this.sortedShipments = data;
+      });
   }
 
-  onDepartureChange(departure: string): void {
-    this.selectedDeparture = departure;
-    this.applySortingAndFiltering();
+  applyFilter() {
+    // 當篩選條件或排序條件變更時，重新調用 getShipments
+    this.getShipments();
   }
 
-  onDestinationChange(destination: string): void {
-    this.selectedDestination = destination;
-    this.applySortingAndFiltering();
-  }
-
-  applySortingAndFiltering(): void {
-    this.sortedShipments = [...this.shipments]; // 複製原始資料
-
-    // 篩選處理
-    if (this.selectedDeparture) {
-      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.originPortName === this.selectedDeparture);
+  onOriginPortChange() {
+    // 當出發地改變時更新目的地選項，並重新載入資料
+    if (this.selectedOriginPort) {
+      this.shipmentService.getShipments('', this.selectedOriginPort, '').subscribe(shipments => {
+        const uniqueDestinations = new Set(shipments.map(shipment => shipment.destinationPortName));
+        this.destinations = Array.from(uniqueDestinations);
+      });
+    } else {
+      this.destinations = [];
     }
-
-    if (this.selectedDestination) {
-      this.sortedShipments = this.sortedShipments.filter(shipment => shipment.destinationPortName === this.selectedDestination);
-    }
-
-    // 排序處理
-    switch (this.selectedSortOption) {
-      case 'priceAsc':
-        this.sortedShipments.sort((a, b) => a.price - b.price);
-        break;
-      case 'priceDesc':
-        this.sortedShipments.sort((a, b) => b.price - a.price);
-        break;
-      case 'date':
-        // 按出發時間排序，將未來最近的時間排在最前面
-        // 這裡省略
-        break;
-      default:
-        // 默認排序
-        break;
-    }
+    this.applyFilter(); // 出發地變更後即時篩選
   }
 }
