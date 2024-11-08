@@ -1,8 +1,11 @@
+import { CheckoutService } from './../../../service/Order/checkout.service';
 import { memberInfo } from './../../../interface/Order/memberInfo';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
+import { error } from 'jquery';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout',
@@ -20,7 +23,7 @@ export class CheckoutComponent {
   email: String = '';
 
   constructor(private router: Router,
-    private localstorageService: LocalstorageService) {
+    private localstorageService: LocalstorageService, private checkoutService:CheckoutService) {
   }
 
   ngOnInit(): void {
@@ -68,9 +71,56 @@ export class CheckoutComponent {
   }                                             // 使用時機為訂單成立存入資料庫後即清除
 
 
-  goToConfirmation() {
-    this.localstorageService.sendOrderInfoEmail();
-    this.router.navigate(['orderconfirmation']);
+  checkout() {
+    Swal.fire({
+      title: "確定要提交訂單嗎",
+      icon: "warning",
+      showCancelButton: true,
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      }
+    }).then((resulte)=>{
+      if(resulte.isConfirmed){
+        // 提交訂單
+        this.checkoutService.submitOrder().subscribe(
+          (response)=>{
+            console.log("提交並儲存訂單成功");
+          },
+          (error)=>{
+            console.log("提交失敗");
+          }
+        );
+
+        // 寄送email
+        // this.checkoutService.sendOrderInfoEmail().subscribe(
+        //   (response)=>{
+        //     console.log("寄送成功",response);
+        //   },
+        //   (error)=>{
+        //     console.log("fail",error);
+        //   }
+        // );
+
+        // 下單成功頁面
+        // this.router.navigate(['orderconfirmation']);
+
+        // 清除購物車 localStorage => key:cart
+        // this.localstorageService.removeCart();
+      }
+    });
+
+
   }
 
   goToCart() {

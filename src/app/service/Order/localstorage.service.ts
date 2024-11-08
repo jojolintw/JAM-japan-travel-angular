@@ -46,7 +46,7 @@ export class LocalstorageService {
   }
 
   removeCart(){
-    localStorage.removeItem('cart');
+    localStorage.removeItem(this.cartkey);
   }
 
   removeCartItem(itemId: number) {
@@ -92,18 +92,6 @@ export class LocalstorageService {
     return this.client.get<apiresponse>('https://localhost:7100/api/Order/GetLoginMember');
   }
 
-  sendOrderInfoEmail(){
-    return this.client.get<any>('https://localhost:7100/api/Order/sendOrderInfoEmail', { withCredentials: true })
-    .subscribe(
-      (response)=>{
-        console.log('OK');
-      },
-      (error)=>{
-        console.error('fail');
-      }
 
-    )
-    ;
-  }
 }
 

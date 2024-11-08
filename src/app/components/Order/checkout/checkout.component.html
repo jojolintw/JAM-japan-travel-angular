@@ -83,43 +83,6 @@
                   <span class="amount"><bdi><span>$</span>{{item.price * item.quantity}}</bdi></span>
                 </td>
               </tr>
-              <!-- =============================================== -->
-              <!-- <tr class="cart_item">
-                <td data-title="Product">
-                  <img width="91" height="91"
-                      src="assets/img/tours/tokyotower.jpg" alt="Image">
-                </td>
-                <td data-title="Name">
-                  <p>東京鐵塔浪漫之夜</p>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <strong class="product-quantity">1</strong>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-              </tr>
-              <tr class="cart_item">
-                <td data-title="Product">
-                  <img width="91" height="91"
-                      src="assets/img/tours/sup.jpg" alt="Image">
-                </td>
-                <td data-title="Name">
-                  <p>沖繩SUP體驗 新手友善</p>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <strong class="product-quantity">1</strong>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-              </tr> -->
             </tbody>
             <tfoot class="checkout-ordertable">
               <tr>
@@ -202,7 +165,7 @@
                 <div class="form-row place-order pt-lg-2" style="text-align:end">
                   <strong><span class="woocommerce-Price-amount amount" style="padding: 0px 20px; font-size: 22px;"><bdi><span
                     class="woocommerce-Price-currencySymbol">訂單總金額：$</span>{{totalAmount}}</bdi></span></strong>
-                  <button type="submit" class="vs-btn style4" (click)="goToConfirmation()">下單付款</button>
+                  <button type="submit" class="vs-btn style4" (click)="checkout()">下單付款</button>
                 </div>
               </div>
             </div>
@@ -218,9 +181,6 @@
   <!--********************************
     Code Ends Here
 	******************************** -->
-
-  <!-- Scroll To Top -->
-  <!-- <a href="#" class="scrollToTop scroll-btn"><i class="far fa-arrow-up"></i></a> -->
 
   <!--==============================
     All Js File
