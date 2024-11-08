@@ -8,12 +8,10 @@ import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
 
-
-
 @Component({
   selector: 'app-itinerary-detail',
   templateUrl: './itinerary-detail.component.html',
-  styleUrls: ['./itinerary-detail.component.css'],
+  styleUrls: ['./itinerary-detail.component.css']
 })
 
 
@@ -30,9 +28,20 @@ export class ItineraryDetailComponent implements OnInit {
   selectedDateTimes: string[] = [];
   quantity: number = 1;
   cartItems: cartItem[]=[];
+  images = [
+    'assets/img/products/TokyoTower-sm3.jpg',
+    'assets/img/products/tokyoTower-sm4.jpg',
+    'assets/img/products/tokyoTower-sm1.jpg',
+    'assets/img/products/tokyoTower-sm2.jpg',
+  ];
 
+  selectedIndex = 0;
+  selectedImage = this.images[0];
 
-
+  selectImage(index: number) {
+    this.selectedIndex = index;
+    this.selectedImage = this.images[index];
+  }
 
   constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private localStorageService: LocalstorageService) { }
 
@@ -157,15 +166,10 @@ export class ItineraryDetailComponent implements OnInit {
 
   selectDateTime(time: string, batch: any): void {
     const formattedDateTime = this.selectedDate + ' ' + time;
-    console.log('Selected datetime:', formattedDateTime);
-    console.log('DateSystemId:', batch.itineraryDateSystemId);
-
     // 更新界面状态
     this.selectedTime = time;
 
   }
-
-
 
   getBatchForTime(time: string): any {
     const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
@@ -207,4 +211,10 @@ export class ItineraryDetailComponent implements OnInit {
   this.localStorageService.addToCart(newCartItem);
  }
 
+ getItineraryDetails():string[]{
+  return this.itineraryDetail?.itineraryDetails as string[];
+ }
+
+
 }
+
