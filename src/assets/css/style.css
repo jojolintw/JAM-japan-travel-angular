@@ -737,6 +737,86 @@ textarea.is-invalid {
   visibility: visible;
 }
 
+
+/*圖片點擊變大*/
+.available-date-marker {
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.has-stock {
+  color: #ff4444;
+}
+
+.no-stock {
+  color: #cccccc;
+}
+
+.time-button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.time-button.disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.stock-status {
+  float: right;
+  font-size: 0.9em;
+  color: #666;
+}
+.time-button.selected {
+  background-color: #7fb9f8; /* 例如蓝色 */
+  color: #ffffff; /* 例如白色 */
+}
+
+.product-big-img {
+  width: 100%;
+  height: 800px; /* 調整大圖片的高度 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-big-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-thumb-slide {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumb {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.thumb img {
+  width: 100px; /* 調整小圖片的寬度 */
+  height: 100px; /* 調整小圖片的高度 */
+  object-fit: cover;
+  border: 2px solid transparent;
+}
+
+.thumb.active img {
+  border: 2px solid #ffffff; /* 高亮選中的小圖片 */
+}
+
+
 /* Extra large devices */
 @media (max-width: 1500px) {
   .slick-arrow {
@@ -11013,6 +11093,7 @@ mwl-calendar-month-view {
   .about-layout1 .about-list3 .list-item .icon-content .title {
     font-size: 20px;
   }
+
 }
 
 /*# sourceMappingURL=style.css.map */

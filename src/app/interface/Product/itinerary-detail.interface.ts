@@ -14,6 +14,7 @@ export interface ItineraryDetail {
   itineraryBatch: itineraryBatch[];
   price: number;
   itineraryDetail: string;
+  itineraryDetails: string[];
   itineraryBrief: string;
   itineraryNotes: string;
 }

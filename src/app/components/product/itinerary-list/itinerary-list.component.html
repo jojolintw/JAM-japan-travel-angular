@@ -19,7 +19,7 @@
               <div *ngFor="let tour of paginatedTours" class="col-xl-4 col-lg-6 col-sm-6 filter-item hightTolow">
                 <div class="package-style1">
                   <div class="package-img">
-                    <a href="#"><img [src]="'../../../assets/img/itineraries/' + tour.imagePath"
+                    <a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]"><img [src]="'../../../assets/img/itineraries/' + tour.imagePath"
                         alt="Package Image"></a>
                   </div>
                   <div class="package-content">
