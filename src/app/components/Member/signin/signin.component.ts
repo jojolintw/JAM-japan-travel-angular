@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/service/Member/login.service';
 import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
 
@@ -10,9 +10,14 @@ import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
 
   constructor(private router: Router, private loginService: LoginService) { }
+
+  ngOnInit(): void {
+    const clientId = '1036675996892-vl38g44j5neom1qj25opevj04oebis4u.apps.googleusercontent.com';
+    this.loginService.initGoogleOneTap(clientId);
+  }
 
 
   loginTransfer: LoginTransfer =

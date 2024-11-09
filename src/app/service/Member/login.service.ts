@@ -1,16 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { forgetPasswordTransfer } from 'src/app/interface/Login/forgetPasswordTransfer';
 import { LoginReturn } from 'src/app/interface/Login/loginReturn';
 import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
 import { Register } from 'src/app/interface/Login/Register';
 
+
+declare var google: any;
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
   constructor(private client: HttpClient) { }
+
+  private apiUrl = 'https://yourapi.com/api/Login/googlelogin';
+
+
+
 
   //將JWT Token 存於localStorage
   saveToken(token: string) {
@@ -56,5 +64,26 @@ export class LoginService {
   //重設密碼的API
   ResetPasswordAPI(para: forgetPasswordTransfer) {
     return this.client.post<any>('https://localhost:7100/api/Login/resetPassword', para, { withCredentials: true })
+  }
+
+  //google登入
+  public initGoogleOneTap(clientId: string): void {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: (response: any) => this.handleCredentialResponse(response)
+    });
+
+    google.accounts.id.prompt();
+    console.log('prompt')
+  }
+  private handleCredentialResponse(response: any): void {
+    console.log('產生token前');
+    const idToken = response.credential;
+    this.sendTokenToBackend(idToken).subscribe((res) => {
+      console.log('Backend Response:', res);
+    });
+  }
+  private sendTokenToBackend(idToken: string): Observable<any> {
+    return this.client.post(this.apiUrl, { token: idToken });
   }
 }
