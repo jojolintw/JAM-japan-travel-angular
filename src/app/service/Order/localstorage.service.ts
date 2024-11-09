@@ -18,7 +18,7 @@ export class LocalstorageService {
   addToCart(item: cartItem) {
     const cart = this.getCartItems();
 
-    const existingItem = cart.find(cartItem => cartItem.ItinerarySystemId === item.ItinerarySystemId);
+    const existingItem = cart.find(cartItem => cartItem.itineraryDateSystemId === item.itineraryDateSystemId);
 
     if (existingItem) {
       Swal.fire({
@@ -51,7 +51,7 @@ export class LocalstorageService {
 
   removeCartItem(itemId: number) {
     const cart = this.getCartItems(); // 獲取當前購物車
-    const updatedCart = cart.filter(cartItem => cartItem.ItinerarySystemId !== itemId); // 過濾掉要刪除的商品
+    const updatedCart = cart.filter(cartItem => cartItem.itineraryDateSystemId !== itemId); // 過濾掉要刪除的商品
 
     localStorage.setItem(this.cartkey, JSON.stringify(updatedCart)); // 儲存更新後的購物車
     Swal.fire({
@@ -89,7 +89,7 @@ export class LocalstorageService {
   // ====================================
 
   getMemberInfo(): Observable<apiresponse> {
-    return this.client.get<apiresponse>('https://localhost:7100/api/Order/GetLoginMember');
+    return this.client.get<apiresponse>('https://localhost:7100/api/Member/GetLoginMember');
   }
 
 
