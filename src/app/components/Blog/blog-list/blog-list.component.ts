@@ -106,17 +106,6 @@ export class BlogListComponent implements OnInit {
       }
     }
 
-    deleteArticle(articleNumber: number): void {
-      this.ArticleService.deleteArticle(articleNumber).subscribe(
-        () => {
-          // 删除成功后的处理逻辑（例如刷新文章列表或显示成功消息）
-          console.log(`Article ${articleNumber} deleted successfully.`);
-        },
-        (error) => {
-          // 处理错误情况（例如文章未找到）
-          console.error('Error deleting article', error);
-        }
-      );
-    }
+
 
 }
