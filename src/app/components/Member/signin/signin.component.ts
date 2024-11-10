@@ -5,8 +5,11 @@ import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
 import { googleLoginTransfer } from 'src/app/interface/Member/googleLoginTransfer';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistercompleleComponent } from '../registercomplele/registercomplele.component';
+import Swal from 'sweetalert2';
 
 declare var google: any;
+//我不是機器人相關
+declare var grecaptcha: any;
 
 @Component({
   selector: 'app-signin',
@@ -16,7 +19,9 @@ declare var google: any;
 export class SigninComponent {
 
   constructor(private router: Router, private loginService: LoginService, private dialog: MatDialog) { }
-
+  //我不是機器人相關
+  captchaResponse: string | null = null;
+  //===================================================
   loginTransfer: LoginTransfer =
     {
       email: 'winne1945@gmail.com',
@@ -63,7 +68,9 @@ export class SigninComponent {
       this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
       return;
     }
-    //打API
+    //我不是機器人認證==============================================
+    if (this.captchaResponse) {
+          //打API
     this.loginService.LoginApi(this.loginTransfer).subscribe(data => {
       if (data.result === 'ErrorAccount') {
         console.log(data);
@@ -80,6 +87,14 @@ export class SigninComponent {
         this.router.navigate(['**'])
       }
     })
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "請完成我不是機器人驗證",
+        showConfirmButton: false,
+      })
+    }
+
   }
   //進註冊頁
   goToSignup() {
@@ -124,5 +139,17 @@ export class SigninComponent {
         this.router.navigate(['**']);
       }
     });
+  }
+  // 初始化 reCAPTCHA
+  ngAfterViewInit(): void {
+    grecaptcha.render('recaptcha-container', {
+      sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR', // 使用你的 Site Key
+      callback: (response: string) => this.onCaptchaResolved(response),
+    });
+  }
+   // 當 reCAPTCHA 被解決後，回調此函數
+   onCaptchaResolved(captchaResponse: string) {
+    console.log('reCAPTCHA 回應:', captchaResponse);
+    this.captchaResponse = captchaResponse;
   }
 }

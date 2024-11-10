@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit {
             icon: "error",
             title: "請先登入",
             showConfirmButton: false,
-            timer: 2000
           })
         }
 
