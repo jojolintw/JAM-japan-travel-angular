@@ -54,6 +54,8 @@ export class LocalstorageService {
 
   removeCart(){
     localStorage.removeItem(this.cartkey);
+    localStorage.removeItem('couponId');
+    localStorage.removeItem('remarks');
   }
 
   removeCartItem(itemId: number) {

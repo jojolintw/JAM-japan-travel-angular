@@ -113,10 +113,10 @@ export class CheckoutComponent {
         );
 
         // 下單成功頁面
-        // this.router.navigate(['orderconfirmation']);
+        this.router.navigate(['orderconfirmation']);
 
         // 清除購物車 localStorage => key:cart
-        // this.localstorageService.removeCart();
+        this.localstorageService.removeCart();
       }
     });
 
