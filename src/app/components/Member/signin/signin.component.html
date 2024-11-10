@@ -6,13 +6,15 @@
           <h2 class="form-title text-center mb-lg-35">登入JAM</h2>
           <div class="form-group mt-5">
             <label for="loginUserId" class="sr-only">電子郵件*</label>
-            <input type="text" [(ngModel)]="loginTransfer.email" (focus)="focus()" name="InputEmail" class="form-control" placeholder="電子郵件*" required>
-              <P class="text-danger">{{ErrorMessage.ErrorEmail}}</P>
+            <input type="text" [(ngModel)]="loginTransfer.email" (focus)="focus()" name="InputEmail"
+              class="form-control" placeholder="電子郵件*" required>
+            <P class="text-danger">{{ErrorMessage.ErrorEmail}}</P>
           </div>
           <div class="form-group">
             <label for="loginUserPass" class="sr-only">密碼*</label>
-            <input type="password" [(ngModel)]="loginTransfer.password" (focus)="focus()" name="InputPassword" class="form-control" placeholder="密碼*" required>
-              <P class="text-danger">{{ErrorMessage.ErrorPassword}}</P>
+            <input type="password" [(ngModel)]="loginTransfer.password" (focus)="focus()" name="InputPassword"
+              class="form-control" placeholder="密碼*" required>
+            <P class="text-danger">{{ErrorMessage.ErrorPassword}}</P>
           </div>
           <div class="form-group">
             <input type="checkbox" name="loginRemember" id="loginRemembng er">

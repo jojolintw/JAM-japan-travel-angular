@@ -16,18 +16,17 @@ export class LoginService {
 
   constructor(private client: HttpClient) { }
 
-
-
-
-
+  //使用BehaviorSubject改變登入文字
+  isLoggedInSubject = new BehaviorSubject<boolean>(false); // 初始為 false
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();  // 可訂閱的 observable
 
 
   //將JWT Token 存於localStorage
   savejwtToken(token: string) {
     localStorage.setItem('jwtToken', token);
   }
-   //將JWT Token 存於localStorage
-   removejwtToken() {
+  //將JWT Token 存於localStorage
+  removejwtToken() {
     localStorage.removeItem('jwtToken');
   }
   //將忘記密碼的Email存於localStorage
@@ -47,10 +46,10 @@ export class LoginService {
   }
 
 
-    //登入的API
-    isLoginApi() {
-      return this.client.get<any>('https://localhost:7100/api/Login/islogin', { withCredentials: true })
-    }
+  //登入的API
+  isLoginApi() {
+    return this.client.get<any>('https://localhost:7100/api/Login/islogin', { withCredentials: true })
+  }
 
   //登入的API
   LoginApi(para: LoginTransfer) {
@@ -81,6 +80,6 @@ export class LoginService {
   //google登入==================================================================
 
   sendTokenToBackend(para: googleLoginTransfer): Observable<any> {
-    return this.client.post('https://localhost:7100/api/Login/googlelogin',para);
+    return this.client.post('https://localhost:7100/api/Login/googlelogin', para);
   }
 }

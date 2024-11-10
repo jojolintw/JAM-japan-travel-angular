@@ -11,9 +11,8 @@ import { RegistercompleleComponent } from '../registercomplele/registercomplele.
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  constructor(private router: Router,private loginService: LoginService,private dialog: MatDialog) { }
+  constructor(private router: Router, private loginService: LoginService, private dialog: MatDialog) { }
 
-  @Output() isloginEventEmiter = new EventEmitter();
   inputRegister: Register =
     {
       RegisterName: '',
@@ -93,13 +92,12 @@ export class SignupComponent {
       }
       if (data['result'] === 'success') {
         this.loginService.savejwtToken(data.token);
-        this.isloginEventEmiter.emit();
+        this.loginService.isLoggedInSubject.next(true);
         this.loginService.SendCertificationMail().subscribe(dataCertification => {
-          if(dataCertification.result==='success')
-            {
-              this.dialog.open(RegistercompleleComponent);
-              this.router.navigate(['**'])
-            }
+          if (dataCertification.result === 'success') {
+            this.dialog.open(RegistercompleleComponent);
+            this.router.navigate(['**'])
+          }
         })
       }
     })

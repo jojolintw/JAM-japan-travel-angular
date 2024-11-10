@@ -15,9 +15,8 @@ declare var google: any;
 })
 export class SigninComponent {
 
-  constructor(private router: Router, private loginService: LoginService,private dialog: MatDialog) { }
+  constructor(private router: Router, private loginService: LoginService, private dialog: MatDialog) { }
 
-  @Output() isloginEventEmiter = new EventEmitter();
   loginTransfer: LoginTransfer =
     {
       email: 'winne1945@gmail.com',
@@ -28,48 +27,42 @@ export class SigninComponent {
       ErrorEmail: '',
       ErrorPassword: ''
     }
-    googleLoginTransfer :googleLoginTransfer=
+  googleLoginTransfer: googleLoginTransfer =
     {
-      token:'',
+      token: '',
     }
-  focus()
-  {
-    this.ErrorMessage.ErrorEmail='';
-    this.ErrorMessage.ErrorPassword='';
+  focus() {
+    this.ErrorMessage.ErrorEmail = '';
+    this.ErrorMessage.ErrorPassword = '';
   }
   //登入
   Login() {
-   //空白驗證
-   if(this.loginTransfer.email ===''&& this.loginTransfer.password==='')
-    {
-      this.ErrorMessage.ErrorEmail='Email不可空白';
-      this.ErrorMessage.ErrorPassword='密碼不可空白';
+    //空白驗證
+    if (this.loginTransfer.email === '' && this.loginTransfer.password === '') {
+      this.ErrorMessage.ErrorEmail = 'Email不可空白';
+      this.ErrorMessage.ErrorPassword = '密碼不可空白';
       return;
     }
-       if(this.loginTransfer.email ==='')
-    {
-      this.ErrorMessage.ErrorEmail='Email不可空白';
+    if (this.loginTransfer.email === '') {
+      this.ErrorMessage.ErrorEmail = 'Email不可空白';
       return;
     }
-       if(this.loginTransfer.password==='')
-    {
-      this.ErrorMessage.ErrorPassword='密碼不可空白';
+    if (this.loginTransfer.password === '') {
+      this.ErrorMessage.ErrorPassword = '密碼不可空白';
       return;
     }
     //Email格式認證======================================
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(!emailRegex.test(this.loginTransfer.email))
-      {
-        this.ErrorMessage.ErrorEmail ='請輸入正確的Email格式'
-        return;
-      }
+    if (!emailRegex.test(this.loginTransfer.email)) {
+      this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式'
+      return;
+    }
     //Password 格式認證===================================
-    const passwordRegex=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if(!passwordRegex.test(this.loginTransfer.password))
-      {
-        this.ErrorMessage.ErrorPassword ='密碼為8位數以上且需要包含英文及數字'
-        return;
-      }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(this.loginTransfer.password)) {
+      this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
+      return;
+    }
     //打API
     this.loginService.LoginApi(this.loginTransfer).subscribe(data => {
       if (data.result === 'ErrorAccount') {
@@ -83,12 +76,12 @@ export class SigninComponent {
       else if (data.result === 'success') {
         console.log(data);
         this.loginService.savejwtToken(data.token);
-        this.isloginEventEmiter.emit();
+        this.loginService.isLoggedInSubject.next(true);
         this.router.navigate(['**'])
       }
     })
   }
-  //註冊
+  //進註冊頁
   goToSignup() {
     this.router.navigate(['login/signup'])
   }
@@ -96,9 +89,8 @@ export class SigninComponent {
   goToForgerpassword() {
     this.router.navigate(['login/forgetpassword'])
   }
-  //google登入===================================================================
-  loginBygoogle()
-  {
+  //google登入註冊===================================================================
+  loginBygoogle() {
     const clientId = '1036675996892-13kj599u894qc8s4k87g7p6pbhskaibd.apps.googleusercontent.com';
     this.initGoogleOneTap(clientId);
   }
@@ -116,24 +108,21 @@ export class SigninComponent {
     console.log(idToken);
     this.googleLoginTransfer.token = idToken;
     this.loginService.sendTokenToBackend(this.googleLoginTransfer).subscribe((res) => {
-      if(res.result==='successregester')
-        {
-          this.loginService.savejwtToken(res.token);
-          this.isloginEventEmiter.emit();
-          this.loginService.SendCertificationMail().subscribe(dataCertification => {
-            if(dataCertification.result==='success')
-              {
-                this.dialog.open(RegistercompleleComponent);
-                this.router.navigate(['**'])
-              }
-          })
-        }
-        else if(res.result==='successlogin')
-          {
-            this.loginService.savejwtToken(res.token);
-            this.isloginEventEmiter.emit();
-            this.router.navigate(['**']);
+      if (res.result === 'successregester') {
+        this.loginService.savejwtToken(res.token);
+        this.loginService.isLoggedInSubject.next(true);
+        this.loginService.SendCertificationMail().subscribe(dataCertification => {
+          if (dataCertification.result === 'success') {
+            this.dialog.open(RegistercompleleComponent);
+            this.router.navigate(['**'])
           }
+        })
+      }
+      else if (res.result === 'successlogin') {
+        this.loginService.savejwtToken(res.token);
+        this.loginService.isLoggedInSubject.next(true);
+        this.router.navigate(['**']);
+      }
     });
   }
 }

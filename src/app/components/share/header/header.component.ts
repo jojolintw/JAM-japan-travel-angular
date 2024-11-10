@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/service/Member/login.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -9,35 +11,50 @@ import { LoginService } from 'src/app/service/Member/login.service';
 })
 export class HeaderComponent implements OnInit {
 
-constructor(private router:Router, private loginService:LoginService){}
+  private authSubscription: any;
+  constructor(private router: Router, private loginService: LoginService) { }
 
-@Input() isLoggedIn = false;
+  isLoggedIn = false;
 
-ngOnInit(): void {
-  this.loginService.isLoginApi().subscribe(data =>
-    {
-      if(data.result==='successlogin')
-        {
-          this.isLoggedIn = true;
-        }
+  ngOnInit(): void {
+    this.loginService.isLoginApi().subscribe(data => {
+      if (data.result === 'successlogin') {
+        this.isLoggedIn = true;
+      }
+      else {
+        this.isLoggedIn = false;
+      }
+    })
+    this.authSubscription = this.loginService.isLoggedIn$.subscribe(
+      (loggedInStatus) => {
+        this.isLoggedIn = loggedInStatus;
+      }
+    );
+  }
+  //登出
+  logout() {
+    this.loginService.removejwtToken();
+    this.isLoggedIn = false;
+    this.router.navigate(['**']);
+  }
+
+  goToMemberArea() {
+
+        if(this.isLoggedIn ===true)
+          {
+            this.router.navigate([`member`])
+          }
         else
         {
-          this.isLoggedIn = false;
+          Swal.fire({
+            icon: "error",
+            title: "請先登入",
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
 
-    })
-}
-//登出
-logout()
-{
-this.loginService.removejwtToken();
-this.isLoggedIn = false;
-this.router.navigate(['**']);
-}
 
-  goToMemberArea()
-  {
-    this.router.navigate([`member`])
   }
 
   goToCart() {
@@ -57,5 +74,4 @@ this.router.navigate(['**']);
   goToItineraryList() {
     this.router.navigate(['/itinerary-list']);
   }
-
 }
