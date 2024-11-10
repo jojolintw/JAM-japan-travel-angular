@@ -165,7 +165,8 @@
               <li><a href="#">幫助</a></li>
               <li><a href="#">客服專區</a></li>
               <li><a routerLink="login/forgetpassword">常見問題</a></li>
-                <li><a routerLink="login/signin">登入</a></li>
+                <li *ngIf="!isLoggedIn"><a routerLink="login/signin">登入</a></li>
+                <li *ngIf="isLoggedIn"><a (click)="logout()">登出</a></li>
             </ul>
           </div>
         </div>

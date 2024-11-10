@@ -1,9 +1,12 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/service/Member/login.service';
 import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
+import { googleLoginTransfer } from 'src/app/interface/Member/googleLoginTransfer';
+import { MatDialog } from '@angular/material/dialog';
+import { RegistercompleleComponent } from '../registercomplele/registercomplele.component';
 
-
+declare var google: any;
 
 @Component({
   selector: 'app-signin',
@@ -12,8 +15,9 @@ import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
 })
 export class SigninComponent {
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService,private dialog: MatDialog) { }
 
+  @Output() isloginEventEmiter = new EventEmitter();
   loginTransfer: LoginTransfer =
     {
       email: 'winne1945@gmail.com',
@@ -23,6 +27,10 @@ export class SigninComponent {
     {
       ErrorEmail: '',
       ErrorPassword: ''
+    }
+    googleLoginTransfer :googleLoginTransfer=
+    {
+      token:'',
     }
   focus()
   {
@@ -74,7 +82,8 @@ export class SigninComponent {
       }
       else if (data.result === 'success') {
         console.log(data);
-        this.loginService.saveToken(data.token);
+        this.loginService.savejwtToken(data.token);
+        this.isloginEventEmiter.emit();
         this.router.navigate(['**'])
       }
     })
@@ -91,6 +100,40 @@ export class SigninComponent {
   loginBygoogle()
   {
     const clientId = '1036675996892-13kj599u894qc8s4k87g7p6pbhskaibd.apps.googleusercontent.com';
-    this.loginService.initGoogleOneTap(clientId);
+    this.initGoogleOneTap(clientId);
+  }
+  public initGoogleOneTap(clientId: string): void {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: (response: any) => this.handleCredentialResponse(response)
+    });
+
+    google.accounts.id.prompt();
+    console.log('prompt')
+  }
+  private handleCredentialResponse(response: any): void {
+    const idToken = response.credential;
+    console.log(idToken);
+    this.googleLoginTransfer.token = idToken;
+    this.loginService.sendTokenToBackend(this.googleLoginTransfer).subscribe((res) => {
+      if(res.result==='successregester')
+        {
+          this.loginService.savejwtToken(res.token);
+          this.isloginEventEmiter.emit();
+          this.loginService.SendCertificationMail().subscribe(dataCertification => {
+            if(dataCertification.result==='success')
+              {
+                this.dialog.open(RegistercompleleComponent);
+                this.router.navigate(['**'])
+              }
+          })
+        }
+        else if(res.result==='successlogin')
+          {
+            this.loginService.savejwtToken(res.token);
+            this.isloginEventEmiter.emit();
+            this.router.navigate(['**']);
+          }
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Register } from 'src/app/interface/Login/Register';
@@ -13,6 +13,7 @@ import { RegistercompleleComponent } from '../registercomplele/registercomplele.
 export class SignupComponent {
   constructor(private router: Router,private loginService: LoginService,private dialog: MatDialog) { }
 
+  @Output() isloginEventEmiter = new EventEmitter();
   inputRegister: Register =
     {
       RegisterName: '',
@@ -91,8 +92,8 @@ export class SignupComponent {
         return
       }
       if (data['result'] === 'success') {
-        this.loginService.saveToken(data.token);
-
+        this.loginService.savejwtToken(data.token);
+        this.isloginEventEmiter.emit();
         this.loginService.SendCertificationMail().subscribe(dataCertification => {
           if(dataCertification.result==='success')
             {
