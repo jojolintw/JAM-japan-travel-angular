@@ -18,8 +18,8 @@ export class CartComponent {
 
   newItem: cartItem = {
     ItinerarySystemId: 3,            // 商品 ID
-    itineraryDateSystemId:6,
-    name: '商品C3',    // 商品名稱
+    itineraryDateSystemId:5,
+    name: '商品C4',    // 商品名稱
     price: 333,       // 商品價格
     quantity: 2,      // 初始數量
     imagePath:'',     // 圖片路徑

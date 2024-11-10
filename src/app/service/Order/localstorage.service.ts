@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { error } from 'jquery';
 import { apiresponse, memberInfo } from 'src/app/interface/Order/memberInfo';
@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 export class LocalstorageService {
 
   private cartkey = 'cart'
+
+  cartItemCountChanged = new EventEmitter<number>();
+
   constructor(private client: HttpClient) { }
 
   addToCart(item: cartItem) {
@@ -30,6 +33,7 @@ export class LocalstorageService {
     } else {
       cart.push(item); // 新增商品
       localStorage.setItem(this.cartkey, JSON.stringify(cart)); // 儲存到 localStorage
+      this.cartItemCountChanged.emit(this.getCartItemCount()); // 發送購物車商品數量更新事件
       Swal.fire({
         icon: "success",
         title: "商品已加入購物車",
@@ -37,9 +41,12 @@ export class LocalstorageService {
         timer: 1500
       });
     }
-
-
   };
+
+  // 取得購物車中商品種類數量
+  getCartItemCount():number{
+    return this.getCartItems().length;
+  }
 
   getCartItems(): cartItem[] {
     return JSON.parse(localStorage.getItem(this.cartkey) || '[]') as cartItem[];
@@ -54,6 +61,7 @@ export class LocalstorageService {
     const updatedCart = cart.filter(cartItem => cartItem.itineraryDateSystemId !== itemId); // 過濾掉要刪除的商品
 
     localStorage.setItem(this.cartkey, JSON.stringify(updatedCart)); // 儲存更新後的購物車
+    this.cartItemCountChanged.emit(this.getCartItemCount()); // 發送購物車商品數量更新事件
     Swal.fire({
       icon: "warning",
       title: "商品已從購物車移除",
@@ -65,6 +73,11 @@ export class LocalstorageService {
 
   clearCartItems() {
     localStorage.removeItem(this.cartkey);
+  }
+
+  getCartItemsCount():number{
+    const cartItemsCount = JSON.parse(localStorage.getItem(this.cartkey) || '[]');
+    return cartItemsCount.length();
   }
 
   // =============== test =====================

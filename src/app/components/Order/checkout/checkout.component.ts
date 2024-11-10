@@ -103,14 +103,14 @@ export class CheckoutComponent {
         );
 
         // 寄送email
-        // this.checkoutService.sendOrderInfoEmail().subscribe(
-        //   (response)=>{
-        //     console.log("寄送成功",response);
-        //   },
-        //   (error)=>{
-        //     console.log("fail",error);
-        //   }
-        // );
+        this.checkoutService.sendOrderInfoEmail().subscribe(
+          (response)=>{
+            console.log("寄送成功",response);
+          },
+          (error)=>{
+            console.log("fail",error);
+          }
+        );
 
         // 下單成功頁面
         // this.router.navigate(['orderconfirmation']);
