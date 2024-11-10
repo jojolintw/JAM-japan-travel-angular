@@ -10,15 +10,9 @@ import { LoginTransfer } from 'src/app/interface/Login/loginTransfer';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent {
 
   constructor(private router: Router, private loginService: LoginService) { }
-
-  ngOnInit(): void {
-    const clientId = '1036675996892-vl38g44j5neom1qj25opevj04oebis4u.apps.googleusercontent.com';
-    this.loginService.initGoogleOneTap(clientId);
-  }
-
 
   loginTransfer: LoginTransfer =
     {
@@ -92,5 +86,11 @@ export class SigninComponent implements OnInit {
   //忘記密碼
   goToForgerpassword() {
     this.router.navigate(['login/forgetpassword'])
+  }
+  //google登入===================================================================
+  loginBygoogle()
+  {
+    const clientId = '1036675996892-13kj599u894qc8s4k87g7p6pbhskaibd.apps.googleusercontent.com';
+    this.loginService.initGoogleOneTap(clientId);
   }
 }
