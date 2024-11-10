@@ -94,15 +94,15 @@ export class SigninComponent {
     const clientId = '1036675996892-13kj599u894qc8s4k87g7p6pbhskaibd.apps.googleusercontent.com';
     this.initGoogleOneTap(clientId);
   }
+
   public initGoogleOneTap(clientId: string): void {
     google.accounts.id.initialize({
       client_id: clientId,
       callback: (response: any) => this.handleCredentialResponse(response)
     });
-
     google.accounts.id.prompt();
-    console.log('prompt')
   }
+
   private handleCredentialResponse(response: any): void {
     const idToken = response.credential;
     console.log(idToken);
