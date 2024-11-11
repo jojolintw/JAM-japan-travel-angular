@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { RouterLink } from '@angular/router';
 import { Route } from '@angular/router';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
+import { ItineraryList } from 'src/app/interface/Product/itinerary-list.interface';
 import { Activity } from 'src/app/interface/Product/Activity';
 import { Search } from 'src/app/interface/Product/Search';
 import { NgForm } from '@angular/forms';
@@ -21,8 +21,8 @@ export class ItineraryListComponent implements OnInit {
   @ViewChild('searchFormDir') searchFormDir!: NgForm;
 
   activityNames: Activity[] = [];
-  tours: Itinerary[] = [];
-  allTours: Itinerary[] = [];
+  tours: ItineraryList[] = [];
+  allTours: ItineraryList[] = [];
   region: number | null = null;
   itemsPerPage: number = 6; // 每页显示的条目数
   currentPage: number = 1; // 当前页码\

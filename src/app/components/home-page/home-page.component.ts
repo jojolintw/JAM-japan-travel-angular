@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
+import { ItineraryList } from 'src/app/interface/Product/itinerary-list.interface';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 
 @Component({
@@ -12,7 +12,7 @@ import { SlickCarouselComponent } from 'ngx-slick-carousel';
 export class HomePageComponent implements OnInit {
   @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
 
-  tours: Itinerary[] = [
+  tours: ItineraryList[] = [
     {
       itinerarySystemId: 1,
       itineraryName: '東京鐵塔浪漫之夜',

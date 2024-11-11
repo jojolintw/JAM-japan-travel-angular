@@ -4,10 +4,10 @@
       <div class="row gx-60">
         <div class="col-lg-5">
           <div class="product-big-img">
-            <img [src]="selectedImage" alt="Product Image">
+            <img [src]="selectedImage || 'assets/img/products/TokyoTower-sm3.jpg'" alt="Product Image">
           </div>
           <div class="product-thumb-slide">
-            <div *ngFor="let image of images; let i = index" class="thumb" [ngClass]="{ 'active': i === selectedIndex }">
+            <div *ngFor="let image of itineraryDetail.imagePath; let i = index" class="thumb" [ngClass]="{ 'active': i === selectedIndex }">
               <img [src]="image" (click)="selectImage(i)" alt="Product Thumb Image">
             </div>
           </div>
@@ -98,7 +98,7 @@
               </div>
               <button class="vs-btn style4" (click)="addToCart()">加入購物車</button>
               <button class="vs-btn style4">立即報名</button>
-              <a href="cart.html" class="icon-btn"><i class="fas fa-heart"></i></a>
+              <a class="icon-btn"><i class="fas fa-heart" [ngStyle]="{color:isActive? 'crimson' : ''}" (click)="mycollection()"></i></a>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="rviews-tab" data-bs-toggle="tab" href="#rviews" role="tab" aria-controls="rviews"
-              aria-selected="true">行程評價 (02 )</a>
+              aria-selected="true">行程評價 (02)</a>
           </li>
         </ul>
         <div class="tab-content" id="productTabContent">
