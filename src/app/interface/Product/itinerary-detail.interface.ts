@@ -10,7 +10,7 @@ export interface ItineraryDetail {
   activityId: number;
   activityName: string;
   areaName: string;
-  imageName: string;
+  imagePath: string[];
   itineraryBatch: itineraryBatch[];
   price: number;
   itineraryDetail: string;

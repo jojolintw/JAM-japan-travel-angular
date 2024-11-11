@@ -1,4 +1,4 @@
-export interface Itinerary {
+export interface ItineraryList {
   itinerarySystemId: number;
   itineraryName: string;
   activityId: number;

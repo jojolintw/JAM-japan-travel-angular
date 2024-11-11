@@ -2,11 +2,14 @@ import { LocalstorageService } from 'src/app/service/Order/localstorage.service'
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
-import { Itinerary } from 'src/app/interface/Product/itinerary.interface';
+import { ItineraryList } from 'src/app/interface/Product/itinerary-list.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
 import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
+import Swal from 'sweetalert2';
+import { MyareaService } from 'src/app/service/Member/myarea.service';
+
 
 @Component({
   selector: 'app-itinerary-detail',
@@ -19,7 +22,7 @@ export class ItineraryDetailComponent implements OnInit {
 
   itineraryDetail: ItineraryDetail | null = null;
   tours: ItineraryDetail[] = [];
-  relatedTours: Itinerary[] = [];
+  relatedTours: ItineraryList[] = [];
   viewDate: Date = new Date();
   events: CalendarEvent[] = [];
   selectedDay: CalendarMonthViewDay | null = null;
@@ -28,22 +31,19 @@ export class ItineraryDetailComponent implements OnInit {
   selectedDateTimes: string[] = [];
   quantity: number = 1;
   cartItems: cartItem[]=[];
-  images = [
-    'assets/img/products/TokyoTower-sm3.jpg',
-    'assets/img/products/tokyoTower-sm4.jpg',
-    'assets/img/products/tokyoTower-sm1.jpg',
-    'assets/img/products/tokyoTower-sm2.jpg',
-  ];
+  isActive: boolean = false;
+
 
   selectedIndex = 0;
-  selectedImage = this.images[0];
+  selectedImage = this.itineraryDetail?.imagePath[0];
+
 
   selectImage(index: number) {
     this.selectedIndex = index;
-    this.selectedImage = this.images[index];
+    this.selectedImage = this.itineraryDetail?.imagePath[index];
   }
 
-  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private localStorageService: LocalstorageService) { }
+  constructor(private route: ActivatedRoute, private itineraryService: ItineraryService, private localStorageService: LocalstorageService, private myareaService: MyareaService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -60,7 +60,13 @@ export class ItineraryDetailComponent implements OnInit {
       this.itineraryDetail = response;
       this.loadRelatedItineraries(this.itineraryDetail.activityId);
       this.initializeDayStatus();
-    });
+        //=====確認是否為我的最愛===========================================================================
+    //     this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
+    //       if (data.result === 'ismyfavirite') {
+    //         this.isActive = true;
+    //       }
+    //     })
+     });
   }
 
   initializeDayStatus(): void {
@@ -206,7 +212,7 @@ export class ItineraryDetailComponent implements OnInit {
     name:this.itineraryDetail?.itineraryName as string,
     price:this.itineraryDetail?.price as number,
     quantity:this.quantity,
-    imagePath:this.itineraryDetail?.imageName as string
+    imagePath:this.itineraryDetail?.imagePath[0] as string
   }
   this.localStorageService.addToCart(newCartItem);
  }
@@ -215,6 +221,43 @@ export class ItineraryDetailComponent implements OnInit {
   return this.itineraryDetail?.itineraryDetails as string[];
  }
 
+
+ //mycollection相關======================================================
+
+ mycollection()
+ {
+  this.isActive = !this.isActive
+  // if(!this.isActive)
+  //   {
+  //     console.log('行程ID',this.itineraryDetail?.itinerarySystemId);
+  //     this.myareaService.Removemyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
+  //       if(data.result ==='success')
+  //         {
+  //           Swal.fire({
+  //             icon: "success",
+  //             title: "從我的最愛中移除",
+  //             showConfirmButton: false,
+  //             timer: 2000
+  //           })
+  //         }
+  //     })
+  //   }
+  //   else if(this.isActive)
+  //     {
+  //       console.log('行程ID',this.itineraryDetail?.itinerarySystemId)
+  //       this.myareaService.Addtomyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
+  //         if(data.result==='success')
+  //           {
+  //             Swal.fire({
+  //               icon: "success",
+  //               title: "加入我的最愛",
+  //               showConfirmButton: false,
+  //               timer: 2000
+  //             })
+  //           }
+  //       })
+  //     }
+ }
 
 }
 
