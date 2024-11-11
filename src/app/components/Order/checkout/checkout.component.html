@@ -91,8 +91,15 @@
                   <h4 class="mt-4 pt-lg-2" style="margin-top: 0px !important; padding: 0px;">優惠券</h4>
                   <div class="row">
                     <div class="col-lg-4" style="display:flex ; width: 60%;">
-                        <input type="text" class="form-control" placeholder="新用戶好禮" readonly>
-                        <button type="submit" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button>
+                        <!-- <input type="text" class="form-control" readonly> -->
+                        <select name="coupon" [(ngModel)]="selectedCoupon" style="text-align: center; border-radius: 1em; height: 60px;" (change)="saveCoupon($event)">
+                          <option [value]="0">-------選擇優惠券-------</option>
+                          <option [value]="100">驚喜大禮包 (-100)</option>
+                          <option [value]="150">大大大優惠 (-150)</option>
+                          <option [value]="99">周年慶大放送 (-99)</option>
+                          <option [value]="50">新用戶好禮 (-50)</option>
+                        </select>
+                        <button id="selectcoupon" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button>
                     </div>
                   </div>
                 </form>
@@ -101,7 +108,7 @@
               <tr class="cart-subtotal">
                 <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">商品總金額</th>
                 <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
-                        class="woocommerce-Price-currencySymbol">$</span>{{totalAmount}}</bdi></span></td>
+                        class="woocommerce-Price-currencySymbol">$</span>{{productTotalAmount}}</bdi></span></td>
               </tr>
               <tr class="woocommerce-shipping-totals shipping">
                 <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">優惠券折扣</th>
@@ -111,7 +118,7 @@
               <tr class="order-total">
                 <th style=" text-align: center;vertical-align: middle;">訂單總金額</th>
                 <td data-title="Total" colspan="4" style=" text-align: center;vertical-align: middle;"><strong><span class="woocommerce-Price-amount amount"><bdi><span
-                          class="woocommerce-Price-currencySymbol">$</span>{{totalAmount-discount}}</bdi></span></strong>
+                          class="woocommerce-Price-currencySymbol">$</span>{{totalAmount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>
@@ -142,7 +149,7 @@
             <h2 class="h4">備註</h2>
             <div class="col-12 form-group">
               <textarea id="remarks" cols="20" rows="5" class="form-control"
-                placeholder="備註"></textarea>
+                placeholder="備註">{{remarks}}</textarea>
             </div>
             <h4 class="mt-4 pt-lg-2">付款方式</h4>
             <div class="mt-lg-3">
@@ -166,6 +173,7 @@
                   <strong><span class="woocommerce-Price-amount amount" style="padding: 0px 20px; font-size: 22px;"><bdi><span
                     class="woocommerce-Price-currencySymbol">訂單總金額：$</span>{{totalAmount}}</bdi></span></strong>
                   <button type="submit" class="vs-btn style4" (click)="checkout()">下單付款</button>
+                  <button id="demobutton" class="vs-btn style4" (click)="demo()">demo</button>
                 </div>
               </div>
             </div>

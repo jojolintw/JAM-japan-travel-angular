@@ -102,10 +102,17 @@
               <tr>
                 <td colspan="7" class="actions">
                   <div class="vs-cart-coupon">
-                    <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly />
-                    <button type="submit" class="vs-btn style4">
+                    <!-- <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly /> -->
+                    <select name="coupon" style="text-align: center; border-radius: 1em; height: 60px;" (change)="saveCoupon($event)">
+                      <option [value]="0">-------選擇優惠券-------</option>
+                      <option [value]="100">驚喜大禮包 (-100)</option>
+                      <option [value]="150">大大大優惠 (-150)</option>
+                      <option [value]="99">周年慶大放送 (-99)</option>
+                      <option [value]="50">新用戶好禮 (-50)</option>
+                    </select>
+                    <!-- <button type="submit" class="vs-btn style4">
                       使用優惠券
-                    </button>
+                    </button> -->
                   </div>
                   <button (click)="goToHomePage()" class="vs-btn style4">繼續購物</button>
               </tr>
@@ -121,7 +128,7 @@
               <tr class="order-total">
                 <th>商品總金額</th>
                 <td data-title="Subtotal">
-                  <span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span>
+                  <span class="amount"><bdi><span>$</span>{{productTotalAmount}}</bdi></span>
                 </td>
               </tr>
               <tr class="order-total">
@@ -135,7 +142,7 @@
               <tr class="order-total">
                 <th>總金額</th>
                 <td data-title="Total">
-                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount-discount}}</bdi></span></strong>
+                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>

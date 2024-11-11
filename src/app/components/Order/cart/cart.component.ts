@@ -13,12 +13,13 @@ export class CartComponent {
 
   cartItems: cartItem[] = []
   quantity = 1
+  productTotalAmount = 0
   totalAmount = 0
-  discount = 100
+  discount = 0
 
   newItem: cartItem = {
     ItinerarySystemId: 3,            // 商品 ID
-    itineraryDateSystemId:5,
+    itineraryDateSystemId:4,
     name: '商品C4',    // 商品名稱
     price: 333,       // 商品價格
     quantity: 2,      // 初始數量
@@ -37,9 +38,10 @@ export class CartComponent {
   }
 
   calculateTotal(){
-    this.totalAmount = this.cartItems.reduce((total, item)=>{
+    this.productTotalAmount = this.cartItems.reduce((total, item)=>{
     return total + (item.price * item.quantity);
     },0);
+    this.totalAmount = this.productTotalAmount-this.discount
     localStorage.setItem('totalAmount',this.totalAmount.toString());
   }
 
@@ -110,6 +112,11 @@ export class CartComponent {
     this.router.navigate(['itinerary-detail/'+id])
   }
 
-
+  saveCoupon(event: any){
+    this.discount = event.target.value;
+    // console.log(selectedCouponValue);
+    localStorage.setItem("discount",this.discount.toString());
+    this.calculateTotal();
+  }
 
 }

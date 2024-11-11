@@ -19,15 +19,28 @@ export class CheckoutService {
     const couponId = localStorage.getItem('couponId') || '';
     const remarks = localStorage.getItem('remarks') || '';
     const totalAmount = localStorage.getItem('totalAmount') || '';
+    const memberId = localStorage.getItem('memberId');
+
 
     const orderData = {
       cart:cartItems,
-      couponId:couponId,
+      couponId:0,
       remarks:remarks,
-      totalAmount:totalAmount
+      totalAmount:totalAmount,
+      memberId:memberId
     }
-
+    console.log(orderData);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.client.post('https://localhost:7100/api/Order/CreateOrder',orderData,{headers})}
-}
+    return this.client.post('https://localhost:7100/api/Order/CreateOrder',orderData,{headers})
+  }
+
+  // linepay(){
+
+
+  //   return this.client.post('https://localhost:7100/api/Order/CreateOrder')
+  // }
+
+
+
+  }

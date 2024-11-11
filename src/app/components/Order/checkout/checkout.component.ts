@@ -1,7 +1,7 @@
 import { CheckoutService } from './../../../service/Order/checkout.service';
 import { memberInfo } from './../../../interface/Order/memberInfo';
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
 import { error } from 'jquery';
@@ -12,15 +12,19 @@ import Swal from 'sweetalert2';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
 
   cartItems: cartItem[] = []
-  quantity = 1
-  totalAmount = 0
-  discount = 100
+  quantity = 1;
+  productTotalAmount = 0;
+  totalAmount = 0;
+  discount = 100;
   memberName: String = '';
   phone: String = '';
   email: String = '';
+  remarks: string = '';
+  coupon: number = 0;
+  selectedCoupon: number=100;
 
   constructor(private router: Router,
     private localstorageService: LocalstorageService, private checkoutService:CheckoutService) {
@@ -32,7 +36,7 @@ export class CheckoutComponent {
 
     this.localstorageService.getMemberInfo().subscribe(
       (response) => {
-        // this.memberId = JSON.stringify(response.loginmember.memberId);
+        localStorage.setItem("memberId",response.loginmember.memberId.toString()) ;
         this.memberName = response.loginmember.chineseName;
 
         // 去除phone前後的"
@@ -54,17 +58,25 @@ export class CheckoutComponent {
         }
       },
       (error) => {
-        console.error('獲取會員資訊失敗', error);
-        alert('獲取會員資訊失敗，重新登入');
+        // console.error('獲取會員資訊失敗', error);
+        // alert('獲取會員資訊失敗，重新登入');
       }
     );
   }
 
   calculateTotal(){
-    this.totalAmount = this.cartItems.reduce((total, item)=>{
+    this.productTotalAmount = this.cartItems.reduce((total, item)=>{
     return total + (item.price * item.quantity);
-  },0);
+    },0);
+    this.totalAmount = this.productTotalAmount-this.discount
+    localStorage.setItem('totalAmount',this.totalAmount.toString());
   }
+
+  saveCoupon(event: any){
+    this.discount = event.target.value;
+    localStorage.setItem("discount",this.discount.toString());
+  }
+
 
   removeCartItemAll(){
     this.localstorageService.removeCart();      // 清除localStorage中key為cart的資料
@@ -103,24 +115,32 @@ export class CheckoutComponent {
         );
 
         // 寄送email
-        this.checkoutService.sendOrderInfoEmail().subscribe(
-          (response)=>{
-            console.log("寄送成功",response);
-          },
-          (error)=>{
-            console.log("fail",error);
-          }
-        );
+        // this.checkoutService.sendOrderInfoEmail().subscribe(
+        //   (response)=>{
+        //     console.log("寄送成功",response);
+        //   },
+        //   (error)=>{
+        //     console.log("fail",error);
+        //   }
+        // );
 
         // 下單成功頁面
-        this.router.navigate(['orderconfirmation']);
+        // this.router.navigate(['orderconfirmation']);
 
         // 清除購物車 localStorage => key:cart
-        this.localstorageService.removeCart();
+        // this.localstorageService.removeCart();
       }
     });
+  }
+
+  linepay(){
+
+  }
 
 
+  demo(){
+    this.remarks = "已回購，小孩愛吃";
+    return this.remarks;
   }
 
   goToCart() {
