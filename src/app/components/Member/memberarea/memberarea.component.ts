@@ -42,7 +42,8 @@ export class MemberareaComponent {
       MemberLevel: null,
       MemberStatusId: null,
       MemberStatus: null,
-      ImageUrl: null
+      ImageUrl: null,
+      TotalAmount: 0
     }
 
     myareaMember :MyareaMember =
@@ -105,6 +106,7 @@ export class MemberareaComponent {
         this.loginTransfer.ImageUrl = data.loginmember.imageUrl;
         this.myareaMember.ImageUrl = data.loginmember.imageUrl;
       }
+      this.loginTransfer.TotalAmount = data.loginmember.totalAmount;
     })
   }
   reloading()
@@ -114,6 +116,7 @@ export class MemberareaComponent {
 //圖片上傳=====================================================================================
 onUploadClick()
 {
+  console.log(this.loginTransfer);
   this.fileInput.nativeElement.click();
 }
 onFileSelected(event: Event)
@@ -135,6 +138,9 @@ onFileSelected(event: Event)
   // 去別頁===================================================================================
   goToAccount() {
     this.selectedComponent = 'account';
+  }
+  goTomymemberlevel() {
+    this.selectedComponent = 'mymemberlevel';
   }
   goToMycollection() {
     this.selectedComponent = 'mycollection';

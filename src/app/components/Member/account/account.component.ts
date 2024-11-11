@@ -41,6 +41,7 @@ export class AccountComponent {
       MemberStatusId: null,
       MemberStatus: null,
       ImageUrl: null,
+      TotalAmount: 0
     }
 
   alterMemDTO: AlterMemDTO =

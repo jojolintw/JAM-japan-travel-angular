@@ -49,6 +49,7 @@ import { ResetPasswordCompleteComponent } from './components/Member/reset-passwo
 import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
 import { Cart2Component } from './components/Shipment/cart2/cart2.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MymemberlevelComponent } from './components/Member/mymemberlevel/mymemberlevel.component';
 
 
 
@@ -96,6 +97,7 @@ const routes: Routes = [
       ResetPasswordCompleteComponent,
       ScheduleDetailComponent,
       Cart2Component,
+      MymemberlevelComponent,
 
   ],
   imports: [

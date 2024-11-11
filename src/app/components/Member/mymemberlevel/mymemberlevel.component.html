@@ -1,0 +1,112 @@
+<div class="page">
+  <h2 style="margin-bottom: 40px;"><b>{{loginTransfer.MemberLevel}}</b></h2>
+  <div style="margin-bottom: 30px;"><span style="font-size:30px ;">{{loginTransfer.TotalAmount}}</span>/<span>{{maxvalue}}</span></div>
+  <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="margin-bottom: 50px;">
+    <div class="progress-bar" [ngStyle]="{ 'width': percent + '%' }"></div>
+  </div>
+  <hr>
+  <div class="container page-body">
+    <div class="col-md-12">
+      <h1 style="margin-bottom: 40px; margin-top: 50px;"><b>我的會員級禮遇</b></h1>
+      <!-- <ul class="nav nav-tabes page-tabe">
+        <li class="page-item"><a class="page-link" href="#"
+            style="color: #7B7B7B; border:none; font-size: 20px;"><b>白銀會員</b></a></li>
+        <li class="page-item"><a class="page-link" href="#"
+            style="color: #7B7B7B; border:none; font-size: 20px;"><b>白金會員</b></a></li>
+        <li class="page-item"><a class="page-link" href="#"
+            style="color: #7B7B7B; border:none; font-size: 20px;"><b>黑鑽會員</b></a></li>
+      </ul> -->
+      <hr>
+      <div class="container page-body">
+        <div class="col-md-12">
+          <!-- <div class="grayzone" style="margin-bottom: 50px;">已解鎖</div> -->
+
+
+          <div [ngSwitch]="selectedComponent">
+            <!-- 白銀會員 -->
+            <div *ngSwitchCase="'memberlevel1'">
+              <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+                <img src="assets/img/Member/會員生日禮.jpg" style="width: 50px; margin-right: 10px;" />
+                <div
+                  style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                  <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                    <h5>會員生日禮</h5>
+                  </label>
+                  <label style="color: black; font-size: 12px; margin-top: 0%">生日當月 1 號可獲得神秘折扣碼。</label>
+                </div>
+              </div>
+            </div>
+            <!-- 白金會員 -->
+            <div *ngSwitchCase="'memberlevel2'">
+              <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+                <img src="assets/img/Member/會員生日禮.jpg" style="width: 50px; margin-right: 10px;" />
+                <div
+                  style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                  <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                    <h5>會員生日禮</h5>
+                  </label>
+                  <label style="color: black; font-size: 12px; margin-top: 0%">生日當月 1 號可獲得神秘折扣碼。</label>
+                </div>
+              </div>
+              <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+                <img src="assets/img/Member/會員特價商城.jpg" style="width: 50px; margin-right: 10px;" />
+                <div
+                  style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                  <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                    <h5>會員特價商城</h5>
+                  </label>
+                  <label style="color: black; font-size: 12px; margin-top: 0%">領取JAM每月最新優惠折扣碼，白金、黑鑽會員最高享精選行程88折！</label>
+                </div>
+              </div>
+            </div>
+            <!-- 黑鑽會員 -->
+             <div  *ngSwitchCase="'memberlevel3'">
+            <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+              <img src="assets/img/Member/會員生日禮.jpg" style="width: 50px; margin-right: 10px;" />
+              <div
+                style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                  <h5>會員生日禮</h5>
+                </label>
+                <label style="color: black; font-size: 12px; margin-top: 0%">生日當月 1 號可獲得神秘折扣碼。</label>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+              <img src="assets/img/Member/會員特價商城.jpg" style="width: 50px; margin-right: 10px;" />
+              <div
+                style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                  <h5>會員特價商城</h5>
+                </label>
+                <label style="color: black; font-size: 12px; margin-top: 0%">領取JAM每月最新優惠折扣碼，白金、黑鑽會員最高享精選行程88折！</label>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; margin: 10px; margin-top: 50px;">
+              <img src="assets/img/Member/優先客服.jpg" style="width: 50px; margin-right: 10px;" />
+              <div
+                style="display: flex; flex-direction: column; height: 50px; text-align: left; margin-left:10px; padding-bottom: 20px;">
+                <label style="color: black; font-size: 12px; margin-bottom: 0%;">
+                  <h5>優先客服</h5>
+                </label>
+                <label style="color: black; font-size: 12px; margin-top: 0%">黑鑽會員享專業客服優先解決旅行中的疑難雜症。</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+</div>
