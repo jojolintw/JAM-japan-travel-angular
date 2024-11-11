@@ -1,0 +1,30 @@
+<form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()">
+  <!-- 文章標題 -->
+  <div class="form-group">
+    <label for="articleTitle">Article Title</label>
+    <input id="articleTitle" formControlName="articleTitle" type="text" class="form-control" required />
+  </div>
+
+  <!-- 文章內容 -->
+  <div class="form-group">
+    <label for="articleContent">Article Content</label>
+    <textarea id="articleContent" formControlName="articleContent" class="form-control" required></textarea>
+  </div>
+
+  <!-- Hashtags -->
+  <div class="form-group">
+    <label>Hashtags</label>
+    <div *ngFor="let hashtag of hashtags">
+      <input
+        type="checkbox"
+        [value]="hashtag"
+        (change)="onHashtagChange(hashtag, $event)"
+        [checked]="createArticleForm.get('selectedHashtags')?.value.includes(hashtag)"
+      />
+      <label>{{ hashtag }}</label>
+    </div>
+  </div>
+
+  <!-- 提交按鈕 -->
+  <button type="submit" class="btn btn-primary" [disabled]="createArticleForm.invalid">Create Article</button>
+</form>

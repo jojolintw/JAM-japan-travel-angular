@@ -1,0 +1,13 @@
+.container {
+  max-width: 600px;   /* 最大寬度設為 600px */
+  margin: 0 auto;     /* 設置水平居中 */
+  padding: 20px;      /* 容器內邊距設為 20px */
+}
+
+.form-group {
+  margin-bottom: 15px; /* 表單項目的底部邊距設為 15px */
+}
+
+.text-danger {
+  color: red; /* 設置錯誤信息的顏色為紅色 */
+}

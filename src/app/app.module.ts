@@ -29,8 +29,6 @@ import { DetailComponent } from './components/Shipment/detail/detail.component';
 import { TicketComponent } from './components/Shipment/ticket/ticket.component';
 import { BlogListComponent } from './components/Blog/blog-list/blog-list.component';
 import { MemberorderdetailComponent } from './components/Member/memberorderdetail/memberorderdetail.component';
-import { BlogWriteComponent } from './components/Blog/blog-write/blog-write.component';
-import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -38,6 +36,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ArticleService } from './service/Blog/article.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BlogDetailComponent } from './components/Blog/blog-detail/blog-detail.component';
+import { BlogWriteComponent } from './components/Blog/blog-write/blog-write.component';
 
 
 import { AuthInterceptor } from './interface/Login/AuthInterceptor';
@@ -49,6 +49,7 @@ import { ResetPasswordCompleteComponent } from './components/Member/reset-passwo
 import { ScheduleDetailComponent } from './components/Shipment/schedule-detail/schedule-detail.component';
 import { Cart2Component } from './components/Shipment/cart2/cart2.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -64,6 +65,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
+
+    BlogWriteComponent,
 
     SignupComponent,
     SigninComponent,
@@ -88,7 +91,7 @@ const routes: Routes = [
 
       BlogListComponent,
       MemberorderdetailComponent,
-      BlogWriteComponent,
+
       BlogDetailComponent,
       RegistercompleleComponent,
       CertificationSuccessComponent,
@@ -96,7 +99,6 @@ const routes: Routes = [
       ResetPasswordCompleteComponent,
       ScheduleDetailComponent,
       Cart2Component,
-
   ],
   imports: [
     BrowserModule,
@@ -116,6 +118,7 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    ReactiveFormsModule,
   ],
   providers: [ItineraryService,ArticleService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
