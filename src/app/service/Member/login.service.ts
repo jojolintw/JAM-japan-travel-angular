@@ -46,7 +46,7 @@ export class LoginService {
   }
 
 
-  //登入的API
+  //確認是否登入的API
   isLoginApi() {
     return this.client.get<any>('https://localhost:7100/api/Login/islogin', { withCredentials: true })
   }
