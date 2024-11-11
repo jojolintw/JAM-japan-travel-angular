@@ -1,3 +1,4 @@
+import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,10 +10,14 @@ import Swal from 'sweetalert2';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
+
 export class HeaderComponent implements OnInit {
 
+  cartItemsCount = 0;
+  private cartSubscription: Subscription | undefined;
   private authSubscription: any;
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService, private localstorageService: LocalstorageService) { }
 
   isLoggedIn = false;
 
@@ -30,6 +35,19 @@ export class HeaderComponent implements OnInit {
         this.isLoggedIn = loggedInStatus;
       }
     );
+//========================================================================
+this.cartSubscription = this.localstorageService.cartItemCountChanged.subscribe((count: number) => {
+  this.cartItemsCount = count;
+});
+
+this.cartItemsCount = this.localstorageService.getCartItemCount();
+}
+
+  ngOnDestroy(): void {
+    // 清理訂閱
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
   //登出
   logout() {
@@ -52,8 +70,6 @@ export class HeaderComponent implements OnInit {
             showConfirmButton: false,
           })
         }
-
-
   }
 
   goToCart() {

@@ -13,15 +13,16 @@ export class CartComponent {
 
   cartItems: cartItem[] = []
   quantity = 1
+  productTotalAmount = 0
   totalAmount = 0
-  discount = 100
+  discount = 0
 
   newItem: cartItem = {
     ItinerarySystemId: 3,            // 商品 ID
-    itineraryDateSystemId:1,
-    name: '商品BB',    // 商品名稱
-    price: 888,       // 商品價格
-    quantity: 10,      // 初始數量
+    itineraryDateSystemId:4,
+    name: '商品C4',    // 商品名稱
+    price: 333,       // 商品價格
+    quantity: 2,      // 初始數量
     imagePath:'',     // 圖片路徑
   }
 
@@ -37,9 +38,11 @@ export class CartComponent {
   }
 
   calculateTotal(){
-    this.totalAmount = this.cartItems.reduce((total, item)=>{
+    this.productTotalAmount = this.cartItems.reduce((total, item)=>{
     return total + (item.price * item.quantity);
-  },0);
+    },0);
+    this.totalAmount = this.productTotalAmount-this.discount
+    localStorage.setItem('totalAmount',this.totalAmount.toString());
   }
 
   removeCartItem(id:number){
@@ -52,7 +55,7 @@ export class CartComponent {
   }
 
   changeQuantity(item:any, delta: number) {
-    const cartItem = this.cartItems.find(product => product.ItinerarySystemId === item.ItinerarySystemId);
+    const cartItem = this.cartItems.find(product => product.itineraryDateSystemId === item.itineraryDateSystemId);
     if (cartItem) {
       // 更新商品數量，防止數量小於1
       cartItem.quantity = Math.max(1, cartItem.quantity + delta);
@@ -73,6 +76,8 @@ export class CartComponent {
 
   setcontent() {
     this.localstorageService.addToCart(this.newItem);
+    localStorage.setItem('couponId','1');
+    localStorage.setItem('remarks','123');
     this.ngOnInit();
   }
 
@@ -107,6 +112,11 @@ export class CartComponent {
     this.router.navigate(['itinerary-detail/'+id])
   }
 
-
+  saveCoupon(event: any){
+    this.discount = event.target.value;
+    // console.log(selectedCouponValue);
+    localStorage.setItem("discount",this.discount.toString());
+    this.calculateTotal();
+  }
 
 }

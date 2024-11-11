@@ -92,123 +92,29 @@
                   <span class="totalAmount"><bdi><span>$</span>{{item.price * item.quantity}}</bdi></span>
                 </td>
                 <td data-title="Remove">
-                  <a type="button" class="remove" (click)="removeCartItem(item.ItinerarySystemId)"><i class="fal fa-trash-alt"></i></a>
+                  <a type="button" class="remove" (click)="removeCartItem(item.itineraryDateSystemId)"><i class="fal fa-trash-alt"></i></a>
                 </td>
               </tr>
 
 
               <!-- ============================================== -->
 
-
-              <!-- <tr class="cart_item">
-                <td data-title="Product">
-                  <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
-                      src="assets/img/tours/tokyotower.jpg" alt="Image" /></a>
-                </td>
-                <td data-title="Name">
-                  <a class="cart-productname" (click)="goToProductDetail(1)">東京鐵塔浪漫之夜</a>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <div class="quantity">
-                    <button class="quantity-minus qut-btn">
-                      <i class="far fa-minus"></i>
-                    </button>
-                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
-                    <button class="quantity-plus qut-btn">
-                      <i class="far fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,000</bdi></span>
-                </td>
-                <td data-title="Remove">
-                  <a href="#" class="remove"><i class="fal fa-trash-alt"></i></a>
-                </td>
-              </tr>
-              <tr class="cart_item">
-                <td data-title="Product">
-                  <a class="cart-productimage" (click)="goToProductDetail(1)"><img width="80" height="80"
-                      src="assets/img/tours/sup.jpg" alt="Image" /></a>
-                </td>
-                <td data-title="Name">
-                  <a class="cart-productname" (click)="goToProductDetail(1)">沖繩SUP體驗 新手友善</a>
-                </td>
-                <td data-title="Price">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-                <td data-title="Quantity">
-                  <div class="quantity">
-                    <button class="quantity-minus qut-btn">
-                      <i class="far fa-minus"></i>
-                    </button>
-                    <input type="number" class="qty-input" [value]="quantity" min="1" max="99" readonly />
-                    <button class="quantity-plus qut-btn">
-                      <i class="far fa-plus"></i>
-                    </button>
-                  </div>
-                </td>
-                <td data-title="Total">
-                  <span class="amount"><bdi><span>$</span>3,500</bdi></span>
-                </td>
-                <td data-title="Remove">
-                  <a href="#" class="remove"><i class="fal fa-trash-alt"></i></a>
-                </td>
-              </tr> -->
               <tr>
                 <td colspan="7" class="actions">
                   <div class="vs-cart-coupon">
-                    <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly />
-                    <button type="submit" class="vs-btn style4">
+                    <!-- <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly /> -->
+                    <select name="coupon" style="text-align: center; border-radius: 1em; height: 60px;" (change)="saveCoupon($event)">
+                      <option [value]="0">-------選擇優惠券-------</option>
+                      <option [value]="100">驚喜大禮包 (-100)</option>
+                      <option [value]="150">大大大優惠 (-150)</option>
+                      <option [value]="99">周年慶大放送 (-99)</option>
+                      <option [value]="50">新用戶好禮 (-50)</option>
+                    </select>
+                    <!-- <button type="submit" class="vs-btn style4">
                       使用優惠券
-                    </button>
+                    </button> -->
                   </div>
                   <button (click)="goToHomePage()" class="vs-btn style4">繼續購物</button>
-
-                  <!-- <div class="coupon-modal" *ngIf="showCouponModal" (click)="closeCouponModal()" style="position: fixed;
-                      top: 0;
-                      left: 0;
-                      right: 0;
-                      bottom: 0;
-                      background: rgba(0, 0, 0, 0.5);
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      z-index: 1000;">
-                    <div class="coupon-modal-content" (click)="$event.stopPropagation()" style="background: white;
-                        padding: 20px;
-                        border-radius: 8px;
-                        width: 300px;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                      <h2>選擇優惠券</h2>
-                      <div class="coupon-list" style="margin-top: 10px;">
-                        <div *ngFor="let coupon of availableCoupons" class="coupon-item" style="display: flex;
-                            align-items: center;
-                            margin-bottom: 15px;">
-                          <label>
-                            <input type="radio" style=" margin-right: 10px;" [value]="coupon.id"
-                              [(ngModel)]="selectedCouponId" (change)="applyCoupon(coupon)" />
-                            <div class="coupon-details" style="display: flex; flex-direction: column;">
-                              <p class="coupon-name">{{ coupon.name }}</p>
-                              <p class="coupon-description">{{ coupon.description }}</p>
-                              <p class="coupon-discount">折扣: {{ coupon.discount }}元</p>
-                            </div>
-                          </label>
-                        </div>
-                      </div>
-                      <button class="close-btn" style="margin-top: 20px;
-                                padding: 10px 20px;
-                                background-color: #ff4e00;
-                                color: white;
-                                border: none;
-                                border-radius: 5px;
-                                cursor: pointer;" (click)="closeCouponModal()">關閉</button> -->
-                    <!-- </div>
-                  </div>
-                </td> -->
               </tr>
             </tbody>
           </table>
@@ -222,7 +128,7 @@
               <tr class="order-total">
                 <th>商品總金額</th>
                 <td data-title="Subtotal">
-                  <span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span>
+                  <span class="amount"><bdi><span>$</span>{{productTotalAmount}}</bdi></span>
                 </td>
               </tr>
               <tr class="order-total">
@@ -236,7 +142,7 @@
               <tr class="order-total">
                 <th>總金額</th>
                 <td data-title="Total">
-                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount-discount}}</bdi></span></strong>
+                  <strong><span class="amount"><bdi><span>$</span>{{totalAmount}}</bdi></span></strong>
                 </td>
               </tr>
             </tfoot>
