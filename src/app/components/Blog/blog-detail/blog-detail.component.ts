@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // 假设你有这个服务来获取文章数据
-import { Article } from 'src/app/interface/Article/Article.interface';  // 假设你有这个接口
+import { ActivatedRoute } from '@angular/router'; // 用於獲取路由參數
+import { Article } from 'src/app/interface/Article/Article.interface';  // 你的文章接口
 import { ArticleService } from 'src/app/service/Blog/article.service';
 
 @Component({
@@ -30,6 +30,28 @@ export class BlogDetailComponent implements OnInit {
         console.error('Article not found', error);
       }
     );
+  }
+
+  deleteArticle(articleId: number): void {
+    // 在刪除前提供一個確認提示
+    if (confirm(`確定要刪除文章 ${articleId} 嗎?`)) {
+      // 調用刪除 API
+      this.articleService.deleteArticle(articleId).subscribe(
+        () => {
+          // 刪除成功後的處理邏輯（例如返回上一頁或顯示成功訊息）
+          console.log(`Article ${articleId} deleted successfully.`);
+          alert(`文章 ${articleId} 已刪除！`);
+
+          // 刪除後可以返回上一頁
+          window.history.back();  // 返回上一頁
+        },
+        (error) => {
+          // 處理錯誤情況
+          console.error('Error deleting article', error);
+          alert(`刪除文章時發生錯誤：${error.message}`);
+        }
+      );
+    }
   }
 }
 

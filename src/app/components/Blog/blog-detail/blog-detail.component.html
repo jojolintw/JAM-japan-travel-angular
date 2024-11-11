@@ -5,12 +5,13 @@
       <div class="col-lg-8">
         <div class="vs-blog blog-single">
 
-          <div class="editdelete">
-            <button class="vs-btn style4">編輯</button>
-            <button class="vs-btn style4">刪除</button>
-          </div>
+
 
           <div class="blog-content" *ngIf="article">
+            <div class="editdelete">
+              <button class="vs-btn style4">編輯</button>
+              <button class="vs-btn style4" (click)="deleteArticle(article.articleId)">刪除</button>
+            </div>
             <h2 class="blog-title">{{ article.articleTitle }}</h2>
             <div class="blog-meta">
               <i class="fas fa-calendar-alt">發文日期</i> {{ article.launchTime | date: 'yyyy/MM/dd' }}
