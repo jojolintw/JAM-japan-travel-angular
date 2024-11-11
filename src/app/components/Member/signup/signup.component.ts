@@ -4,6 +4,11 @@ import { Router } from '@angular/router';
 import { Register } from 'src/app/interface/Login/Register';
 import { LoginService } from 'src/app/service/Member/login.service';
 import { RegistercompleleComponent } from '../registercomplele/registercomplele.component';
+import Swal from 'sweetalert2';
+
+//我不是機器人相關
+declare var grecaptcha: any;
+
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +18,10 @@ import { RegistercompleleComponent } from '../registercomplele/registercomplele.
 export class SignupComponent {
   constructor(private router: Router, private loginService: LoginService, private dialog: MatDialog) { }
 
+  //我不是機器人相關
+  captchaResponse: string | null = null;
+  recaptchaRendered = false;
+  //===================================================
   inputRegister: Register =
     {
       RegisterName: '',
@@ -25,16 +34,11 @@ export class SignupComponent {
       ErrorEmail: '',
       ErrorPassword: ''
     }
-
   focus() {
     this.ErrorMessage.ErrorName = '';
     this.ErrorMessage.ErrorEmail = '';
     this.ErrorMessage.ErrorPassword = '';
   }
-
-
-
-
 
   Register() {
     //空白驗證
@@ -83,7 +87,9 @@ export class SignupComponent {
       this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
       return;
     }
-    //打註冊API
+    //我不是機器人認證
+    if (this.captchaResponse) {
+       //打註冊API
     this.loginService.RegisterApi(this.inputRegister).subscribe(data => {
 
       if (data['result'] === 'repeataccount') {
@@ -101,5 +107,41 @@ export class SignupComponent {
         })
       }
     })
+    }
+    else
+    {
+      Swal.fire({
+        icon: "error",
+        title: "請完成我不是機器人驗證",
+        showConfirmButton: false,
+      })
+    }
   }
+    // 初始化 reCAPTCHA
+    ngAfterViewInit(): void {
+      grecaptcha.render('recaptcha-container', {
+        sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR', // 使用你的 Site Key
+        callback: (response: string) => this.onCaptchaResolved(response),
+      });
+    }
+    // 初始化 reCAPTCHA
+    ngAfterViewChecked(): void {
+      if (!this.recaptchaRendered) {
+        grecaptcha.render('recaptcha-container', {
+          sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR',
+          callback: (response: string) => this.onCaptchaResolved(response),
+        });
+        this.recaptchaRendered = true;
+      }
+    }
+     // 當 reCAPTCHA 被解決後，回調此函數
+     onCaptchaResolved(captchaResponse: string) {
+      console.log('reCAPTCHA 回應:', captchaResponse);
+      this.captchaResponse = captchaResponse;
+    }
+    //去登入頁
+    goTologin()
+    {
+      this.router.navigate(['login/signin']);
+    }
 }

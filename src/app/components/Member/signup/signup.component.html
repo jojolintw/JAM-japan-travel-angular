@@ -23,10 +23,11 @@
             <input type="checkbox" name="signUpTerms" id="signUpTerms">
             <label for="signUpTerms"> 我已詳閱並同意 使用者條款 & 隱私權保護政策 *</label>
           </div>
-          <div class="form-group mb-0 text-center">
+          <div id="recaptcha-container"></div>
+          <div class="form-group mb-0 text-center" style="margin-top: 30px;">
             <button class="vs-btn w-100 style4" type="button" (click)="Register()">註冊</button>
             <div class="bottom-links link-inherit pt-3">
-              <span>已成為會員? <a class="text-theme" href="signin.html">立即登入</a></span>
+              <span>已成為會員? <a class="text-theme" class="recovery-link mb-2 mb-md-0"(click)="goTologin()">立即登入</a></span>
             </div>
           </div>
         </form>
