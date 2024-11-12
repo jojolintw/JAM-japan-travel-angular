@@ -51,6 +51,7 @@ import { Cart2Component } from './components/Shipment/cart2/cart2.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MymemberlevelComponent } from './components/Member/mymemberlevel/mymemberlevel.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MyfavoritePipe } from './pipe/Member/myfavorite.pipe';
 
 
 
@@ -101,6 +102,7 @@ const routes: Routes = [
       ScheduleDetailComponent,
       Cart2Component,
       MymemberlevelComponent,
+      MyfavoritePipe,
 
   ],
   imports: [

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlterMemDTO } from 'src/app/interface/Member/AlterMemDTO';
+import { Area } from 'src/app/interface/Member/Area';
 import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
@@ -20,7 +21,7 @@ export class MyareaService {
   AlterMemberInfo(para: FormData) {
     return this.client.post<any>('https://localhost:7100/api/Member/AlterMemberinformation', para, { withCredentials: true })
   }
-
+  //================================================================================================
   //取得地區資料
   GetAllCityArea() {
     return this.client.get<CityArea[]>('https://localhost:7100/api/Member/GetCityArea', { withCredentials: true })
@@ -29,6 +30,11 @@ export class MyareaService {
   GetAllCitys(id: any) {
     return this.client.get<City[]>(`https://localhost:7100/api/Member/GetCity/${id}`, { withCredentials: true })
   }
+  //取得所有日本地區資料
+  GetAllArea() {
+    return this.client.get<Area[]>('https://localhost:7100/api/Member/GetAllArea', { withCredentials: true })
+  }
+  //=============================================================================================
   //加入我的最愛
   Addtomyfavorite(id: any) {
     return this.client.get<any>(`https://localhost:7100/api/Member/AddtoMyfavirite/${id}`, { withCredentials: true })
@@ -42,8 +48,12 @@ export class MyareaService {
     return this.client.get<any>(`https://localhost:7100/api/Member/IsMyfavirite/${id}`, { withCredentials: true })
   }
   //取出所有我的最愛
-  GetAllMyfavorites(){
-    return this.client.get<MyfavoriteItilities[]>(`https://localhost:7100/api/Member/GetAllMyfacirite`, { withCredentials: true })
+  GetAllMyfavorites() {
+    return this.client.get<MyfavoriteItilities[]>(`https://localhost:7100/api/Member/GetAllMyfavorite`, { withCredentials: true })
+  }
+  //取出所有我的最愛
+  GetAreaMyfavorites(para: number) {
+    return this.client.get<MyfavoriteItilities[]>(`https://localhost:7100/api/Member/GetAreaMyfavorite/${para}`, { withCredentials: true })
   }
 }
 

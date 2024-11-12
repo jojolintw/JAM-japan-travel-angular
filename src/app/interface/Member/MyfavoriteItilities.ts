@@ -4,4 +4,5 @@ export interface MyfavoriteItilities
   itineraryName: string;
   price: number;
   itineraryDetail: string;
+  departureDate:string
 }

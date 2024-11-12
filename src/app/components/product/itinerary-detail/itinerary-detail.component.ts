@@ -61,11 +61,11 @@ export class ItineraryDetailComponent implements OnInit {
       this.loadRelatedItineraries(this.itineraryDetail.activityId);
       this.initializeDayStatus();
         //=====確認是否為我的最愛===========================================================================
-    //     this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
-    //       if (data.result === 'ismyfavirite') {
-    //         this.isActive = true;
-    //       }
-    //     })
+        this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
+          if (data.result === 'ismyfavirite') {
+            this.isActive = true;
+          }
+        })
      });
   }
 
@@ -227,36 +227,36 @@ export class ItineraryDetailComponent implements OnInit {
  mycollection()
  {
   this.isActive = !this.isActive
-  // if(!this.isActive)
-  //   {
-  //     console.log('行程ID',this.itineraryDetail?.itinerarySystemId);
-  //     this.myareaService.Removemyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
-  //       if(data.result ==='success')
-  //         {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "從我的最愛中移除",
-  //             showConfirmButton: false,
-  //             timer: 2000
-  //           })
-  //         }
-  //     })
-  //   }
-  //   else if(this.isActive)
-  //     {
-  //       console.log('行程ID',this.itineraryDetail?.itinerarySystemId)
-  //       this.myareaService.Addtomyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
-  //         if(data.result==='success')
-  //           {
-  //             Swal.fire({
-  //               icon: "success",
-  //               title: "加入我的最愛",
-  //               showConfirmButton: false,
-  //               timer: 2000
-  //             })
-  //           }
-  //       })
-  //     }
+  if(!this.isActive)
+    {
+      console.log('行程ID',this.itineraryDetail?.itinerarySystemId);
+      this.myareaService.Removemyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
+        if(data.result ==='success')
+          {
+            Swal.fire({
+              icon: "success",
+              title: "從我的最愛中移除",
+              showConfirmButton: false,
+              timer: 1000
+            })
+          }
+      })
+    }
+    else if(this.isActive)
+      {
+        console.log('行程ID',this.itineraryDetail?.itinerarySystemId)
+        this.myareaService.Addtomyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
+          if(data.result==='success')
+            {
+              Swal.fire({
+                icon: "success",
+                title: "加入我的最愛",
+                showConfirmButton: false,
+                timer: 1000
+              })
+            }
+        })
+      }
  }
 
 }
