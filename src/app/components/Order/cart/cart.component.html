@@ -102,8 +102,9 @@
               <tr>
                 <td colspan="7" class="actions">
                   <div class="vs-cart-coupon">
+                    <h3 class="mt-4 pt-lg-2" style="margin-top: 0px !important; height: 60px; width: 150px; text-align: center;">優惠券</h3><br>
                     <!-- <input type="text" class="form-control" style="text-align: center;" placeholder="新用戶好禮" readonly /> -->
-                    <select name="coupon" style="text-align: center; border-radius: 1em; height: 60px;" (change)="saveCoupon($event)">
+                    <select name="coupon" style="text-align: center; border-radius: 1em; height: 60px; font-size: 18px;" (change)="saveCoupon($event)">
                       <option [value]="0">-------選擇優惠券-------</option>
                       <option [value]="100">驚喜大禮包 (-100)</option>
                       <option [value]="150">大大大優惠 (-150)</option>
@@ -114,7 +115,7 @@
                       使用優惠券
                     </button> -->
                   </div>
-                  <button (click)="goToHomePage()" class="vs-btn style4">繼續購物</button>
+                  <button (click)="goToHomePage()" class="vs-btn style4" style="padding: 20px ;">繼續購物</button>
               </tr>
             </tbody>
           </table>
@@ -149,10 +150,10 @@
           </table>
           <button class="vs-btn style4" (click)="goToCheckout()" style="width: 100%;">去結帳</button>
           <!-- <input type="text" id="textcontent"> -->
-          <input type="button" class="save" (click)="setcontent()" value="set">
+          <input type="button" class="save" (click)="setcontent()" value="Demo">
           <!-- <input type="button" class="alert" (click)="getcontent()" value="alert"> -->
           <!-- <input type="button" class="remove" (click)="removecontent()" value="remove"> -->
-          <input type="button" class="clear" (click)="clearcontent()" value="clear">
+          <input type="button" class="clear" (click)="clearCartItems()" value="Clear">
           <!-- <input type="button" class="getInfo" (click)="getMemberInfo()" value="getInfo"> -->
         </div>
       </div>

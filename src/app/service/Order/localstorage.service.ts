@@ -54,8 +54,7 @@ export class LocalstorageService {
 
   removeCart(){
     localStorage.removeItem(this.cartkey);
-    localStorage.removeItem('couponId');
-    localStorage.removeItem('remarks');
+
   }
 
   removeCartItem(itemId: number) {
@@ -75,6 +74,18 @@ export class LocalstorageService {
 
   clearCartItems() {
     localStorage.removeItem(this.cartkey);
+    localStorage.removeItem('couponId');
+    localStorage.removeItem('remarks');
+    localStorage.removeItem('discount');
+    localStorage.removeItem('memberId');
+    localStorage.removeItem('remarks');
+    localStorage.removeItem('totalAmount');
+    this.cartItemCountChanged.emit(this.getCartItemCount());
+  }
+
+  setDemoCartItems(demoItem:any){
+    localStorage.setItem('cart',demoItem);
+    this.cartItemCountChanged.emit(this.getCartItemCount());
   }
 
   getCartItemsCount():number{

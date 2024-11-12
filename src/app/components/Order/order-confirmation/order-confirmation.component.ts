@@ -12,6 +12,10 @@ constructor(private router:Router){
 
 }
 
+ngOnInit(): void {
+  window.scrollTo(0,0);
+}
+
 goToHomePage(){
   this.router.navigate(['home']);
 }

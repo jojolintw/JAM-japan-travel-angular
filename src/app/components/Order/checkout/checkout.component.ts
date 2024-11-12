@@ -64,6 +64,13 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  setRemarks(event:any){
+    this.remarks = event.target.value;
+    localStorage.setItem("remarks",this.remarks);
+  }
+
+
+
   calculateTotal(){
     this.productTotalAmount = this.cartItems.reduce((total, item)=>{
     return total + (item.price * item.quantity);
@@ -75,6 +82,7 @@ export class CheckoutComponent implements OnInit {
   saveCoupon(event: any){
     this.discount = event.target.value;
     localStorage.setItem("discount",this.discount.toString());
+    this.calculateTotal();
   }
 
 
@@ -108,6 +116,8 @@ export class CheckoutComponent implements OnInit {
         this.checkoutService.submitOrder().subscribe(
           (response)=>{
             console.log("提交並儲存訂單成功");
+
+
           },
           (error)=>{
             console.log("提交失敗");
@@ -133,14 +143,11 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  linepay(){
-
-  }
 
 
   demo(){
     this.remarks = "已回購，小孩愛吃";
-    return this.remarks;
+    localStorage.setItem("remarks",this.remarks)
   }
 
   goToCart() {
