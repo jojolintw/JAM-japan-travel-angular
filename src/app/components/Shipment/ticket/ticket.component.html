@@ -8,7 +8,7 @@
               <!-- 主內容區域 -->
               <div class="col-lg-9">
                 <label for="sort">排序：</label>
-                <select id="sort" name="sort" [(ngModel)]="selectedSortBy" (change)="applyFilter()">
+                <select id="sort" class="form-select" name="sort" [(ngModel)]="selectedSortBy" (change)="applyFilter()">
                   <option value="default">預設排序</option>
                   <option value="priceAsc">價格：低到高</option>
                   <option value="priceDesc">價格：高到低</option>
@@ -17,7 +17,7 @@
           
                 <div class="page-size-selector">
                   <label for="pageSize">每頁顯示:</label>
-                  <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
+                  <select id="pageSize" class="form-select" [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
                     <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
                   </select>
                 </div>
@@ -33,8 +33,9 @@
                       <span class="destination-price">{{ shipment.price | currency }}</span>
                       <div class="destination-info">
                         <h4 class="destination-name">
-                          <a href="#">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
+                          <a [routerLink]="['/shipment-detail', shipment.routeId]">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
                         </h4>
+                        
                         <!-- 顯示最近出發時間 -->
                         <p class="destination-text">下次出航時間:
                           {{ shipment.nextDeparture | date: 'yyyy-MM-dd' }}
