@@ -7,10 +7,89 @@
 	==============================-->
   <section class="space">
     <div class="container">
+      <div class="col-lg-4">
+        <div class="sidebar-area sticky-top" style="top: 200px; right: 250px;">
+          <div class="widget widget_tag_cloud">
+
+            <h3 class="widget_title">出發日期</h3>
+            <div class="tagcloud">
+              <div *ngFor="let schedule of schedules" class="date-option"
+                [class.active]="selectedScheduleId === schedule.scheduleId"
+                (click)="onScheduleSelected(schedule.scheduleId)">
+                {{ schedule.departureTime | date:'yyyy-MM/dd' }}
+              </div>
+            </div>
+
+
+            <!-- 側邊彈出視窗 -->
+            <app-schedule-detail *ngIf="showDetailPanel" [scheduleId]="selectedScheduleId!"
+              (close)="closePanel()"></app-schedule-detail>
+
+            <h3 class="widget_title mt-4">選擇人數</h3>
+            <select [(ngModel)]="selectedSeats" class="form-control">
+              <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
+            </select>
+
+            <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()"
+              [disabled]="!selectedScheduleId">
+              加入購物車
+            </button>
+          </div>
+
+        </div>
+      </div>
+
       <div class="row">
         <!-- 左邊主要欄 -->
         <div class="col-lg-8">
-          <div *ngIf="shipmentDetail">
+
+          <h2 class="ds-title"></h2>
+
+          <!-- Bootstrap Carousel -->
+          <!-- 主轮播图 -->
+          <!-- 主轮播图 -->
+          <div id="portImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <!-- 封面图片 -->
+              <div class="carousel-item active">
+                <img [src]="coverImageUrl || 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg'"
+                  class="d-block w-100" alt="Cover Image"
+                  onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
+              </div>
+
+              <!-- 剩余图片 -->
+              <div *ngFor="let image of portImages" class="carousel-item">
+                <img [src]="image.portImageUrl || 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg'"
+                  class="d-block w-100" alt="Port Image"
+                  onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
+              </div>
+            </div>
+
+            <!-- 轮播控制按钮 -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#portImagesCarousel"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#portImagesCarousel"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <!-- 縮略圖區域 -->
+          <div class="thumbnail-container mt-3">
+            <div class="thumbnail-wrapper">
+              <div class="thumbnail-item" *ngFor="let image of portImages">
+                <img [src]="image.portImageUrl" class="img-thumbnail" alt="Thumbnail"
+                  (click)="coverImageUrl = image.portImageUrl" />
+              </div>
+            </div>
+          </div>
+
+
+
+          <div *ngIf="shipmentDetail" class="col-lg-8">
             <h1 class="ds-title">{{ shipmentDetail.originPortName }} - {{ shipmentDetail.destinationPortName }}</h1>
 
             <div class="destination-details">
@@ -18,11 +97,9 @@
               <div class="price-info">
                 <h3>價格: 單程{{ shipmentDetail.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</h3>
               </div>
-              <div class="ds-img1">
-                <img [src]="shipmentDetail.imageUrl" alt="image">
-              </div>
 
-              <p class="ds-text">{{ shipmentDetail.routeDescription }}</p>
+
+              <p class="ds-text" [innerHTML]="shipmentDetail.routeDescription"></p>
 
               <div>
                 <h2 class="ds-title">出發地周邊地圖</h2>
@@ -36,48 +113,11 @@
                   style="border:0;" allowfullscreen="" loading="lazy"></iframe>
               </div>
 
-              
+
             </div>
 
-            <!-- 圖片區塊 -->
-            <div class="gallery-section mt-4">
-              <h2 class="ds-title">圖片</h2>
-              <p class="ds-text">那霸市是充滿活力的熱帶城市，擁有豐富的歷史和迷人的文化</p>
-              <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/16.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/16.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/17.JPG" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/17.JPG" class="popup-image"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/18.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/18.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="gallery-img5">
-                    <img src="assets/img/Shipment/19.jpg" alt="images">
-                    <div class="gallery-content">
-                      <a href="assets/img/Shipment/19.jpg" class="popup-image"><i class="fas fa-plus"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
 
             <!-- 費用包含/不包含 -->
             <div class="destinations-info mt-4">
@@ -113,38 +153,11 @@
           </div>
         </div>
 
+
+
+
         <!-- 右邊出發日期欄，設為懸浮 -->
-        <div class="col-lg-4">
-          <div class="sidebar-area sticky-top">
-            <div class="widget widget_tag_cloud">
 
-              <h3 class="widget_title">出發日期</h3>
-              <div class="tagcloud">
-                <div *ngFor="let schedule of schedules" class="date-option"
-                  [class.active]="selectedScheduleId === schedule.scheduleId"
-                  (click)="onScheduleSelected(schedule.scheduleId)">
-                  {{ schedule.departureTime | date:'MM/dd' }}
-                </div>
-              </div>
-            
-
-            <!-- 側邊彈出視窗 -->
-            <app-schedule-detail *ngIf="showDetailPanel" [scheduleId]="selectedScheduleId!"
-              (close)="closePanel()"></app-schedule-detail>
-
-            <h3 class="widget_title mt-4">選擇人數</h3>
-            <select [(ngModel)]="selectedSeats" class="form-control">
-              <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
-            </select>
-
-            <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()"
-              [disabled]="!selectedScheduleId">
-              加入購物車
-            </button>
-          </div>
-
-          </div>
-        </div>
 
 
 
@@ -158,7 +171,7 @@
 	==============================-->
 
   <!-- Script Files -->
-  <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+  <!-- <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
   <script src="assets/js/slick.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
@@ -167,7 +180,7 @@
   <script src="assets/js/imagesLoaded.js"></script>
   <script src="assets/js/isotope.js"></script>
   <script src="assets/js/wow.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js"></script> -->
 </body>
 
 </html>

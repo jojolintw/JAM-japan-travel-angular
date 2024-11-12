@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError,tap } from 'rxjs/operators';
 
 export interface Shipment {
   routeId: number;
@@ -13,6 +13,7 @@ export interface Shipment {
   imageBase64?: string;
   originPortGoogleMap?: string;
   destinationPortGoogleMap?: string;
+  nextDeparture: Date;
 }
 
 export interface PortDetail {
@@ -34,6 +35,15 @@ export interface ShipmentDetail {
   destinationPort: PortDetail;
   imageUrl?: string;
 }
+
+export interface PortImage {
+  portImageId: number;
+  portId: number;
+  portImageUrl: string;
+  portImageDescription: string | null;
+}
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +100,37 @@ export class ShipmentService {
       })
     );
 }
+
+getPortImages(portId: number): Observable<PortImage[]> {
+  return this.http.get<PortImage[]>(`${this.apiUrl}/GetPortImages?portId=${portId}`).pipe(
+    map((images) =>
+      images.map((image) => ({
+        ...image,
+        portImageUrl: image.portImageUrl 
+          ? `https://localhost:7100${image.portImageUrl}` // 添加完整的 URL 路径
+          : 'assets/img/Shipment/19.jpg' // 默认图片路径
+      }))
+    ),
+    tap((images) => console.log('Fetched port images with full URLs:', images)) // 检查数据
+  );
+}
+
+
+getPortIdByDestinationPort(destinationPort: string): Observable<number> {
+  return this.http.get<{ PortId: number }>(`${this.apiUrl}/GetPortIdByDestinationPort`, {
+    params: { destinationPort }
+  }).pipe(
+    map(response => response.PortId),
+    catchError(() => {
+      console.error("PortId not found for the specified destination port.");
+      return of(0); // 如果找不到，返回默认的PortId 0
+    })
+  );
+}
+
+
+
+
 
 
 
