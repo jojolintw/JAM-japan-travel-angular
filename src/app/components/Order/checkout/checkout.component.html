@@ -87,36 +87,37 @@
             <tfoot class="checkout-ordertable">
               <tr>
                 <th rowspan="4" colspan="3" style="padding: 0px;">
-                <form action="#" class="woocommerce-form-coupon bg-smoke" style="display: block; padding:10px 20px 20px 20px; border-top-left-radius: 0%;">
-                  <h4 class="mt-4 pt-lg-2" style="margin-top: 0px !important; padding: 0px;">優惠券</h4>
+                <form action="#" class="woocommerce-form-coupon bg-smoke" style="display: block; padding:20px; border-top-left-radius: 0%;">
+
                   <div class="row">
                     <div class="col-lg-4" style="display:flex ; width: 60%;">
+                      <h3 class="mt-4 pt-lg-2" style="margin-top: 0px !important; padding: 0px;height: 60px; width: 150px; text-align: center; ">優惠券</h3>
                         <!-- <input type="text" class="form-control" readonly> -->
-                        <select name="coupon" [(ngModel)]="selectedCoupon" style="text-align: center; border-radius: 1em; height: 60px;" (change)="saveCoupon($event)">
+                        <select name="coupon" [(ngModel)]="selectedCoupon" style="text-align: center; border-radius: 1em; height: 60px; font-size: 18px;" (change)="saveCoupon($event)">
                           <option [value]="0">-------選擇優惠券-------</option>
                           <option [value]="100">驚喜大禮包 (-100)</option>
                           <option [value]="150">大大大優惠 (-150)</option>
                           <option [value]="99">周年慶大放送 (-99)</option>
                           <option [value]="50">新用戶好禮 (-50)</option>
                         </select>
-                        <button id="selectcoupon" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button>
+                        <!-- <button id="selectcoupon" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button> -->
                     </div>
                   </div>
                 </form>
                 </th>
               </tr>
               <tr class="cart-subtotal">
-                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">商品總金額</th>
+                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle; font-size: 16px;">商品總金額</th>
                 <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
                         class="woocommerce-Price-currencySymbol">$</span>{{productTotalAmount}}</bdi></span></td>
               </tr>
               <tr class="woocommerce-shipping-totals shipping">
-                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle;">優惠券折扣</th>
+                <th style="border-bottom: 1px solid #ffccb1; text-align: center;vertical-align: middle; font-size: 16px;">優惠券折扣</th>
                 <td data-title="Subtotal" colspan="4" style=" text-align: center;vertical-align: middle;"><span class="woocommerce-Price-amount amount"><bdi><span
                   class="woocommerce-Price-currencySymbol">-$</span>{{discount}}</bdi></span></td>
               </tr>
               <tr class="order-total">
-                <th style=" text-align: center;vertical-align: middle;">訂單總金額</th>
+                <th style=" text-align: center;vertical-align: middle; font-size: 16px;">訂單總金額</th>
                 <td data-title="Total" colspan="4" style=" text-align: center;vertical-align: middle;"><strong><span class="woocommerce-Price-amount amount"><bdi><span
                           class="woocommerce-Price-currencySymbol">$</span>{{totalAmount}}</bdi></span></strong>
                 </td>
@@ -148,8 +149,8 @@
           <div class="col-lg-6">
             <h2 class="h4">備註</h2>
             <div class="col-12 form-group">
-              <textarea id="remarks" cols="20" rows="5" class="form-control"
-                placeholder="備註">{{remarks}}</textarea>
+              <textarea cols="20" rows="5" class="form-control"
+                placeholder="備註" style="font-size: 18px; height: 80px;" name="remarks" [(ngModel)]="remarks" (input)="setRemarks($event)"></textarea>
             </div>
             <h4 class="mt-4 pt-lg-2">付款方式</h4>
             <div class="mt-lg-3">
