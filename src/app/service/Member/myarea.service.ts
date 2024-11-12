@@ -5,6 +5,7 @@ import { Area } from 'src/app/interface/Member/Area';
 import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
+import { Mycoupon } from 'src/app/interface/Member/MyCoupon';
 import { MyfavoriteItilities } from 'src/app/interface/Member/MyfavoriteItilities';
 
 @Injectable({
@@ -34,7 +35,7 @@ export class MyareaService {
   GetAllArea() {
     return this.client.get<Area[]>('https://localhost:7100/api/Member/GetAllArea', { withCredentials: true })
   }
-  //=============================================================================================
+  //我的最愛相關=============================================================================================
   //加入我的最愛
   Addtomyfavorite(id: any) {
     return this.client.get<any>(`https://localhost:7100/api/Member/AddtoMyfavirite/${id}`, { withCredentials: true })
@@ -51,9 +52,27 @@ export class MyareaService {
   GetAllMyfavorites() {
     return this.client.get<MyfavoriteItilities[]>(`https://localhost:7100/api/Member/GetAllMyfavorite`, { withCredentials: true })
   }
-  //取出所有我的最愛
+  //取出所有地區分類的我的最愛
   GetAreaMyfavorites(para: number) {
     return this.client.get<MyfavoriteItilities[]>(`https://localhost:7100/api/Member/GetAreaMyfavorite/${para}`, { withCredentials: true })
   }
+
+  //我的優惠券相關==========================================================
+  //取出所有我的優惠券
+  GetAllMycoupon() {
+    return this.client.get<Mycoupon[]>(`https://localhost:7100/api/Coupon/GetAllMycoupon`, { withCredentials: true })
+  }
+  //取出所有我已使用的優惠券
+  GetAllMyUsedcoupon() {
+    return this.client.get<Mycoupon[]>(`https://localhost:7100/api/Coupon/GetAllMyUsedcoupon`, { withCredentials: true })
+  }
+  //取出所有我已使用的優惠券
+  GetAllMyAvailablecoupon() {
+    return this.client.get<Mycoupon[]>(`https://localhost:7100/api/Coupon/GetAllMyAvailablecoupon`, { withCredentials: true })
+  }
+    //領取優惠券
+    Getoupon(para:number) {
+      return this.client.get<any>(`https://localhost:7100/api/Coupon/Getoupon/${para}`, { withCredentials: true })
+    }
 }
 

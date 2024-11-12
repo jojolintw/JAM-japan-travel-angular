@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Area } from 'src/app/interface/Member/Area';
 import { MyfavoriteItilities } from 'src/app/interface/Member/MyfavoriteItilities';
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class MycollectionComponent {
 
-  constructor(private myareaService: MyareaService) { }
+  constructor(private router:Router,private myareaService: MyareaService) { }
 
   areas:Area[]=[];
   myfavoriteItilities: MyfavoriteItilities[] = [];
@@ -67,6 +68,9 @@ export class MycollectionComponent {
       }
 
   }
-
+  gotoDetail(itinerarySystemId: number)
+  {
+    this.router.navigate(['/itinerary-detail', itinerarySystemId]);
+  }
 
 }

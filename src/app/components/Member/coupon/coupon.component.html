@@ -1,64 +1,76 @@
 <div class="page">
-  <h1 style="margin-bottom: 40px;"><b>JAM 優惠券</b></h1>
+  <h1 style="margin-bottom: 40px;"><b>我的優惠券</b></h1>
   <ul class="nav nav-tabes page-tabe">
-    <li class="page-item"><a class="page-link" href="#"
+    <li class="page-item"><a class="page-link" (click)="changetoA()"
         style="color: #7B7B7B; border:none; font-size: 20px;"><b>可使用</b></a></li>
-    <li class="page-item"><a class="page-link" href="#"
+    <li class="page-item"><a class="page-link" (click)="changetoB()"
         style="color: #7B7B7B; border:none; font-size: 20px;"><b>已使用</b></a></li>
-    <li class="page-item"><a class="page-link" href="#"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>無法使用</b></a></li>
+    <li class="page-item"><a class="page-link" (click)="changetoC()"
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>可領取</b></a></li>
   </ul>
   <hr>
-  <div class="container page-body">
-    <div class="col-md-12">
-      <!-- =======卡片========================================= -->
-      <div class="row" style="margin-top: 30px;">
-      <div class="card col-md-5" style="margin-left: 30px; border-radius: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">驚喜大禮包</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">9 折</h6>
-          <p class="card-text">消費滿1000元可以使用!</p>
-          <hr>
-          <p>有效期限至: 2024-11-30</p>
+<!-- ================================================================================================================= -->
+  <div [ngSwitch]="selectedSection">
+    <!-- 可使用 -->
+    <div class="container page-body" *ngSwitchCase="'可使用'">
+      <div class="col-md-12">
+        <!-- =======卡片========================================= -->
+        <div class="row" style="margin-top: 30px;">
+          <div *ngFor="let item of allmycoupon" class="card col-md-5" style="margin-left: 30px; margin-top: 30px; border-radius: 10px;">
+            <div class="card-body">
+              <h5 class="card-title">{{item.couponName}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">折扣 NT {{item.discount}} 元</h6>
+              <p class="card-text">可使用</p>
+              <hr>
+              <p>有效期限至: {{item.expirationDate}}</p>
+            </div>
+          </div>
         </div>
+
       </div>
-      <div class="card col-md-5" style="margin-left: 30px; border-radius: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">新用戶好禮</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">77 折</h6>
-          <p class="card-text">不限金額!</p>
-          <hr>
-          <p>有效期限至: 2024-12-31</p>
+    </div>
+<!-- ============================================================================================================================ -->
+    <div class="container page-body" *ngSwitchCase="'已使用'">
+      <div class="col-md-12">
+        <!-- =======卡片========================================= -->
+        <div class="row" style="margin-top: 30px;">
+          <div *ngFor="let item of allmyusedcoupon" class="card col-md-5" style="margin-left: 30px; margin-top: 30px; border-radius: 10px; background-color: 	#FCFCFC; color: #6C6C6C;">
+            <div class="card-body">
+              <h5 class="card-title">{{item.couponName}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">折扣 NT {{item.discount}} 元</h6>
+              <p class="card-text" style="color: red;">已使用</p>
+              <hr>
+              <p>有效期限至: {{item.expirationDate}}</p>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
 
-    <div class="row" style="margin-top: 30px;">
-      <div class="card col-md-5" style="margin-left: 30px; border-radius: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">歡慶開學季</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">87 折</h6>
-          <p class="card-text">消費滿500元可以使用!</p>
-          <hr>
-          <p>有效期限至: 2025-1-31</p>
+    <!-- //============================================================================================================== -->
+    <div class="container page-body" *ngSwitchCase="'可領取'">
+      <div class="col-md-12">
+        <!-- =======卡片========================================= -->
+        <div class="row" style="margin-top: 30px;">
+          <div *ngFor="let item of allmyavailablecoupon" class="card col-md-5" style="margin-left: 30px; margin-top: 30px; border-radius: 10px;" (click)="getCoupon(item.couponId)" >
+            <div class="card-body">
+              <h5 class="card-title">{{item.couponName}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">折扣 NT {{item.discount}} 元</h6>
+              <b class="card-text" style="color: red;">請點擊領取優惠券!</b>
+              <hr>
+              <p>有效期限至: {{item.expirationDate}}</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="card col-md-5" style="margin-left: 30px; border-radius: 10px;">
-        <div class="card-body">
-          <h5 class="card-title">JAM 周年慶</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">69 折</h6>
-          <p class="card-text">消費滿5000元可以使用!</p>
-          <hr>
-          <p>有效期限至: 2025-9-30</p>
-        </div>
+
       </div>
     </div>
 
 
 
-
-
-
-    </div>
+<!-- //========================================================================================================== -->
   </div>
 </div>
+
+

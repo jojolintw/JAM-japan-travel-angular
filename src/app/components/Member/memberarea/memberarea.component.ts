@@ -58,6 +58,12 @@ export class MemberareaComponent {
     }
 
   ngOnInit(): void {
+
+    if(sessionStorage.getItem('PreviousPage') != null)
+      {
+        this.selectedComponent = sessionStorage.getItem('PreviousPage') as string;
+      }
+
     this.getMemberData();
   }
 //取得會員資料=============================================================================
@@ -138,20 +144,25 @@ onFileSelected(event: Event)
   // 去別頁===================================================================================
   goToAccount() {
     this.selectedComponent = 'account';
+    sessionStorage.setItem('PreviousPage','account');
   }
   goTomymemberlevel() {
     this.selectedComponent = 'mymemberlevel';
+    sessionStorage.setItem('PreviousPage','mymemberlevel');
   }
   goToMycollection() {
     this.selectedComponent = 'mycollection';
+    sessionStorage.setItem('PreviousPage','mycollection');
   }
   goToMyOrder() {
     this.selectedComponent = 'myorder';
+    sessionStorage.setItem('PreviousPage','myorder');
   }
   goToOrderDetail(newvalue: string) {
     this.selectedComponent = newvalue;
   }
   goToMyCoupon() {
     this.selectedComponent = 'coupon';
+    sessionStorage.setItem('PreviousPage','coupon');
   }
 }

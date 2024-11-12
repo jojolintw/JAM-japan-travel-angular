@@ -19,7 +19,7 @@
             <img src="assets/img/Member/日本風景.png" alt="blog image" style="width: 300px; height: 300px;">
           </div>
           <div class="blog-content col-md-7" style="margin-bottom: 20px;margin-top: 20px;">
-            <h2 class="blog-title"><a href="">{{item.itineraryName}}</a></h2>
+            <h2 class="blog-title"><a (click)="gotoDetail(item.itinerarySystemId)">{{item.itineraryName}}</a></h2>
             <p>
               {{item.itineraryDetail | myfavorite}}
             </p>
