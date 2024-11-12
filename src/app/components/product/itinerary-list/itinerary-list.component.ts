@@ -8,7 +8,7 @@ import { Activity } from 'src/app/interface/Product/Activity';
 import { Search } from 'src/app/interface/Product/Search';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class ItineraryListComponent implements OnInit {
   itemsPerPage: number = 6; // 每页显示的条目数
   currentPage: number = 1; // 当前页码\
   pages: number[] = [];
-
+  themeActivities: theme_Activity[] = [];
   searchForm : Search = {
     name: '',
     location: '',
@@ -44,6 +44,15 @@ export class ItineraryListComponent implements OnInit {
     this.loadActivityNames();
     this.loadAllItineraries();
     this.onSearch();
+    this.route.params.subscribe(params => {
+      if (params['themeId']) {
+        this.loadItinerariesByTheme(params['themeId']);
+      } else if (params['activityId']) {
+        this.loadItinerariesByActivity(params['activityId']);
+      } else {
+        this.loadAllItineraries();
+      }
+    });
   }
 
   onSearch() {
@@ -62,6 +71,44 @@ export class ItineraryListComponent implements OnInit {
   onSortChange(sortType: string) {
     this.searchForm.sortBy = sortType;
     this.onSearch();
+  }
+
+  loadAllThemeActivities(): void {
+    this.itineraryService.getAllThemeActivities()
+      .subscribe({
+        next: (data) => {
+          this.themeActivities = data;
+        },
+        error: (error) => {
+          console.error('獲取主題活動失敗:', error);
+        }
+      });
+  }
+
+  loadItinerariesByTheme(themeId: number): void {
+    this.itineraryService.getItinerariesByTheme(themeId)
+      .subscribe({
+        next: (data) => {
+          this.tours = data;
+          this.calculatePages();
+        },
+        error: (error) => {
+          console.error('獲取主題行程失敗:', error);
+        }
+      });
+  }
+
+  loadItinerariesByActivity(activityId: number): void {
+    this.itineraryService.getItinerariesByActivity(activityId)
+      .subscribe({
+        next: (data) => {
+          this.tours = data;
+          this.calculatePages();
+        },
+        error: (error) => {
+          console.error('獲取活動行程失敗:', error);
+        }
+      });
   }
 
   loadActivityNames(): void {
@@ -142,5 +189,6 @@ export class ItineraryListComponent implements OnInit {
     this.currentPage = 1;
     this.calculatePages();
   }
+
 
 }

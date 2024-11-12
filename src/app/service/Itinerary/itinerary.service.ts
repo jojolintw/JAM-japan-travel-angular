@@ -6,6 +6,7 @@ import { ItineraryList } from '../../interface/Product/itinerary-list.interface'
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
 import { Activity } from 'src/app/interface/Product/Activity';
 import { HttpParams } from '@angular/common/http';
+import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 
 
 @Injectable({
@@ -18,6 +19,18 @@ export class ItineraryService {
 
   getActivity(): Observable<Activity[]> {
     return this.http.get<Activity[]>(`${this.apiUrl}/activity`);
+  }
+
+  getAllThemeActivities(): Observable<theme_Activity[]> {
+    return this.http.get<theme_Activity[]>(`${this.apiUrl}/theme_activities`);
+  }
+
+  getItinerariesByTheme(themeId: number): Observable<ItineraryList[]> {
+    return this.http.get<ItineraryList[]>(`${this.apiUrl}/itineraries/theme/${themeId}`);
+  }
+
+  getItinerariesByActivity(activityId: number): Observable<ItineraryList[]> {
+    return this.http.get<ItineraryList[]>(`${this.apiUrl}/itineraries/activity/${activityId}`);
   }
 
   getItinerariesByRegion(region: number): Observable<any> {

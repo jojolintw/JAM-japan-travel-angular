@@ -16,7 +16,8 @@ export class HomePageComponent implements OnInit {
     {
       itinerarySystemId: 1,
       itineraryName: '東京鐵塔浪漫之夜',
-      activityId: 1,
+      activitySystemId: 1,
+      activityName: '高空導覽',
       itineraryDate: ['2024-12-01'],
       imagePath: 'tokyotower.jpg',
       availableDate: '可報名',
@@ -26,7 +27,8 @@ export class HomePageComponent implements OnInit {
     {
       itinerarySystemId: 2,
       itineraryName: '沖繩SUP體驗 新手友善',
-      activityId: 2,
+      activitySystemId: 2,
+      activityName: '水上活動',
       itineraryDate: ['2024-12-01'],
       imagePath: 'sup.jpg',
       availableDate: '可報名',
@@ -36,7 +38,8 @@ export class HomePageComponent implements OnInit {
     {
       itinerarySystemId: 3,
       itineraryName: '挑戰日本最高峰',
-      activityId: 3,
+      activitySystemId: 3,
+      activityName: '登山',
       itineraryDate: ['2024-12-01'],
       imagePath: 'fujiyama.jpg',
       availableDate: '可報名',
@@ -46,7 +49,8 @@ export class HomePageComponent implements OnInit {
     {
       itinerarySystemId: 4,
       itineraryName: '手作烏冬體驗',
-      activityId: 4,
+      activitySystemId: 4,
+      activityName: '美食',
       itineraryDate: ['2024-12-01'],
       imagePath: 'noodle.jpg',
       availableDate: '可報名',

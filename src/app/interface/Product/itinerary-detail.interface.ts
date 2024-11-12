@@ -1,3 +1,4 @@
+import { theme_Activity } from "./Theme-Activity";
 
 interface itineraryBatch {
   itineraryDateSystemId: number;
@@ -7,8 +8,9 @@ interface itineraryBatch {
 export interface ItineraryDetail {
   itinerarySystemId: number;
   itineraryName: string;
-  activityId: number;
+  activitySystemId: number;
   activityName: string;
+  themeActivity: theme_Activity;
   areaName: string;
   imagePath: string[];
   itineraryBatch: itineraryBatch[];

@@ -1,7 +1,8 @@
 export interface ItineraryList {
   itinerarySystemId: number;
   itineraryName: string;
-  activityId: number;
+  activitySystemId: number;
+  activityName: string;
   itineraryDate: string[];
   areaName: string;
   imagePath: string;

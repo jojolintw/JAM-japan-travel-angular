@@ -55,6 +55,7 @@ const routes: Routes = [
     path: 'member',
     component: MemberareaComponent
    },
+
    {
     path: 'itinerary-list',
     children:[
@@ -73,10 +74,13 @@ const routes: Routes = [
       {
         path:'theme',
         component: ItineraryListComponent
-      }
+      },
+
     ]
    },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },
+  { path: 'theme/:id', component: ItineraryListComponent },
+  { path: 'theme_activity/:id', component: ItineraryListComponent },
 
   // { path: 'shipment-detail', component: DetailComponent },
   { path: 'shipment-ticket', component: TicketComponent },

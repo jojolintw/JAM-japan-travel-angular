@@ -12,6 +12,25 @@
         Low</button>
     </div>
     <div class="container">
+      <ol class="breadcrumb">
+        <li>
+          <a [routerLink]="['/themes']">體驗主題</a>
+        </li>
+        <ng-container *ngFor="let theme of themeActivities">
+          <li>
+            <a [routerLink]="['/itinerary-list']" [queryParams]="{themeId: theme.themeSystemId}">
+              {{theme.themeName}}
+            </a>
+            <ng-container *ngFor="let activity of theme.activities">
+              <li>
+                <a [routerLink]="['/itinerary-list']" [queryParams]="{activityId: activity.activitySystemId}">
+                  {{activity.activityName}}
+                </a>
+              </li>
+            </ng-container>
+          </li>
+        </ng-container>
+      </ol>
       <div class="shadow-content1">
         <div class="row">
           <div class="col-lg-9">
