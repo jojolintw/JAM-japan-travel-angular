@@ -9,6 +9,7 @@ import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
 import Swal from 'sweetalert2';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
+import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class ItineraryDetailComponent implements OnInit {
   quantity: number = 1;
   cartItems: cartItem[]=[];
   isActive: boolean = false;
-
+  itineraryDateSystemId: number = 0;
 
   selectedIndex = 0;
   selectedImage = this.itineraryDetail?.imagePath[0];
@@ -58,8 +59,9 @@ export class ItineraryDetailComponent implements OnInit {
   loadItineraryDetail(id: number): void {
     this.itineraryService.getItineraryById(id).subscribe(response => {
       this.itineraryDetail = response;
-      this.loadRelatedItineraries(this.itineraryDetail.activityId);
+      this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
       this.initializeDayStatus();
+
         //=====確認是否為我的最愛===========================================================================
     //     this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
     //       if (data.result === 'ismyfavirite') {
@@ -174,6 +176,7 @@ export class ItineraryDetailComponent implements OnInit {
     const formattedDateTime = this.selectedDate + ' ' + time;
     // 更新界面状态
     this.selectedTime = time;
+    this.itineraryDateSystemId = batch.itineraryDateSystemId;
 
   }
 
@@ -207,7 +210,7 @@ export class ItineraryDetailComponent implements OnInit {
  //加入購物車
  addToCart():void{
   const newCartItem:cartItem={
-    itineraryDateSystemId:1,
+    itineraryDateSystemId: this.itineraryDateSystemId as number,
     ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
     name:this.itineraryDetail?.itineraryName as string,
     price:this.itineraryDetail?.price as number,
@@ -215,6 +218,7 @@ export class ItineraryDetailComponent implements OnInit {
     imagePath:this.itineraryDetail?.imagePath[0] as string
   }
   this.localStorageService.addToCart(newCartItem);
+  console.log(newCartItem);
  }
 
  getItineraryDetails():string[]{
