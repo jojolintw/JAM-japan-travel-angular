@@ -10,9 +10,6 @@ import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
   styleUrls: ['./memberarea.component.css']
 })
 
-
-
-
 export class MemberareaComponent {
 
 
