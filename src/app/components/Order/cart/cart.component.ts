@@ -19,14 +19,14 @@ export class CartComponent {
 
   demoItem: cartItem[] = [{
     ItinerarySystemId: 2,
-    itineraryDateSystemId: 4,
-    name: '【石垣島/半天】世界公認的「川平灣」SUP/獨木舟可供選擇★免費交通/照片數據，無需額外費用，接受當天預訂！',
-    price: 7900,
+    itineraryDateSystemId: 3053,
+    name: '「川平灣」SUP/獨木舟可供選擇★',
+    price: 5000,
     quantity: 4,
     imagePath: '',
   }, {
     ItinerarySystemId: 22,
-    itineraryDateSystemId: 7,
+    itineraryDateSystemId: 3079,
     name: '溪流釣魚',
     price: 1254,
     quantity: 6,

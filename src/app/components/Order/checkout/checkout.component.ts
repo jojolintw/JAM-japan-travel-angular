@@ -113,26 +113,26 @@ export class CheckoutComponent implements OnInit {
     }).then((resulte)=>{
       if(resulte.isConfirmed){
         // 提交訂單
-        // this.checkoutService.submitOrder().subscribe(
-        //   (response)=>{
-        //     console.log("提交並儲存訂單成功");
-
-
-        //   },
-        //   (error)=>{
-        //     console.log("提交失敗");
-        //   }
-        // );
-
-        // 寄送email
-        this.checkoutService.sendOrderInfoEmail().subscribe(
+        this.checkoutService.submitOrder().subscribe(
           (response)=>{
-            console.log("寄送成功",response);
+            console.log("提交並儲存訂單成功");
+
+
           },
           (error)=>{
-            console.log("fail",error);
+            console.log("提交失敗");
           }
         );
+
+        // 寄送email
+        // this.checkoutService.sendOrderInfoEmail().subscribe(
+        //   (response)=>{
+        //     console.log("寄送成功",response);
+        //   },
+        //   (error)=>{
+        //     console.log("fail",error);
+        //   }
+        // );
 
         // 下單成功頁面
         // this.router.navigate(['orderconfirmation']);
