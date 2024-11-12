@@ -136,5 +136,7 @@ export class DetailComponent implements OnInit {
       this.cart2Service.setSelectedSeats(this.selectedSeats);
       this.router.navigate(['/cart2']);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
+
   }
 }
