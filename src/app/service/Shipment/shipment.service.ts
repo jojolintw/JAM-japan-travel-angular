@@ -13,6 +13,7 @@ export interface Shipment {
   imageBase64?: string;
   originPortGoogleMap?: string;
   destinationPortGoogleMap?: string;
+  nextDeparture: Date;
 }
 
 export interface PortDetail {

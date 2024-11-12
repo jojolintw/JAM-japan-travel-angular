@@ -16,7 +16,7 @@
               <div *ngFor="let schedule of schedules" class="date-option"
                 [class.active]="selectedScheduleId === schedule.scheduleId"
                 (click)="onScheduleSelected(schedule.scheduleId)">
-                {{ schedule.departureTime | date:'MM/dd' }}
+                {{ schedule.departureTime | date:'yyyy-MM/dd' }}
               </div>
             </div>
 
@@ -78,18 +78,14 @@
           </div>
 
           <!-- 縮略圖區域 -->
-<div class="thumbnail-container mt-3">
-  <div class="thumbnail-wrapper">
-    <div class="thumbnail-item" *ngFor="let image of portImages">
-      <img
-        [src]="image.portImageUrl"
-        class="img-thumbnail"
-        alt="Thumbnail"
-        (click)="coverImageUrl = image.portImageUrl"
-      />
-    </div>
-  </div>
-</div>
+          <div class="thumbnail-container mt-3">
+            <div class="thumbnail-wrapper">
+              <div class="thumbnail-item" *ngFor="let image of portImages">
+                <img [src]="image.portImageUrl" class="img-thumbnail" alt="Thumbnail"
+                  (click)="coverImageUrl = image.portImageUrl" />
+              </div>
+            </div>
+          </div>
 
 
 
@@ -103,7 +99,7 @@
               </div>
 
 
-              <p class="ds-text">{{ shipmentDetail.routeDescription }}</p>
+              <p class="ds-text" [innerHTML]="shipmentDetail.routeDescription"></p>
 
               <div>
                 <h2 class="ds-title">出發地周邊地圖</h2>
