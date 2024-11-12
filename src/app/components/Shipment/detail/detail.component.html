@@ -79,6 +79,17 @@
               </div>
             </div>
 
+            <div class="port-images">
+              <div *ngFor="let image of portImages" class="port-image-item">
+                <img [src]="image.portImageUrl" alt="Port Image" style="width: 100%;" />
+                <p *ngIf="image.portImageDescription">{{ image.portImageDescription }}</p>
+              </div>
+            </div>
+            
+            
+            
+
+
             <!-- 費用包含/不包含 -->
             <div class="destinations-info mt-4">
               <h2>費用包含/不包含</h2>

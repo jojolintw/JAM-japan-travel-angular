@@ -1,10 +1,11 @@
-// detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ShipmentService,ShipmentDetail } from '../../../service/Shipment/shipment.service';
-import { ScheduleService,Schedule  } from '../../../service/Shipment/schedule.service';
-import { Cart2Service } from '../../../service/Shipment/cart2.service'; // 引入CartService
+import { ShipmentService, ShipmentDetail } from '../../../service/Shipment/shipment.service';
+import { ScheduleService, Schedule } from '../../../service/Shipment/schedule.service';
+import { Cart2Service } from '../../../service/Shipment/cart2.service';
 import { Router } from '@angular/router';
+  
+
 
 @Component({
   selector: 'app-detail',
@@ -16,24 +17,28 @@ export class DetailComponent implements OnInit {
   schedules: Schedule[] = [];
   selectedScheduleId: number | null = null;
   selectedSeats: number = 1;
-  showDetailModal: boolean = false; // 控制彈出視窗的顯示
+  showDetailModal: boolean = false;
   showDetailPanel: boolean = false;
-  item: any = { name: '商品名稱', price: 100 }; // 假設的商品數據
+  item: any = { name: '商品名稱', price: 100 };
   
+  // 新增的屬性來存儲圖片
+  coverImageUrl: string = ''; // 封面圖片
+  portImages: any[] = []; // 剩餘圖片
 
-   constructor(
+  constructor(
     private route: ActivatedRoute,
     private shipmentService: ShipmentService,
     private scheduleService: ScheduleService,
-    private cart2Service: Cart2Service, 
+    private cart2Service: Cart2Service,
     private router: Router
   ) {}
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     const routeId = Number(this.route.snapshot.paramMap.get('routeId'));
     if (!isNaN(routeId)) {
       this.getShipmentDetail(routeId);
       this.getSchedules(routeId);
+      this.loadPortImages(routeId); // 新增：根據 RouteId 加載圖片
     }
   }
 
@@ -43,65 +48,46 @@ export class DetailComponent implements OnInit {
       error: (err) => console.error('Error fetching shipment details:', err)
     });
   }
-
+  
+  
   getSchedules(routeId: number): void {
     this.scheduleService.getSchedulesByRouteId(routeId).subscribe({
       next: (data) => {
-        // 按出發日期排序
         this.schedules = data.sort((a, b) => new Date(a.departureTime).getTime() - new Date(b.departureTime).getTime());
       },
       error: (err) => console.error('Error fetching schedules:', err)
     });
   }
+
+  loadPortImages(portId: number): void {
+    this.shipmentService.getPortImages(portId).subscribe({
+      next: (images) => {
+        this.portImages = images;
+        console.log('Fetched port images:', images);
+      },
+      error: (err) => console.error('Error fetching port images:', err)
+    });
+  }
   
+  
+
+
   onScheduleSelected(scheduleId: number): void {
     this.selectedScheduleId = scheduleId;
-    this.showDetailPanel = true; // 打開側邊視窗
+    this.showDetailPanel = true;
   }
 
   closePanel(): void {
-    this.showDetailPanel = false; // 關閉側邊視窗
+    this.showDetailPanel = false;
   }
 
-  // addToCart(): void {
-  //   if (this.selectedScheduleId) {
-  //     // 假設加入購物車的邏輯，例如保存到本地存儲或發送請求
-  //     const selectedSchedule = this.schedules.find(s => s.scheduleId === this.selectedScheduleId);
-  //     console.log('加入購物車:', {
-  //       scheduleId: selectedSchedule?.scheduleId,
-  //       seats: this.selectedSeats
-  //     });
-  //     alert(`成功將 ${this.selectedSeats} 人的航班加入購物車！`);
-  //   } else {
-  //     alert("請選擇出發日期和人數！");
-  //   }
-  // }
-  // addToCart() {
-  //   const selectedSchedule = this.schedules.find(schedule => schedule.scheduleId === this.selectedScheduleId);
-  //   if (selectedSchedule) {
-      
-  //     // 將所選行程和人數儲存到 Cart2Service
-  //     this.cart2Service.setSelectedSchedule(selectedSchedule);
-  //     this.cart2Service.setSelectedSeats(this.selectedSeats);
-
-  //     // 跳轉到 cart2 頁面
-  //     this.router.navigate(['/cart2']);
-  //   }
-  // }  
   addToCart() {
     const selectedSchedule = this.schedules.find(schedule => schedule.scheduleId === this.selectedScheduleId);
     if (selectedSchedule && this.shipmentDetail) {
-      // 使用擴展運算符創建一個包含 price 的新物件
       const scheduleWithPrice = { ...selectedSchedule, price: this.shipmentDetail.price };
-  
-      // 將所選行程和人數儲存到 Cart2Service
       this.cart2Service.setSelectedSchedule(scheduleWithPrice);
       this.cart2Service.setSelectedSeats(this.selectedSeats);
-  
-      // 跳轉到 cart2 頁面
       this.router.navigate(['/cart2']);
     }
   }
-  
-  
 }

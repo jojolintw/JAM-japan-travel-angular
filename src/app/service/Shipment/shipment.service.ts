@@ -35,6 +35,15 @@ export interface ShipmentDetail {
   imageUrl?: string;
 }
 
+export interface PortImage {
+  portImageId: number;
+  portId: number;
+  portImageUrl: string;
+  portImageDescription: string | null;
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -91,6 +100,16 @@ export class ShipmentService {
     );
 }
 
+getPortImages(portId: number): Observable<PortImage[]> {
+  return this.http.get<PortImage[]>(`${this.apiUrl}?portId=${portId}`).pipe(
+    map((images) =>
+      images.map((image) => ({
+        ...image,
+        portImageUrl: `https://localhost:7100${image.portImageUrl}`, // 添加完整的 URL 路徑
+      }))
+    )
+  );
+}
 
 
 
