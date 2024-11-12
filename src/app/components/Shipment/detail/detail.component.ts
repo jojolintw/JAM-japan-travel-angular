@@ -4,7 +4,8 @@ import { ShipmentService, ShipmentDetail } from '../../../service/Shipment/shipm
 import { ScheduleService, Schedule } from '../../../service/Shipment/schedule.service';
 import { Cart2Service } from '../../../service/Shipment/cart2.service';
 import { Router } from '@angular/router';
-  
+import * as bootstrap from 'bootstrap';
+
 
 
 @Component({
@@ -62,14 +63,60 @@ export class DetailComponent implements OnInit {
   loadPortImages(portId: number): void {
     this.shipmentService.getPortImages(portId).subscribe({
       next: (images) => {
-        this.portImages = images;
-        console.log('Fetched port images:', images);
+        // 如果沒有圖片，使用預設封面圖
+        if (images.length === 0) {
+          this.coverImageUrl = 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg';
+          this.portImages = [{ portImageUrl: this.coverImageUrl, portImageDescription: '預設封面圖' }];
+        } else {
+          this.coverImageUrl = images[0].portImageUrl; // 將第一張設為封面圖
+          this.portImages = [{ portImageUrl: this.coverImageUrl, portImageDescription: images[0].portImageDescription }, ...images.slice(1)];
+        }
+        console.log('Port images loaded:', this.portImages);
       },
       error: (err) => console.error('Error fetching port images:', err)
     });
+}
+
+  
+  
+  loadPortImagesByDestinationPort(): void {
+    const destinationPort = this.shipmentDetail?.destinationPortName;
+    if (destinationPort) {
+      this.shipmentService.getPortIdByDestinationPort(destinationPort).subscribe({
+        next: (portId) => {
+          if (portId) {
+            // 使用 PortId 加载图片
+            this.shipmentService.getPortImages(portId).subscribe({
+              next: (images) => {
+                this.portImages = images.map(img => ({
+                  ...img,
+                  portImageUrl: img.portImageUrl
+                    ? `https://localhost:7100${img.portImageUrl}`
+                    : 'assets/img/Shipment/19.jpg' // 使用默认图片
+                }));
+                console.log('Port images loaded:', this.portImages);
+
+                if (this.portImages.length > 0) {
+                  this.coverImageUrl = this.portImages[0].portImageUrl;
+                  this.portImages = this.portImages.slice(1);
+                }
+              },
+              error: (err) => console.error('Error fetching port images:', err)
+            });
+          }
+        },
+        error: (err) => console.error('Error fetching PortId:', err)
+      });
+    }
   }
   
-  
+  setActiveSlide(index: number): void {
+    const carousel = document.getElementById('portImagesCarousel');
+    if (carousel) {
+      const bsCarousel = new bootstrap.Carousel(carousel);
+      bsCarousel.to(index); // 切換到指定的圖片索引
+    }
+  }
 
 
   onScheduleSelected(scheduleId: number): void {

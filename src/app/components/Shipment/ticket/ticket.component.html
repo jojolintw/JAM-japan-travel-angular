@@ -47,21 +47,22 @@
                     <li *ngIf="pageNumber > 1">
                       <a (click)="onPageChange(pageNumber - 1)"><i class="fas fa-chevron-left"></i></a>
                     </li>
-          
+                
                     <li *ngFor="let page of [].constructor(getTotalPages()); let i = index">
                       <a (click)="onPageChange(i + 1)" [class.active]="i + 1 === pageNumber">{{ i + 1 }}</a>
                     </li>
-          
+                
                     <li *ngIf="pageNumber < getTotalPages()">
                       <a (click)="onPageChange(pageNumber + 1)"><i class="fas fa-chevron-right"></i></a>
                     </li>
                   </ul>
                 </div>
+                
               </div>
           
               <!-- 右側固定的查詢欄 -->
               <div class="col-lg-3">
-                <div class="sidebar-area sticky-sidebar">
+                <div class="sidebar-area sticky-top" style="top: 200px; right: 250px;">
                   <div class="location-selector">
                     <label for="originPort">出發地</label>
                     <select id="originPort" name="originPort" class="form-select" [(ngModel)]="selectedOriginPort" (change)="onOriginPortChange()">

@@ -1,55 +1,112 @@
 .date-option {
-    padding: 8px 12px;
-    margin: 4px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .date-option:hover {
-    background-color: #66BAB7;
-  }
-  
-  .date-option.active {
-    background-color: #66BAB7;
-    color: #fff;
-    border-color: #66BAB7;
-    font-weight: bold;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  
-  
+  padding: 8px 12px;
+  margin: 4px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 20px; /* 你可以根據需要調整 */
+  right: 0px;
+  z-index: 1000; /* 確保其顯示在其他元素上方 */
+}
+.sidebar-area {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000; /* 避免被其他元素遮擋 */
+  width: 300px; /* 控制欄位寬度 */
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+
+.date-option:hover {
+  background-color: #66BAB7;
+}
+
+.date-option.active {
+  background-color: #66BAB7;
+  color: #fff;
+  border-color: #66BAB7;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.carousel-item img {
+  width: 80%; /* 设置宽度为容器的80% */
+  height: 400px; /* 固定高度 */
+  object-fit: cover; /* 裁剪图片使其适应大小 */
+}
+
+/* 縮略圖容器 */
+.thumbnail-container {
+  overflow-x: auto; /* 允許水平滾動 */
+  white-space: nowrap; /* 防止圖片換行 */
+  width: 100%; /* 設定容器寬度 */
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/* 縮略圖內部區域，設定為水平排列 */
+.thumbnail-wrapper {
+  display: flex;
+}
+
+/* 單一縮略圖的樣式 */
+.thumbnail-item {
+  flex: 0 0 auto;
+  margin-right: 5px; /* 縮略圖之間的間距 */
+}
+
+.thumbnail-item img {
+  width: 80px; /* 縮略圖寬度 */
+  height: 80px; /* 縮略圖高度 */
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.thumbnail-item img:hover,
+.thumbnail-item img.active {
+  border-color: #66BAB7; /* 縮略圖選中狀態 */
+}
