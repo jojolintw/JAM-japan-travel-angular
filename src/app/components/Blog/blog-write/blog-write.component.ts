@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { HashtagService } from 'src/app/service/Blog/hashtag.service';
 import { ArticleService } from 'src/app/service/Blog/article.service';
 import { ArticleCreateDTO } from 'src/app/interface/Article/ArticleCreate.interface';
+import { Hashtag } from 'src/app/interface/Article/Hashtag.interface';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { ArticleCreateDTO } from 'src/app/interface/Article/ArticleCreate.interf
 export class BlogWriteComponent implements OnInit {
 
   createArticleForm: FormGroup;  // 正確的初始化，確保它在類別中聲明並初始化
-  hashtags: string[] = [];  // 用來儲存 Hashtags，這樣不需要 id 和 name
+  hashtags: Hashtag[] = [];  // 用來儲存 Hashtags，這樣不需要 id 和 name
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +31,7 @@ export class BlogWriteComponent implements OnInit {
 
   ngOnInit(): void {
     // 獲取所有 Hashtags
-    this.hashtagService.getHashtags().subscribe((data: string[]) => {
+    this.hashtagService.getHashtags().subscribe((data: Hashtag[]) => {
       this.hashtags = data;  // 直接儲存回來的字串陣列
     });
   }
@@ -44,21 +44,24 @@ export class BlogWriteComponent implements OnInit {
 
     const formValues = this.createArticleForm.value;
     const newArticle: ArticleCreateDTO = {
-      MemberId: 1, // 假設你會從登錄或其他地方拿到這個 ID
-      ArticleTitle: formValues.articleTitle,
-      ArticleContent: formValues.articleContent,
-      HashtagNumbers: formValues.selectedHashtags // 直接傳遞所選擇的 Hashtags 名稱
+      memberId: 1, // 假設你會從登錄或其他地方拿到這個 ID
+      articleTitle: formValues.articleTitle,
+      articleContent: formValues.articleContent,
+      hashtagNumbers: formValues.selectedHashtags.map((x:Hashtag)=>x.id) // 直接傳遞所選擇的 Hashtags 名稱
     };
 
     // 呼叫 ArticleService 的方法來創建新文章
     this.articleService.createArticle(newArticle).subscribe(response => {
       console.log('文章創建成功', response);
       // 在這裡可以做一些處理，如重定向或顯示提示訊息
+
+      // 提示新增文章成功
+    alert('新增文章成功！');
     });
   }
 
   // 處理 Hashtags 選擇
-  onHashtagChange(hashtag: string, event: any): void {
+  onHashtagChange(hashtag: Hashtag, event: any): void {
     const selectedHashtags = this.createArticleForm.get('selectedHashtags')?.value;
 
     if (event.target.checked) {

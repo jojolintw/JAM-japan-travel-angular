@@ -1,6 +1,6 @@
 export interface ArticleCreateDTO {
-  MemberId: number;
-  ArticleTitle: string;
-  ArticleContent: string;
-  HashtagNumbers: number[];
+  memberId: number;
+  articleTitle: string;
+  articleContent: string;
+  hashtagNumbers: number[];
 }
