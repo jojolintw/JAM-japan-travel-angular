@@ -119,8 +119,8 @@ export class CartComponent {
 
   // =============== router =====================
 
-  goToHomePage() {
-    this.router.navigate(['home']);
+  goToProductList() {
+    this.router.navigate(['itinerary-list']);
   }
 
   goToProductDetail(id: number) {

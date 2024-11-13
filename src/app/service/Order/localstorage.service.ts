@@ -53,8 +53,8 @@ export class LocalstorageService {
   }
 
   removeCart(){
-    localStorage.removeItem(this.cartkey);
-
+    // localStorage.removeItem(this.cartkey);
+    this.clearCartItems();
   }
 
   removeCartItem(itemId: number) {
