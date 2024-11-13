@@ -11,3 +11,10 @@
 .text-danger {
   color: red; /* 設置錯誤信息的顏色為紅色 */
 }
+input[type="checkbox"] {
+  visibility: visible !important;  /* 使 checkbox 可见 */
+  opacity: 1 !important;           /* 确保 checkbox 不透明 */
+  display: inline-block !important; /* 确保 checkbox 显示为行内块元素 */
+  width: auto !important;          /* 恢复宽度 */
+  height: auto !important;         /* 恢复高度 */
+}

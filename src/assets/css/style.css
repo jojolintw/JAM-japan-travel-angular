@@ -484,7 +484,7 @@ textarea {
   border-radius: 10px;
 }
 
-input[type=checkbox] {
+/* input[type=checkbox] {
   visibility: hidden;
   opacity: 0;
   display: none;
@@ -518,7 +518,7 @@ input[type=checkbox] ~ label:before {
   line-height: 18px;
   text-align: center;
   font-size: 12px;
-}
+} */
 
 input[type=radio] {
   visibility: hidden;

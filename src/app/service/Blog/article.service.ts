@@ -42,6 +42,7 @@ export class ArticleService {
 
 // 新增文章
 createArticle(article: ArticleCreateDTO): Observable<Article> {
+  console.log(article)
   return this.http.post<Article>(this.apiUrl, article);
 }
 }
