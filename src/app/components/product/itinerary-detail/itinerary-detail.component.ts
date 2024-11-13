@@ -177,7 +177,6 @@ export class ItineraryDetailComponent implements OnInit {
     // 更新界面状态
     this.selectedTime = time;
     this.itineraryDateSystemId = batch.itineraryDateSystemId;
-
   }
 
   getBatchForTime(time: string): any {
@@ -212,7 +211,7 @@ export class ItineraryDetailComponent implements OnInit {
   const newCartItem:cartItem={
     itineraryDateSystemId: this.itineraryDateSystemId as number,
     ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
-    name:this.itineraryDetail?.itineraryName as string,
+    name:(this.itineraryDetail?.itineraryName as string)+' '+this.selectedDate+this.selectedTime,
     price:this.itineraryDetail?.price as number,
     quantity:this.quantity,
     imagePath:this.itineraryDetail?.imagePath[0] as string
