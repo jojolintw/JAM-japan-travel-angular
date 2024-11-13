@@ -44,7 +44,8 @@
   <!--==============================
 	  Cart Area Start
 	==============================-->
-  <div class="space vs-cart-wrapper">
+  <h2 *ngIf="cartItems.length == 0" style="text-align: center; padding: 100px;">您尚未將商品加入購物車唷 ಠ_ಠ</h2>
+  <div class="space vs-cart-wrapper" *ngIf="cartItems.length > 0">
     <div class="container">
       <form action="#" class="woocommerce-cart-form">
         <div class="table-responsive">
