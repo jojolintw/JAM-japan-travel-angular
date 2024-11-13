@@ -35,11 +35,20 @@ export class CheckoutService {
     return this.client.post('https://localhost:7100/api/Order/CreateOrder',orderData,{headers})
   }
 
-  // linepay(){
+  linepay(){
+    const amount = localStorage.getItem('totalAmount');
 
+    const orderData={
+      orderId:"",
+      amount:amount,
+      current:"TWD",
+      productName:"",
+      confirmUrl:"",
+      cancelUrl:"",
+    }
 
-  //   return this.client.post('https://localhost:7100/api/Order/CreateOrder')
-  // }
+    return this.client.post('https://localhost:7100/api/Order/CreateOrder', orderData)
+  }
 
 
 
