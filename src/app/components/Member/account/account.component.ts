@@ -111,12 +111,16 @@ export class AccountComponent {
       this.ErrorMessage.EnglishNameErrMsg = '請輸入正確的英文姓名格式'
       return;
     }
-    //英文姓名格式認證
-    const phoneRegex = /^09\d{8}$/;
-    if (!phoneRegex.test(this.loginTransfer.Phone as string)) {
-      this.ErrorMessage.PhoneErrMsg = '請輸入正確的行動電話格式'
-      return;
-    }
+    //手機號碼格式認證
+
+    if((this.loginTransfer.Phone as string)!=null)
+      {
+        const phoneRegex = /^09\d{8}$/;
+        if (!phoneRegex.test(this.loginTransfer.Phone as string)) {
+          this.ErrorMessage.PhoneErrMsg = '請輸入正確的行動電話格式'
+          return;
+        }
+      }
     //Email格式認證
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(this.loginTransfer.Email as string)) {

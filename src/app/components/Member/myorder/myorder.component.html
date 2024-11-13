@@ -3,11 +3,11 @@
   <h1 style="margin-bottom: 40px;"><b>訂單管理</b></h1>
   <ul class="nav nav-tabes page-tabe">
     <li class="page-item"><a class="page-link" href="#"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>即將到來</b></a></li>
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>已成立</b></a></li>
     <li class="page-item"><a class="page-link" href="#"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>已完成</b></a></li>
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>取消中</b></a></li>
         <li class="page-item"><a class="page-link" href="#"
-          style="color: #7B7B7B; border:none; font-size: 20px;"><b>取消中/已取消</b></a></li>
+          style="color: #7B7B7B; border:none; font-size: 20px;"><b>已取消</b></a></li>
   </ul>
   <hr>
   <div class="container page-body">
@@ -26,35 +26,15 @@
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody class="ordertbody">
-        <tr>
-          <th scope="row">K11111</th>
-          <td>維尼</td>
-          <td>已成立</td>
-          <td>2024-10-25</td>
-          <td>10,000</td>
-          <td>信用卡</td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;" (click)="goToOrderdetail()">訂單明細</button></td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color: red;">取消申請</button></td>
-        </tr>
-        <tr>
-          <th scope="row">K11112</th>
-          <td>維尼</td>
-          <td>已成立</td>
-          <td>2024-10-30</td>
-          <td>9,700</td>
-          <td>信用卡</td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;">訂單明細</button></td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color: red;">取消申請</button></td>
-        </tr>
-        <tr>
-          <th scope="row">K11113</th>
-          <td>維尼</td>
-          <td>已成立</td>
-          <td>2024-11-01</td>
-          <td>8,400</td>
-          <td>信用卡</td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;">訂單明細</button></td>
+      <tbody class="ordertbody" style="font-size: 15px;">
+        <tr *ngFor="let item of MyOrderDTO">
+          <td>{{item.orderNumber}}</td>
+          <td>{{item.memberName}}</td>
+          <td>{{item.orderStatus}}</td>
+          <td>{{item.orderTime.substring(0,10)}}</td>
+          <td>{{item.totalAmount}}</td>
+          <td>{{item.paymentMethod}}</td>
+          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;" (click)="goToOrderdetail(item.orderId)">訂單明細</button></td>
           <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color: red;">取消申請</button></td>
         </tr>
       </tbody>

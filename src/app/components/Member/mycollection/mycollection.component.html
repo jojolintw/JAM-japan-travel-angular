@@ -14,9 +14,9 @@
     <div class="col-md-12">
       <!-- //==============我的最愛列表========================================= -->
       <div *ngFor="let item of myfavoriteItilities">
-        <div class="vs-blog blog-single d-flex col-md-12" style="padding: 0%;">
-          <div class="blog-img me-3 col-md-3" style="width: 300px; height: 200px; margin-bottom: 0%">
-            <img src="assets/img/Member/日本風景.png" alt="blog image" style="width: 300px; height: 300px;">
+        <div class="vs-blog blog-single d-flex col-md-12" style="padding: 0%; height: 270px;">
+          <div class="blog-img me-3 col-md-3" style="width: 300px; height: 270px; margin-bottom: 0%">
+            <img [src]="item.image" alt="blog image" style="width: 300px; height: 270px;">
           </div>
           <div class="blog-content col-md-7" style="margin-bottom: 20px;margin-top: 20px;">
             <h2 class="blog-title"><a (click)="gotoDetail(item.itinerarySystemId)">{{item.itineraryName}}</a></h2>
@@ -25,7 +25,7 @@
             </p>
             <div class="d-flex align-items-center">
               <ul class="blog-meta d-flex me-3" style="margin: 0; padding: 0; list-style: none;">
-                <li><a class="blog-date"><i class="fas fa-calendar-alt"></i>活動日: {{item.departureDate}}</a></li>
+                <li><a class="blog-date"><i class="fas fa-calendar-alt"></i>活動日: {{item.departureDate[0].substring(0,10)}}</a></li>
               </ul>
               <b class="ms-auto">NT {{item.price}}</b>
               <a class="icon-btn" style="margin-left: 30px;"><i class="fas fa-heart" style="color: crimson;" (click)="removemycollection(item.itinerarySystemId)"></i></a>

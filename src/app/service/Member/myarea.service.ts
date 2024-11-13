@@ -7,6 +7,8 @@ import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
 import { Mycoupon } from 'src/app/interface/Member/MyCoupon';
 import { MyfavoriteItilities } from 'src/app/interface/Member/MyfavoriteItilities';
+import { MyOrderDetailDTO } from 'src/app/interface/Member/MyOrderDetailDTO';
+import { MyOrderDTO } from 'src/app/interface/Member/MyOrderDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -70,9 +72,17 @@ export class MyareaService {
   GetAllMyAvailablecoupon() {
     return this.client.get<Mycoupon[]>(`https://localhost:7100/api/Coupon/GetAllMyAvailablecoupon`, { withCredentials: true })
   }
-    //領取優惠券
-    Getoupon(para:number) {
-      return this.client.get<any>(`https://localhost:7100/api/Coupon/Getoupon/${para}`, { withCredentials: true })
-    }
+  //領取優惠券
+  Getoupon(para: number) {
+    return this.client.get<any>(`https://localhost:7100/api/Coupon/Getoupon/${para}`, { withCredentials: true })
+  }
+  //我的訂單相關======================================================================
+  GetAllMyorder() {
+    return this.client.get<MyOrderDTO[]>(`https://localhost:7100/api/MyOrder/GetAllMyOrders`, { withCredentials: true })
+  }
+  //我的訂單相關======================================================================
+  GetAllMyorderDetail(para: number) {
+    return this.client.get<MyOrderDetailDTO[]>(`https://localhost:7100/api/MyOrder/GetOrderDetail/${para}`, { withCredentials: true })
+  }
 }
 
