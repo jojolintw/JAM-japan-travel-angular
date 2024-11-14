@@ -12,7 +12,7 @@
                   <option value="default">預設排序</option>
                   <option value="priceAsc">價格：低到高</option>
                   <option value="priceDesc">價格：高到低</option>
-                  <option value="latest">最新路線</option>
+                  <option value="latest">最近出發</option>
                 </select>
           
                 <div class="page-size-selector">
@@ -30,7 +30,7 @@
                              [src]="shipment.imageUrl ? shipment.imageUrl : ('data:image/jpeg;base64,' + shipment.imageBase64)"
                              alt="destination image" style="width: 550px; height: 300px;" />
                       </a>
-                      <span class="destination-price">{{ shipment.price | currency }}</span>
+                      <span class="destination-price">{{ shipment.price | currency: 'TWD' : 'symbol' : '1.0-0' }}</span>
                       <div class="destination-info">
                         <h4 class="destination-name">
                           <a [routerLink]="['/shipment-detail', shipment.routeId]">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>

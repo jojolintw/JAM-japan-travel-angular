@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart2Service } from '../../../service/Shipment/cart2.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart2',
@@ -9,12 +10,14 @@ import { Cart2Service } from '../../../service/Shipment/cart2.service';
 export class Cart2Component implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
-  discount: number = 100;
+  discount: number = 0;
   selectedSchedule: any;
   selectedSeats: number = 1;
 
-  constructor(private cart2Service: Cart2Service) {}
-
+  constructor(
+    private cart2Service: Cart2Service,
+  private router: Router) {
+    }
   ngOnInit() {
     this.cartItems = this.cart2Service.getItems(); // 獲取購物車項目
     this.calculateTotal();
@@ -48,6 +51,12 @@ export class Cart2Component implements OnInit {
 
   // 前往結帳頁面
   goToCheckout() {
-    console.log("前往結帳");
+    this.router.navigate(['orderconfirmation']);
+  }
+  saveCoupon(event: any) {
+    this.discount = event.target.value;
+    // console.log(selectedCouponValue);
+    localStorage.setItem("discount", this.discount.toString());
+    this.calculateTotal();
   }
 }
