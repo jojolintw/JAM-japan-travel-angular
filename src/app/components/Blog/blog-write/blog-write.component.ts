@@ -24,6 +24,7 @@ export class BlogWriteComponent implements OnInit {
     ]
   };
 
+  editorContent = '';  // 用于存储编辑器内容
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,8 @@ export class BlogWriteComponent implements OnInit {
       this.hashtags = data;  // 直接儲存回來的字串陣列
     });
   }
+
+
 
   // 提交表單
   onSubmit(): void {
