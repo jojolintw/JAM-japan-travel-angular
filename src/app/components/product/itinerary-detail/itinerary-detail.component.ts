@@ -218,6 +218,13 @@ export class ItineraryDetailComponent implements OnInit {
     }
   }
 
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动
+    });
+  }
+
   //評論顯示
   getComment():void{
 

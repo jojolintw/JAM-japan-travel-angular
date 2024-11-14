@@ -1,7 +1,7 @@
 <section class="vs-product-wrapper space">
   <div class="container">
     <nav>
-      <ol class="breadcrumb">
+      <ol class="breadcrumb" id="top">
         <li>
           <a [routerLink]="['/themes']">體驗主題</a>
         </li>
@@ -237,10 +237,10 @@
               <img [src]="related.imagePath || 'assets/img/destinations/destinations-1-1.jpg'"
                   [alt]="related.itineraryName">
             </a>
-            <span class="destination-price">NT{{ related.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</span>
+            <span id="backToTop" class="destination-price">NT{{ related.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</span>
             <div class="destination-info">
-              <h4 class="destination-name">
-                <a [routerLink]="['/itinerary-detail', related.itinerarySystemId]" id="backToTop">
+              <h4 class="destination-name" id="backToTop">
+                <a [routerLink]="['/itinerary-detail', related.itinerarySystemId]" (click)="scrollToTop()">
                   {{ related.itineraryName }}
                 </a>
               </h4>

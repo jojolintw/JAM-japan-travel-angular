@@ -179,14 +179,6 @@
   });
 
 
-  document.getElementById('backToTop').onclick = function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 平滑滾動
-    });
-  };
-
-
   /*---------- 06.Set Background Image ----------*/
   if ($("[data-bg-src]").length > 0) {
     $("[data-bg-src]").each(function () {
