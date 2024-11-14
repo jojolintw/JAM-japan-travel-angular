@@ -53,21 +53,8 @@ export class CheckoutService {
     return this.client.post('https://localhost:7100/api/Order/CreateOrder',orderData,{headers})
   }
 
-  linepay(){
-    let currentTime = new Date();
-    // let formattedTime = this.datePipe.transform(currentTime, 'yyMMddHHmm');
-    const amount = localStorage.getItem('totalAmount');
-    const orderId = (localStorage.getItem('memberId') as string)
-    const orderData={
-      orderId:orderId,
-      amount:amount,
-      currency:"TWD",
-      productName:"Japan Activity Memory(JAM)商品 共" + localStorage.getItem('cart')?.length + "項",
-      // confirmUrl:"",
-      // cancelUrl:"",
-    }
-
-    return this.client.post('https://localhost:7100/api/Order/CreateOrder', orderData)
+  linepay(orderData:any):Observable<any>{
+    return this.client.post('https://localhost:7100/api/LinePay/LinePay', orderData);
   }
 
 

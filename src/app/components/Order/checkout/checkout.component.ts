@@ -118,11 +118,21 @@ export class CheckoutComponent implements OnInit {
             console.log("提交並儲存訂單成功");
 
 
+            this.createOrder();
+
+            // 下單成功頁面
+            this.router.navigate(['orderconfirmation']);
+
+            // 清除購物車 localStorage => key:cart
+            this.localstorageService.removeCart();
+
+
           },
           (error)=>{
             console.log("提交失敗");
           }
         );
+
         // 後端Create Order會跟著一起寄信
         // 寄送email
         // this.checkoutService.sendOrderInfoEmail().subscribe(
@@ -134,11 +144,7 @@ export class CheckoutComponent implements OnInit {
         //   }
         // );
 
-        // 下單成功頁面
-        this.router.navigate(['orderconfirmation']);
 
-        // 清除購物車 localStorage => key:cart
-        this.localstorageService.removeCart();
       }
     });
   }
@@ -153,4 +159,43 @@ export class CheckoutComponent implements OnInit {
     this.router.navigate(['cart']);
   }
 
+
+  createOrder(){
+    const amount = localStorage.getItem('totalAmount');
+    const orderId = localStorage.getItem('memberId') + Date.now().toString()
+    const lineorderData={
+      orderId:orderId,
+      amount:Number(amount),
+      currency:"TWD",
+      productName:"Japan Activity Memory(JAM)商品",
+      confirmUrl:"",
+      cancelUrl:"",
+    }
+    console.log(lineorderData);
+
+
+
+  this.checkoutService.linepay(lineorderData).subscribe(
+    (response) => {
+      // 假設後端返回的 response 是包含 paymentUrl 的物件
+      console.log('LinePay 回應:', response);
+
+      // 檢查回應中是否有支付頁面 URL
+      if (response && response.paymentUrl) {
+        console.log('支付頁面 URL:', response.paymentUrl);
+        // 可以根據需要將使用者導向支付頁面
+        window.location.href = response.paymentUrl; // 跳轉到支付頁面
+      } else {
+        // 如果回應中沒有 paymentUrl，顯示回傳的 code 或其他訊息
+        console.error('支付頁面 URL 未返回', response);
+      }
+    },
+    (error) => {
+      // 處理 API 請求失敗的情況
+      console.error('LinePay 請求錯誤:', error);
+    }
+  );
+
+
+  }
 }
