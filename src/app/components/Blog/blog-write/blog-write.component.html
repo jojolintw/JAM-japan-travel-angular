@@ -8,8 +8,7 @@
   <!-- 文章內容 -->
   <div class="form-group">
     <label for="articleContent">文章內容</label>
-    <textarea id="articleContent" formControlName="articleContent" class="form-control" required></textarea>
-  </div>
+    <quill-editor formControlName="articleContent" [(ngModel)]="articleContent" [modules]="quillConfig"></quill-editor>  </div>
 
   <!-- Hashtags -->
   <div class="form-group">

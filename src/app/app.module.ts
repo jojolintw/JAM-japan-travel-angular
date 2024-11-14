@@ -52,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MymemberlevelComponent } from './components/Member/mymemberlevel/mymemberlevel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MyfavoritePipe } from './pipe/Member/myfavorite.pipe';
+import { QuillModule } from 'ngx-quill';
 
 
 
@@ -124,6 +125,7 @@ const routes: Routes = [
     MatIconModule,
     MatDialogModule,
     ReactiveFormsModule,
+    QuillModule.forRoot(),  // 导入 QuillModule
   ],
   providers: [ItineraryService,ArticleService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
