@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart2Service } from '../../../service/Shipment/cart2.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart2',
@@ -13,8 +14,10 @@ export class Cart2Component implements OnInit {
   selectedSchedule: any;
   selectedSeats: number = 1;
 
-  constructor(private cart2Service: Cart2Service) {}
-
+  constructor(
+    private cart2Service: Cart2Service,
+  private router: Router) {
+    }
   ngOnInit() {
     this.cartItems = this.cart2Service.getItems(); // 獲取購物車項目
     this.calculateTotal();
@@ -48,6 +51,6 @@ export class Cart2Component implements OnInit {
 
   // 前往結帳頁面
   goToCheckout() {
-    console.log("前往結帳");
+    this.router.navigate(['orderconfirmation']);
   }
 }

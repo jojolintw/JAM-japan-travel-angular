@@ -56,7 +56,7 @@
                       <i class="far fa-minus"></i>
                     </button>
                     <input type="number" [id]="item.schedule.routeId" class="qty-input" [value]="item.seats" min="1" max="99" readonly />
-                    <button class="quantity-plus qut-btn" (click)="changeQuantity(item, 1)">
+                    <button class="quantity-plus qut-btn" (click)="changeQuantity(item, +1)">
                       <i class="far fa-plus"></i>
                     </button>
                   </div>
