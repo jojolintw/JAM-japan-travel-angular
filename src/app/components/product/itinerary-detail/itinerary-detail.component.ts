@@ -230,22 +230,30 @@ export class ItineraryDetailComponent implements OnInit {
 
   }
 
-  //加入購物車
-  addToCart(): void {
-    const newCartItem: cartItem = {
-      itineraryDateSystemId: this.itineraryDateSystemId as number,
-      ItinerarySystemId: this.itineraryDetail?.itinerarySystemId as number,
-      name: (this.itineraryDetail?.itineraryName as string) + ' ' + this.selectedDate + this.selectedTime?.toLocaleTimeString('zh-TW', {
-        hour: '2-digit',
-        minute: '2-digit'
-      }),
-      price: this.itineraryDetail?.price as number,
-      quantity: this.quantity,
-      imagePath: this.itineraryDetail?.imagePath[0] as string
-    }
-    this.localStorageService.addToCart(newCartItem);
-    console.log(newCartItem);
+
+ //加入購物車
+ addToCart():void{
+  if(this.itineraryDateSystemId==0)
+  {
+    Swal.fire({
+      icon: "info",
+      title: "請選擇時段",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    return;
   }
+  const newCartItem:cartItem={
+    itineraryDateSystemId: this.itineraryDateSystemId as number,
+    ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
+    name:(this.itineraryDetail?.itineraryName as string)+' '+this.selectedDate+this.selectedTime,
+    price:this.itineraryDetail?.price as number,
+    quantity:this.quantity,
+    imagePath:this.itineraryDetail?.imagePath[0] as string
+  }
+  this.localStorageService.addToCart(newCartItem);
+  console.log(newCartItem);
+ }
 
   getItineraryDetails(): string[] {
     return this.itineraryDetail?.itineraryDetails as string[];
