@@ -15,6 +15,16 @@ export class BlogWriteComponent implements OnInit {
 
   createArticleForm: FormGroup;  // 正確的初始化，確保它在類別中聲明並初始化
   hashtags: Hashtag[] = [];  // 用來儲存 Hashtags，這樣不需要 id 和 name
+  articleContent: string = ''; // 用来保存 Quill 编辑器的内容
+  quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image']
+    ]
+  };
+
+  editorContent = '';  // 用于存储编辑器内容
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +45,8 @@ export class BlogWriteComponent implements OnInit {
       this.hashtags = data;  // 直接儲存回來的字串陣列
     });
   }
+
+
 
   // 提交表單
   onSubmit(): void {
