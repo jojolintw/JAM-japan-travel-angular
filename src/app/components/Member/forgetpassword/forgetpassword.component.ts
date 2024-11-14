@@ -50,7 +50,6 @@ export class ForgetpasswordComponent {
       this.errormessage = '請輸入正確的Email格式'
       return;
     }
-    if (this.captchaResponse) {
       //呼叫忘記密碼寄信的API
       this.loginService.ForgetPasswortEmail(this.forgetPasswordTransfer).subscribe(data => {
         if (data.result === 'fail') {
@@ -62,39 +61,11 @@ export class ForgetpasswordComponent {
           this.router.navigate(['**'])
         }
       })
-    }
-    else {
-      Swal.fire({
-        icon: "error",
-        title: "請完成我不是機器人驗證",
-        showConfirmButton: false,
-      })
-    }
+
   }
     //進註冊頁
     goToSignup() {
       this.router.navigate(['login/signup'])
     }
-  // 初始化 reCAPTCHA
-  ngAfterViewChecked(): void {
-    if (!this.recaptchaRendered) {
-      grecaptcha.render('recaptcha-container', {
-        sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR',
-        callback: (response: string) => this.onCaptchaResolved(response),
-      });
-      this.recaptchaRendered = true;
-    }
-  }
-    // 初始化 reCAPTCHA
-    ngAfterViewInit(): void {
-      grecaptcha.render('recaptcha-container', {
-        sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR', // 使用你的 Site Key
-        callback: (response: string) => this.onCaptchaResolved(response),
-      });
-    }
-  // 當 reCAPTCHA 被解決後，回調此函數
-  onCaptchaResolved(captchaResponse: string) {
-    console.log('reCAPTCHA 回應:', captchaResponse);
-    this.captchaResponse = captchaResponse;
-  }
-}
+ }
+

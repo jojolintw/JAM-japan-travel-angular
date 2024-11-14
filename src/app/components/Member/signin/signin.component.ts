@@ -148,16 +148,6 @@ export class SigninComponent {
       callback: (response: string) => this.onCaptchaResolved(response),
     });
   }
-      // 初始化 reCAPTCHA
-      // ngAfterViewChecked(): void {
-      //   if (!this.recaptchaRendered) {
-      //     grecaptcha.render('recaptcha-container', {
-      //       sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR',
-      //       callback: (response: string) => this.onCaptchaResolved(response),
-      //     });
-      //     this.recaptchaRendered = true;
-      //   }
-      // }
    // 當 reCAPTCHA 被解決後，回調此函數
    onCaptchaResolved(captchaResponse: string) {
     console.log('reCAPTCHA 回應:', captchaResponse);

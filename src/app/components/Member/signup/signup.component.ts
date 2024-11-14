@@ -118,13 +118,6 @@ export class SignupComponent {
     }
   }
     // 初始化 reCAPTCHA
-    ngAfterViewInit(): void {
-      grecaptcha.render('recaptcha-container', {
-        sitekey: '6Le6oHoqAAAAAPL4kjsNmc3Uyd9WIadivdAKzCnR', // 使用你的 Site Key
-        callback: (response: string) => this.onCaptchaResolved(response),
-      });
-    }
-    // 初始化 reCAPTCHA
     ngAfterViewChecked(): void {
       if (!this.recaptchaRendered) {
         grecaptcha.render('recaptcha-container', {
