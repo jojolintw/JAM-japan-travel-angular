@@ -48,22 +48,16 @@
           <!-- Bootstrap Carousel -->
           <!-- 主轮播图 -->
           <!-- 主轮播图 -->
-          <div id="portImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div id="portImagesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
-              <!-- 封面图片 -->
-              <div class="carousel-item active">
-                <img [src]="coverImageUrl || 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg'"
-                  class="d-block w-100" alt="Cover Image"
-                  onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
-              </div>
-
-              <!-- 剩余图片 -->
-              <div *ngFor="let image of portImages" class="carousel-item">
+              <div *ngFor="let image of portImages; let i = index" [class.active]="i === 0" class="carousel-item">
                 <img [src]="image.portImageUrl || 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg'"
-                  class="d-block w-100" alt="Port Image"
-                  onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
+                     class="d-block w-100" alt="Port Image"
+                     onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
               </div>
             </div>
+          
+          
 
             <!-- 轮播控制按钮 -->
             <button class="carousel-control-prev" type="button" data-bs-target="#portImagesCarousel"
