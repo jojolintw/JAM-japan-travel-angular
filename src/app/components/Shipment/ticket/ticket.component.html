@@ -30,7 +30,7 @@
                              [src]="shipment.imageUrl ? shipment.imageUrl : ('data:image/jpeg;base64,' + shipment.imageBase64)"
                              alt="destination image" style="width: 550px; height: 300px;" />
                       </a>
-                      <span class="destination-price">{{ shipment.price | currency }}</span>
+                      <span class="destination-price">{{ shipment.price | currency: 'TWD' : 'symbol' : '1.0-0' }}</span>
                       <div class="destination-info">
                         <h4 class="destination-name">
                           <a [routerLink]="['/shipment-detail', shipment.routeId]">{{ shipment.originPortName }} - {{ shipment.destinationPortName }}</a>
