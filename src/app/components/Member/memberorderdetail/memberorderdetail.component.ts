@@ -18,7 +18,8 @@ export class MemberorderdetailComponent {
   const orderid = sessionStorage.getItem('orderId')
   this.myareaService.GetAllMyorderDetail(parseInt(orderid as string)).subscribe(data =>{
   this.myOrderDetailDTO = data;
-  console.log('傳回的訂單明細',this.myOrderDetailDTO);
+  console.log('傳回的訂單明細1',data);
+  console.log('傳回的訂單明細2',this.myOrderDetailDTO);
 
 })
 

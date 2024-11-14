@@ -9,24 +9,21 @@
           <th scope="col">訂單編號</th>
           <th scope="col">行程編號</th>
           <th scope="col">行程名稱</th>
+          <th scope="col">活動時間</th>
           <th scope="col">數量</th>
           <th scope="col">總價</th>
+          <th scope="col"></th>
         </tr>
       </thead>
-      <tbody class="ordertbody">
-        <tr>
-          <th scope="row">K11111</th>
-          <td>24NRD0914</td>
-          <td>東京夏季五日遊</td>
-          <td>5</td>
-          <td>3,900</td>
-        </tr>
-        <tr>
-          <th scope="row">K11111</th>
-          <td>24CHA1112</td>
-          <td>京都抹茶體驗~附和果子</td>
-          <td>3</td>
-          <td>2,400</td>
+      <tbody class="ordertbody" style="font-size: 12px;">
+        <tr *ngFor="let item of myOrderDetailDTO">
+          <th style="text-align: left;" scope="row">{{item.orderNumber}}</th>
+          <td style="text-align: left;">{{item.itineraryId}}</td>
+          <td style="text-align: left;">{{item.itineraryName}}</td>
+          <td style="text-align: left;">{{item.departureDate}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.totalPrice}}</td>
+          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color:#FFD306">我要評論</button></td>
         </tr>
       </tbody>
     </table>
