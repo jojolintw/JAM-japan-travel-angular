@@ -94,7 +94,12 @@
 
 
               <p class="ds-text" [innerHTML]="shipmentDetail.routeDescription"></p>
-
+              <p class="ds-text" *ngIf="shipmentDetail.destinationPort.cityDescription1">
+                {{ shipmentDetail.destinationPort.cityDescription1 }}
+              </p>
+              <p class="ds-text" *ngIf="shipmentDetail.destinationPort.cityDescription2">
+                {{ shipmentDetail.destinationPort.cityDescription2 }}
+              </p>
               <div>
                 <h2 class="ds-title">出發地周邊地圖</h2>
                 <iframe [src]="shipmentDetail.originPort.portGoogleMap | safe" width="100%" height="450"
