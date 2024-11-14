@@ -2,6 +2,7 @@ import { LocalstorageService } from 'src/app/service/Order/localstorage.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
+import { lineorder } from 'src/app/interface/Order/lineorder';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,21 @@ export class CheckoutService {
 
   constructor(private client:HttpClient, private localStorageService:LocalstorageService) { }
 
-  sendOrderInfoEmail(){
-    return this.client.get<any>('https://localhost:7100/api/Order/sendOrderInfoEmail', { withCredentials: true });
+  // sendOrderInfoEmail(){
+  //   return this.client.get<any>('https://localhost:7100/api/Order/sendOrderInfoEmail', { withCredentials: true });
+  // }
+
+  getformattedtime():string {
+    const currenttime = new Date();
+
+    const year = currenttime.getFullYear(); // 獲取年份
+    const month = String(currenttime.getMonth() + 1).padStart(2, '0'); // 獲取月份（注意：JavaScript的月份從0開始，所以要+1）
+    const day = String(currenttime.getDate()).padStart(2, '0'); // 獲取日期
+    const hours = String(currenttime.getHours()).padStart(2, '0'); // 獲取小時
+    const minutes = String(currenttime.getMinutes()).padStart(2, '0'); // 獲取分鐘
+
+    // 返回格式化的日期字符串
+    return `${year}${month}${day}${hours}${minutes}`;
   }
 
   submitOrder():Observable<any>{
@@ -20,11 +34,15 @@ export class CheckoutService {
     const remarks = localStorage.getItem('remarks') || '';
     const totalAmount = localStorage.getItem('totalAmount') || '';
     const memberId = localStorage.getItem('memberId');
+    const orderId = localStorage.getItem('memberId');
+    const currenttime = this.getformattedtime();
 
 
     const orderData = {
+      // orderId:orderId,
       cart:cartItems,
-      couponId:0,
+      orderNumber:orderId + currenttime,
+      couponId:1,
       remarks:remarks,
       totalAmount:totalAmount,
       memberId:memberId
@@ -36,15 +54,17 @@ export class CheckoutService {
   }
 
   linepay(){
+    let currentTime = new Date();
+    // let formattedTime = this.datePipe.transform(currentTime, 'yyMMddHHmm');
     const amount = localStorage.getItem('totalAmount');
-
+    const orderId = (localStorage.getItem('memberId') as string)
     const orderData={
-      orderId:"",
+      orderId:orderId,
       amount:amount,
-      current:"TWD",
-      productName:"",
-      confirmUrl:"",
-      cancelUrl:"",
+      currency:"TWD",
+      productName:"Japan Activity Memory(JAM)商品 共" + localStorage.getItem('cart')?.length + "項",
+      // confirmUrl:"",
+      // cancelUrl:"",
     }
 
     return this.client.post('https://localhost:7100/api/Order/CreateOrder', orderData)

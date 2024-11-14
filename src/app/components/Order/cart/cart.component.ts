@@ -67,6 +67,7 @@ export class CartComponent {
   clearCartItems() {
     this.localstorageService.clearCartItems();  // 清除所有localStorage 應該用不到但先放著
     this.ngOnInit();
+    window.scrollTo(0,0);
   }
 
   changeQuantity(item: any, delta: number) {

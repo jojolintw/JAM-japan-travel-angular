@@ -123,16 +123,16 @@ export class CheckoutComponent implements OnInit {
             console.log("提交失敗");
           }
         );
-
+        // 後端Create Order會跟著一起寄信
         // 寄送email
-        this.checkoutService.sendOrderInfoEmail().subscribe(
-          (response)=>{
-            console.log("寄送成功",response);
-          },
-          (error)=>{
-            console.log("fail",error);
-          }
-        );
+        // this.checkoutService.sendOrderInfoEmail().subscribe(
+        //   (response)=>{
+        //     console.log("寄送成功",response);
+        //   },
+        //   (error)=>{
+        //     console.log("fail",error);
+        //   }
+        // );
 
         // 下單成功頁面
         this.router.navigate(['orderconfirmation']);
@@ -142,7 +142,6 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
-
 
 
   demo(){
