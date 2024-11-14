@@ -1,7 +1,7 @@
 <section class="vs-product-wrapper space">
   <div class="container">
     <nav>
-      <ol class="breadcrumb">
+      <ol class="breadcrumb" id="top">
         <li>
           <a [routerLink]="['/themes']">體驗主題</a>
         </li>
@@ -20,6 +20,7 @@
         </li>
       </ol>
     </nav>
+
     <div class="product-details" *ngIf="itineraryDetail">
       <div class="row gx-60">
         <div class="col-lg-5">
@@ -95,14 +96,14 @@
                           [disabled]="!hasTimeSlotStock(time)"
                           [class.selected]="isSelectedTime(time)"
                           (click)="selectDateTime(time, getBatchForTime(time))">
-                    {{time}}
+                          {{time.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}}
                     <span class="stock-status">
                       {{hasTimeSlotStock(time) ? '可預約 剩餘'+getBatchForTime(time)?.stock+'人' : '已滿團'}}
                       <input type="hidden" [value]="getBatchForTime(time)?.itineraryDateSystemId">
                     </span>
                   </button>
                 </div>
-                <p style="margin-top: 10px;">選擇時段：{{selectedTime}}</p>
+                <p style="margin-top: 10px;">選擇時段：{{selectedTime?.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}}</p>
               </div>
             </div>
             <div class="actions">
@@ -232,14 +233,14 @@
           data-md-slide-show="2" data-sm-slide-show="1">
           <div class="col-xl-4" *ngFor="let related of relatedTours">
           <div class="destination-style1">
-            <a [routerLink]="['/itinerary', related.itinerarySystemId]">
+            <a [routerLink]="['/itinerary-detail', related.itinerarySystemId]">
               <img [src]="related.imagePath || 'assets/img/destinations/destinations-1-1.jpg'"
                   [alt]="related.itineraryName">
             </a>
-            <span class="destination-price">{{ related.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</span>
+            <span id="backToTop" class="destination-price">NT{{ related.price | currency:'TWD':'symbol-narrow':'1.0-0' }}</span>
             <div class="destination-info">
-              <h4 class="destination-name">
-                <a [routerLink]="['/itinerary', related.itinerarySystemId]">
+              <h4 class="destination-name" id="backToTop">
+                <a [routerLink]="['/itinerary-detail', related.itinerarySystemId]" (click)="scrollToTop()">
                   {{ related.itineraryName }}
                 </a>
               </h4>

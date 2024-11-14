@@ -1,10 +1,11 @@
+import { itineraryBatch } from './../../../interface/Product/itinerary-detail.interface';
 import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.interface';
 import { ItineraryList } from 'src/app/interface/Product/itinerary-list.interface';
 import { CalendarEvent, CalendarMonthViewDay } from 'angular-calendar';
-import { startOfDay, isSameDay, addMonths, subMonths } from 'date-fns';
+import { startOfDay, isSameDay, addMonths, subMonths, isToday } from 'date-fns';
 import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
 import Swal from 'sweetalert2';
@@ -29,9 +30,9 @@ export class ItineraryDetailComponent implements OnInit {
   selectedDay: CalendarMonthViewDay | null = null;
   batchStatus: ItineraryDetail["itineraryBatch"] = [];
   selectedDate: string | null = null;
-  selectedDateTimes: string[] = [];
+  selectedDateTimes: Date[] = [];
   quantity: number = 1;
-  cartItems: cartItem[]=[];
+  cartItems: cartItem[] = [];
   isActive: boolean = false;
   itineraryDateSystemId: number = 0;
 
@@ -61,14 +62,13 @@ export class ItineraryDetailComponent implements OnInit {
       this.itineraryDetail = response;
       this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
       this.initializeDayStatus();
-
-        //=====確認是否為我的最愛===========================================================================
-        this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
-          if (data.result === 'ismyfavirite') {
-            this.isActive = true;
-          }
-        })
-     });
+      //=====確認是否為我的最愛===========================================================================
+      this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
+        if (data.result === 'ismyfavirite') {
+          this.isActive = true;
+        }
+      })
+    });
   }
 
   initializeDayStatus(): void {
@@ -80,11 +80,11 @@ export class ItineraryDetailComponent implements OnInit {
     this.itineraryDetail.itineraryBatch.forEach(itineraryBatch => {
       if (!itineraryBatch.departureDate) return;
 
-        this.batchStatus.push({
-          itineraryDateSystemId: itineraryBatch.itineraryDateSystemId,
-          departureDate: itineraryBatch.departureDate,
-          stock: itineraryBatch.stock || 0
-        });
+      this.batchStatus.push({
+        itineraryDateSystemId: itineraryBatch.itineraryDateSystemId,
+        departureDate: itineraryBatch.departureDate,
+        stock: itineraryBatch.stock || 0
+      });
 
       const event: CalendarEvent = {
         start: new Date(itineraryBatch.departureDate),
@@ -132,59 +132,71 @@ export class ItineraryDetailComponent implements OnInit {
   onDayClicked(day: CalendarMonthViewDay): void {
     const date = day.date;
     const dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
-    if (this.hasAvailableStock(day)) {
-      if (this.selectedDate === dateStr) {
-        this.selectedDate = null;
-        this.selectedDateTimes = [];
-      } else {
-        this.selectedDate = dateStr;
-      console.log('dateStr', this.selectedDate);
-      const batches = this.batchStatus.filter(batch => batch.departureDate.startsWith(dateStr));
-      this.selectedDateTimes = batches.map(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
-        hour: '2-digit',
-        minute: '2-digit'
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-      }));
+    if (date > today) {
+      if (this.hasAvailableStock(day)) {
+        if (this.selectedDate === dateStr) {
+          this.selectedDate = null;
+          this.selectedDateTimes = [];
+          this.selectedTime = null;
+        } else {
+          this.selectedTime = null;
+          this.selectedDate = dateStr;
+          const batches = this.batchStatus.filter(batch => batch.departureDate.startsWith(dateStr));
+          // console.log(batches);
+          this.selectedDateTimes = batches.map(batch => new Date(batch.departureDate));
+          console.log(this.selectedDateTimes);
+        }
       }
+    }
+    else {
+      Swal.fire({
+        icon: "error",
+        title: "請選擇今天以後的日期",
+      });
     }
 
   }
 
-  hasTimeSlotStock(time: string): boolean {
-    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
-      hour: '2-digit',
-      minute: '2-digit'
-    }) === time);
+
+  hasTimeSlotStock(time: Date): boolean {
+    const batches = this.batchStatus.filter(batch =>
+      new Date(batch.departureDate).toDateString() === new Date(time).toDateString() &&
+      new Date(batch.departureDate).toTimeString() === new Date(time).toTimeString());
     return batches.length > 0 && batches.some(batch => batch.stock > 0);
   }
 
-  getStockForTime(time: string): number {
-    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
-      hour: '2-digit',
-      minute: '2-digit'
-    }) === time);
-    return batches.length > 0? batches[0].stock : 0;
+  getStockForTime(time: Date): number {
+    const batches = this.batchStatus.filter(batch =>
+      new Date(batch.departureDate).toDateString() === new Date(time).toDateString() &&
+      new Date(batch.departureDate).toTimeString() === new Date(time).toTimeString());
+    return batches.length > 0 ? batches[0].stock : 0;
   }
 
-  selectedTime: string | null = null;
+  selectedTime: Date | null = null;
 
-  isSelectedTime(time: string): boolean {
-    return this.selectedTime === time;
+  isSelectedTime(time: Date): boolean {
+    if (typeof this.selectedTime !== null) {
+      return new Date(this.selectedTime as Date).toTimeString() === time.toTimeString();
+    } else {
+      return false;
+    }
   }
 
-  selectDateTime(time: string, batch: any): void {
+  selectDateTime(time: Date, batch: any): void {
     const formattedDateTime = this.selectedDate + ' ' + time;
     // 更新界面状态
-    this.selectedTime = time;
-    this.itineraryDateSystemId = batch.itineraryDateSystemId;
+    this.selectedTime = time
+    this.itineraryDateSystemId = batch.itineraryDateSystemId
   }
 
-  getBatchForTime(time: string): any {
-    const batches = this.batchStatus.filter(batch => new Date(batch.departureDate).toLocaleTimeString('zh-TW', {
-      hour: '2-digit',
-      minute: '2-digit'
-    }) === time);
-    return batches.length > 0? batches[0] : null;
+  getBatchForTime(time: Date): any {
+    const batches = this.batchStatus.filter(batch =>
+      new Date(batch.departureDate).toDateString() === new Date(time).toDateString() &&
+      new Date(batch.departureDate).toTimeString() === new Date(time).toTimeString());
+    return batches.length > 0 ? batches[0] : null;
   }
 
   decreaseQuantity(): void {
@@ -206,61 +218,71 @@ export class ItineraryDetailComponent implements OnInit {
     }
   }
 
- //加入購物車
- addToCart():void{
-  const newCartItem:cartItem={
-    itineraryDateSystemId: this.itineraryDateSystemId as number,
-    ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
-    name:(this.itineraryDetail?.itineraryName as string)+' '+this.selectedDate+this.selectedTime,
-    price:this.itineraryDetail?.price as number,
-    quantity:this.quantity,
-    imagePath:this.itineraryDetail?.imagePath[0] as string
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动
+    });
   }
-  this.localStorageService.addToCart(newCartItem);
-  console.log(newCartItem);
- }
 
- getItineraryDetails():string[]{
-  return this.itineraryDetail?.itineraryDetails as string[];
- }
+  //評論顯示
+  getComment():void{
+
+  }
+
+  //加入購物車
+  addToCart(): void {
+    const newCartItem: cartItem = {
+      itineraryDateSystemId: this.itineraryDateSystemId as number,
+      ItinerarySystemId: this.itineraryDetail?.itinerarySystemId as number,
+      name: (this.itineraryDetail?.itineraryName as string) + ' ' + this.selectedDate + this.selectedTime?.toLocaleTimeString('zh-TW', {
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      price: this.itineraryDetail?.price as number,
+      quantity: this.quantity,
+      imagePath: this.itineraryDetail?.imagePath[0] as string
+    }
+    this.localStorageService.addToCart(newCartItem);
+    console.log(newCartItem);
+  }
+
+  getItineraryDetails(): string[] {
+    return this.itineraryDetail?.itineraryDetails as string[];
+  }
 
 
- //mycollection相關======================================================
+  //mycollection相關======================================================
 
- mycollection()
- {
-  this.isActive = !this.isActive
-  if(!this.isActive)
-    {
-      console.log('行程ID',this.itineraryDetail?.itinerarySystemId);
-      this.myareaService.Removemyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
-        if(data.result ==='success')
-          {
-            Swal.fire({
-              icon: "success",
-              title: "從我的最愛中移除",
-              showConfirmButton: false,
-              timer: 1000
-            })
-          }
+  mycollection() {
+    this.isActive = !this.isActive
+    if (!this.isActive) {
+      console.log('行程ID', this.itineraryDetail?.itinerarySystemId);
+      this.myareaService.Removemyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
+        if (data.result === 'success') {
+          Swal.fire({
+            icon: "success",
+            title: "從我的最愛中移除",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        }
       })
     }
-    else if(this.isActive)
-      {
-        console.log('行程ID',this.itineraryDetail?.itinerarySystemId)
-        this.myareaService.Addtomyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data=>{
-          if(data.result==='success')
-            {
-              Swal.fire({
-                icon: "success",
-                title: "加入我的最愛",
-                showConfirmButton: false,
-                timer: 1000
-              })
-            }
-        })
-      }
- }
+    else if (this.isActive) {
+      console.log('行程ID', this.itineraryDetail?.itinerarySystemId)
+      this.myareaService.Addtomyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
+        if (data.result === 'success') {
+          Swal.fire({
+            icon: "success",
+            title: "加入我的最愛",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        }
+      })
+    }
+  }
 
 }
 

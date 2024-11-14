@@ -806,10 +806,11 @@ textarea.is-invalid {
 }
 
 .thumb img {
-  width: 100px; /* 調整小圖片的寬度 */
-  height: 100px; /* 調整小圖片的高度 */
+  width: 80px; /* 調整小圖片的寬度 */
+  height: 80px; /* 調整小圖片的高度 */
   object-fit: cover;
   border: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
 .thumb.active img {
@@ -7207,6 +7208,7 @@ Header Customization
 
 .product-thumb-slide .thumb {
   overflow: hidden;
+  width: 20%;
   border-radius: 10px;
   background-color: var(--smoke-color);
   border: 1px solid transparent;
