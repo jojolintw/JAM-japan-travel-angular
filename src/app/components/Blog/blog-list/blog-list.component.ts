@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
 import { HashtagService } from 'src/app/service/Blog/hashtag.service';
 import { ArticleService } from 'src/app/service/Blog/article.service';
 import { Article } from 'src/app/interface/Article/Article.interface';
+import { Hashtag } from 'src/app/interface/Article/Hashtag.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
@@ -14,7 +16,7 @@ export class BlogListComponent implements OnInit {
   displayedArticles: Article[] = [];
   keyword: string = '';  // 存储搜索关键词
   loading: boolean = false;  // 用于指示正在加载数据
-  hashtags: string[] = [];  // 存储标签列表
+  hashtags: Hashtag[] = [];  // 存储标签列表
 
 
   constructor(private route: ActivatedRoute,
@@ -65,7 +67,7 @@ export class BlogListComponent implements OnInit {
     }
 
     // 根据标签加载相关的文章
-    loadArticlesByHashtag(hashtag: string): void {
+    loadArticlesByHashtag(hashtag: Hashtag): void {
       this.loading = true;
       this.hashtagService.getArticlesByHashtag(hashtag).subscribe(
         (data) => {

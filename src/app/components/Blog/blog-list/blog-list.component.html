@@ -181,9 +181,7 @@
         <div class="vs-pagination pt-lg-2">
           <ul>
             <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+
             <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
           </ul>
         </div>
@@ -288,7 +286,7 @@
             <div class="tagcloud">
               <!-- 动态加载标签 -->
               <a *ngFor="let hashtag of hashtags" href="javascript:void(0)" (click)="loadArticlesByHashtag(hashtag)">
-                {{ hashtag }}
+                {{ hashtag.name }}
               </a>
             </div>
           </div>
