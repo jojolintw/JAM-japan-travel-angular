@@ -1,10 +1,11 @@
 import { theme_Activity } from "./Theme-Activity";
 
-interface itineraryBatch {
+export interface itineraryBatch {
   itineraryDateSystemId: number;
   departureDate: string;
   stock: number;
 }
+
 export interface ItineraryDetail {
   itinerarySystemId: number;
   itineraryName: string;

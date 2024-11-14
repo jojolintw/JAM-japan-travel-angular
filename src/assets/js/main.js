@@ -10,10 +10,10 @@
     04. Sticky fix
     05. Scroll To Top
     06. Set Background Image
-    07. 
-    08. 
+    07.
+    08.
     09. Ajax Contact Form
-    10. Popup Sidemenu   
+    10. Popup Sidemenu
     11. Search Box Popup
     12. Magnific Popup
     13. Section Position
@@ -177,6 +177,15 @@
       return false;
     });
   });
+
+
+  document.getElementById('backToTop').onclick = function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滾動
+    });
+  };
+
 
   /*---------- 06.Set Background Image ----------*/
   if ($("[data-bg-src]").length > 0) {
