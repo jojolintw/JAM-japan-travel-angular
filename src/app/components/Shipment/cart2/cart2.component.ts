@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class Cart2Component implements OnInit {
   cartItems: any[] = [];
   totalAmount: number = 0;
-  discount: number = 100;
+  discount: number = 0;
   selectedSchedule: any;
   selectedSeats: number = 1;
 
@@ -52,5 +52,11 @@ export class Cart2Component implements OnInit {
   // 前往結帳頁面
   goToCheckout() {
     this.router.navigate(['orderconfirmation']);
+  }
+  saveCoupon(event: any) {
+    this.discount = event.target.value;
+    // console.log(selectedCouponValue);
+    localStorage.setItem("discount", this.discount.toString());
+    this.calculateTotal();
   }
 }
