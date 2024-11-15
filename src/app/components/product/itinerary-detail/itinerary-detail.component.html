@@ -134,7 +134,7 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="rviews-tab" data-bs-toggle="tab" href="#rviews" role="tab" aria-controls="rviews"
-              aria-selected="true">行程評價 (02)</a>
+              aria-selected="true">行程評價 ({{comment.length}})</a>
           </li>
         </ul>
         <div class="tab-content" id="productTabContent">
@@ -150,52 +150,26 @@
               <div class="woocommerce-Reviews">
                 <div class="vs-comments-wrap">
                   <ul class="comment-list">
-                    <li class="review vs-comment-item">
+                    <li *ngFor="let comment of comment" class="review vs-comment-item">
                       <div class="vs-post-comment">
                         <div class="comment-avater">
-                          <img src="assets/img/blog/comment-author-1.jpg" alt="reviewer image">
+                          <img [src]="myareaMember.ImageUrl" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
                         </div>
                         <div class="comment-content">
                           <div class="star-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <ng-container *ngFor="let star of [].constructor(comment.commentStar); let i = index">
+                              <i class="fas fa-star"></i>
+                            </ng-container>
                           </div>
-                          <h4 class="name h4">Crish Thomas</h4>
-                          <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a
-                            viveirra facilisi neque quisque. Phasellus aliquam ut a id rhogncus. In viverra sed vitae
-                            vivamus amet, nuncg vivamus. </p>
-                          <span class="comment-date">Published 1 day ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="review vs-comment-item">
-                      <div class="vs-post-comment">
-                        <div class="comment-avater">
-                          <img src="assets/img/blog/comment-author-3.jpg" alt="reviewer image">
-                        </div>
-                        <div class="comment-content">
-                          <div class="star-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                          </div>
-                          <h4 class="name h4">Malisha Beco</h4>
-                          <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a
-                            viveirra facilisi neque quisque. Phasellus aliquam ut a id rhogncus. In viverra sed vitae
-                            vivamus amet, nuncg vivamus. </p>
-                          <span class="comment-date">Published 1 day ago</span>
+                          <h4 class="name h4">{{ getMemberName(comment) }}</h4> <!-- 使用方法获取 memberName -->
+                          <p class="text">{{ comment.commentContent }}</p>
+                          <span class="comment-date">{{ comment.commentDate}}</span> <!-- 假设 commentDate 在 comments 中 -->
                         </div>
                       </div>
                     </li>
                   </ul>
                 </div>
               </div>
-              <!-- Comment Form -->
             </div>
           </div>
         </div>

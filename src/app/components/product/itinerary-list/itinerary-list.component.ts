@@ -9,6 +9,7 @@ import { Search } from 'src/app/interface/Product/Search';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
+import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
 
 
 @Component({
