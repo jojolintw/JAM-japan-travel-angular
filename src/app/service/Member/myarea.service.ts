@@ -5,6 +5,7 @@ import { Area } from 'src/app/interface/Member/Area';
 import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
+import { myComment } from 'src/app/interface/Member/myComment';
 import { Mycoupon } from 'src/app/interface/Member/MyCoupon';
 import { MyfavoriteItilities } from 'src/app/interface/Member/MyfavoriteItilities';
 import { MyOrderDetailDTO } from 'src/app/interface/Member/MyOrderDetailDTO';
@@ -77,12 +78,21 @@ export class MyareaService {
     return this.client.get<any>(`https://localhost:7100/api/Coupon/Getoupon/${para}`, { withCredentials: true })
   }
   //我的訂單相關======================================================================
+  //取得所有訂單
   GetAllMyorder() {
     return this.client.get<MyOrderDTO[]>(`https://localhost:7100/api/MyOrder/GetAllMyOrders`, { withCredentials: true })
   }
-  //我的訂單相關======================================================================
+  //取得所有訂單明細======================================================================
   GetAllMyorderDetail(para: number) {
     return this.client.get<MyOrderDetailDTO[]>(`https://localhost:7100/api/MyOrder/GetOrderDetail/${para}`, { withCredentials: true })
+  }
+  //評論相關======================================================================================
+  //取得評論
+  GetItineraryinfo(para: number) {
+    return this.client.get<myComment>(`https://localhost:7100/api/Member/GetCommentOrderDetailId/${para}`, { withCredentials: true })
+  }
+  InsertComment(para: myComment) {
+    return this.client.post<any>(`https://localhost:7100/api/Member/InsertComment`,para, { withCredentials: true })
   }
 }
 

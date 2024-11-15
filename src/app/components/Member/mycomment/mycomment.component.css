@@ -1,0 +1,68 @@
+
+/* rating.component.css */
+.rating-select {
+  margin-top: -0.4em;
+}
+
+.rating-select label {
+  margin: 0 10px 0 0;
+  display: inline-block;
+  color: var(--body-color);
+}
+
+.rating-select p {
+  display: inline-block;
+}
+
+.rating-select p.stars {
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.rating-select p.stars a {
+  position: relative;
+  height: 14px;
+  width: 18px;
+  text-indent: -999em;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* 這裡設定星星的默認顏色和樣式 */
+.rating-select p.stars a::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 14px;
+  line-height: 1;
+  font-family: var(--icon-font);  /* 確保這裡設置了正確的字型 */
+  content: "\f005";  /* 使用 FontAwesome 星星圖標 */
+  font-weight: 400;
+  text-indent: 0;
+  color: gray;  /* 默認未選中的顏色 */
+}
+
+/* 懸停時顯示為金色 */
+.rating-select p.stars a:hover::before {
+  color: orange;
+}
+
+/* 當星星被選中時，顯示為金色 */
+.rating-select p.stars a.selected::before {
+  color: gold;
+}
+
+/* 點擊後，選中星星的效果 */
+.rating-select p.stars.selected a.selected::before {
+  font-weight: 700;  /* 更粗的字體顯示 */
+}
+.d-flex {
+  display: flex;
+  justify-content: space-between; /* 或使用 space-around, space-evenly，根據需要調整 */
+}
+
+.vs-btn {
+  width: 48%; /* 可以根據需要調整按鈕的寬度 */
+}

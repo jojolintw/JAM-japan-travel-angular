@@ -2,8 +2,7 @@ export interface Mycoupon
 {
   couponId:number;
   couponName: string;
-  price: number;
-  discount: string;
+  discount: number;
   expirationDate:string
   memberLevelId:string
 }

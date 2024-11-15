@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MyOrderDetailDTO } from 'src/app/interface/Member/MyOrderDetailDTO';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
+import { MycommentComponent } from '../mycomment/mycomment.component';
 
 @Component({
   selector: 'app-memberorderdetail',
@@ -9,7 +11,7 @@ import { MyareaService } from 'src/app/service/Member/myarea.service';
 })
 export class MemberorderdetailComponent {
 
-  constructor(private myareaService: MyareaService){}
+  constructor(private myareaService: MyareaService,private dialog: MatDialog){}
 
 
   myOrderDetailDTO:MyOrderDetailDTO[]=[]
@@ -20,8 +22,12 @@ export class MemberorderdetailComponent {
   this.myOrderDetailDTO = data;
   console.log('傳回的訂單明細1',data);
   console.log('傳回的訂單明細2',this.myOrderDetailDTO);
-
 })
+  }
 
+  gotoComment(para:number)
+  {
+    sessionStorage.setItem('ordertetailId',para.toString())
+    this.dialog.open(MycommentComponent);
   }
 }

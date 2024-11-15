@@ -53,6 +53,7 @@ import { MymemberlevelComponent } from './components/Member/mymemberlevel/mymemb
 import { ReactiveFormsModule } from '@angular/forms';
 import { MyfavoritePipe } from './pipe/Member/myfavorite.pipe';
 import { QuillModule } from 'ngx-quill';
+import { MycommentComponent } from './components/Member/mycomment/mycomment.component';
 
 
 
@@ -104,6 +105,7 @@ const routes: Routes = [
       Cart2Component,
       MymemberlevelComponent,
       MyfavoritePipe,
+      MycommentComponent,
 
   ],
   imports: [

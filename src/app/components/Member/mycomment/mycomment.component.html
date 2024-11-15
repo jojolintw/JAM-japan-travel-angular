@@ -1,0 +1,31 @@
+<div class="container">
+<div class="vs-comment-form">
+  <div id="respond" class="comment-respond">
+    <h3 class="blog-inner-title">新增評論</h3>
+    <h4>{{myComment.itineraryName}}</h4>
+    <div class="row" style="margin-top: 50px;">
+      <div class="form-group rating-select">
+        <label>請給評分</label>
+        <p class="stars">
+          <span>
+            <a
+              *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+              [ngClass]="{'selected': rating >= star}"
+              (click)="setRating(star)">
+              {{ star }}
+            </a>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-12 form-group">
+        <textarea class="form-control" placeholder="寫下你的評論" style="height: 300px;" [(ngModel)]="myComment.commentContent"></textarea>
+      </div>
+      <div class="col-12 form-group d-flex">
+        <button class="vs-btn style4 w-30" type="button" (click)="submit()">送出評論</button>
+        <button class="vs-btn style4 w-30" type="button" (click)="cancel()">取消評論</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

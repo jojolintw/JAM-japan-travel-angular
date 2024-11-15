@@ -23,7 +23,7 @@
           <td style="text-align: left;">{{item.departureDate}}</td>
           <td>{{item.quantity}}</td>
           <td>{{item.totalPrice}}</td>
-          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color:#FFD306">我要評論</button></td>
+          <td><button class="vs-btn mask-style1 style4 col-md-2" type="button" style="width: 130px;background-color:#FFD306" (click)="gotoComment(item.orderDetailId)">我要評論</button></td>
         </tr>
       </tbody>
     </table>
