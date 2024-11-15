@@ -6,20 +6,27 @@
         <div class="row">
 
           <div *ngIf="displayedArticles.length > 0; else noArticles">
-
             <div *ngFor="let item of displayedArticles" class="col-xl-6 col-md-6 col-sm-12 col-12">
               <div class="vs-blog blog-style2">
                 <div class="blog-img">
                   <a href="#"><img src="assets/img/blog/Fukuoka.jpg" alt="blog image"></a>
                   <div class="blog-inner-author">
+
                     <img src="assets/img/blog/authorpic.png" alt="blog author image">
                     <a href="#" class="author-name">森上梅友前</a>
+
+
+
+
                     <span class="author-degi"></span>
                   </div>
                 </div>
                 <div class="blog-content">
                   <h2 class="blog-title">{{item.articleTitle}}</h2>
                   <p class="truncate">{{item.articleContent}}</p>
+                  {{memberName}}
+                  {{imagePath}}
+                  <img [src]="imagePath">
                   <div class="blog-bottom">
                     <div>
                       <i class="fas fa-calendar-alt">發文日期</i> {{item.launchTime| date:'yyyy/MM/dd'}}
