@@ -20,4 +20,5 @@ export interface memberInfo
   memberLevel:string
   memberStatusId:number
   memberStatus:string
+  imageUrl?:string
 }
