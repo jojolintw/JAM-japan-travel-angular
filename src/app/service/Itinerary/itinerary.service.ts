@@ -7,6 +7,7 @@ import { ItineraryDetail } from 'src/app/interface/Product/itinerary-detail.inte
 import { Activity } from 'src/app/interface/Product/Activity';
 import { HttpParams } from '@angular/common/http';
 import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
+import { OrderComments } from 'src/app/interface/Product/OrderComments';
 
 
 @Injectable({
@@ -44,6 +45,10 @@ export class ItineraryService {
 
   getItineraryById(id: number): Observable<ItineraryDetail> {
     return this.http.get<ItineraryDetail>(`${this.apiUrl}/detail/${id}`);
+  }
+
+  getOrderComments(itinerarySystemId: number): Observable<OrderComments[]> {
+    return this.http.get<OrderComments[]>(`${this.apiUrl}/detail/comment/${itinerarySystemId}`);
   }
 
   private getHttpOptions() {

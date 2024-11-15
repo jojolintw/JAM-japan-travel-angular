@@ -1,4 +1,3 @@
-import { itineraryBatch } from './../../../interface/Product/itinerary-detail.interface';
 import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +10,8 @@ import { cartItem } from 'src/app/interface/Order/cartItem';
 import Swal from 'sweetalert2';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
 import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
+import { OrderComments } from 'src/app/interface/Product/OrderComments';
+import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
 
 
 @Component({
@@ -21,7 +22,16 @@ import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 
 
 export class ItineraryDetailComponent implements OnInit {
-
+  myareaMember: MyareaMember =
+    {
+      ChineseName: null,
+      Email: null,
+      MemberLevelId: null,
+      MemberLevel: null,
+      MemberStatusId: null,
+      MemberStatus: null,
+      ImageUrl: null
+    };
   itineraryDetail: ItineraryDetail | null = null;
   tours: ItineraryDetail[] = [];
   relatedTours: ItineraryList[] = [];
@@ -35,10 +45,11 @@ export class ItineraryDetailComponent implements OnInit {
   cartItems: cartItem[] = [];
   isActive: boolean = false;
   itineraryDateSystemId: number = 0;
+  orderComments: OrderComments[] = [];
+  comment: OrderComments["comments"] = [];
 
   selectedIndex = 0;
   selectedImage = this.itineraryDetail?.imagePath[0];
-
 
   selectImage(index: number) {
     this.selectedIndex = index;
@@ -50,11 +61,17 @@ export class ItineraryDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const idParam = params['id'];
+      const orderIdParam = params['orderId'];
       if (idParam) {
         const id = parseInt(idParam, 10);
         this.loadItineraryDetail(id);
       }
     });
+
+    this.myareaService.GoToMyArea().subscribe(data => {
+      this.myareaMember.ImageUrl = data.ImageUrl;
+    });
+    console.log(this.myareaMember.ImageUrl);
   }
 
   loadItineraryDetail(id: number): void {
@@ -62,6 +79,10 @@ export class ItineraryDetailComponent implements OnInit {
       this.itineraryDetail = response;
       this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
       this.initializeDayStatus();
+      if (this.itineraryDetail) {
+        const itinerarySystemId = this.itineraryDetail.itinerarySystemId; // 假设 itineraryDetail 中有 itinerarySystemId
+        this.loadOrderComments(itinerarySystemId); // 使用 itinerarySystemId 加载评论
+      }
       //=====確認是否為我的最愛===========================================================================
       this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {
         if (data.result === 'ismyfavirite') {
@@ -226,34 +247,53 @@ export class ItineraryDetailComponent implements OnInit {
   }
 
   //評論顯示
-  getComment():void{
-
+  loadOrderComments(itinerarySystemId: number): void {
+    if (itinerarySystemId) {
+      this.itineraryService.getOrderComments(itinerarySystemId).subscribe({
+        next: (data) => {
+          this.orderComments = data;
+          this.comment = data.flatMap(orderComment => orderComment.comments);
+        },
+        error: (error) => {
+          console.error('Error fetching comments:', error);
+        }
+      });
+    }
   }
 
+  getMemberName(comment: OrderComments['comments'][0]) {
+    const orderComment = this.orderComments.find(o =>
+      o.comments.some(c =>
+        c.commentContent === comment.commentContent &&
+        c.commentDate === comment.commentDate
+      )
+    );
 
- //加入購物車
- addToCart():void{
-  if(this.itineraryDateSystemId==0)
-  {
-    Swal.fire({
-      icon: "info",
-      title: "請選擇時段",
-      showConfirmButton: false,
-      timer: 1500
-    });
-    return;
+    return orderComment?.memberName;
   }
-  const newCartItem:cartItem={
-    itineraryDateSystemId: this.itineraryDateSystemId as number,
-    ItinerarySystemId:this.itineraryDetail?.itinerarySystemId as number,
-    name:(this.itineraryDetail?.itineraryName as string)+' '+this.selectedDate+this.selectedTime,
-    price:this.itineraryDetail?.price as number,
-    quantity:this.quantity,
-    imagePath:this.itineraryDetail?.imagePath[0] as string
+
+  //加入購物車
+  addToCart(): void {
+    if (this.itineraryDateSystemId == 0) {
+      Swal.fire({
+        icon: "info",
+        title: "請選擇時段",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+    const newCartItem: cartItem = {
+      itineraryDateSystemId: this.itineraryDateSystemId as number,
+      ItinerarySystemId: this.itineraryDetail?.itinerarySystemId as number,
+      name: (this.itineraryDetail?.itineraryName as string) + ' ' + this.selectedDate + this.selectedTime,
+      price: this.itineraryDetail?.price as number,
+      quantity: this.quantity,
+      imagePath: this.itineraryDetail?.imagePath[0] as string
+    }
+    this.localStorageService.addToCart(newCartItem);
+    console.log(newCartItem);
   }
-  this.localStorageService.addToCart(newCartItem);
-  console.log(newCartItem);
- }
 
   getItineraryDetails(): string[] {
     return this.itineraryDetail?.itineraryDetails as string[];
