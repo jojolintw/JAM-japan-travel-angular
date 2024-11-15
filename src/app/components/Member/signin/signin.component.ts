@@ -6,6 +6,7 @@ import { googleLoginTransfer } from 'src/app/interface/Member/googleLoginTransfe
 import { MatDialog } from '@angular/material/dialog';
 import { RegistercompleleComponent } from '../registercomplele/registercomplele.component';
 import Swal from 'sweetalert2';
+import { ParseTreeResult } from '@angular/compiler';
 
 declare var google: any;
 //我不是機器人相關
@@ -22,11 +23,12 @@ export class SigninComponent {
   //我不是機器人相關
   captchaResponse: string | null = null;
   recaptchaRendered = false;
+  ischecked = false;
   //===================================================
   loginTransfer: LoginTransfer =
     {
-      email: 'winne1945@gmail.com',
-      password: 'w1234567',
+      email: '',
+      password: '',
     }
   ErrorMessage =
     {
@@ -37,10 +39,24 @@ export class SigninComponent {
     {
       token: '',
     }
+  ngOnInit(): void {
+    const rememberEmail = localStorage.getItem('rememberEmail');
+    const rememberPassword = localStorage.getItem('rememberPassword');
+    if(rememberEmail!= null && rememberPassword!= null)
+      {
+        this.loginTransfer.email = rememberEmail;
+        this.loginTransfer.password = rememberEmail;
+      }
+  }
   focus() {
     this.ErrorMessage.ErrorEmail = '';
     this.ErrorMessage.ErrorPassword = '';
   }
+  check()
+  {
+    this.ischecked = !this.ischecked;
+  }
+
   //登入
   Login() {
     //空白驗證
@@ -71,7 +87,7 @@ export class SigninComponent {
     }
     //我不是機器人認證==============================================
     if (this.captchaResponse) {
-          //打API
+    //打註冊API
     this.loginService.LoginApi(this.loginTransfer).subscribe(data => {
       if (data.result === 'ErrorAccount') {
         console.log(data);
@@ -85,6 +101,16 @@ export class SigninComponent {
         console.log(data);
         this.loginService.savejwtToken(data.token);
         this.loginService.isLoggedInSubject.next(true);
+        if(this.ischecked)
+          {
+            localStorage.setItem('rememberEmail',this.loginTransfer.email)
+            localStorage.setItem('rememberPassword',this.loginTransfer.password)
+          }
+        else
+        {
+          localStorage.removeItem('rememberEmail')
+          localStorage.removeItem('rememberPassword')
+        }
         this.router.navigate(['**'])
       }
     })
