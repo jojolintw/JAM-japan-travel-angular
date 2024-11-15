@@ -95,10 +95,10 @@
                         <!-- <input type="text" class="form-control" readonly> -->
                         <select name="coupon" [(ngModel)]="selectedCoupon" style="text-align: center; border-radius: 1em; height: 60px; font-size: 18px;" (change)="saveCoupon($event)">
                           <option [value]="0">-------選擇優惠券-------</option>
-                          <option [value]="100">驚喜大禮包 (-100)</option>
-                          <option [value]="150">大大大優惠 (-150)</option>
+                          <option *ngFor="let coupon of mycoupons" [value]="coupon.couponId">{{coupon.couponName}} (-{{coupon.discount}})</option>
+                          <!-- <option [value]="150">大大大優惠 (-150)</option>
                           <option [value]="99">周年慶大放送 (-99)</option>
-                          <option [value]="50">新用戶好禮 (-50)</option>
+                          <option [value]="50">新用戶好禮 (-50)</option> -->
                         </select>
                         <!-- <button id="selectcoupon" class="vs-btn style4" style="padding: 10px 20px; width: 40%;">使用優惠券</button> -->
                     </div>

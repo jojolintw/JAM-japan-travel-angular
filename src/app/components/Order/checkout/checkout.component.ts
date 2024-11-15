@@ -6,6 +6,8 @@ import { LocalstorageService } from 'src/app/service/Order/localstorage.service'
 import { cartItem } from 'src/app/interface/Order/cartItem';
 import { error } from 'jquery';
 import Swal from 'sweetalert2';
+import { Mycoupon } from 'src/app/interface/Member/MyCoupon';
+import { MyareaService } from 'src/app/service/Member/myarea.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,20 +20,32 @@ export class CheckoutComponent implements OnInit {
   quantity = 1;
   productTotalAmount = 0;
   totalAmount = 0;
-  discount = 100;
+  discount = 0
+  mycoupons:Mycoupon[] = []
+  couponId = 0
   memberName: String = '';
   phone: String = '';
   email: String = '';
   remarks: string = '';
   coupon: number = 0;
-  selectedCoupon: number=100;
+  selectedCoupon: number=Number(localStorage.getItem("couponId"));
 
   constructor(private router: Router,
-    private localstorageService: LocalstorageService, private checkoutService:CheckoutService) {
+    private localstorageService: LocalstorageService, private checkoutService:CheckoutService, private myareaService:MyareaService) {
   }
 
   ngOnInit(): void {
+    window.scroll(0,0);
+
     this.cartItems = this.localstorageService.getCartItems();
+
+    this.myareaService.GetAllMycoupon().subscribe(coupons=>{
+      this.mycoupons = coupons;
+      // console.log(this.mycoupons);
+    })
+
+    this.couponId = Number(localStorage.getItem("couponId"));
+    this.discount = Number(localStorage.getItem("discount"));
     this.calculateTotal();
 
     this.localstorageService.getMemberInfo().subscribe(
@@ -79,9 +93,20 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('totalAmount',this.totalAmount.toString());
   }
 
-  saveCoupon(event: any){
-    this.discount = event.target.value;
-    localStorage.setItem("discount",this.discount.toString());
+  saveCoupon(event: any) {
+    this.couponId = event.target.value;
+    localStorage.setItem("couponId",this.couponId.toString());
+    const selectCoupon = this.mycoupons.find(coupon=>coupon.couponId === +this.couponId)
+    if(selectCoupon){
+      this.discount = Number(selectCoupon.discount);
+      localStorage.setItem("discount",selectCoupon.discount.toString());
+    }
+    if(this.couponId==0){
+      this.discount=0;
+      localStorage.removeItem("couponId");
+      localStorage.removeItem("discount");
+    }
+
     this.calculateTotal();
   }
 
