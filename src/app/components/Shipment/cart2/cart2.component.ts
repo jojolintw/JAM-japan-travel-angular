@@ -30,10 +30,11 @@ export class Cart2Component implements OnInit {
 
   // 更改數量
   changeQuantity(item: any, amount: number) {
-    item.seats += amount;
-    if (item.seats < 1) item.seats = 1;
+    item.seats = Number(item.seats) + amount; // 強制將 `item.seats` 設為數字
+    if (item.seats < 1) item.seats = 1; // 保持最小值為1
     this.calculateTotal();
   }
+  
 
   // 移除購物車項目
   removeCartItem(itemId: number) {

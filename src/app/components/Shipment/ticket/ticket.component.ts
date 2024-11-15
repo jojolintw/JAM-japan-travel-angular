@@ -74,7 +74,12 @@ export class TicketComponent implements OnInit {
     this.pageNumber = 1;
     this.applyFilter();
   }
-
+  onDestinationPortChange() {
+    // 當選擇目的地時即時篩選
+    this.pageNumber = 1; // 重置為第一頁
+    this.applyFilter();
+  }
+  
   onSearch() {
     this.applyFilter(); // 確保查詢按鈕點擊後會更新列表
   }
