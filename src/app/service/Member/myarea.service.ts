@@ -92,7 +92,7 @@ export class MyareaService {
     return this.client.get<myComment>(`https://localhost:7100/api/Member/GetCommentOrderDetailId/${para}`, { withCredentials: true })
   }
   InsertComment(para: myComment) {
-    return this.client.post<any>(`https://localhost:7100/api/Member/InsertComment`,para, { withCredentials: true })
+    return this.client.post<any>(`https://localhost:7100/api/Member/AlterComment`,para, { withCredentials: true })
   }
 }
 
