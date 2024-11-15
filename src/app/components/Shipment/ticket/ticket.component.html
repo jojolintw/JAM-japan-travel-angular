@@ -74,18 +74,16 @@
                       <option value="">選擇出發地</option>
                       <option *ngFor="let origin of origins" [value]="origin">{{ origin }}</option>
                     </select>
-          
+              
                     <label for="destinationPort">目的地</label>
-                    <select id="destinationPort" name="destinationPort" class="form-select" [(ngModel)]="selectedDestinationPort">
+                    <select id="destinationPort" name="destinationPort" class="form-select" [(ngModel)]="selectedDestinationPort" (change)="onDestinationPortChange()">
                       <option value="">選擇目的地</option>
                       <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
                     </select>
-          
-                    <!-- 查詢按鈕 -->
-                    <button (click)="onSearch()" class="btn btn-primary">查詢</button>
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
           

@@ -87,6 +87,7 @@ const routes: Routes = [
     DetailComponent,
     TicketComponent,
     SafePipe,
+    
 
     CartComponent,
     CheckoutComponent,
@@ -125,6 +126,7 @@ const routes: Routes = [
     MatIconModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     QuillModule.forRoot(),  // 导入 QuillModule
   ],
   providers: [ItineraryService,ArticleService,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
