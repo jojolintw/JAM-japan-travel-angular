@@ -23,7 +23,6 @@ export class SigninComponent {
   //我不是機器人相關
   captchaResponse: string | null = null;
   recaptchaRendered = false;
-  ischecked = false;
   //===================================================
   loginTransfer: LoginTransfer =
     {
@@ -39,22 +38,9 @@ export class SigninComponent {
     {
       token: '',
     }
-  ngOnInit(): void {
-    const rememberEmail = localStorage.getItem('rememberEmail');
-    const rememberPassword = localStorage.getItem('rememberPassword');
-    if(rememberEmail!= null && rememberPassword!= null)
-      {
-        this.loginTransfer.email = rememberEmail;
-        this.loginTransfer.password = rememberEmail;
-      }
-  }
   focus() {
     this.ErrorMessage.ErrorEmail = '';
     this.ErrorMessage.ErrorPassword = '';
-  }
-  check()
-  {
-    this.ischecked = !this.ischecked;
   }
 
   //登入
@@ -101,16 +87,7 @@ export class SigninComponent {
         console.log(data);
         this.loginService.savejwtToken(data.token);
         this.loginService.isLoggedInSubject.next(true);
-        if(this.ischecked)
-          {
-            localStorage.setItem('rememberEmail',this.loginTransfer.email)
-            localStorage.setItem('rememberPassword',this.loginTransfer.password)
-          }
-        else
-        {
-          localStorage.removeItem('rememberEmail')
-          localStorage.removeItem('rememberPassword')
-        }
+
         this.router.navigate(['**'])
       }
     })

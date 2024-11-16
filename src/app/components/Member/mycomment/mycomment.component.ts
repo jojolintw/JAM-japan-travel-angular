@@ -49,7 +49,7 @@ export class MycommentComponent {
     console.log(this.myComment);
 
     //新增評論
-    this.myareaService.InsertComment(this.myComment).subscribe(data=>
+    this.myareaService.AlterComment(this.myComment).subscribe(data=>
       {
         if(data.result==='success')
           {

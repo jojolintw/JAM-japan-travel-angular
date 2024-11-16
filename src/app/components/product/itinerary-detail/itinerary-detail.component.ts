@@ -12,6 +12,7 @@ import { MyareaService } from 'src/app/service/Member/myarea.service';
 import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 import { OrderComments } from 'src/app/interface/Product/OrderComments';
 import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
+import { MemberCommentDTO } from 'src/app/interface/Member/MemberCommentDTO';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class ItineraryDetailComponent implements OnInit {
   orderComments: OrderComments[] = [];
   comment: OrderComments["comments"] = [];
 
+  memberCommentDTO:MemberCommentDTO[]=[]
+
   selectedIndex = 0;
   selectedImage = this.itineraryDetail?.imagePath[0];
 
@@ -82,6 +85,11 @@ export class ItineraryDetailComponent implements OnInit {
       if (this.itineraryDetail) {
         const itinerarySystemId = this.itineraryDetail.itinerarySystemId; // 假设 itineraryDetail 中有 itinerarySystemId
         this.loadOrderComments(itinerarySystemId); // 使用 itinerarySystemId 加载评论
+        this.myareaService.GetAllCommentByItinerary(itinerarySystemId).subscribe(data=>{
+          console.log('評論取得',data);
+          this.memberCommentDTO = data;
+          console.log('評論接值',data);
+        })
       }
       //=====確認是否為我的最愛===========================================================================
       this.myareaService.Ismyfavorite(this.itineraryDetail?.itinerarySystemId).subscribe(data => {

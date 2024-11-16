@@ -5,6 +5,7 @@ import { Area } from 'src/app/interface/Member/Area';
 import { City } from 'src/app/interface/Member/City';
 import { CityArea } from 'src/app/interface/Member/CityArea';
 import { LoginMember } from 'src/app/interface/Member/LoginMember';
+import { MemberCommentDTO } from 'src/app/interface/Member/MemberCommentDTO';
 import { myComment } from 'src/app/interface/Member/myComment';
 import { Mycoupon } from 'src/app/interface/Member/MyCoupon';
 import { MyfavoriteItilities } from 'src/app/interface/Member/MyfavoriteItilities';
@@ -91,8 +92,13 @@ export class MyareaService {
   GetItineraryinfo(para: number) {
     return this.client.get<myComment>(`https://localhost:7100/api/Member/GetCommentOrderDetailId/${para}`, { withCredentials: true })
   }
-  InsertComment(para: myComment) {
+  //修改評論
+  AlterComment(para: myComment) {
     return this.client.post<any>(`https://localhost:7100/api/Member/AlterComment`,para, { withCredentials: true })
+  }
+  //取得同一行程的所有評論
+  GetAllCommentByItinerary(para:number){
+    return this.client.get<MemberCommentDTO[]>(`https://localhost:7100/api/Member/GetAllCommentByItinerary/${para}`, { withCredentials: true })
   }
 }
 
