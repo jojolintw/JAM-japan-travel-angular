@@ -5,6 +5,7 @@ import { ScheduleService, Schedule } from '../../../service/Shipment/schedule.se
 import { Cart2Service } from '../../../service/Shipment/cart2.service';
 import { Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
+import Swal from 'sweetalert2';
 
 
 
@@ -34,7 +35,13 @@ export class DetailComponent implements OnInit {
     private cart2Service: Cart2Service,
     private router: Router
   ) {}
+  selectedScheduleData: { capacity: number; seats: number } | null = null;
 
+  onScheduleDataReceived(data: { capacity: number; seats: number }): void {
+    this.selectedScheduleData = data;
+    console.log('Received Schedule Data:', data);
+  }
+  
   ngOnInit(): void {
     const routeId = Number(this.route.snapshot.paramMap.get('routeId'));
     if (!isNaN(routeId)) {
@@ -143,6 +150,34 @@ export class DetailComponent implements OnInit {
   }
 
   addToCart() {
+    if (!this.selectedScheduleData) {
+      Swal.fire({
+        icon: 'error',
+        title: '班次未選擇',
+        text: '請先選擇一個班次再繼續。',
+      });
+      return;
+    }
+  
+    const remainingSeats =
+      (this.selectedScheduleData.capacity || 0) -
+      (this.selectedScheduleData.seats || 0) -
+      Number(this.selectedSeats);
+  
+    if (remainingSeats < 0) {
+      Swal.fire({
+        icon: 'error',
+        title: '座位不足',
+        text: `剩餘座位不足，最多可選 ${this.selectedScheduleData.capacity - this.selectedScheduleData.seats} 人。`,
+      });
+      return;
+    }
+  
+    // 進行加入購物車邏輯
+    console.log('成功加入購物車');
+  
+  
+  
     const selectedSchedule = this.schedules.find(schedule => schedule.scheduleId === this.selectedScheduleId);
     if (selectedSchedule && this.shipmentDetail) {
       const scheduleWithPrice = { ...selectedSchedule, price: this.shipmentDetail.price };
@@ -151,6 +186,7 @@ export class DetailComponent implements OnInit {
       this.router.navigate(['/cart2']);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
-
   }
+  
+  
 }
