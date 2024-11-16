@@ -146,7 +146,7 @@ export class CheckoutComponent implements OnInit {
             this.createOrder();
 
             // 下單成功頁面
-            this.router.navigate(['orderconfirmation']);
+            // this.router.navigate(['orderconfirmation']);
 
             // 清除購物車 localStorage => key:cart
             this.localstorageService.removeCart();
@@ -186,21 +186,21 @@ export class CheckoutComponent implements OnInit {
 
 
   createOrder(){
-    const amount = localStorage.getItem('totalAmount');
-    const orderId = localStorage.getItem('memberId') + Date.now().toString()
-    const lineorderData={
-      orderId:orderId,
-      amount:Number(amount),
-      currency:"TWD",
-      productName:"Japan Activity Memory(JAM)商品",
-      confirmUrl:"",
-      cancelUrl:"",
-    }
-    console.log(lineorderData);
+    // const amount = localStorage.getItem('totalAmount');
+    // const orderId = localStorage.getItem('memberId') + Date.now().toString()
+    // const lineorderData={
+    //   orderId:orderId,
+    //   amount:Number(amount),
+    //   currency:"TWD",
+    //   productName:"Japan Activity Memory(JAM)商品",
+    //   confirmUrl:"",
+    //   cancelUrl:"",
+    // }
+    // console.log(lineorderData);
 
 
 
-  this.checkoutService.linepay(lineorderData).subscribe(
+  this.checkoutService.linepay().subscribe(
     (response) => {
       // 假設後端返回的 response 是包含 paymentUrl 的物件
       console.log('LinePay 回應:', response);
