@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HashtagService } from 'src/app/service/Blog/hashtag.service';
 import { ArticleService } from 'src/app/service/Blog/article.service';
 import { Article } from 'src/app/interface/Article/Article.interface';
 import { Hashtag } from 'src/app/interface/Article/Hashtag.interface';
 import { ActivatedRoute } from '@angular/router';
-import { LocalstorageService } from 'src/app/service/Order/localstorage.service';
+
 
 @Component({
   selector: 'app-blog-list',
@@ -18,13 +17,12 @@ export class BlogListComponent implements OnInit {
   keyword: string = '';  // 存储搜索关键词
   loading: boolean = false;  // 用于指示正在加载数据
   hashtags: Hashtag[] = [];  // 存储标签列表
-  memberName: string = '';
-  imagePath?: string = '';
+
 
   constructor(private route: ActivatedRoute,
     private ArticleService: ArticleService,
     private hashtagService: HashtagService,
-    private localStorageService: LocalstorageService
+
   ) { }
 
   ngOnInit(): void {
@@ -35,18 +33,7 @@ export class BlogListComponent implements OnInit {
     this.loadHashtags();
 
 
-    this.localStorageService.getMemberInfo().subscribe(response => {
-      if (response.result === 'success') {
-        // 假設你希望使用 MemberName 和 ImagePath
-        this.memberName = response.loginmember.chineseName;
-        this.imagePath = response.loginmember.imageUrl;
 
-
-        // 可以將這些資料儲存到 Angular 服務或是直接顯示在 UI 上
-      } else {
-        console.error('Login failed or no login data available');
-      }
-    });
   }
 
   // 加载所有文章
@@ -60,6 +47,12 @@ export class BlogListComponent implements OnInit {
         this.displayedArticles.forEach(article => {
           article.launchTime = new Date(article.launchTime);
           article.lastUpdateTime = new Date(article.lastUpdateTime);
+        });
+        // 处理会员图片路径 (imagePath)
+        this.displayedArticles.forEach(article => {
+          // 确保前端显示图片路径
+          article.imagePath = article.imagePath || ''; // 如果没有图片路径，可以用空字符串作为默认值
+          article.memberName = article.memberName || ''; // 如果没有会员名称，可以用空字符串作为默认值
         });
         this.loading = false;
       },
@@ -78,7 +71,7 @@ export class BlogListComponent implements OnInit {
         this.hashtags = data;
       },
       (error) => {
-        console.error('加载标签失败', error);
+        console.error('载入hashtag失败', error);
       }
     );
   }
@@ -94,10 +87,16 @@ export class BlogListComponent implements OnInit {
           article.launchTime = new Date(article.launchTime);
           article.lastUpdateTime = new Date(article.lastUpdateTime);
         });
+
+         // 处理会员图片路径 (imagePath)
+         this.displayedArticles.forEach(article => {
+          article.imagePath = article.imagePath || ''; // 如果没有图片路径，可以用空字符串作为默认值
+          article.memberName = article.memberName || ''; // 如果没有会员名称，可以用空字符串作为默认值
+        });
         this.loading = false;
       },
       (error) => {
-        console.error('加载相关文章失败', error);
+        console.error('载入相關文章失败', error);
         this.displayedArticles = [];
         this.loading = false;
       }

@@ -15,8 +15,16 @@
             <h2 class="blog-title">{{ article.articleTitle }}</h2>
             <div class="blog-meta">
               <i class="fas fa-calendar-alt">發文日期</i> {{ article.launchTime | date: 'yyyy/MM/dd' }}
-              <img src="assets/img/blog/authorpic.png" alt="blog author image">
-              <a href="#" class="author-name">森上梅友前</a>
+
+
+
+              <!-- 動態顯示會員圖片 -->
+              <img *ngIf="article.imagePath" [src]="'https://localhost:7100/images/Member/' + article.imagePath"
+                alt="blog author image" style="max-width: 45px; max-height: 45px; object-fit: cover;">
+
+              <!-- 動態顯示會員名稱 -->
+              <a href="#" class="author-name">{{ article.memberName }}</a>
+
             </div>
 
             <p>{{ article.articleContent }}</p>
@@ -51,7 +59,8 @@
 
             <div class="clearfix share-links">
               <div class="row justify-content-between gy-30">
-                <div class="col-xl-auto col-md-auto" *ngIf="article.articleHashtags && article.articleHashtags.length > 0">
+                <div class="col-xl-auto col-md-auto"
+                  *ngIf="article.articleHashtags && article.articleHashtags.length > 0">
                   <span class="share-links-title">Hashtags:</span>
                   <div class="tagcloud">
                     <a *ngFor="let hashtag of article.articleHashtags" href="blog.html">{{ hashtag }}</a>
@@ -112,8 +121,8 @@
                       <h4 class="name h4">梅川伊芙</h4>
                       <p class="text">福岡很無聊ㄟ</p>
                       <div class="reply_and_edit">
-                        <a href="#" class="replay-btn">修改 <i ></i></a>
-                        <a href="#" class="replay-btn">刪除 <i ></i></a>
+                        <a href="#" class="replay-btn">修改 <i></i></a>
+                        <a href="#" class="replay-btn">刪除 <i></i></a>
                       </div>
                     </div>
                   </div>
@@ -128,8 +137,8 @@
                       <h4 class="name h4">稻澈入庫</h4>
                       <p class="text">日本94讚</p>
                       <div class="reply_and_edit">
-                        <a href="#" class="replay-btn">修改 <i ></i></a>
-                        <a href="#" class="replay-btn">刪除 <i ></i></a>
+                        <a href="#" class="replay-btn">修改 <i></i></a>
+                        <a href="#" class="replay-btn">刪除 <i></i></a>
                       </div>
                     </div>
                   </div>
