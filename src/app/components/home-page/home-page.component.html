@@ -242,11 +242,9 @@
               </div>
               <div class="package-content">
                 <div class="package-review">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
+                  <ng-container *ngFor="let star of [].constructor(tours[0].starRate); let i = index">
+                    <i class="fas fa-star"></i>
+                  </ng-container>
                 </div>
                 <h3 class="package-title"><a href="tour-booking.html">{{tours[0].itineraryName}}</a></h3>
                 <p class="package-text">{{tours[0].areaName}}</p>

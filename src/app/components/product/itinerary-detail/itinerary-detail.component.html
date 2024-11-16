@@ -150,10 +150,10 @@
               <div class="woocommerce-Reviews">
                 <div class="vs-comments-wrap">
                   <ul class="comment-list">
-                    <li *ngFor="let comment of comment" class="review vs-comment-item">
+                    <li *ngFor="let comment of comment; let i = index" class="review vs-comment-item">
                       <div class="vs-post-comment">
                         <div class="comment-avater">
-                          <img [src]="myareaMember.ImageUrl" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
+                          <img [src]="memberCommentDTO[i].memberPhotoURL" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
                         </div>
                         <div class="comment-content">
                           <div class="star-rating">
