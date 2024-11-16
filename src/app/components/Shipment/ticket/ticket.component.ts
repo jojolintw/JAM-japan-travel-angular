@@ -58,6 +58,8 @@ export class TicketComponent implements OnInit {
         this.sortedShipments = response.data;
         this.totalRecords = response.totalRecords;
       });
+      this.pageNumber = 1;  // 重置為第一頁
+
   }
   
   onOriginPortChange() {
