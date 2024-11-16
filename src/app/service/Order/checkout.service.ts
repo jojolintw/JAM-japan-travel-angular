@@ -54,14 +54,15 @@ export class CheckoutService {
   }
 
   linepay():Observable<any>{
-    const totalAmount = localStorage.getItem('totalAmount') || '';
+    const totalAmount = Number(localStorage.getItem('totalAmount') || '');
     const orderId = localStorage.getItem('memberId');
     const currenttime = this.getformattedtime();
     const remarks = localStorage.getItem('remarks') || '';
+    const couponId = Number((localStorage.getItem('couponId') || '0'));
 
     const checkout = {
       price:totalAmount,
-      couponId:orderId + currenttime,
+      couponId:couponId,
       address:remarks,
       amount:totalAmount
     }
