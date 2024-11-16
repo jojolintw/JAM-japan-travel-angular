@@ -38,6 +38,16 @@ export class SigninComponent {
     {
       token: '',
     }
+
+    ngOnInit(): void {
+      const rememberEmail = localStorage.getItem('rememberEmail');
+      const rememberPassword = localStorage.getItem('rememberPassword');
+      if(rememberEmail!= null && rememberPassword!= null)
+        {
+          this.loginTransfer.email = rememberEmail;
+          this.loginTransfer.password = rememberPassword;
+        }
+    }
   focus() {
     this.ErrorMessage.ErrorEmail = '';
     this.ErrorMessage.ErrorPassword = '';
