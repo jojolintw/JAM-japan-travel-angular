@@ -23,6 +23,7 @@ export class SigninComponent {
   //我不是機器人相關
   captchaResponse: string | null = null;
   recaptchaRendered = false;
+  ischecked=false;
   //===================================================
   loginTransfer: LoginTransfer =
     {
@@ -51,6 +52,10 @@ export class SigninComponent {
   focus() {
     this.ErrorMessage.ErrorEmail = '';
     this.ErrorMessage.ErrorPassword = '';
+  }
+  check()
+  {
+    this.ischecked = !this.ischecked;
   }
 
   //登入
