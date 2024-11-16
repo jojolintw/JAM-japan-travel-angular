@@ -12,11 +12,11 @@
                   <a href="#"><img src="assets/img/blog/Fukuoka.jpg" alt="blog image"></a>
                   <div class="blog-inner-author">
 
-                    <img src="assets/img/blog/authorpic.png" alt="blog author image">
-                    <a href="#" class="author-name">森上梅友前</a>
+                    <!-- 使用會員圖片 -->
+                    <img *ngIf="item.imagePath" [src]="'https://localhost:7100/images/Member/' + item.imagePath" alt="blog author image">
 
-
-
+                    <!-- 使用會員名稱 -->
+                    <a href="#" class="author-name">{{ item.memberName }}</a>
 
                     <span class="author-degi"></span>
                   </div>
@@ -24,9 +24,7 @@
                 <div class="blog-content">
                   <h2 class="blog-title">{{item.articleTitle}}</h2>
                   <p class="truncate">{{item.articleContent}}</p>
-                  {{memberName}}
-                  {{imagePath}}
-                  <img [src]="imagePath">
+
                   <div class="blog-bottom">
                     <div>
                       <i class="fas fa-calendar-alt">發文日期</i> {{item.launchTime| date:'yyyy/MM/dd'}}
@@ -34,10 +32,11 @@
                     <div>
                       <i class="fas fa-calendar-alt">最新修改日期</i>{{item.lastUpdateTime | date:'yyyy/MM/dd'}}
                     </div>
-                    <a [routerLink]="['/blog-detail', item.articleId]" class="vs-btn has-arrow">看全文<i class="fal fa-arrow-right"></i></a>
+                    <a [routerLink]="['/blog-detail', item.articleId]" class="vs-btn has-arrow">看全文<i
+                        class="fal fa-arrow-right"></i></a>
 
                   </div>
-                  <li *ngFor="let articleHashtag of item.articleHashtags;" >
+                  <li *ngFor="let articleHashtag of item.articleHashtags;">
                     {{articleHashtag}}
                   </li>
                 </div>

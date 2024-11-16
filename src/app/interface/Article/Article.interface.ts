@@ -7,6 +7,8 @@ export interface Article {
   lastUpdateTime: Date;
   articleContent: string;
   articleHashtags: string[];
-  // image?: string;
+
   hashtags: Hashtag[];
+  imagePath: string; // 新增 imagePath 屬性，用來接收會員的圖片路徑
+  memberName :string;
 }
