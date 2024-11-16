@@ -9,9 +9,7 @@ import { ItineraryService } from 'src/app/service/Itinerary/itinerary.service';
 import { cartItem } from 'src/app/interface/Order/cartItem';
 import Swal from 'sweetalert2';
 import { MyareaService } from 'src/app/service/Member/myarea.service';
-import { theme_Activity } from 'src/app/interface/Product/Theme-Activity';
 import { OrderComments } from 'src/app/interface/Product/OrderComments';
-import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
 import { MemberCommentDTO } from 'src/app/interface/Member/MemberCommentDTO';
 
 
@@ -23,16 +21,6 @@ import { MemberCommentDTO } from 'src/app/interface/Member/MemberCommentDTO';
 
 
 export class ItineraryDetailComponent implements OnInit {
-  myareaMember: MyareaMember =
-    {
-      ChineseName: null,
-      Email: null,
-      MemberLevelId: null,
-      MemberLevel: null,
-      MemberStatusId: null,
-      MemberStatus: null,
-      ImageUrl: null
-    };
   itineraryDetail: ItineraryDetail | null = null;
   tours: ItineraryDetail[] = [];
   relatedTours: ItineraryList[] = [];
@@ -48,7 +36,6 @@ export class ItineraryDetailComponent implements OnInit {
   itineraryDateSystemId: number = 0;
   orderComments: OrderComments[] = [];
   comment: OrderComments["comments"] = [];
-
   memberCommentDTO:MemberCommentDTO[]=[]
 
   selectedIndex = 0;
@@ -70,11 +57,6 @@ export class ItineraryDetailComponent implements OnInit {
         this.loadItineraryDetail(id);
       }
     });
-
-    this.myareaService.GoToMyArea().subscribe(data => {
-      this.myareaMember.ImageUrl = data.ImageUrl;
-    });
-    console.log(this.myareaMember.ImageUrl);
   }
 
   loadItineraryDetail(id: number): void {
@@ -83,8 +65,8 @@ export class ItineraryDetailComponent implements OnInit {
       this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
       this.initializeDayStatus();
       if (this.itineraryDetail) {
-        const itinerarySystemId = this.itineraryDetail.itinerarySystemId; // 假设 itineraryDetail 中有 itinerarySystemId
-        this.loadOrderComments(itinerarySystemId); // 使用 itinerarySystemId 加载评论
+        const itinerarySystemId = this.itineraryDetail.itinerarySystemId;
+        this.loadOrderComments(itinerarySystemId);
         this.myareaService.GetAllCommentByItinerary(itinerarySystemId).subscribe(data=>{
           console.log('評論取得',data);
           this.memberCommentDTO = data;
@@ -250,7 +232,7 @@ export class ItineraryDetailComponent implements OnInit {
   scrollToTop(): void {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // 平滑滚动
+      behavior: 'smooth'
     });
   }
 
@@ -294,7 +276,7 @@ export class ItineraryDetailComponent implements OnInit {
     const newCartItem: cartItem = {
       itineraryDateSystemId: this.itineraryDateSystemId as number,
       ItinerarySystemId: this.itineraryDetail?.itinerarySystemId as number,
-      name: (this.itineraryDetail?.itineraryName as string) + ' ' + this.selectedDate + this.selectedTime,
+      name: (this.itineraryDetail?.itineraryName as string) + ' ' + this.selectedDate + this.selectedTime?.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' }),
       price: this.itineraryDetail?.price as number,
       quantity: this.quantity,
       imagePath: this.itineraryDetail?.imagePath[0] as string

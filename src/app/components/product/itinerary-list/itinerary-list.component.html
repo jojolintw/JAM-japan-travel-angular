@@ -40,15 +40,21 @@
                   <div class="package-img">
                     <a [routerLink]="['/itinerary-detail', tour.itinerarySystemId]"><img [src]="tour.imagePath"
                         alt="Package Image"></a>
-                        {{tour.imagePath}}
                   </div>
                   <div class="package-content">
                     <div class="package-review">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
+                      <ng-container *ngIf="tour.starRate !== null && tour.starRate !== undefined">
+                        <ng-container *ngFor="let _ of getFullStars(tour.starRate)">
+                          <i class="fas fa-star"></i>
+                        </ng-container>
+                        <ng-container *ngIf="hasHalfStar(tour.starRate)">
+                          <i class="fas fa-star-half-alt"></i>
+                        </ng-container>
+                        <ng-container *ngFor="let _ of getEmptyStars(tour.starRate)">
+                          <i class="far fa-star"></i>
+                        </ng-container>
+                      </ng-container>
+                      <span class="star-rating-text"> ({{tour.starRate}})</span>
                     </div>
                     <h3 class="package-title"><a
                         [routerLink]="['/itinerary-detail', tour.itinerarySystemId]">{{tour.itineraryName}}</a></h3>

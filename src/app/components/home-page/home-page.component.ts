@@ -23,6 +23,7 @@ export class HomePageComponent implements OnInit {
       availableDate: '可報名',
       price: 3000,
       areaName: '關東',
+      starRate: 5
     },
     {
       itinerarySystemId: 2,
@@ -34,6 +35,7 @@ export class HomePageComponent implements OnInit {
       availableDate: '可報名',
       price: 3500,
       areaName: '沖繩',
+      starRate: 4.5
     },
     {
       itinerarySystemId: 3,
@@ -45,6 +47,7 @@ export class HomePageComponent implements OnInit {
       availableDate: '可報名',
       price: 6500,
       areaName: '關東',
+      starRate: 3.5
     },
     {
       itinerarySystemId: 4,
@@ -56,6 +59,7 @@ export class HomePageComponent implements OnInit {
       availableDate: '可報名',
       price: 1500,
       areaName: '關東',
+      starRate: 4.5
     }
   ];
   slideConfig = {

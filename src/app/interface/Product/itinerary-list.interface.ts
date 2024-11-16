@@ -8,4 +8,5 @@ export interface ItineraryList {
   imagePath: string;
   availableDate: string;
   price: number;
+  starRate: number;
 }

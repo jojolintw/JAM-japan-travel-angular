@@ -20,7 +20,6 @@ import { MyareaMember } from 'src/app/interface/Member/MyareaMember';
 
 export class ItineraryListComponent implements OnInit {
   @ViewChild('searchFormDir') searchFormDir!: NgForm;
-
   activityNames: Activity[] = [];
   tours: ItineraryList[] = [];
   allTours: ItineraryList[] = [];
@@ -151,6 +150,28 @@ export class ItineraryListComponent implements OnInit {
     });
   }
 
+  //星星數量
+  getStarArray(count: number): number[] {
+    return Array(count).fill(0);
+  }
+
+  getFullStars(rating: number): number[] {
+    const fullStars = Math.floor(rating);
+    return Array(fullStars).fill(0);
+  }
+
+  hasHalfStar(rating: number): boolean {
+    const hasHalf = rating % 1 !== 0;
+    return hasHalf;
+  }
+
+  getEmptyStars(rating: number): number[] {
+    const fullStars = Math.floor(rating);
+    const hasHalf = rating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+    return Array(emptyStars).fill(0);
+  }
+
   calculatePages() {
     const pageCount = Math.ceil(this.tours.length / this.itemsPerPage);
     this.pages = Array.from({length: pageCount}, (_, i) => i + 1);
@@ -190,6 +211,5 @@ export class ItineraryListComponent implements OnInit {
     this.currentPage = 1;
     this.calculatePages();
   }
-
 
 }
