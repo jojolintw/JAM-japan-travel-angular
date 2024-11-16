@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShipmentService, ShipmentDetail } from '../../../service/Shipment/shipment.service';
 import { ScheduleService, Schedule } from '../../../service/Shipment/schedule.service';
@@ -21,7 +21,8 @@ export class DetailComponent implements OnInit {
   showDetailModal: boolean = false;
   showDetailPanel: boolean = false;
   item: any = { name: '商品名稱', price: 100 };
-  
+  carouselInstance: any;
+
   // 新增的屬性來存儲圖片
   coverImageUrl: string = ''; // 封面圖片
   portImages: any[] = []; // 剩餘圖片
@@ -40,6 +41,19 @@ export class DetailComponent implements OnInit {
       this.getShipmentDetail(routeId);
       this.getSchedules(routeId);
       this.loadPortImages(routeId); // 新增：根據 RouteId 加載圖片
+    }
+  }
+
+  ngAfterViewInit() {
+    const carouselElement = document.getElementById('portImagesCarousel');
+    if (carouselElement instanceof HTMLElement) {
+      this.carouselInstance = new bootstrap.Carousel(carouselElement);
+    }
+  }
+
+  changeCarouselImage(index: number): void {
+    if (this.carouselInstance) {
+      this.carouselInstance.to(index);
     }
   }
 

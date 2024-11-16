@@ -57,29 +57,25 @@
               </div>
             </div>
           
-          
-
             <!-- 轮播控制按钮 -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#portImagesCarousel"
-              data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#portImagesCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#portImagesCarousel"
-              data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#portImagesCarousel" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
           </div>
-
+          
           <!-- 縮略圖區域 -->
           <div class="thumbnail-container mt-3">
             <div class="thumbnail-wrapper">
-              <div class="thumbnail-item" *ngFor="let image of portImages">
-                <img [src]="image.portImageUrl" class="img-thumbnail" alt="Thumbnail"
-                  (click)="coverImageUrl = image.portImageUrl" />
+              <div class="thumbnail-item" *ngFor="let image of portImages; let i = index">
+                <img [src]="image.portImageUrl" class="img-thumbnail" alt="Thumbnail" (click)="changeCarouselImage(i)" />
               </div>
             </div>
           </div>
+          
 
 
 
