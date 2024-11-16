@@ -53,9 +53,25 @@ export class CheckoutService {
     return this.client.post('https://localhost:7100/api/Order/CreateOrder',orderData,{headers})
   }
 
-  linepay(orderData:any):Observable<any>{
-    return this.client.post('https://localhost:7100/api/LinePay/LinePay', orderData);
+  linepay():Observable<any>{
+    const totalAmount = Number(localStorage.getItem('totalAmount') || '');
+    const orderId = localStorage.getItem('memberId');
+    const currenttime = this.getformattedtime();
+    const remarks = localStorage.getItem('remarks') || '';
+    const couponId = Number((localStorage.getItem('couponId') || '0'));
+
+    const checkout = {
+      price:totalAmount,
+      couponId:couponId,
+      address:remarks,
+      amount:totalAmount
+    }
+    console.log(checkout);
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+
+    return this.client.post('https://localhost:7100/api/LinePay/RequestPayment', checkout,{headers});
   }
+
 
 
 
