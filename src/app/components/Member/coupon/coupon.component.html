@@ -2,11 +2,11 @@
   <h1 style="margin-bottom: 40px;"><b>我的優惠券</b></h1>
   <ul class="nav nav-tabes page-tabe">
     <li class="page-item"><a class="page-link" (click)="changetoA()"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>可使用</b></a></li>
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>可使用 </b><span>({{allmycoupon.length}})</span></a></li>
     <li class="page-item"><a class="page-link" (click)="changetoB()"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>已使用</b></a></li>
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>已使用</b><span>({{allmyusedcoupon.length}})</span></a></li>
     <li class="page-item"><a class="page-link" (click)="changetoC()"
-        style="color: #7B7B7B; border:none; font-size: 20px;"><b>可領取</b></a></li>
+        style="color: #7B7B7B; border:none; font-size: 20px;"><b>可領取</b><span>({{allmyavailablecoupon.length}})</span></a></li>
   </ul>
   <hr>
 <!-- ================================================================================================================= -->

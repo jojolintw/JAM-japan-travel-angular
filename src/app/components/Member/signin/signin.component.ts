@@ -103,6 +103,21 @@ export class SigninComponent {
         this.loginService.savejwtToken(data.token);
         this.loginService.isLoggedInSubject.next(true);
 
+
+        if(this.ischecked)
+          {
+            localStorage.setItem('rememberEmail',this.loginTransfer.email);
+            localStorage.setItem('rememberPassword',this.loginTransfer.password);
+          }
+          else
+          {
+            localStorage.removeItem('rememberEmail');
+            localStorage.removeItem('rememberPassword');
+          }
+
+
+
+
         this.router.navigate(['**'])
       }
     })
