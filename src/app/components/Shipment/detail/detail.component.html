@@ -23,12 +23,15 @@
 
             <!-- 側邊彈出視窗 -->
             <app-schedule-detail *ngIf="showDetailPanel" [scheduleId]="selectedScheduleId!"
-              (close)="closePanel()"></app-schedule-detail>
+              (scheduleData)="onScheduleDataReceived($event)" (close)="closePanel()">
+            </app-schedule-detail>
+
 
             <h3 class="widget_title mt-4">選擇人數</h3>
             <select [(ngModel)]="selectedSeats" class="form-control">
               <option *ngFor="let seat of [1, 2, 3, 4]" [value]="seat">{{ seat }} 人</option>
             </select>
+
 
             <button id="date-btn" type="button" class="vs-btn style4 mt-4" (click)="addToCart()"
               [disabled]="!selectedScheduleId">
@@ -52,12 +55,10 @@
             <div class="carousel-inner">
               <div *ngFor="let image of portImages; let i = index" [class.active]="i === 0" class="carousel-item">
                 <img [src]="image.portImageUrl || 'https://localhost:7100/images/Shipment/Port/defaultPort.jpg'"
-                     class="d-block w-100" alt="Port Image"
-                     onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
+                  class="d-block w-100" alt="Port Image"
+                  onerror="this.onerror=null;this.src='https://localhost:7100/images/Shipment/Port/defaultPort.jpg';">
               </div>
             </div>
-          
-          
 
             <!-- 轮播控制按钮 -->
             <button class="carousel-control-prev" type="button" data-bs-target="#portImagesCarousel"
@@ -74,12 +75,13 @@
           <!-- 縮略圖區域 -->
           <div class="thumbnail-container mt-3">
             <div class="thumbnail-wrapper">
-              <div class="thumbnail-item" *ngFor="let image of portImages">
+              <div class="thumbnail-item" *ngFor="let image of portImages; let i = index">
                 <img [src]="image.portImageUrl" class="img-thumbnail" alt="Thumbnail"
-                  (click)="coverImageUrl = image.portImageUrl" />
+                  (click)="changeCarouselImage(i)" />
               </div>
             </div>
           </div>
+
 
 
 

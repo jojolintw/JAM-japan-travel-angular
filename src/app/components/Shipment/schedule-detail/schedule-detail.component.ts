@@ -1,8 +1,5 @@
-import { Component, OnInit,Input,Output,EventEmitter,SimpleChanges,OnChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ScheduleService,Schedule } from '../../../service/Shipment/schedule.service';
-
-
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { ScheduleService, Schedule } from '../../../service/Shipment/schedule.service';
 
 @Component({
   selector: 'app-schedule-detail',
@@ -12,6 +9,8 @@ import { ScheduleService,Schedule } from '../../../service/Shipment/schedule.ser
 export class ScheduleDetailComponent implements OnInit, OnChanges {
   @Input() scheduleId!: number;
   @Output() close = new EventEmitter<void>(); // 傳遞關閉事件給父組件
+  @Output() scheduleData = new EventEmitter<{ capacity: number; seats: number }>(); // 傳遞座位數據給父組件
+
   schedule: Schedule | undefined;
 
   constructor(private scheduleService: ScheduleService) {}
@@ -29,7 +28,16 @@ export class ScheduleDetailComponent implements OnInit, OnChanges {
   loadSchedule(): void {
     if (this.scheduleId) {
       this.scheduleService.getScheduleById(this.scheduleId).subscribe({
-        next: (data) => this.schedule = data,
+        next: (data) => {
+          this.schedule = data;
+          if (this.schedule) {
+            // 將 capacity 和 seats 傳遞給父組件
+            this.scheduleData.emit({
+              capacity: this.schedule.capacity,
+              seats: this.schedule.seats
+            });
+          }
+        },
         error: (err) => console.error('Error fetching schedule details:', err)
       });
     }
