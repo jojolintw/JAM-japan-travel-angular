@@ -44,9 +44,3 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
-
-ul li a.active {
-  background-color: #17a2b8; /* 您可以根據需求修改顏色 */
-  color: white; /* 確保文字顏色與背景有對比 */
-  border-radius: 4px; /* 增加圓角，與您的設計一致 */
-}

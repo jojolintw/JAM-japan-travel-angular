@@ -49,6 +49,8 @@ export class TicketComponent implements OnInit {
     console.log('Changing page to:', page); // Debug log
     this.pageNumber = page;
     this.applyFilter(); // 載入資料
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
+
   }
   
 
