@@ -27,9 +27,8 @@
 
             </div>
 
-            <p>{{ article.articleContent }}</p>
-
-
+            <!-- 使用 innerHTML 渲染 HTML 內容 -->
+            <p class="truncate" [innerHTML]="article.articleContent"></p>
 
             <div class="blog-img">
               <img src="assets/img/blog/Fukuoka.jpg" alt="blog image">

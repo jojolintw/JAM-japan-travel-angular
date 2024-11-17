@@ -23,7 +23,8 @@
                 </div>
                 <div class="blog-content">
                   <h2 class="blog-title">{{item.articleTitle}}</h2>
-                  <p class="truncate">{{item.articleContent}}</p>
+                   <!-- 使用 innerHTML 渲染 HTML 內容 -->
+                    <p class="truncate" [innerHTML]="item.articleContent"></p>
 
                   <div class="blog-bottom">
                     <div>
