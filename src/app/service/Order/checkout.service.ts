@@ -42,7 +42,7 @@ export class CheckoutService {
       // orderId:orderId,
       cart:cartItems,
       orderNumber:orderId + currenttime,
-      couponId:couponId,
+      couponId:couponId ? Number(couponId):null,
       remarks:remarks,
       totalAmount:totalAmount,
       memberId:memberId

@@ -139,7 +139,19 @@ export class CartComponent {
   // }
 
   goToCheckout() {
-    this.router.navigate(['checkout']);
+    if(localStorage.getItem("jwtToken"))
+    {
+      this.router.navigate(['checkout']);
+    }
+    else
+    {
+      Swal.fire({
+        icon: "warning",
+        title: "請先登入會員",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
   }
 
   // =============== router =====================
