@@ -53,6 +53,8 @@ export class BlogListComponent implements OnInit {
           // 确保前端显示图片路径
           article.imagePath = article.imagePath || ''; // 如果没有图片路径，可以用空字符串作为默认值
           article.memberName = article.memberName || ''; // 如果没有会员名称，可以用空字符串作为默认值
+          // 如果有 Base64 图片，确保它们被正确处理
+        article.articleImages = article.articleImages || [];  // 如果没有图片，默认为空数组
         });
         this.loading = false;
       },
