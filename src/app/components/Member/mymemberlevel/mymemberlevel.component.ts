@@ -17,7 +17,7 @@ export class MymemberlevelComponent {
       Birthday: null,
       CityAreaId: null,
       CityAreaName: null,
-      CityId: 21,
+      CityId: 0,
       CityName: null,
       Phone: null,
       Email: null,
@@ -30,7 +30,6 @@ export class MymemberlevelComponent {
     }
 
   maxvalue = 0;
-
   percent=0;
 
   selectedComponent='memberlevel1';

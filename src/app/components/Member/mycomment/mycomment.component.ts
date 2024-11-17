@@ -13,7 +13,7 @@ export class MycommentComponent {
 
   constructor(private dialogRef: MatDialogRef<MycommentComponent>,private myareaService:MyareaService) {}
 
-  rating: number = 3;
+  rating: number = 0;
 
   myComment :myComment =
   {
@@ -36,17 +36,23 @@ export class MycommentComponent {
 
   }
 
-
-
-
   setRating(star:number): void {
     this.rating=star;
     this.myComment.commentStar = this.rating;
   }
   submit()
   {
+    if(this.myComment.commentStar===null)
+      {
+        Swal.fire({
+          icon: "warning",
+          title: "請打評分",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        return
+      }
     this.myComment.commentTime= new Date();
-    console.log(this.myComment);
 
     //新增評論
     this.myareaService.AlterComment(this.myComment).subscribe(data=>

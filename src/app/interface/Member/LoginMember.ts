@@ -16,5 +16,5 @@ export interface LoginMember
   MemberStatusId:number| null;
   MemberStatus:string| null;
   ImageUrl:string| null;
-  TotalAmount:Number| 0;
+  TotalAmount:number;
 }

@@ -109,6 +109,10 @@ export class MemberareaComponent {
         this.loginTransfer.ImageUrl = data.loginmember.imageUrl;
         this.myareaMember.ImageUrl = data.loginmember.imageUrl;
       }
+      else
+      {
+        this.myareaMember.ImageUrl ='assets/img/Member/訪客.jpg';
+      }
       this.loginTransfer.TotalAmount = data.loginmember.totalAmount;
     })
   }
