@@ -45,11 +45,12 @@ export class TicketComponent implements OnInit {
     this.applyFilter();
   }
 
-  onPageChange(page: number) {
+  onPageChange(page: number): void {
+    console.log('Changing page to:', page); // Debug log
     this.pageNumber = page;
-    this.applyFilter();
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // 換頁後滾動到頂部
+    this.applyFilter(); // 載入資料
   }
+  
 
   applyFilter() {
     this.shipmentService.getShipments(this.selectedSortBy, this.selectedOriginPort, this.selectedDestinationPort, this.pageNumber, this.pageSize, this.isAscending)
@@ -58,7 +59,6 @@ export class TicketComponent implements OnInit {
         this.sortedShipments = response.data;
         this.totalRecords = response.totalRecords;
       });
-      this.pageNumber = 1;  // 重置為第一頁
 
   }
   
@@ -94,12 +94,11 @@ export class TicketComponent implements OnInit {
     const totalPages = this.getTotalPages();
     const visiblePages = 5; // 最多顯示前後的頁數
     const pages: number[] = [];
-  
-    // 起始和結尾頁碼計算
+    
     let startPage = Math.max(1, this.pageNumber - Math.floor(visiblePages / 2));
     let endPage = Math.min(totalPages, startPage + visiblePages - 1);
-  
-    // 確保總是顯示 5 頁（或少於總頁數）
+    
+    // 確保範圍正確
     if (endPage - startPage < visiblePages - 1) {
       startPage = Math.max(1, endPage - visiblePages + 1);
     }
@@ -108,7 +107,9 @@ export class TicketComponent implements OnInit {
       pages.push(i);
     }
   
+    console.log('Visible pages:', pages); // Debug log
     return pages;
   }
+  
   
 }

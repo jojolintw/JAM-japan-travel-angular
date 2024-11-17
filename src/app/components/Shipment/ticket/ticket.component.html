@@ -66,10 +66,14 @@
                       <a (click)="onPageChange(pageNumber - 1)"><i class="fas fa-chevron-left"></i></a>
                     </li>
                 
-                    <!-- 動態生成的頁數 -->
                     <li *ngFor="let page of getVisiblePages()">
-                      <a (click)="onPageChange(page)" [class.active]="page === pageNumber">{{ page }}</a>
+                      <a
+                        (click)="onPageChange(page)"
+                        [class.active]="page === pageNumber">
+                        {{ page }}
+                      </a>
                     </li>
+                    
                 
                     <!-- 下一頁按鈕 -->
                     <li *ngIf="pageNumber < getTotalPages()">
