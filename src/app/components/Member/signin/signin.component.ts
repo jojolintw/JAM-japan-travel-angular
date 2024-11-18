@@ -196,13 +196,13 @@ export class SigninComponent {
   //Demo=====================================================================================
   DemoError()
   {
-    this.loginTransfer.email = 'winne1953';
+    this.loginTransfer.email = 'winne19530615';
     this.loginTransfer.password = 'w123456';
   }
 
   DemoWin()
   {
-    this.loginTransfer.email = 'winne1953@gmail.com';
+    this.loginTransfer.email = 'winne19530615@gmail.com';
     this.loginTransfer.password = 'w1234567';
   }
   DemoDora()

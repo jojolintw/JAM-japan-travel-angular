@@ -160,7 +160,7 @@ export class SignupComponent {
     Demorepeat()
     {
       this.inputRegister.RegisterName='多拉A夢';
-      this.inputRegister.RegisterEmail='winne1953@gmail.com';
+      this.inputRegister.RegisterEmail='winne19530615@gmail.com';
       this.inputRegister.RegisterPassword='d1234567';
     }
     Clear()
