@@ -34,13 +34,13 @@ export class BlogDetailComponent implements OnInit {
 
   deleteArticle(articleId: number): void {
     // 在刪除前提供一個確認提示
-    if (confirm(`確定要刪除文章 ${articleId} 嗎?`)) {
+    if (confirm(`確定要刪除此篇文章嗎?`)) {     // ${articleId}
       // 調用刪除 API
       this.articleService.deleteArticle(articleId).subscribe(
         () => {
           // 刪除成功後的處理邏輯（例如返回上一頁或顯示成功訊息）
           console.log(`Article ${articleId} deleted successfully.`);
-          alert(`文章 ${articleId} 已刪除！`);
+          alert(`文章已刪除！`);
 
           // 刪除後可以返回上一頁
           window.history.back();  // 返回上一頁

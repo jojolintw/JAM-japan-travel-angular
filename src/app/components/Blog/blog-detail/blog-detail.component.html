@@ -27,13 +27,12 @@
 
             </div>
 
-            <p>{{ article.articleContent }}</p>
+            <!-- 使用 innerHTML 渲染 HTML 內容 -->
+            <p class="truncate" [innerHTML]="article.articleContent"></p>
 
-
-
-            <div class="blog-img">
+            <!-- <div class="blog-img">
               <img src="assets/img/blog/Fukuoka.jpg" alt="blog image">
-            </div>
+            </div> -->
             <blockquote class="vs-blockquote">
               <p>在非洲 每六十秒 就有一分鐘過去</p>
               <cite>第一任南非黑人總統 納爾遜‧曼德拉</cite>
@@ -242,14 +241,15 @@
           <div class="widget widget_tag_cloud">
             <h3 class="widget_title">Hashtag</h3>
             <div class="tagcloud">
-              <a href="blog.html">福岡</a>
-              <a href="blog.html">沖繩</a>
-              <a href="blog.html">札幌</a>
-              <a href="blog.html">東京</a>
-              <a href="blog.html">大阪</a>
-              <a href="blog.html">仙台</a>
+              <a href="blog.html">和牛</a>
               <a href="blog.html">燒肉</a>
+              <a href="blog.html">丼飯</a>
               <a href="blog.html">壽喜燒</a>
+              <a href="blog.html">壽司</a>
+              <a href="blog.html">牛舌</a>
+              <a href="blog.html">炸豬排</a>
+              <a href="blog.html">天婦羅</a>
+              <a href="blog.html">章魚燒</a>
               <a href="blog.html">拉麵</a>
             </div>
           </div>

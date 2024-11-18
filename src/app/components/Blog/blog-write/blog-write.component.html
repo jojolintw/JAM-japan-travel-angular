@@ -1,26 +1,38 @@
-<form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" class="article-form">
   <!-- 文章標題 -->
   <div class="form-group">
     <label for="articleTitle">文章標題</label>
-    <input id="articleTitle" formControlName="articleTitle" type="text" class="form-control" required />
+    <input id="articleTitle"
+    formControlName="articleTitle"
+    type="text" class="form-control"
+    required
+    placeholder="請輸入文章標題"
+    />
   </div>
 
   <!-- 文章內容 -->
 <div class="form-group">
   <label for="articleContent">文章內容</label>
   <!-- 使用 formControlName 绑定到表单控件 -->
-  <quill-editor formControlName="articleContent" [modules]="quillConfig"></quill-editor>
+  <quill-editor
+  formControlName="articleContent"
+  [modules]="quillConfig"
+  class="quill-editor"
+  ></quill-editor>
 </div>
 
   <!-- Hashtags -->
   <div class="form-group">
     <label>請選擇Hashtag</label>
-    <div *ngFor="let hashtag of hashtags">
-      <input type="checkbox" [value]="hashtag.id" (click)="onHashtagChange(hashtag,$event)"
+    <div class="hashtag-options">
+    <div *ngFor="let hashtag of hashtags" class="hashtag-item">
+      <input type="checkbox"
+      [value]="hashtag.id"
+      (click)="onHashtagChange(hashtag,$event)"
         [checked]="createArticleForm.get('selectedHashtags')?.value.includes(hashtag)" />
       <label>{{ hashtag.name }}</label>
     </div>
-
+  </div>
   </div>
 
   <!-- 提交按鈕 -->
@@ -28,4 +40,6 @@
     [ngStyle]="{ 'cursor': createArticleForm.invalid ? 'not-allowed' : 'pointer' }">
     新增文章
   </button>
+
+  <button (click)="insertText()" class="btn btn-primary">Demo</button>
 </form>
