@@ -189,11 +189,6 @@ export class SigninComponent {
     this.captchaResponse = captchaResponse;
   }
   //Demo=====================================================================================
-  DemoError()
-  {
-    this.loginTransfer.email = 'winne19530615';
-    this.loginTransfer.password = 'w123456';
-  }
 
   DemoWin()
   {

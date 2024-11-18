@@ -177,15 +177,4 @@ export class AccountComponent {
   {
     this.reloadingEventEmiter.emit();
   }
-  //Demo
-  DemoError()
-  {
-        this.loginTransfer.EnglishName='Doraemon8';
-    this.loginTransfer.Phone = '09456852511';
-  }
-  Demo()
-  {
-    this.loginTransfer.EnglishName='Doraemon';
-    this.loginTransfer.Phone = '0945685251';
-  }
 }
