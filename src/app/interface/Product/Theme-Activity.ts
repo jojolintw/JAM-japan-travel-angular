@@ -1,11 +1,11 @@
 export interface theme_Activity {
-  themeSystemId: number;
-  themeName: string;
+  themeSystemId: number | 0;
+  themeName: string | '';
   activities:
   [
     {
-      activitySystemId: number;
-      activityName: string;
+      activitySystemId: number | 0;
+      activityName: string | '';
     }
   ];
 }

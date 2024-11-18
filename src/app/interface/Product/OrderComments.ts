@@ -1,8 +1,8 @@
 export interface Comment{
   itinerarySystemId : number
-  commentStar : number
-  commentContent : number
-  commentDate : string
+  commentStar : number | null
+  commentContent : string | null
+  commentDate : string | null
 }
 
 export interface OrderComments{

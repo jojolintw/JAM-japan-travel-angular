@@ -62,7 +62,7 @@ export class ItineraryDetailComponent implements OnInit {
   loadItineraryDetail(id: number): void {
     this.itineraryService.getItineraryById(id).subscribe(response => {
       this.itineraryDetail = response;
-      this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
+      this.loadRelatedItineraries(this.itineraryDetail.themeActivity.activities[0].activitySystemId);
       this.initializeDayStatus();
       if (this.itineraryDetail) {
         const itinerarySystemId = this.itineraryDetail.itinerarySystemId;
@@ -282,7 +282,6 @@ export class ItineraryDetailComponent implements OnInit {
       imagePath: this.itineraryDetail?.imagePath[0] as string
     }
     this.localStorageService.addToCart(newCartItem);
-    console.log(newCartItem);
   }
 
   getItineraryDetails(): string[] {
