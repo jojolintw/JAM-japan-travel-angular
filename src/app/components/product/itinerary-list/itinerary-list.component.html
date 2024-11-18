@@ -14,7 +14,7 @@
     <div class="container">
       <ol class="breadcrumb">
         <li>
-          <a [routerLink]="['/themes']">體驗主題</a>
+          <a [routerLink]="['/itinerary-list/theme']">體驗行程</a>
         </li>
         <ng-container *ngFor="let theme of themeActivities">
           <li>
@@ -43,7 +43,7 @@
                   </div>
                   <div class="package-content">
                     <div class="package-review">
-                      <ng-container *ngIf="tour.starRate !== null && tour.starRate !== undefined">
+                      <ng-container>
                         <ng-container *ngFor="let _ of getFullStars(tour.starRate)">
                           <i class="fas fa-star"></i>
                         </ng-container>
@@ -54,7 +54,7 @@
                           <i class="far fa-star"></i>
                         </ng-container>
                       </ng-container>
-                      <span class="star-rating-text"> ({{tour.starRate}})</span>
+                      <span class="star-rating-text"> ({{getStarRatingText(tour.starRate)}})</span>
                     </div>
                     <h3 class="package-title"><a
                         [routerLink]="['/itinerary-detail', tour.itinerarySystemId]">{{tour.itineraryName}}</a></h3>
@@ -124,17 +124,24 @@
                   </div>
                   <div class="form-group">
                     <div class="chekbox-area">
+                      <input type="radio" id="default" [(ngModel)]="searchForm.sortBy" name="sortBy" value="default"
+                        (change)="onSortChange('default')"/>
+                      <label for="default">依編號</label>
+                    </div>
+                    <div class="chekbox-area">
                       <input type="radio" id="popular" [(ngModel)]="searchForm.sortBy" name="sortBy" value="popular"
-                        checked />
+                        (change)="onSortChange('popular')"/>
                       <label for="popular">最熱門</label>
                     </div>
                     <div class="chekbox-area">
-                      <input type="radio" id="trendy" [(ngModel)]="searchForm.sortBy" name="sortBy" value="trendy" />
+                      <input type="radio" id="trendy" [(ngModel)]="searchForm.sortBy" name="sortBy" value="trendy"
+                        (change)="onSortChange('trendy')"/>
                       <label for="trendy">最近期</label>
                     </div>
                     <div class="chekbox-area">
-                      <input type="radio" id="latest" [(ngModel)]="searchForm.sortBy" name="sortBy" value="latest" />
-                      <label for="latest">最優惠</label>
+                      <input type="radio" id="latest" [(ngModel)]="searchForm.sortBy" name="sortBy" value="latest"
+                        (change)="onSortChange('latest')"/>
+                      <label for="latest">最便宜</label>
                     </div>
                   </div>
                   <button type="submit" class="vs-btn style4 w-100" (click)="onSearch()">開始搜尋</button>

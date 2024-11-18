@@ -9,6 +9,8 @@ export interface itineraryBatch {
 export interface ItineraryDetail {
   itinerarySystemId: number;
   itineraryName: string;
+  themeName: string;
+  themeSystemId: number;
   activitySystemId: number;
   activityName: string;
   themeActivity: theme_Activity;

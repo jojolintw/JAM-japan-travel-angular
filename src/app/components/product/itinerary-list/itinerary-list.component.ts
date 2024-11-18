@@ -24,8 +24,8 @@ export class ItineraryListComponent implements OnInit {
   tours: ItineraryList[] = [];
   allTours: ItineraryList[] = [];
   region: number | null = null;
-  itemsPerPage: number = 6; // 每页显示的条目数
-  currentPage: number = 1; // 当前页码\
+  itemsPerPage: number = 6;
+  currentPage: number = 1;
   pages: number[] = [];
   themeActivities: theme_Activity[] = [];
   searchForm : Search = {
@@ -33,7 +33,7 @@ export class ItineraryListComponent implements OnInit {
     location: '',
     month: '',
     activityId: 0,
-    sortBy: 'popular'
+    sortBy: 'default'
   };
 
 
@@ -127,7 +127,7 @@ export class ItineraryListComponent implements OnInit {
     this.itineraryService.getItineraries().subscribe({
       next: (data) => {
         this.tours = data;
-        this.allTours = [...data]; // 保存原始數據的副本
+        this.allTours = [...data];
         this.calculatePages();
         console.log(this.tours);
         console.log(this.allTours);
@@ -166,10 +166,31 @@ export class ItineraryListComponent implements OnInit {
   }
 
   getEmptyStars(rating: number): number[] {
+    if (!rating) {
+      return Array(5).fill(0);
+    }
     const fullStars = Math.floor(rating);
     const hasHalf = rating % 1 !== 0;
     const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
     return Array(emptyStars).fill(0);
+  }
+
+  getStarRatingText(rating: number): string {
+    if (!rating) return '0';
+
+    // 取得小數點後的數字
+    const decimal = rating % 1;
+
+    if (decimal >= 0.8) {
+      // 小數點 >= 0.8 無條件進位
+      return Math.ceil(rating).toString();
+    } else if (decimal >= 0.3 && decimal <= 0.7) {
+      // 小數點在 0.3-0.7 之間，顯示 0.5
+      return Math.floor(rating) + 0.5 + '';
+    } else {
+      // 小數點 < 0.3 無條件捨去
+      return Math.floor(rating).toString();
+    }
   }
 
   calculatePages() {
@@ -205,7 +226,7 @@ export class ItineraryListComponent implements OnInit {
       location: '',
       month: '',
       activityId: 0,
-      sortBy: 'popular'
+      sortBy: 'default'
     };
     this.tours = [...this.allTours];
     this.currentPage = 1;

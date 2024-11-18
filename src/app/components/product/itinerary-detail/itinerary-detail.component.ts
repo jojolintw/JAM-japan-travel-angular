@@ -282,7 +282,6 @@ export class ItineraryDetailComponent implements OnInit {
       imagePath: this.itineraryDetail?.imagePath[0] as string
     }
     this.localStorageService.addToCart(newCartItem);
-    console.log(newCartItem);
   }
 
   getItineraryDetails(): string[] {

@@ -3,15 +3,15 @@
     <nav>
       <ol class="breadcrumb" id="top">
         <li>
-          <a [routerLink]="['/themes']">體驗主題</a>
+          <a [routerLink]="['/itinerary-list/theme']">體驗行程</a>
         </li>
-        <li *ngIf="itineraryDetail?.themeActivity">
-          <a [routerLink]="['/theme', itineraryDetail?.themeActivity?.themeName]">
-            {{ itineraryDetail?.themeActivity?.themeName }}
+        <li *ngIf="itineraryDetail?.themeSystemId">
+          <a [routerLink]="['/itineraries/theme', itineraryDetail?.themeSystemId]">
+            {{ itineraryDetail?.themeName }}
           </a>
         </li>
         <li *ngIf="itineraryDetail?.activitySystemId">
-          <a [routerLink]="['/activity', itineraryDetail?.activitySystemId]">
+          <a [routerLink]="['/itineraries/activity', itineraryDetail?.activitySystemId]">
             {{ itineraryDetail?.activityName }}
           </a>
         </li>
@@ -35,15 +35,6 @@
         </div>
         <div class="col-lg-7">
           <div class="product-about">
-            <div class="product-rating">
-              <div class="star-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
 
             <h2 class="product-title">
               {{itineraryDetail.itineraryName}}
@@ -77,13 +68,14 @@
               <ng-template #customCell let-day="day">
                 <div class="cal-cell-top">
                   <span class="cal-day-number">{{day.date | date:'d'}}</span>
-                  <div class="event-indicator" *ngIf="hasAvailableStock(day)">
-                    <span class="available-date-marker"
-                          [class.has-stock]="hasAvailableStock(day)"
-                          [class.no-stock]="!hasAvailableStock(day)">
-                    </span>
-                    <img width="35px" height="35px"  style="margin:10px" src="assets/img/icons/circle_icon.png" alt="circleIcon">
-                  </div>
+
+                    <div class="event-indicator" *ngIf="hasAvailableStock(day)">
+                      <span class="available-date-marker"
+                            [class.has-stock]="hasAvailableStock(day)"
+                            [class.no-stock]="!hasAvailableStock(day)">
+                      </span>
+                      <img width="35" height="30" style="margin:10px" src="assets/img/icons/circle_icon.png" alt="circleIcon">
+                    </div>
                 </div>
               </ng-template>
             </div>
@@ -153,7 +145,7 @@
                     <li *ngFor="let comment of comment; let i = index" class="review vs-comment-item">
                       <div class="vs-post-comment">
                         <div class="comment-avater">
-                          <img [src]="memberCommentDTO[i].memberPhotoURL" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
+                          <img [src]="memberCommentDTO[i].memberPhotoURL || 'assets/img/Member/訪客.png'" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
                         </div>
                         <div class="comment-content">
                           <div class="star-rating">

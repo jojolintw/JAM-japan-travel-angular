@@ -79,7 +79,8 @@ const routes: Routes = [
     ]
    },
   { path: 'itinerary-detail/:id', component: ItineraryDetailComponent },
-  { path: 'theme/:id', component: ItineraryListComponent },
+  { path: 'itineraries/theme/:themeId', component: ItineraryListComponent },
+  { path: 'itineraries/activity/:activityId', component: ItineraryListComponent },
   { path: 'theme_activity/:id', component: ItineraryListComponent },
 
   // { path: 'shipment-detail', component: DetailComponent },
