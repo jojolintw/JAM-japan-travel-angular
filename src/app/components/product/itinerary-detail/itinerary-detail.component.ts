@@ -140,6 +140,14 @@ export class ItineraryDetailComponent implements OnInit {
     return batches.length > 0 && batches.some(batch => batch.stock > 0);
   }
 
+  hasDepartureDate(day: CalendarMonthViewDay): boolean {
+    const date = day.date;
+    const dateStr = date.getFullYear() + '-' +
+                   (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                   date.getDate().toString().padStart(2, '0');
+    return this.batchStatus.some(batch => batch.departureDate.startsWith(dateStr));
+  }
+
   onDayClicked(day: CalendarMonthViewDay): void {
     const date = day.date;
     const dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');

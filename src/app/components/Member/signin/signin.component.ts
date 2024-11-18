@@ -210,12 +210,4 @@ export class SigninComponent {
     this.loginTransfer.email = 'doraam1113333@gmail.com';
     this.loginTransfer.password = 'd1234567';
   }
-  Clear()
-  {
-    this.loginTransfer.email='';
-    this.loginTransfer.password='';
-
-    this.ErrorMessage.ErrorEmail = '';
-    this.ErrorMessage.ErrorPassword = '';
-  }
 }

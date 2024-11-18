@@ -69,13 +69,12 @@
                 <div class="cal-cell-top">
                   <span class="cal-day-number">{{day.date | date:'d'}}</span>
 
-                    <div class="event-indicator" *ngIf="hasAvailableStock(day)">
-                      <span class="available-date-marker"
-                            [class.has-stock]="hasAvailableStock(day)"
-                            [class.no-stock]="!hasAvailableStock(day)">
-                      </span>
-                      <img width="35" height="30" style="margin:10px" src="assets/img/icons/circle_icon.png" alt="circleIcon">
-                    </div>
+                  <ng-container *ngIf="hasDepartureDate(day)">
+                    <img width="35" height="30"
+                         [src]="hasAvailableStock(day) ? 'assets/img/icons/circle_icon.png' : 'assets/img/icons/cross_icon.png'"
+                         [alt]="hasAvailableStock(day) ? '有庫存' : '無庫存'"
+                         class="stock-icon">
+                  </ng-container>
                 </div>
               </ng-template>
             </div>

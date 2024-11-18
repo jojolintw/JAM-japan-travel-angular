@@ -163,14 +163,4 @@ export class SignupComponent {
       this.inputRegister.RegisterEmail='winne19530615@gmail.com';
       this.inputRegister.RegisterPassword='d1234567';
     }
-    Clear()
-    {
-      this.inputRegister.RegisterName='';
-      this.inputRegister.RegisterEmail='';
-      this.inputRegister.RegisterPassword='';
-
-      this.ErrorMessage.ErrorName = '';
-      this.ErrorMessage.ErrorEmail = '';
-      this.ErrorMessage.ErrorPassword = '';
-    }
 }
