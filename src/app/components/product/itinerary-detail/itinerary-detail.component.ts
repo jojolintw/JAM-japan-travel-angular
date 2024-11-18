@@ -62,7 +62,7 @@ export class ItineraryDetailComponent implements OnInit {
   loadItineraryDetail(id: number): void {
     this.itineraryService.getItineraryById(id).subscribe(response => {
       this.itineraryDetail = response;
-      this.loadRelatedItineraries(this.itineraryDetail.themeActivity.activities[0].activitySystemId);
+      this.loadRelatedItineraries(this.itineraryDetail.activitySystemId);
       this.initializeDayStatus();
       if (this.itineraryDetail) {
         const itinerarySystemId = this.itineraryDetail.itinerarySystemId;
