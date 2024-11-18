@@ -75,14 +75,21 @@ export class SignupComponent {
       this.ErrorMessage.ErrorPassword = '密碼不可空白';
       return;
     }
-    //Email格式驗證
+    //格式驗證
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!emailRegex.test(this.inputRegister.RegisterEmail)&&!passwordRegex.test(this.inputRegister.RegisterPassword)) {
+      this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式';
+      this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字';
+      return;
+    }
+
+    //Email格式驗證
     if (!emailRegex.test(this.inputRegister.RegisterEmail)) {
       this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式'
       return;
     }
     //Password 格式認證===================================
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordRegex.test(this.inputRegister.RegisterPassword)) {
       this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
       return;
@@ -136,5 +143,34 @@ export class SignupComponent {
     goTologin()
     {
       this.router.navigate(['login/signin']);
+    }
+    //Demo
+    DemoDora()
+    {
+      this.inputRegister.RegisterName='多拉A夢';
+      this.inputRegister.RegisterEmail='doraam1113333@gmail.com';
+      this.inputRegister.RegisterPassword='d1234567';
+    }
+    DemoError()
+    {
+      this.inputRegister.RegisterName='多拉A夢';
+      this.inputRegister.RegisterEmail='doraam1113333';
+      this.inputRegister.RegisterPassword='d123456';
+    }
+    Demorepeat()
+    {
+      this.inputRegister.RegisterName='多拉A夢';
+      this.inputRegister.RegisterEmail='winne1953@gmail.com';
+      this.inputRegister.RegisterPassword='d1234567';
+    }
+    Clear()
+    {
+      this.inputRegister.RegisterName='';
+      this.inputRegister.RegisterEmail='';
+      this.inputRegister.RegisterPassword='';
+
+      this.ErrorMessage.ErrorName = '';
+      this.ErrorMessage.ErrorEmail = '';
+      this.ErrorMessage.ErrorPassword = '';
     }
 }

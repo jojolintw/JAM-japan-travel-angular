@@ -74,14 +74,21 @@ export class SigninComponent {
       this.ErrorMessage.ErrorPassword = '密碼不可空白';
       return;
     }
-    //Email格式認證======================================
+    //格式驗證============================================================
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!emailRegex.test(this.loginTransfer.email)&&!passwordRegex.test(this.loginTransfer.password)) {
+      this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式';
+      this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字';
+      return;
+    }
+
+    //Email格式認證======================================
     if (!emailRegex.test(this.loginTransfer.email)) {
       this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式'
       return;
     }
     //Password 格式認證===================================
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordRegex.test(this.loginTransfer.password)) {
       this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字'
       return;
@@ -185,5 +192,30 @@ export class SigninComponent {
    onCaptchaResolved(captchaResponse: string) {
     console.log('reCAPTCHA 回應:', captchaResponse);
     this.captchaResponse = captchaResponse;
+  }
+  //Demo=====================================================================================
+  DemoError()
+  {
+    this.loginTransfer.email = 'winne1953';
+    this.loginTransfer.password = 'w123456';
+  }
+
+  DemoWin()
+  {
+    this.loginTransfer.email = 'winne1953@gmail.com';
+    this.loginTransfer.password = 'w1234567';
+  }
+  DemoDora()
+  {
+    this.loginTransfer.email = 'doraam1113333@gmail.com';
+    this.loginTransfer.password = 'd1234567';
+  }
+  Clear()
+  {
+    this.loginTransfer.email='';
+    this.loginTransfer.password='';
+
+    this.ErrorMessage.ErrorEmail = '';
+    this.ErrorMessage.ErrorPassword = '';
   }
 }

@@ -67,5 +67,10 @@ export class ForgetpasswordComponent {
     goToSignup() {
       this.router.navigate(['login/signup'])
     }
+    //Demo
+    Demo()
+    {
+      this.forgetPasswordTransfer.email='doraam1113333@gmail.com';
+    }
  }
 

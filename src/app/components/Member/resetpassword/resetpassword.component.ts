@@ -78,4 +78,10 @@ export class ResetpasswordComponent {
             }
           })
   }
+  //Demo
+  Demo()
+  {
+    this.forgetPasswordTransfer.password='d1234567';
+    this.forgetPasswordTransfer.passwordconfirm='d1234567';
+  }
 }
