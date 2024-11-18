@@ -66,7 +66,6 @@ export class ShipmentService {
 
     return this.http.get<{ data: Shipment[], totalRecords: number, pageNumber: number, pageSize: number }>(this.apiUrl, { params }).pipe(
       switchMap(response => {
-        console.log('API Response:', response);  // 檢查 response 結構
         if (!response || !response.data) {
           console.error('Response data is undefined or null');
           return of({ data: [], totalRecords: 0, pageNumber: 1, pageSize: pageSize });
