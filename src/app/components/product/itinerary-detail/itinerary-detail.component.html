@@ -68,13 +68,14 @@
               <ng-template #customCell let-day="day">
                 <div class="cal-cell-top">
                   <span class="cal-day-number">{{day.date | date:'d'}}</span>
-                  <div class="event-indicator" *ngIf="hasAvailableStock(day)">
-                    <span class="available-date-marker"
-                          [class.has-stock]="hasAvailableStock(day)"
-                          [class.no-stock]="!hasAvailableStock(day)">
-                    </span>
-                    <img width="35px" height="35px"  style="margin:10px" src="assets/img/icons/circle_icon.png" alt="circleIcon">
-                  </div>
+
+                    <div class="event-indicator" *ngIf="hasAvailableStock(day)">
+                      <span class="available-date-marker"
+                            [class.has-stock]="hasAvailableStock(day)"
+                            [class.no-stock]="!hasAvailableStock(day)">
+                      </span>
+                      <img width="35" height="30" style="margin:10px" src="assets/img/icons/circle_icon.png" alt="circleIcon">
+                    </div>
                 </div>
               </ng-template>
             </div>
