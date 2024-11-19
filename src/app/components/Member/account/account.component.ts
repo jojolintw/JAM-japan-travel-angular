@@ -109,12 +109,6 @@ export class AccountComponent {
     const phoneRegex = /^09\d{8}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!englishRegex.test(this.loginTransfer.EnglishName as string)&&!phoneRegex.test(this.loginTransfer.Phone as string)) {
-      this.ErrorMessage.EnglishNameErrMsg = '請輸入正確的英文姓名格式';
-      this.ErrorMessage.PhoneErrMsg = '請輸入正確的行動電話格式';
-      return;
-    }
-
     //英文姓名格式認證
     if (!englishRegex.test(this.loginTransfer.EnglishName as string)) {
       this.ErrorMessage.EnglishNameErrMsg = '請輸入正確的英文姓名格式'
@@ -182,16 +176,5 @@ export class AccountComponent {
   cancel()
   {
     this.reloadingEventEmiter.emit();
-  }
-  //Demo
-  DemoError()
-  {
-        this.loginTransfer.EnglishName='Doraemon8';
-    this.loginTransfer.Phone = '09456852511';
-  }
-  Demo()
-  {
-    this.loginTransfer.EnglishName='Doraemon';
-    this.loginTransfer.Phone = '0945685251';
   }
 }

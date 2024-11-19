@@ -73,4 +73,9 @@ export class MycommentComponent {
   {
     this.dialogRef.close();
   }
+  //Demo==================================
+  Demo()
+  {
+    this.myComment.commentContent = '活動太無聊! 差評'
+  }
 }

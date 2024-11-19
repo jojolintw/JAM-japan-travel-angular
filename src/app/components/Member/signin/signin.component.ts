@@ -77,11 +77,6 @@ export class SigninComponent {
     //格式驗證============================================================
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (!emailRegex.test(this.loginTransfer.email)&&!passwordRegex.test(this.loginTransfer.password)) {
-      this.ErrorMessage.ErrorEmail = '請輸入正確的Email格式';
-      this.ErrorMessage.ErrorPassword = '密碼為8位數以上且需要包含英文及數字';
-      return;
-    }
 
     //Email格式認證======================================
     if (!emailRegex.test(this.loginTransfer.email)) {
@@ -194,11 +189,6 @@ export class SigninComponent {
     this.captchaResponse = captchaResponse;
   }
   //Demo=====================================================================================
-  DemoError()
-  {
-    this.loginTransfer.email = 'winne19530615';
-    this.loginTransfer.password = 'w123456';
-  }
 
   DemoWin()
   {

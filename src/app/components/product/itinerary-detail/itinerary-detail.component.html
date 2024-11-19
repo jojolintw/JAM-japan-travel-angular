@@ -3,7 +3,7 @@
     <nav>
       <ol class="breadcrumb" id="top">
         <li>
-          <a [routerLink]="['/itinerary-list/theme']">體驗行程</a>
+          <a [routerLink]="['/itinerary-list/theme']">體驗行程一覽</a>
         </li>
         <li *ngIf="itineraryDetail?.themeSystemId">
           <a [routerLink]="['/itineraries/theme', itineraryDetail?.themeSystemId]">
@@ -144,7 +144,7 @@
                     <li *ngFor="let comment of comment; let i = index" class="review vs-comment-item">
                       <div class="vs-post-comment">
                         <div class="comment-avater">
-                          <img [src]="memberCommentDTO[i].memberPhotoURL || 'assets/img/Member/訪客.png'" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
+                          <img [src]="memberCommentDTO[i].memberPhotoURL || 'assets/img/Member/訪客.jpg'" alt="reviewer image"> <!-- 可以根据需要动态更改 -->
                         </div>
                         <div class="comment-content">
                           <div class="star-rating">
